@@ -5,14 +5,14 @@
   >
   <BaseField
     component="Text"
-    :label="'Anzahl'"
+    :label="'Portion'"
     techName="name"
     v-model="state.name"
     :errors="errors.name?.$errors"
   />
   <BaseField
     component="Text"
-    :label="'Beschreibung'"
+    :label="'Anzahl'"
     techName="description"
     v-model="state.description"
     :errors="errors.description?.$errors"
@@ -24,7 +24,7 @@
 import { reactive } from "vue";
 import BaseField from "@/components/field/Base.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
-import StepFrame from "@/modules/recipe/components/StepFrame.vue";
+import StepFrame from "@/components/stepper/StepFrame.vue";
 import { useIngredientStore } from "@/modules/ingredient/store/index.ts";
 
 import { useVuelidate } from "@vuelidate/core";
@@ -64,7 +64,7 @@ function onNextButtonClicked() {
   }
   recipeStore.addCreateRecipeData(1, state);
       router.push({
-      name: "RecipeCreateBasics",
+      name: "RecipeCreateSummary",
     });
 }
 </script>

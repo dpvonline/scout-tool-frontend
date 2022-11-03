@@ -1,34 +1,29 @@
 <template>
-<StepFrame
-  header="Basis"
-  @click="onNextButtonClicked"
-  >
-  <BaseField
-    component="Text"
-    :label="'Portion'"
-    techName="name"
-    v-model="state.name"
-    :errors="errors.name?.$errors"
-  />
-  <BaseField
-    component="Text"
-    :label="'Anzahl'"
-    techName="description"
-    v-model="state.description"
-    :errors="errors.description?.$errors"
-  />
-</StepFrame>
+  <StepFrame header="Basis" @click="onNextButtonClicked">
+    <BaseField
+      component="Text"
+      :label="'Anzahl'"
+      techName="name"
+      v-model="state.name"
+      :errors="errors.name?.$errors"
+    />
+    <BaseField
+      component="Text"
+      :label="'Beschreibung'"
+      techName="description"
+      v-model="state.description"
+      :errors="errors.description?.$errors"
+    />
+  </StepFrame>
 </template>
 
 <script setup lang="ts">
 import { reactive } from "vue";
 import BaseField from "@/components/field/Base.vue";
-import PrimaryButton from "@/components/button/Primary.vue";
-import StepFrame from "@/modules/recipe/components/StepFrame.vue";
-import { useIngredientStore } from "@/modules/ingredient/store/index.ts";
+import StepFrame from "@/components/stepper/StepFrame.vue"
 
 import { useVuelidate } from "@vuelidate/core";
-import { required, email, minLength, maxLength } from "@vuelidate/validators";
+import { required, minLength } from "@vuelidate/validators";
 
 const state = reactive({
   name: null,
@@ -63,9 +58,9 @@ function onNextButtonClicked() {
     return;
   }
   recipeStore.addCreateRecipeData(1, state);
-      router.push({
-      name: "RecipeCreateSummary",
-    });
+  router.push({
+    name: "RecipeCreateBasics",
+  });
 }
 </script>
 

@@ -18,17 +18,17 @@ export default [
         {
           path: "ingredi",
           name: "RecipeCreateIngredient",
-          component: () => import(/* webpackChunkName: "RecipeCreateIngredient" */ "@/modules/recipe/views/createTabs/Ingredient.vue"),
+          component: () => import(/* webpackChunkName: "RecipeCreateIngredient" */ "@/modules/recipe/views/createRecipeTabs/Ingredient.vue"),
         },
         {
           path: "basics",
           name: "RecipeCreateBasics",
-          component: () => import(/* webpackChunkName: "RecipeCreateBasics" */ "@/modules/recipe/views/createTabs/Basics.vue"),
+          component: () => import(/* webpackChunkName: "RecipeCreateBasics" */ "@/modules/recipe/views/createRecipeTabs/Basics.vue"),
         },
         {
           path: "summary",
           name: "RecipeCreateSummary",
-          component: () => import(/* webpackChunkName: "RecipeCreateSummary" */ "@/modules/recipe/views/createTabs/Summary.vue"),
+          component: () => import(/* webpackChunkName: "RecipeCreateSummary" */ "@/modules/recipe/views/createRecipeTabs/Summary.vue"),
         },
       ],
   },

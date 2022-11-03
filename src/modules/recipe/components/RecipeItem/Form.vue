@@ -122,9 +122,7 @@ function onSaveClicked() {
 
   let recipeId = Number(route.params.id);
   // new
-  debugger;
   if (isNaN(recipeId) || route.name === "SimulatorStart") {
-    debugger;
     recipeStore.createRecipe({}).then((response: any) => {
       recipeId = response.data.id;
       recipeStore

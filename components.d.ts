@@ -38,6 +38,7 @@ declare module '@vue/runtime-core' {
     Select: typeof import('./src/components/field/Select.vue')['default']
     SelectIngredient: typeof import('./src/components/field/SelectIngredient.vue')['default']
     SideBarNavigation: typeof import('./src/components/layout/sideBarNavigation/SideBarNavigation.vue')['default']
+    StepFrame: typeof import('./src/components/stepper/StepFrame.vue')['default']
     StepperMain: typeof import('./src/components/stepper/StepperMain.vue')['default']
     StepperNav: typeof import('./src/components/stepper/StepperNav.vue')['default']
     Success: typeof import('./src/components/notification/Success.vue')['default']

@@ -12,7 +12,7 @@
 import { reactive } from "vue";
 import BaseField from "@/components/field/Base.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
-import StepFrame from "@/modules/recipe/components/StepFrame.vue";
+import StepFrame from "@/components/stepper/StepFrame.vue"
 import { useIngredientStore } from "@/modules/ingredient/store/index.ts";
 
 import { useVuelidate } from "@vuelidate/core";

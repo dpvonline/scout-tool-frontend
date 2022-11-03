@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
-import EmptyItem from "@/modules/recipe/components/EmptyItem.vue";
+import EmptyItem from "@/modules/recipe/components/simulator/EmptyItem.vue";
 import RecipeItemUpdate from "@/modules/recipe/components/RecipeItem/RecipeItem.vue";
 import { useRoute } from "vue-router";
 import { useIngredientStore } from "@/modules/ingredient/store/index.ts";

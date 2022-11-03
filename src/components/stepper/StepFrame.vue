@@ -52,9 +52,8 @@ import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, maxLength } from "@vuelidate/validators";
 
 const props = defineProps({
-  header: { type: String, required: true},
-  isFinalStep: { type: Boolean, required: false, default: false},
-
+  header: { type: String, required: true },
+  isFinalStep: { type: Boolean, required: false, default: false },
 });
 
 const route = useRoute();
