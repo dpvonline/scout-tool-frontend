@@ -20,11 +20,21 @@ export default [
         name: "IngredientPortions",
         component: () => import(/* webpackChunkName: "IngredientPortions" */ "@/modules/ingredient/views/tabs/Portions.vue"),
       },
+      {
+        path: "price",
+        name: "IngredientPrices",
+        component: () => import(/* webpackChunkName: "IngredientPrices" */ "@/modules/ingredient/views/tabs/Price.vue"),
+      },
     ],
   },
   {
     path: "/ingredient/create",
     name: "IngredientCreate",
     component: () => import(/* webpackChunkName: "IngredientCreate" */ "@/modules/ingredient/views/IngredientCreate.vue"),
+  },
+  {
+    path: "/ingredient/update/:id",
+    name: "IngredientUpdate",
+    component: () => import(/* webpackChunkName: "IngredientUpdate" */ "@/modules/ingredient/views/IngredientUpdate.vue"),
   },
 ];

@@ -12,23 +12,34 @@ export default [
   {
     path: '/recipe/create',
     name: 'RecipeCreate',
+    redirect: { name: 'RecipeCreateIngredient'},
     component: () => import(/* webpackChunkName: "RecipeCreate" */ "@/modules/recipe/views/RecipeCreate.vue"),
       children: [
         {
           path: "ingredi",
           name: "RecipeCreateIngredient",
-          component: () => import(/* webpackChunkName: "RecipeCreateIngredient" */ "@/modules/recipe/components/createTabs/Ingredient.vue"),
+          component: () => import(/* webpackChunkName: "RecipeCreateIngredient" */ "@/modules/recipe/views/createTabs/Ingredient.vue"),
         },
         {
           path: "basics",
           name: "RecipeCreateBasics",
-          component: () => import(/* webpackChunkName: "RecipeCreateBasics" */ "@/modules/recipe/components/createTabs/Basics.vue"),
+          component: () => import(/* webpackChunkName: "RecipeCreateBasics" */ "@/modules/recipe/views/createTabs/Basics.vue"),
         },
         {
           path: "summary",
           name: "RecipeCreateSummary",
-          component: () => import(/* webpackChunkName: "RecipeCreateSummary" */ "@/modules/recipe/components/createTabs/Summary.vue"),
+          component: () => import(/* webpackChunkName: "RecipeCreateSummary" */ "@/modules/recipe/views/createTabs/Summary.vue"),
         },
       ],
+  },
+  {
+    path: "/simulator/start",
+    name: "SimulatorStart",
+    component: () => import(/* webpackChunkName: "SimulatorStart" */ "@/modules/recipe/views/SimulatorStart.vue"),
+  },
+  {
+    path: "/simulator/:id",
+    name: "SimulatorMain",
+    component: () => import(/* webpackChunkName: "SimulatorMain" */ "@/modules/recipe/views/SimulatorMain.vue"),
   },
 ];

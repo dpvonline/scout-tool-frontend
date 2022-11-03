@@ -5,7 +5,7 @@ const SERVICE = 'food/recipe'
 export default {
 
   fetchAll(params: any) {
-    return axios.get(`${BASE_URL}/${SERVICE}/`, {
+    return axios.get(`${BASE_URL}/food/recipe-read/`, {
       params: params,
     });
   },
