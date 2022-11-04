@@ -482,6 +482,8 @@ import {
   ScaleIcon,
   ArrowRightIcon,
   ArrowLeftIcon,
+  UserGroupIcon,
+  UserIcon,
 } from "@heroicons/vue/24/outline";
 
 import { ref } from "vue";
@@ -538,6 +540,18 @@ const navigation = [
     linkName: "SimulatorStart",
     icon: RocketLaunchIcon,
     route: "simulator",
+  },
+  {
+    name: "Personen",
+    linkName: "PersonMain",
+    icon: UserIcon,
+    route: "person",
+  },
+  {
+    name: "Gruppen",
+    linkName: "GroupMain",
+    icon: UserGroupIcon,
+    route: "group",
   },
   {
     name: "Rezept",
