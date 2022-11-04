@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
-import { useGroupStore } from "@/modules/group/store/index.ts";
+import { useGroupStore } from "@/modules/group/store/index";
 
 import { useRoute } from "vue-router";
 
