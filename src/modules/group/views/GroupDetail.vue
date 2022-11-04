@@ -2,7 +2,7 @@
   <div class="2xl:px-64 xl:px-30">
     <Breadcrumbs :pages="pages" />
     <main class="relative z-40 flex-1 focus:outline-none">
-      <article v-if="ingredientDetail.name">
+      <article v-if="group.name">
         <!-- Tabs -->
         <TabGroup as="div" class="mt-2">
           <div class="border-b border-gray-200">
@@ -25,8 +25,6 @@
           </div>
           <TabPanels as="template">
             <router-view></router-view>
-            <router-view></router-view>
-            <router-view></router-view>
           </TabPanels>
         </TabGroup>
       </article>
@@ -40,71 +38,77 @@ import { ref, watch, onMounted, computed } from "vue";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 import { useRoute } from "vue-router";
-import { useIngredientStore } from "@/modules/ingredient/store/index.ts";
+import { useGroupStore } from "@/modules/group/store/index.ts";
+import { useAuthStore } from "@/modules/auth/store/index.ts";
 
 const route = useRoute();
 
 const pages = computed(() => {
   return [
-    { name: "Zutaten", link: "IngredientMain" },
+    { name: "Gruppe", link: "GroupMain" },
     {
-      name: `${ingredientDetail.value.name}`,
-      link: `IngredientNutrients`
+      name: `${group.value.name}`,
+      link: `GroupChilden`,
     },
   ];
 });
 
-const tabs = [
-  {
-    name: "Nährwerte",
-    id: 1,
-    linkName: "IngredientNutrients",
-    component: "Nutrients",
-    selected: true,
-  },
-  {
-    name: "Portionen",
-    id: 2,
-    linkName: "IngredientPortions",
-    component: "Portions",
-    selected: false,
-  },
-  {
-    name: "Preise",
-    id: 3,
-    linkName: "IngredientPrices",
-    component: "Price",
-    selected: false,
-  },
-];
+const tabs = computed(() => {
+  return [
+    {
+      name: "Übersicht",
+      id: 1,
+      linkName: "GroupOverview",
+      component: "GroupOverview",
+      selected: route.name === "GroupOverview",
+    },
+    {
+      name: "Mitglieder",
+      id: 2,
+      linkName: "GroupMember",
+      component: "GroupMember",
+      selected: route.name === "GroupMember",
+    },
+    {
+      name: "Untergruppen",
+      id: 3,
+      linkName: "GroupChilden",
+      component: "GroupChilden",
+      selected: route.name === "GroupChilden",
+    },
+  ];
+});
 
-const ingredientStore = useIngredientStore();
-const ingredientDetail = computed(() => {
-  return ingredientStore.ingredientDetail;
+const groupStore = useGroupStore();
+const group = computed(() => {
+  return groupStore.group;
+});
+
+const authStore = useAuthStore();
+const isAuth = computed(() => {
+  return groupStore.isAuth;
 });
 
 watch(
   () => route,
   () => {
-    refreshData()
-    onTabClicked(route.name);
+    if (isAuth) {
+      refreshData();
+    }
   },
   { immediate: true, deep: true }
 );
 
-function onTabClicked(selectedName: string) {
-  tabs.forEach((tab) => {
-    if (selectedName === tab.linkName) {
-      tab.selected = true;
-    } else {
-      tab.selected = false;
-    }
-  });
-}
+watch(
+  () => tabs,
+  () => {
+    debugger;
+  }
+);
 
 function refreshData() {
   const id = route.params.id;
-  ingredientStore.fetchIngredientById(id);
+  groupStore.fetchGroupById(id);
 }
 
 onMounted(() => {

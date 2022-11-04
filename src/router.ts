@@ -9,6 +9,8 @@ import SettingsRouter from '@/modules/settings/router'
 import HintRouter from '@/modules/hint/router'
 import SupportRouter from '@/modules/support/router'
 import AuthRouter from '@/modules/auth/router'
+import GroupRouter from '@/modules/group/router'
+import PersonRouter from '@/modules/person/router'
 
 const routes = [
   ...DashboardRouter,
@@ -20,6 +22,8 @@ const routes = [
   ...HintRouter,
   ...SupportRouter,
   ...AuthRouter,
+  ...GroupRouter,
+  ...PersonRouter,
 ]
 
 const router = createRouter({
