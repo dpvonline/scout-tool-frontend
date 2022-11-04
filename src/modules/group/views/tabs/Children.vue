@@ -1,9 +1,9 @@
 <template>
 
-  <div class="px-4 sm:px-6 lg:px-8">
+  <div class="py-4">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
-        <h1 class="text-xl font-semibold text-gray-900">Users</h1>
+        <h1 class="text-lg font-semibold text-gray-900">Users</h1>
         <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p>
       </div>
       <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
-import { useGroupStore } from "@/modules/group/store/index.ts";
+import { useGroupStore } from "@/modules/group/store/index";
 
 import { useRoute } from "vue-router";
 

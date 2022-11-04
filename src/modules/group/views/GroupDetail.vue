@@ -38,18 +38,14 @@ import { ref, watch, onMounted, computed } from "vue";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 import { useRoute } from "vue-router";
-import { useGroupStore } from "@/modules/group/store/index.ts";
-import { useAuthStore } from "@/modules/auth/store/index.ts";
+import { useGroupStore } from "@/modules/group/store/index";
+import { useAuthStore } from "@/modules/auth/store/index";
 
 const route = useRoute();
 
 const pages = computed(() => {
   return [
-    { name: "Gruppe", link: "GroupMain" },
-    {
-      name: `${group.value.name}`,
-      link: `GroupChilden`,
-    },
+    { name: "Gruppe", link: "GroupMain" }
   ];
 });
 
@@ -68,13 +64,6 @@ const tabs = computed(() => {
       linkName: "GroupMember",
       component: "GroupMember",
       selected: route.name === "GroupMember",
-    },
-    {
-      name: "Untergruppen",
-      id: 3,
-      linkName: "GroupChilden",
-      component: "GroupChilden",
-      selected: route.name === "GroupChilden",
     },
   ];
 });

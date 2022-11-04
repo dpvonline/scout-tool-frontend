@@ -1,11 +1,25 @@
 <template>
-  <h2> Übersicht </h2>
-  <p> {{ group }} </p>
+  <div class="px-4 sm:px-6 lg:px-8 py-8">
+    <div>
+      <h3 class="text-3xl font-medium leading-6 text-gray-900">{{group.name}}</h3>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500">Das werde ich hoffentlich noch rechtzeitig ersetzen.</p>
+    </div>
+    <div class="mt-5 border-t border-gray-200">
+      <dl class="sm:divide-y sm:divide-gray-200">
+        <div v-for="field of infoFields" :key="field.id" class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+          <dt class="text-sm font-medium text-gray-500">{{field.label}}</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{field.value}}</dd>
+        </div>
+      </dl>
+    </div>
+    <Children />
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
-import { useGroupStore } from "@/modules/group/store/index.ts";
+import { useGroupStore } from "@/modules/group/store/index";
+import Children from "@/modules/group/views/tabs/Children.vue";
 
 import { useRoute } from "vue-router";
 
@@ -15,6 +29,8 @@ const groupStore = useGroupStore();
 const group = computed(() => {
   return groupStore.group;
 });
+
+const infoFields: {id: string, label: string, value: string}[] = []
 
 </script>
 

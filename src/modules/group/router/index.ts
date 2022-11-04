@@ -11,11 +11,6 @@ export default [
     component: () => import(/* webpackChunkName: "GroupDetail" */ "@/modules/group/views/GroupDetail.vue"),
     children: [
       {
-        path: "children",
-        name: "GroupChilden",
-        component: () => import(/* webpackChunkName: "GroupChilden" */ "@/modules/group/views/tabs/Children.vue"),
-      },
-      {
         path: "member",
         name: "GroupMember",
         component: () => import(/* webpackChunkName: "GroupMember" */ "@/modules/group/views/tabs/Member.vue"),
