@@ -26,14 +26,14 @@ const steps = computed(() => {
             name: "Scout details",
             description: "Pfadi-Details",
             link: "RegisterScoutDetails",
-            status: getStatus("RegisterScoutDetails", ["RegisterBasics", "RegisterPersonalDetails"])
+            status: getStatus("RegisterScoutDetails", ["RegisterPersonalDetails"])
         },
         {
             id: 3,
             name: "Personal details",
             description: "Persönliche Details",
             link: "RegisterPersonalDetails",
-            status: getStatus("RegisterPersonalDetails", ["RegisterBasics", "RegisterScoutDetails"])
+            status: getStatus("RegisterPersonalDetails", [])
         }
     ]
 })
