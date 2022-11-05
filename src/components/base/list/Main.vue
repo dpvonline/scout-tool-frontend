@@ -67,8 +67,8 @@
                   "
                   placeholder="Suche"
                 />
-              </div>  
-              <ToolDropdown :buttonList="buttonList"/>
+              </div>
+              <ToolDropdown :buttonList="buttonList" />
             </div>
           </div>
         </div>
@@ -541,9 +541,17 @@
         >
           <ul role="list" class="divide-y divide-gray-200">
             <li v-for="item in items" :key="item.id">
-              <a class="block hover:bg-gray-50">
+              <router-link
+                :to="{
+                  name: props.detailPageLink,
+                  params: {
+                    id: item.id,
+                  },
+                }"
+                class="block hover:bg-gray-50"
+              >
                 <div class="flex items-center px-4 py-4 sm:px-6">
-                <slot name="listitem" v-bind:item="item"></slot>
+                  <slot name="listitem" v-bind:item="item"></slot>
                   <button @click="onDetailPageClicked(item.id, detailPageLink)">
                     <ChevronRightIcon
                       class="h-5 w-5 text-gray-400"
@@ -551,7 +559,7 @@
                     />
                   </button>
                 </div>
-              </a>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -716,5 +724,4 @@ function onDetailPageClicked(id) {
 }
 
 const open = ref(false);
-
 </script>
