@@ -8,14 +8,14 @@
       :errors="errors.username?.$errors"
     />
     <BaseField
-      component="Text"
+      component="Password"
       :label="'Password'"
       techName="password"
       v-model="state.password"
       :errors="errors.password?.$errors"
     />
     <BaseField
-      component="Text"
+      component="Password"
       :label="'Password wiederholen'"
       techName="repeatpassword"
       v-model="state.repeatpassword"
