@@ -528,8 +528,9 @@ const currentRoute = computed(() => {
   return route.fullPath;
 });
 
-const navigation = [
-  {
+const navigation = computed(() => {
+  return [
+    {
     name: "Dashboard",
     linkName: "DashboardMain",
     icon: HomeIcon,
@@ -541,17 +542,19 @@ const navigation = [
     icon: RocketLaunchIcon,
     route: "simulator",
   },
-  {
-    name: "Personen",
-    linkName: "PersonMain",
-    icon: UserIcon,
-    route: "person",
-  },
+  // {
+  //   name: "Personen",
+  //   linkName: "PersonMain",
+  //   icon: UserIcon,
+  //   route: "person",
+  //   isAuth: true,
+  // },
   {
     name: "Gruppen",
     linkName: "GroupMain",
     icon: UserGroupIcon,
     route: "group",
+    isAuth: true,
   },
   {
     name: "Rezept",
@@ -570,8 +573,9 @@ const navigation = [
     linkName: "HintMain",
     icon: ScaleIcon,
     route: "hint",
-  },
-];
+    },
+  ].filter(item => !item.isAuth || isAuth.value); 
+});
 </script>
 
 <style>

@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { useAuthStore } from "@/modules/auth/store/index.ts";
+
 import AppRouter from '@/modules/app/router'
 import DashboardRouter from '@/modules/dashboard/router'
 import RecipeRouter from '@/modules/recipe/router'
@@ -31,18 +33,11 @@ const router = createRouter({
   routes,
 })
 
-/*
-// TODO: do this later
 router.beforeEach((to, from, next) => {
-  console.log(to);
-  if(to.meta.requiresAuth && authStore.isAuth) {
-    next("/login");
-  } else {
-    next();
-  }
+  const authStore = useAuthStore();
+
+  if (!to.meta.requiresAuth || authStore.isAuth) next()
+  else next('/')
 })
-*/
-
-
 
 export default router

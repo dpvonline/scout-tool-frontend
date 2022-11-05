@@ -25,7 +25,6 @@ export const useGroupStore = defineStore("group", {
       try {
         const response = await GroupApi.fetchSearch(params);
         this._groupsOverview = response.data;
-        debugger;
       } catch (error) {
         alert(error);
         console.log(error);
@@ -61,7 +60,6 @@ export const useGroupStore = defineStore("group", {
       return state._groupMembers;
     },
     groupsOverview: (state) => {
-      debugger;
       return state._groupsOverview;
     },
   },

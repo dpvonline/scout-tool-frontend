@@ -2,12 +2,17 @@ export default [
   {
     path: "/group",
     name: "GroupMain",
+    meta: {
+      requiresAuth: true
+    },
     component: () => import(/* webpackChunkName: "groupMain" */ "@/modules/group/views/Main.vue"),
   },
   {
     path: "/group/:id",
     name: "GroupDetail",
-    redirect: { name: 'GroupChilden', params: { id: 1}},
+    meta: {
+      requiresAuth: true
+    },
     component: () => import(/* webpackChunkName: "GroupDetail" */ "@/modules/group/views/GroupDetail.vue"),
     children: [
       {

@@ -55,14 +55,10 @@ const searchValue = ref();
 const route = useRoute();
 
 const groupsOverview = computed(() => {
-  console.log(groupStore.groupsOverview);
-  debugger;
   return groupStore.groupsOverview;
 });
 
 const groups = computed(() => {
-  console.log(groupStore.groups);
-  debugger;
   return groupStore.groupsOverview;
 });
 

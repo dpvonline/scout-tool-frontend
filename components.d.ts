@@ -32,7 +32,10 @@ declare module '@vue/runtime-core' {
     NutriSlim: typeof import('./src/components/score/NutriSlim.vue')['default']
     Old_ConfirmationModal: typeof import('./src/components/modal/old_ConfirmationModal.vue')['default']
     Password: typeof import('./src/components/field/Password.vue')['default']
+<<<<<<< Updated upstream
     PhoneNumber: typeof import('./src/components/field/PhoneNumber.vue')['default']
+=======
+>>>>>>> Stashed changes
     Primary: typeof import('./src/components/button/Primary.vue')['default']
     PrimaryButton: typeof import('./src/components/button/PrimaryButton.vue')['default']
     Radio: typeof import('./src/components/field/Radio.vue')['default']
