@@ -88,13 +88,6 @@ watch(
   { immediate: true, deep: true }
 );
 
-watch(
-  () => tabs,
-  () => {
-    debugger;
-  }
-);
-
 function refreshData() {
   const id = route.params.id;
   groupStore.fetchGroupById(id);
