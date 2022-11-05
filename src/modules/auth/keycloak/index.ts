@@ -56,6 +56,7 @@ function onTokenExpired() {
     keycloak.updateToken(30)
         .then(() => {
             console.log('successfully get a new token', keycloak.token);
+            setStoreValues();
         })
         .catch((error) => {
             console.log(`token refresh error: ${error}`)
