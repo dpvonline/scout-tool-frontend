@@ -22,6 +22,7 @@ import Date from "@/components/field/Date.vue";
 import PhoneNumber from "./PhoneNumber.vue";
 import ZIP from "./ZIP.vue";
 import EMail from "./EMail.vue";
+import Password from "@/components/field/Password.vue";
 
 const components = {
   Text,
@@ -34,6 +35,7 @@ const components = {
   PhoneNumber,
   ZIP,
   EMail,
+  Password
 };
 
 // I do NOT want to use [CompA, CompA] because my inputs are strings
@@ -48,6 +50,7 @@ const componentTreeName = [
   "PhoneNumber",
   "ZIP",
   "EMail",
+  "Password",
 ];
 const emit = defineEmits(["update:modelValue"]);
 const updateValue = (event) => {

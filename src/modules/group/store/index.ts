@@ -6,6 +6,7 @@ import GroupApi from "@/modules/group/services/group";
 export const useGroupStore = defineStore("group", {
   state: () => ({
     _groups: [],
+    _groupsOverview: [],
     _group: [],
     _groupMembers: [],
   }),
@@ -15,6 +16,16 @@ export const useGroupStore = defineStore("group", {
       try {
         const response = await GroupApi.fetchAll(params);
         this._groups = response.data;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
+    async fetchGroupsOverview(params = {}) {
+      try {
+        const response = await GroupApi.fetchSearch(params);
+        this._groupsOverview = response.data;
+        debugger;
       } catch (error) {
         alert(error);
         console.log(error);
@@ -48,6 +59,10 @@ export const useGroupStore = defineStore("group", {
     },
     groupMembers: (state) => {
       return state._groupMembers;
+    },
+    groupsOverview: (state) => {
+      debugger;
+      return state._groupsOverview;
     },
   },
 });
