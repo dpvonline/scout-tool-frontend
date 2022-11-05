@@ -2,38 +2,29 @@
   <StepFrame header="Basis" @click="onNextButtonClicked">
     <BaseField
       component="Text"
-      :label="'Scoutname'"
+      :label="'Fahrtenname'"
       techName="scoutname"
-      v-model="state.scoutname"
+      v-model="state.scoutName"
       :errors="errors.scoutname?.$errors"
     />
     <BaseField
       component="Number"
-      :label="'Scout Group'"
+      :label="'Stamm'"
       techName="scoutgroup"
-      v-model="state.scoutgroup"
-      :errors="errors.scoutgroup?.$errors"
+      v-model="state.scoutOrganisation"
+      :errors="errors.scoutOrganisation?.$errors"
     />
     <BaseField
-      component="Text"
-      :label="'Bundespost'"
-      techName="bundespost"
-      v-model="state.bundespost"
-      :errors="errors.bundespost?.$errors"
-    />
-    <BaseField
-      component="Text"
-      :label="'Leader'"
-      techName="leader"
-      v-model="state.leader"
-      :errors="errors.leader?.$errors"
-    />
-    <BaseField
-      component="Text"
-      :label="'Scout level'"
+      component="Select"
+      :label="'Stufe'"
       techName="scoutlevel"
-      v-model="state.scoutlevel"
+      v-model="state.scoutLevel"
       :errors="errors.scoutlevel?.$errors"
+      :items="[
+        { id: 1, name: 'Wölfling' }, 
+        { id: 2, name: 'Sippling' }, 
+        { id: 3, name: 'Rover*in'},
+      ]"
     />
   </StepFrame>
 </template>
@@ -44,7 +35,6 @@ import BaseField from "@/components/field/Base.vue";
 import StepFrame from "@/components/stepper/StepFrame.vue";
 
 import { useVuelidate } from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
 import { RegisterScoutDetails } from "./types";
 import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
@@ -53,27 +43,13 @@ import { useRegisterStore } from "../../store";
 const state = reactive<RegisterScoutDetails>({
   scoutName: "",
   scoutOrganisation: 0,
-  bundespost: "",
-  leader: "",
   scoutLevel: "",
 });
 
 const rules = {
-  scoutname: {
-    required,
-  },
-  scoutgroup: {
-    required,
-  },
-  bundespost: {
-    required,
-  },
-  leader: {
-    required,
-  },
-  scoutlevel: {
-    required,
-  },
+  scoutName: {},
+  scoutOrganization: {},
+  scoutlevel: {},
 };
 
 const router = useRouter();

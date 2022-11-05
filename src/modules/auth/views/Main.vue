@@ -4,14 +4,10 @@
       <StepperNav :steps="steps" />
     </nav>
     <router-view />
-    <span class="isolate inline-flex rounded-md shadow-sm">
-      <PrimaryButton>Keks: Weiter</PrimaryButton>
-    </span>
   </div>
 </template>
 <script setup lang="ts">
 import StepperNav from "@/components/stepper/StepperNav.vue"
-import PrimaryButton from "@/components/button/Primary.vue";
 import { useRouter } from "vue-router"
 
 const router = useRouter();

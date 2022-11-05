@@ -16,14 +16,14 @@
     />
     <BaseField
       component="Text"
-      :label="'Repeat Password'"
+      :label="'Password wiederholen'"
       techName="repeatpassword"
       v-model="state.repeatpassword"
       :errors="errors.repeatpassword?.$errors"
     />
     <BaseField
-      component="Text"
-      :label="'E-Mail'"
+      component="EMail"
+      :label="'E-Mail-Adresse'"
       techName="email"
       v-model="state.email"
       :errors="errors.email?.$errors"

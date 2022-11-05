@@ -19,8 +19,22 @@ import Radio from "@/components/field/Radio.vue";
 import Toggle from "@/components/field/Toggle.vue";
 import Select from "@/components/field/Select.vue";
 import Date from "@/components/field/Date.vue";
+import PhoneNumber from "./PhoneNumber.vue";
+import ZIP from "./ZIP.vue";
+import EMail from "./EMail.vue";
 
-const components = { Text, TextArea, Number, Radio, Toggle, Select, Date };
+const components = {
+  Text,
+  TextArea,
+  Number,
+  Radio,
+  Toggle,
+  Select,
+  Date,
+  PhoneNumber,
+  ZIP,
+  EMail,
+};
 
 // I do NOT want to use [CompA, CompA] because my inputs are strings
 const componentTreeName = [
@@ -31,6 +45,9 @@ const componentTreeName = [
   "Toggle",
   "Select",
   "Date",
+  "PhoneNumber",
+  "ZIP",
+  "EMail",
 ];
 const emit = defineEmits(["update:modelValue"]);
 const updateValue = (event) => {

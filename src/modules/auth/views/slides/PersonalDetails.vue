@@ -2,66 +2,92 @@
   <StepFrame header="Basis" @click="onNextButtonClicked">
     <BaseField
       component="Text"
-      :label="'Mobile Number'"
-      techName="mobilenumber"
-      v-model="state.mobilenumber"
-      :errors="errors.mobilenumber?.$errors"
-    />
-    <BaseField
-      component="Text"
-      :label="'DSGVO'"
-      techName="dsgvo"
-      v-model="state.dsgvo"
-      :errors="errors.dsgvo?.$errors"
-    />
-    <BaseField
-      component="Text"
-      :label="'E-Mail Notification'"
-      techName="emailnotification"
-      v-model="state.emailnotification"
-      :errors="errors.emailnotification?.$errors"
-    />
-    <BaseField
-      component="Text"
-      :label="'SMS Notification'"
-      techName="smsnotification"
-      v-model="state.smsnotification"
-      :errors="errors.smsnotification?.$errors"
-    />
-    <BaseField
-      component="Text"
-      :label="'first name'"
+      :label="'Vorname'"
       techName="firstname"
-      v-model="state.firstname"
+      v-model="state.firstName"
       :errors="errors.firstname?.$errors"
     />
     <BaseField
       component="Text"
-      :label="'last name'"
+      :label="'Nachname'"
       techName="lastname"
-      v-model="state.lastname"
+      v-model="state.lastName"
       :errors="errors.lastname?.$errors"
     />
     <BaseField
       component="Text"
-      :label="'Address'"
+      :label="'Addresse'"
       techName="address"
       v-model="state.address"
       :errors="errors.address?.$errors"
     />
     <BaseField
       component="Text"
-      :label="'Address Zusatz'"
+      :label="'Addresszusatz'"
       techName="addressextra"
-      v-model="state.addressextra"
-      :errors="errors.addressextra?.$errors"
+      v-model="state.addressSupplement"
+      :errors="errors.addressSupplement?.$errors"
     />
     <BaseField
       component="Date"
       :label="'Geburtsdatum'"
       techName="birthdate"
-      v-model="state.birthdate"
+      v-model="state.birthDate"
       :errors="errors.birthdate?.$errors"
+    />
+    <BaseField
+      component="ZIP"
+      :label="'PLZ'"
+      techName="zipCode"
+      v-model="state.zipCode"
+      :errors="errors.zipCode?.$errors"
+    />
+    <BaseField
+      component="Select"
+      :label="'Geschlecht'"
+      techName="gender"
+      v-model="state.gender"
+      :errors="errors.gender?.$errors"
+      :items="[
+        { id: 1, name: 'männlich' },
+        { id: 2, name: 'weiblich' },
+        { id: 3, name: 'divers' },
+        { id: 4, name: 'keine Angabe' },
+      ]"
+    />
+    <BaseField
+      component="PhoneNumber"
+      :label="'Handynummer'"
+      techName="mobilenumber"
+      v-model="state.mobileNumber"
+      :errors="errors.mobilenumber?.$errors"
+    />
+    <BaseField
+      component="Toggle"
+      :label="'Ich habe die Datenschutzbestimmung gelesen und akzeptiert'"
+      techName="dsgvo"
+      v-model="state.dsgvoConfirmed"
+      :errors="errors.dsgvoConfirmed?.$errors"
+    />
+    <BaseField
+      component="Select"
+      :label="'E-Mail Benachrichtigungen'"
+      techName="emailnotification"
+      v-model="state.emailNotification"
+      :errors="errors.emailnotification?.$errors"
+      :items="[
+        { id: 1, name: 'Alles' },
+        { id: 2, name: 'Täglich' },
+        { id: 3, name: 'Wöchentlich' },
+        { id: 4, name: 'Nur wichtiges' },
+      ]"
+    />
+    <BaseField
+      component="Toggle"
+      :label="'SMS Benachrichtigungen'"
+      techName="smsnotification"
+      v-model="state.smsNotification"
+      :errors="errors.smsnotification?.$errors"
     />
   </StepFrame>
 </template>
@@ -76,48 +102,49 @@ import { required, minLength, sameAs } from "@vuelidate/validators";
 import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
 import { useRegisterStore } from "../../store";
+import { RegisterPersonalDetails } from "./types";
 
-const state = reactive({
-  mobileNumber: 0,
+const state = reactive<RegisterPersonalDetails>({
+  mobileNumber: "",
   dsgvoConfirmed: false,
-  emailNotification: "",
+  emailNotification: "Nur wichtiges",
   smsNotification: false,
   firstName: "",
   lastName: "",
   address: "",
   addressSupplement: "",
-  zipCode: 0,
-  gender: "",
+  zipCode: "",
+  gender: "keine Angabe",
   birthDate: "",
 });
 
 const rules = {
-  mobileNumber: {
-    required,
-  },
+  mobileNumber: {},
   dsgvoConfirmed: sameAs(true),
   emailNotification: {
-    required,
+    required
   },
-  smsNotification: sameAs(true),
+  smsNotification: {
+    required
+  },
   firstName: {
-    required,
+    required
   },
   lastName: {
-    required,
+    required
   },
   address: {
-    required,
+    required
   },
   addressSupplement: {},
   zipCode: {
-    required,
+    required
   },
   gender: {
     required,
   },
   birthDate: {
-    required,
+    required
   },
 };
 

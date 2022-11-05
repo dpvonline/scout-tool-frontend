@@ -8,21 +8,19 @@ export interface RegisterBasics {
 export interface RegisterScoutDetails {
     scoutName: string,
     scoutOrganisation: number,
-    bundespost: string,
-    leader: string,
-    scoutLevel: string
+    scoutLevel: '' | 'Wölfling' | 'Sippling' | 'Rover*in'
 }
 
 export interface RegisterPersonalDetails {
-    mobileNumber: number,
+    mobileNumber: string,
     dsgvoConfirmed: boolean,
-    emailNotification: string,
+    emailNotification: 'Alles' | 'Täglich' | 'Wöchentlich' | 'Nur wichtiges',
     smsNotification: boolean,
     firstName: string,
     lastName: string,
     address: string,
     addressSupplement: string,
-    zipCode: number,
-    gender: string,
+    zipCode: string,
+    gender: 'männlich' | 'weiblich' | 'divers' | 'keine Angabe',
     birthDate: string
 }

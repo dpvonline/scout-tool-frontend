@@ -1,0 +1,30 @@
+Scout Gruppe
+    Wie umsetzen zwecks Endpunkt
+    (ist intern als Zahl umgesetzt)
+
+Absenden
+    Endpunkt Gedöns
+
+Stepper setzt alles direkt auf fertig
+
+Multiselects zeigen noch nicht Defaultwert
+
+Genaue Regeln festlegen
+    [ ] Username
+    [ ] Password
+    [x] Password wiederholen
+    [ ] E-Mail
+    [ ] Fahrtenname
+    [ ] Stamm
+    [ ] Stufe
+    [ ] Vorname
+    [ ] Nachname
+    [ ] Adresse
+    [ ] Adresszusatz
+    [ ] Geburtsdatum
+    [ ] PLZ
+    [ ] Geschlecht
+    [ ] Handynummer
+    [ ] DSGVO
+    [ ] SMS
+    [ ] E-Mail Benachrichtigungen

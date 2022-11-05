@@ -12,9 +12,11 @@ declare module '@vue/runtime-core' {
     BaseButton: typeof import('./src/components/button/BaseButton.vue')['default']
     Basic: typeof import('./src/components/overlay/Basic.vue')['default']
     ButtonFancy: typeof import('./src/components/dashboardOld/ButtonFancy.vue')['default']
+    Date: typeof import('./src/components/field/Date.vue')['default']
     Delete: typeof import('./src/components/modal/Delete.vue')['default']
     Divider: typeof import('./src/components/divider/Divider.vue')['default']
     DropdownInput: typeof import('./src/components/inputs/DropdownInput.vue')['default']
+    EMail: typeof import('./src/components/field/EMail.vue')['default']
     FileInput: typeof import('./src/components/inputs/FileInput.vue')['default']
     FilterIcon: typeof import('./src/components/searchbar/FilterIcon.vue')['default']
     GroupCard: typeof import('./src/components/groupCard/GroupCard.vue')['default']
@@ -29,6 +31,7 @@ declare module '@vue/runtime-core' {
     'NutriBar copy': typeof import('./src/components/score/NutriBar copy.vue')['default']
     NutriSlim: typeof import('./src/components/score/NutriSlim.vue')['default']
     Old_ConfirmationModal: typeof import('./src/components/modal/old_ConfirmationModal.vue')['default']
+    PhoneNumber: typeof import('./src/components/field/PhoneNumber.vue')['default']
     Primary: typeof import('./src/components/button/Primary.vue')['default']
     PrimaryButton: typeof import('./src/components/button/PrimaryButton.vue')['default']
     Radio: typeof import('./src/components/field/Radio.vue')['default']
@@ -60,6 +63,7 @@ declare module '@vue/runtime-core' {
     UserList: typeof import('./src/components/dashboardOld/UserList.vue')['default']
     UserListEntry: typeof import('./src/components/dashboardOld/UserListEntry.vue')['default']
     UserRolesFancy: typeof import('./src/components/dashboardOld/UserRolesFancy.vue')['default']
+    ZIP: typeof import('./src/components/field/ZIP.vue')['default']
   }
 }
 
