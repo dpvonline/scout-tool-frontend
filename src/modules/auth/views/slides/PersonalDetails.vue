@@ -3,16 +3,16 @@
     <BaseField
       component="Text"
       :label="'Vorname'"
-      techName="firstname"
+      techName="firstName"
       v-model="state.firstName"
-      :errors="errors.firstname?.$errors"
+      :errors="errors.firstName?.$errors"
     />
     <BaseField
       component="Text"
       :label="'Nachname'"
-      techName="lastname"
+      techName="lastName"
       v-model="state.lastName"
-      :errors="errors.lastname?.$errors"
+      :errors="errors.lastName?.$errors"
     />
     <BaseField
       component="Text"
@@ -24,7 +24,7 @@
     <BaseField
       component="Text"
       :label="'Addresszusatz'"
-      techName="addressextra"
+      techName="addressSupplement"
       v-model="state.addressSupplement"
       :errors="errors.addressSupplement?.$errors"
     />
@@ -32,7 +32,7 @@
       component="Date"
       :label="'Geburtsdatum'"
       techName="birthdate"
-      v-model="state.birthDate"
+      v-model="state.birthdate"
       :errors="errors.birthdate?.$errors"
     />
     <BaseField
@@ -58,23 +58,23 @@
     <BaseField
       component="PhoneNumber"
       :label="'Handynummer'"
-      techName="mobilenumber"
+      techName="mobileNumber"
       v-model="state.mobileNumber"
-      :errors="errors.mobilenumber?.$errors"
+      :errors="errors.mobileNumber?.$errors"
     />
     <BaseField
       component="Toggle"
       :label="'Ich habe die Datenschutzbestimmung gelesen und akzeptiert'"
-      techName="dsgvo"
+      techName="dsgvoConfirmed"
       v-model="state.dsgvoConfirmed"
       :errors="errors.dsgvoConfirmed?.$errors"
     />
     <BaseField
       component="Select"
       :label="'E-Mail Benachrichtigungen'"
-      techName="emailnotification"
+      techName="emailNotification"
       v-model="state.emailNotification"
-      :errors="errors.emailnotification?.$errors"
+      :errors="errors.emailNotification?.$errors"
       :items="[
         { id: 1, name: 'Alles' },
         { id: 2, name: 'Täglich' },
@@ -85,9 +85,9 @@
     <BaseField
       component="Toggle"
       :label="'SMS Benachrichtigungen'"
-      techName="smsnotification"
+      techName="smsNotification"
       v-model="state.smsNotification"
-      :errors="errors.smsnotification?.$errors"
+      :errors="errors.smsNotification?.$errors"
     />
   </StepFrame>
 </template>
@@ -104,23 +104,29 @@ import { useCommonStore } from "@/modules/common/store/index";
 import { useRegisterStore } from "../../store";
 import { RegisterPersonalDetails } from "./types";
 
+const registerStore = useRegisterStore();
+
+const initialState = registerStore.personalDetails
+
 const state = reactive<RegisterPersonalDetails>({
-  mobileNumber: "",
-  dsgvoConfirmed: false,
-  emailNotification: "Nur wichtiges",
-  smsNotification: false,
-  firstName: "",
-  lastName: "",
-  address: "",
-  addressSupplement: "",
-  zipCode: "",
-  gender: "keine Angabe",
-  birthDate: "",
+  mobileNumber: initialState.mobileNumber,
+  dsgvoConfirmed: initialState.dsgvoConfirmed,
+  emailNotification: initialState.emailNotification,
+  smsNotification: initialState.smsNotification,
+  firstName: initialState.firstName,
+  lastName: initialState.lastName,
+  address: initialState.address,
+  addressSupplement: initialState.addressSupplement,
+  zipCode: initialState.zipCode,
+  gender: initialState.gender,
+  birthdate: initialState.birthdate,
 });
 
 const rules = {
   mobileNumber: {},
-  dsgvoConfirmed: sameAs(true),
+  dsgvoConfirmed: {
+    sameAs: sameAs(true)
+  },
   emailNotification: {
     required
   },
@@ -143,7 +149,7 @@ const rules = {
   gender: {
     required,
   },
-  birthDate: {
+  birthdate: {
     required
   },
 };
@@ -154,8 +160,6 @@ const v$ = useVuelidate(rules, state);
 const errors = ref([]);
 
 const commonStore = useCommonStore();
-
-const registerStore = useRegisterStore();
 
 function onNextButtonClicked() {
   v$.value.$validate();
@@ -168,6 +172,9 @@ function onNextButtonClicked() {
 
   registerStore.updatePersonalDetails(state);
 
+  console.log(registerStore.basics)
+  console.log(registerStore.scoutDetails)
+  console.log(registerStore.personalDetails)
   //todo submits
 }
 </script>

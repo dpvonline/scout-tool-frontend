@@ -40,10 +40,14 @@ import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
 import { useRegisterStore } from "../../store";
 
+const registerStore = useRegisterStore();
+
+const initialState = registerStore.scoutDetails;
+
 const state = reactive<RegisterScoutDetails>({
-  scoutName: "",
-  scoutOrganisation: 0,
-  scoutLevel: "",
+  scoutName: initialState.scoutName,
+  scoutOrganisation: initialState.scoutOrganisation,
+  scoutLevel: initialState.scoutLevel,
 });
 
 const rules = {
@@ -58,8 +62,6 @@ const v$ = useVuelidate(rules, state);
 const errors = ref([]);
 
 const commonStore = useCommonStore();
-
-const registerStore = useRegisterStore();
 
 function onNextButtonClicked() {
   v$.value.$validate();

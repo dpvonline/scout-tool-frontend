@@ -8,19 +8,19 @@ export interface RegisterBasics {
 export interface RegisterScoutDetails {
     scoutName: string,
     scoutOrganisation: number,
-    scoutLevel: '' | 'Wölfling' | 'Sippling' | 'Rover*in'
+    scoutLevel: string//'' | 'Wölfling' | 'Sippling' | 'Rover*in'
 }
 
 export interface RegisterPersonalDetails {
     mobileNumber: string,
     dsgvoConfirmed: boolean,
-    emailNotification: 'Alles' | 'Täglich' | 'Wöchentlich' | 'Nur wichtiges',
+    emailNotification: string,//'Alles' | 'Täglich' | 'Wöchentlich' | 'Nur wichtiges',
     smsNotification: boolean,
     firstName: string,
     lastName: string,
     address: string,
     addressSupplement: string,
     zipCode: string,
-    gender: 'männlich' | 'weiblich' | 'divers' | 'keine Angabe',
-    birthDate: string
+    gender: string,//'männlich' | 'weiblich' | 'divers' | 'keine Angabe',
+    birthdate: string
 }
