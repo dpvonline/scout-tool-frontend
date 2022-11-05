@@ -1,5 +1,77 @@
 <template>
-  <p> {{ groupMembers }} </p>
+  <table class="min-w-full divide-y divide-gray-300">
+    <thead class="bg-gray-50">
+      <tr>
+        <th
+          scope="col"
+          class="
+            py-3.5
+            pl-4
+            pr-3
+            text-left text-sm
+            font-semibold
+            text-gray-900
+            sm:pl-6
+          "
+        >
+          Vorname
+        </th>
+        <th
+          scope="col"
+          class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+        >
+          Nachname
+        </th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+          <span class="sr-only">Edit</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200 bg-white">
+      <tr v-for="person in groupMembers" :key="person.email">
+        <td
+          class="
+            whitespace-nowrap
+            py-4
+            pl-4
+            pr-3
+            text-sm
+            font-medium
+            text-gray-900
+            sm:pl-6
+          "
+        >
+          {{ person.firstName }}
+        </td>
+        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+          {{ person.lastName }}
+        </td>
+        <td
+          class="
+            relative
+            whitespace-nowrap
+            py-4
+            pl-3
+            pr-4
+            text-right text-sm
+            font-medium
+            sm:pr-6
+          "
+        >
+          <router-link
+            :to="{
+              name: 'GroupOverview',
+              params: {
+                id: person.id,
+              },
+            }"
+            class="text-blue-600 hover:text-blue-900"
+            >Öffnen<span class="sr-only">, {{ person.name }}</span></router-link
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script setup lang="ts">
@@ -12,6 +84,7 @@ const route = useRoute();
 
 const groupStore = useGroupStore();
 const groupMembers = computed(() => {
+  debugger;
   return groupStore.groupMembers;
 });
 
@@ -22,5 +95,4 @@ onMounted(() => {
 </script>
 
 <style>
-
 </style>

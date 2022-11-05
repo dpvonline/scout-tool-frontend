@@ -11,6 +11,7 @@ export const useAuthStore = defineStore("authStore", {
     _user: <{} | undefined>{},
     _isAuth: <boolean | undefined>false,
     _isAdmin: <boolean | undefined>false,
+    _isKeycloakInit: <boolean | undefined>false,
   }),
 
   actions: {
@@ -37,6 +38,9 @@ export const useAuthStore = defineStore("authStore", {
     },
     isAdmin: (state) => {
       return state._isAdmin;
+    },
+    isKeycloakInit: (state) => {
+      return state._isKeycloakInit;
     },
   },
 });

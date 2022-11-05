@@ -91,7 +91,6 @@ function updateSearch(params) {
 }
 
 function collectParents(items) {
-  debugger;
   return flattenObject(items)
 }
 
