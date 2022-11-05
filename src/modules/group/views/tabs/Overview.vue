@@ -2,7 +2,6 @@
   <div class="px-4 sm:px-6 lg:px-8 py-8">
     <div>
       <h3 class="text-3xl font-medium leading-6 text-gray-900">{{group.name}}</h3>
-      <p class="mt-1 max-w-2xl text-sm text-gray-500">Das werde ich hoffentlich noch rechtzeitig ersetzen.</p>
     </div>
     <div class="mt-5 border-t border-gray-200">
       <dl class="sm:divide-y sm:divide-gray-200">

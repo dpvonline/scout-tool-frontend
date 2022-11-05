@@ -539,7 +539,7 @@
         <div
           class="overflow-hidden bg-white shadow sm:rounded-md overflow-scroll"
         >
-          <ul role="list" class="divide-y divide-gray-200">
+          <ul role="list" v-if="items.length" class="divide-y divide-gray-200">
             <li v-for="item in items" :key="item.id">
               <router-link
                 :to="{
@@ -560,6 +560,11 @@
                   </button>
                 </div>
               </router-link>
+            </li>
+          </ul>
+          <ul>
+            <li> 
+            <p class="mt-1 max-w-2xl text-sm text-gray-500 px-2 py-2">Bitte suche nach einer Gruppe</p>
             </li>
           </ul>
         </div>

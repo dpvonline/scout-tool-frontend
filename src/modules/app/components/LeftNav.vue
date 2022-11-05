@@ -72,7 +72,7 @@
             </TransitionChild>
             <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
               <div class="flex flex-shrink-0 items-center px-4">
-                <router-link :to="{ name: 'RecipesMain' }">
+                <router-link :to="{ name: 'DashboardMain' }">
                 <img
                   class="h-12 w-auto"
                   src="./../assets/logo.png"
@@ -85,6 +85,7 @@
                   <router-link
                     v-for="item in navigation"
                     :key="item.name"
+                    @click="close"
                     :to="{ name: item.linkName, params: { id: 1 } }"
                     :class="[
                       item.linkName === currentRoute
@@ -113,6 +114,7 @@
                 <div class="px-2">
                   <router-link
                     v-for="item in secondaryNavigation"
+                    @click="close"
                     :key="item.name"
                     :to="{ name: item.linkName, params: { id: 1 } }"
                     class="
@@ -250,6 +252,7 @@
             <div class="space-y-1 px-2">
               <router-link
                 v-for="item in navigation"
+                @click="close"
                 :key="item.name"
                 :to="{ name: item.linkName, params: { id: 1 } }"
                 :class="[
@@ -280,6 +283,7 @@
               <router-link
                 v-for="item in secondaryNavigation"
                 :key="item.name"
+                @click="close"
                 :to="{ name: item.linkName }"
                 class="
                   group
@@ -523,6 +527,10 @@ const secondaryNavigation = computed(() => {
   ].filter(item => !item.isAuth || isAuth.value); 
 });
 const sidebarOpen = ref(false);
+
+function close() {
+  sidebarOpen.value = false;
+}
 
 const currentRoute = computed(() => {
   return route.fullPath;

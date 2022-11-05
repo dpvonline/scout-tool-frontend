@@ -52,7 +52,7 @@
                 hover:text-gray-500
                 focus:outline-none
                 focus:ring-2
-                focus:ring-indigo-500
+                focus:ring-blue-500
                 focus:ring-offset-2
               "
             >
