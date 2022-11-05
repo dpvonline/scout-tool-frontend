@@ -8,18 +8,18 @@
       :errors="errors.username?.$errors"
     />
     <BaseField
-      component="Text"
+      component="Password"
       :label="'Password'"
       techName="password"
       v-model="state.password"
       :errors="errors.password?.$errors"
     />
     <BaseField
-      component="Text"
+      component="Password"
       :label="'Password wiederholen'"
-      techName="repeatpassword"
-      v-model="state.repeatpassword"
-      :errors="errors.repeatpassword?.$errors"
+      techName="repeatPassword"
+      v-model="state.repeatPassword"
+      :errors="errors.repeatPassword?.$errors"
     />
     <BaseField
       component="EMail"
@@ -43,12 +43,20 @@ import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
 import { useRegisterStore } from "@/modules/auth/store/index";
 
+const registerStore = useRegisterStore();
+
+const initialState = registerStore.basics;
+
 const state = reactive<RegisterBasics>({
-  username: "",
-  password: "",
-  repeatPassword: "",
-  email: "",
+  username: initialState.username,
+  password: initialState.password,
+  repeatPassword: initialState.repeatPassword,
+  email: initialState.email,
 });
+
+const reactivePassword = computed(() => {
+  return state.password
+})
 
 const rules = {
   username: {
@@ -59,7 +67,10 @@ const rules = {
     required,
     minLength: minLength(8),
   },
-  repeatPassword: sameAs(state.password),//todo doesnt display error
+  repeatPassword: {
+    required,
+    sameAs: sameAs(reactivePassword)
+  },
   email: {
     required,
     email
@@ -72,8 +83,6 @@ const v$ = useVuelidate(rules, state);
 const errors = ref([]);
 
 const commonStore = useCommonStore();
-
-const registerStore = useRegisterStore();
 
 function onNextButtonClicked() {
   v$.value.$validate();

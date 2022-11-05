@@ -10,20 +10,15 @@
         type="number"
         pattern="[0-9]+([\,|\.][0-9]+)?"
         step="0.01"
-        class="
-          block
-          w-full
-          rounded-md
-          border-gray-300
-          shadow-sm
-          focus:border-blue-500 focus:ring-blue-500
-          sm:text-sm
-        "
+        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
       />
     </div>
-      <div v-if="hasError" class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-        <ExclamationCircleIcon class="h-5 w-5 text-red-500" aria-hidden="true" />
-      </div>
+    <div
+      v-if="hasError"
+      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
+    >
+      <ExclamationCircleIcon class="h-5 w-5 text-red-500" aria-hidden="true" />
+    </div>
     <p class="mt-2 text-sm text-red-500" id="email-description">
       {{ props.errors[0] && props.errors[0].$message }}
     </p>
@@ -47,12 +42,11 @@ const emit = defineEmits(["update:modelValue"]);
 
 const hasError = computed(() => {
   return props.errors[0] && props.errors.length;
-})
+});
 
 const updateValue = (event) => {
   emit("update:modelValue", event.target.value);
 };
 </script>
 
-<style>
-</style>
+<style></style>

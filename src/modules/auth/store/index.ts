@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { keycloak } from "@/modules/auth/keycloak";
 import { KeycloakProfile } from "keycloak-js";
 import { RegisterBasics, RegisterPersonalDetails, RegisterScoutDetails } from "../views/slides/types";
+import { useStorage } from "@vueuse/core"
 
 export const useAuthStore = defineStore("authStore", {
   state: () => ({
@@ -42,21 +43,19 @@ export const useAuthStore = defineStore("authStore", {
 
 export const useRegisterStore = defineStore("registerStore", {
   state: () => ({
-    _basics: {
+    _basics: useStorage('_basics', {
         username: "",
         password: "",
         repeatPassword: "",
         email: "",
-    },
-    _scoutDetails: {
+    }),
+    _scoutDetails: useStorage('_scoutDetails', {
         scoutName: "",
         scoutOrganisation: 0,
-        bundespost: "",
-        leader: "",
         scoutLevel: ""
-    },
-    _personalDetails: {
-        mobileNumber: 0,
+    }),
+    _personalDetails: useStorage('_personalDetails', {
+        mobileNumber: "",
         dsgvoConfirmed: false,
         emailNotification: "",
         smsNotification: false,
@@ -64,10 +63,10 @@ export const useRegisterStore = defineStore("registerStore", {
         lastName: "",
         address: "",
         addressSupplement: "",
-        zipCode: 0,
+        zipCode: "",
         gender: "",
-        birthDate: "",
-    }
+        birthdate: "",
+    })
   }),
 
   actions: {
