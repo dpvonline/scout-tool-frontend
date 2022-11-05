@@ -95,6 +95,9 @@ export const useRegisterStore = defineStore("registerStore", {
     },
     personalDetails: (state) => {
       return state._personalDetails;
-    }
+    },
+    // isAuth: (state) => {
+    //   return state._isAuth;
+    // }
   },
 });
