@@ -1,17 +1,26 @@
 export default [
   {
-    path: "/",
-    name: "home",
-    redirect: { name: "DashboardMain" },
-    component: () => import(/* webpackChunkName: "home" */ "@/modules/dashboard/views/Main.vue"),
-  },
-  {
-    path: '/404',
-    name: 'PageNotExist',
-    component: () => import('@/modules/app/views/PageNotFound.vue'),
-  },
-  {
-    path: "/:catchAll(.*)", // Unrecognized path automatically matches 404
-    redirect: '/404',
+    path: "/register",
+    name: "register",
+    redirect: { name: "RegisterBasics" },
+    component: () => import(/* webpackChunkName: "Register" */ "@/modules/auth/views/Main.vue"),
+    children: [
+      {
+        path: "basics",
+        name: "RegisterBasics",
+        component: () => import(/* webpackChunkName: "RegisterBasics" */ "@/modules/auth/views/slides/Basics.vue"),
+      },
+      {
+        path: "scout_details",
+        name: "RegisterScoutDetails",
+        component: () => import(/* webpackChunkName: "RegisterScoutDetails" */ "@/modules/auth/views/slides/ScoutDetails.vue"),
+      },
+      {
+        path: "personal_details",
+        name: "RegisterPersonalDetails",
+        component: () =>
+          import(/* webpackChunkName: "RegisterPersonalDetails" */ "@/modules/auth/views/slides/PersonalDetails.vue"),
+      },
+    ],
   },
 ];
