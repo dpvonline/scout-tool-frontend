@@ -56,32 +56,15 @@ onMounted(() => {
 })
 
 onBeforeRouteLeave((to, from) => {
+  if (registerStore.registered) {
+    registerStore.reset()
+    return true
+  }
   const exit = window.confirm(
     "Wenn du den Registrierungsprozess verlässt, werden deine Eingaben aus Sicherheitsgründen gelöscht. Möchtest du fortfahren?"
-  );
+  )
   if (exit) {
-    registerStore.updateBasics({
-        username: "",
-        password: "",
-        repeatPassword: "",
-        email: "",
-    })
-    registerStore.updateScoutDetails({
-        scoutName: "",
-        scoutOrganisation: "",
-        scoutLevel: ""
-    })
-    registerStore.updatePersonalDetails( {
-        mobileNumber: "",
-        dsgvoConfirmed: false,
-        firstName: "",
-        lastName: "",
-        address: "",
-        addressSupplement: "",
-        zipCode: "",
-        gender: "",
-        birthdate: "",
-    })
+    registerStore.reset()
     return true;
   } else {
     return false;

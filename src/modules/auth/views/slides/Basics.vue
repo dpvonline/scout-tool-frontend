@@ -37,7 +37,7 @@ import BaseField from "@/components/field/Base.vue";
 import StepFrame from "@/components/stepper/StepFrame.vue";
 
 import { useVuelidate } from "@vuelidate/core";
-import { required, minLength, sameAs, email } from "@vuelidate/validators";
+import { required, minLength, sameAs, email, helpers } from "@vuelidate/validators";
 import { RegisterBasics } from "./types";
 import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
@@ -60,20 +60,20 @@ const reactivePassword = computed(() => {
 
 const rules = {
   username: {
-    required,
-    minLength: minLength(5),
+    required: helpers.withMessage('Dieses Feld muss angegeben werden.', required),
+    unique: helpers.withAsync(() => true)
   },
   password: {
-    required,
-    minLength: minLength(8),
+    required: helpers.withMessage('Dieses Feld muss angegeben werden.', required),
+    minLength: helpers.withMessage('Das Password muss mindestens 8 Zeichen lang sein.', minLength(8)),
   },
   repeatPassword: {
-    required,
-    sameAs: sameAs(reactivePassword)
+    required: helpers.withMessage('Dieses Feld muss angegeben werden.', required),
+    sameAs: helpers.withMessage('Die Passwörter stimmen nicht überein.', sameAs(reactivePassword))
   },
   email: {
-    required,
-    email
+    required: helpers.withMessage('Dieses Feld muss angegeben werden', required),
+    email: helpers.withMessage('Die E-Mail ist ungültig.', email)
   }
 };
 

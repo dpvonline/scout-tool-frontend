@@ -1,69 +1,23 @@
 <template>
   <StepFrame header="Basis" @click="onNextButtonClicked" :isFinalStep="true">
-    <BaseField
-      component="Text"
-      :label="'Vorname*'"
-      techName="firstName"
-      v-model="state.firstName"
-      :errors="errors.firstName?.$errors"
-    />
-    <BaseField
-      component="Text"
-      :label="'Nachname*'"
-      techName="lastName"
-      v-model="state.lastName"
-      :errors="errors.lastName?.$errors"
-    />
-    <BaseField
-      component="Text"
-      :label="'Addresse*'"
-      techName="address"
-      v-model="state.address"
-      :errors="errors.address?.$errors"
-    />
-    <BaseField
-      component="Text"
-      :label="'Addresszusatz'"
-      techName="addressSupplement"
-      v-model="state.addressSupplement"
-      :errors="errors.addressSupplement?.$errors"
-    />
-    <BaseField
-      component="Date"
-      :label="'Geburtsdatum*'"
-      techName="birthdate"
-      v-model="state.birthdate"
-      :errors="errors.birthdate?.$errors"
-    />
-    <BaseField
-      component="ZIP"
-      :label="'PLZ*'"
-      techName="zipCode"
-      v-model="state.zipCode"
-      :errors="errors.zipCode?.$errors"
-    />
-    <BaseField
-      component="Select"
-      :label="'Geschlecht*'"
-      techName="gender"
-      v-model="state.gender"
-      :errors="errors.gender?.$errors"
-      :items="registerStore.genderMappings"
-    />
-    <BaseField
-      component="PhoneNumber"
-      :label="'Handynummer'"
-      techName="mobileNumber"
-      v-model="state.mobileNumber"
-      :errors="errors.mobileNumber?.$errors"
-    />
-    <BaseField
-      component="Toggle"
-      :label="'Ich habe die Datenschutzbestimmung gelesen und akzeptiert*'"
-      techName="dsgvoConfirmed"
-      v-model="state.dsgvoConfirmed"
-      :errors="errors.dsgvoConfirmed?.$errors"
-    />
+    <BaseField component="Text" :label="'Vorname*'" techName="firstName" v-model="state.firstName"
+      :errors="errors.firstName?.$errors" />
+    <BaseField component="Text" :label="'Nachname*'" techName="lastName" v-model="state.lastName"
+      :errors="errors.lastName?.$errors" />
+    <BaseField component="Text" :label="'Addresse*'" techName="address" v-model="state.address"
+      :errors="errors.address?.$errors" />
+    <BaseField component="Text" :label="'Addresszusatz'" techName="addressSupplement" v-model="state.addressSupplement"
+      :errors="errors.addressSupplement?.$errors" />
+    <BaseField component="Date" :label="'Geburtsdatum*'" techName="birthdate" v-model="state.birthdate"
+      :errors="errors.birthdate?.$errors" />
+    <BaseField component="ZIP" :label="'PLZ*'" techName="zipCode" v-model="state.zipCode"
+      :errors="errors.zipCode?.$errors" />
+    <BaseField component="Select" :label="'Geschlecht*'" techName="gender" v-model="state.gender"
+      :errors="errors.gender?.$errors" :items="registerStore.genderMappings" />
+    <BaseField component="PhoneNumber" :label="'Handynummer'" techName="mobileNumber" v-model="state.mobileNumber"
+      :errors="errors.mobileNumber?.$errors" />
+    <BaseField component="Toggle" :label="'Ich habe die Datenschutzbestimmung gelesen und akzeptiert*'"
+      techName="dsgvoConfirmed" v-model="state.dsgvoConfirmed" :errors="errors.dsgvoConfirmed?.$errors" />
   </StepFrame>
 </template>
 
@@ -73,7 +27,7 @@ import BaseField from "@/components/field/Base.vue";
 import StepFrame from "@/components/stepper/StepFrame.vue";
 
 import { useVuelidate } from "@vuelidate/core";
-import { required, minLength, sameAs } from "@vuelidate/validators";
+import { required, minLength, sameAs, helpers } from "@vuelidate/validators";
 import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
 import { useRegisterStore } from "../../store";
@@ -98,26 +52,26 @@ const state = reactive<RegisterPersonalDetails>({
 const rules = {
   mobileNumber: {},
   dsgvoConfirmed: {
-    sameAs: sameAs(true),
+    sameAs: helpers.withMessage('Dieses Feld muss akzeptiert werden.', sameAs(true)),
   },
   firstName: {
-    required,
+    required: helpers.withMessage('Dieses Feld muss angegeben werden.', required),
   },
   lastName: {
-    required,
+    required: helpers.withMessage('Dieses Feld muss angegeben werden.', required),
   },
   address: {
-    required,
+    required: helpers.withMessage('Dieses Feld muss angegeben werden.', required),
   },
   addressSupplement: {},
   zipCode: {
-    required,
+    required: helpers.withMessage('Dieses Feld muss angegeben werden.', required),
   },
   gender: {
-    required,
+    required: helpers.withMessage('Dieses Feld muss angegeben werden.', required),
   },
   birthdate: {
-    required,
+    required: helpers.withMessage('Dieses Feld muss angegeben werden.', required),
   },
 };
 
@@ -128,7 +82,7 @@ const errors = ref([]);
 
 const commonStore = useCommonStore();
 
-function onNextButtonClicked() {
+async function onNextButtonClicked() {
   v$.value.$validate();
   errors.value = v$.value;
   console.log(errors.value);
@@ -138,7 +92,26 @@ function onNextButtonClicked() {
   }
 
   registerStore.updatePersonalDetails(state);
-  
-  registerStore.register()
+
+  try {
+    const result = await registerStore.register()
+    console.log('ergebnis:')
+    console.log(result)
+
+    alert('Herzlichen Glückwunsch, du bist registriert :D'
+      + ' Du solltest demnächst eine Bestätigungs-E-Mail erhalten.'
+      + ' Bestätige dort deine E-Mail-Adresse. Danach wirst du aufs Dashboard weitergeleitet,'
+      + ' diesen Tab kannst du schließen.'
+    )
+
+    registerStore.setRegistered()
+
+    router.push({name: 'Dashboard'})
+  } catch (e) {
+    console.log(e)
+    alert('Fehler: ' + JSON.stringify(e.response.data))
+  }
+  //todo catch errors
+
 }
 </script>

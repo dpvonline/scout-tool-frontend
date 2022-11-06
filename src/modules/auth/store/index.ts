@@ -8,6 +8,7 @@ import {
 } from "../views/slides/types";
 import { useStorage } from "@vueuse/core";
 import services from "@/modules/auth/services/mapping";
+import register from "../services/register";
 
 export const useAuthStore = defineStore("authStore", {
   state: () => ({
@@ -52,6 +53,7 @@ export const useAuthStore = defineStore("authStore", {
 
 export const useRegisterStore = defineStore("registerStore", {
   state: () => ({
+    _registered: false,
     _mappings: useStorage("_mappings", {
       gender: [],
       scoutHierarchy: [],
@@ -69,7 +71,7 @@ export const useRegisterStore = defineStore("registerStore", {
         scoutOrganisation: "",
         scoutLevel: "",
       }),
-      
+
       personalDetails: useStorage("personalDetails", {
         mobileNumber: "",
         dsgvoConfirmed: false,
@@ -84,11 +86,37 @@ export const useRegisterStore = defineStore("registerStore", {
     },
   }),
   actions: {
+    reset() {
+      this.updateBasics({
+        username: "",
+        password: "",
+        repeatPassword: "",
+        email: "",
+      });
+      this.updateScoutDetails({
+        scoutName: "",
+        scoutOrganisation: "",
+        scoutLevel: "",
+      });
+      this.updatePersonalDetails({
+        mobileNumber: "",
+        dsgvoConfirmed: false,
+        firstName: "",
+        lastName: "",
+        address: "",
+        addressSupplement: "",
+        zipCode: "",
+        gender: "",
+        birthdate: "",
+      });
+    },
+    setRegistered() {
+      this._registered = true;
+    },
     async fetchAllMappings(params = {}) {
       try {
         const genders = await services.fetchGenderMappings();
         this._mappings.gender = genders.data;
-        console.log(this._mappings.gender);
       } catch (e) {
         alert(e);
         console.error(e);
@@ -97,7 +125,6 @@ export const useRegisterStore = defineStore("registerStore", {
       try {
         const scoutHierarchy = await services.fetchScoutHierarchyMappings();
         this._mappings.scoutHierarchy = scoutHierarchy.data;
-        console.log(this._mappings.scoutHierarchy);
       } catch (e) {
         alert(e);
         console.error(e);
@@ -105,7 +132,6 @@ export const useRegisterStore = defineStore("registerStore", {
       try {
         const scoutLevel = await services.fetchScoutLevelMappings();
         this._mappings.scoutLevel = scoutLevel.data;
-        console.log(this._mappings.scoutLevel);
       } catch (e) {
         alert(e);
         console.error(e);
@@ -127,10 +153,10 @@ export const useRegisterStore = defineStore("registerStore", {
         zipCode: this._userdata.personalDetails.zipCode,
         birthDate: this._userdata.personalDetails.birthdate,
         gender: this._userdata.personalDetails.gender.value,
-        scoutLevel: this._userdata.scoutDetails.scoutLevel.value
-      }
+        scoutLevel: this._userdata.scoutDetails.scoutLevel.value,
+      };
 
-      //todo
+      return register.register(summary);
     },
     updateBasics(basics: RegisterBasics) {
       this._userdata.basics = basics;
@@ -160,6 +186,9 @@ export const useRegisterStore = defineStore("registerStore", {
     },
     scoutLevelMappings: (state) => {
       return state._mappings.scoutLevel;
+    },
+    registered: (state) => {
+      return state._registered;
     },
     // isAuth: (state) => {
     //   return state._isAuth;
