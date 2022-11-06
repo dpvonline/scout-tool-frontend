@@ -64,19 +64,6 @@ import { ScaleIcon, UserGroupIcon, UserIcon } from "@heroicons/vue/24/outline";
 
 import NotifyList from "@/modules/dashboard/components/NotifyList.vue";
 
-import { useRecipeStore } from "@/modules/recipe/store/index.ts";
-import { useIngredientStore } from "@/modules/ingredient/store/index.ts";
-
-const recipeStore = useRecipeStore();
-const recipes = computed(() => {
-  return recipeStore.recipes;
-});
-
-const ingredientStore = useIngredientStore();
-const ingredients = computed(() => {
-  return ingredientStore.ingredients;
-});
-
 const cards = computed(() => {
   return [
     {
@@ -95,7 +82,5 @@ const cards = computed(() => {
 });
 
 onMounted(() => {
-  recipeStore.fetchRecipes();
-  ingredientStore.fetchIngredients();
 });
 </script>

@@ -85,7 +85,7 @@
                   <router-link
                     v-for="item in navigation"
                     :key="item.name"
-                    @click="onButtonClicked(item.handler)"
+                    @click="onButtonClicked"
                     :to="{ name: item.linkName }"
                     :class="[
                       item.linkName === currentRoute
@@ -118,7 +118,7 @@
                 <div class="px-2">
                   <router-link
                     v-for="item in secondaryNavigation"
-                    @click="onButtonClicked(item.handler)"
+                    @click="onButtonClicked"
                     :key="item.name"
                     :to="{ name: item.linkName }"
                     class="
@@ -196,7 +196,7 @@
             <div class="space-y-1 px-2">
               <router-link
                 v-for="item in navigation"
-                @click="onButtonClicked(item.handler)"
+                @click="onButtonClicked"
                 :key="item.name"
                 :to="{ name: item.linkName }"
                 :class="[
@@ -231,7 +231,7 @@
               <router-link
                 v-for="item in secondaryNavigation"
                 :key="item.name"
-                @click="onButtonClicked(item.handler)"
+                @click="onButtonClicked"
                 :to="{ name: item.linkName }"
                 class="
                   group
@@ -371,13 +371,6 @@ import { useRoute } from "vue-router";
 import { useAuthStore } from "@/modules/auth/store/index.ts";
 const authStore = useAuthStore();
 
-function onLoginClicked() {
-  authStore.login();
-}
-function onLogoutClicked() {
-  authStore.logout();
-}
-
 const isAuth = computed(() => {
   return authStore.isAuth;
 });
@@ -386,19 +379,12 @@ const route = useRoute();
 
 const sidebarOpen = ref(false);
 
-function close() {
-  sidebarOpen.value = false;
-}
-
 const currentRoute = computed(() => {
   return route.fullPath;
 });
 
-function onButtonClicked(handler) {
-  if (handler) {
-    this[handler]()
-  }
-  this.close();
+function onButtonClicked() {
+  sidebarOpen.value = false;
 }
 
 const navigation = computed(() => {
@@ -467,8 +453,7 @@ const secondaryNavigation = computed(() => {
     },
     {
       name: "Login",
-      linkName: false,
-      handler: 'onLoginClicked',
+      linkName: 'Login',
       route: "login",
       icon: ArrowRightIcon,
       isAuth: false,
@@ -476,8 +461,7 @@ const secondaryNavigation = computed(() => {
     },
     {
       name: "Logout",
-      linkName: "home",
-      handler: 'onLogoutClicked',
+      linkName: "Logout",
       route: "logout",
       icon: ArrowLeftIcon,
       isAuth: true,
