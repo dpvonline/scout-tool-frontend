@@ -1,22 +1,22 @@
 <template>
-  <StepFrame header="Basis" @click="onNextButtonClicked">
+  <StepFrame header="Basis" @click="onNextButtonClicked" :isFinalStep="true">
     <BaseField
       component="Text"
-      :label="'Vorname'"
+      :label="'Vorname*'"
       techName="firstName"
       v-model="state.firstName"
       :errors="errors.firstName?.$errors"
     />
     <BaseField
       component="Text"
-      :label="'Nachname'"
+      :label="'Nachname*'"
       techName="lastName"
       v-model="state.lastName"
       :errors="errors.lastName?.$errors"
     />
     <BaseField
       component="Text"
-      :label="'Addresse'"
+      :label="'Addresse*'"
       techName="address"
       v-model="state.address"
       :errors="errors.address?.$errors"
@@ -30,30 +30,25 @@
     />
     <BaseField
       component="Date"
-      :label="'Geburtsdatum'"
+      :label="'Geburtsdatum*'"
       techName="birthdate"
       v-model="state.birthdate"
       :errors="errors.birthdate?.$errors"
     />
     <BaseField
       component="ZIP"
-      :label="'PLZ'"
+      :label="'PLZ*'"
       techName="zipCode"
       v-model="state.zipCode"
       :errors="errors.zipCode?.$errors"
     />
     <BaseField
       component="Select"
-      :label="'Geschlecht'"
+      :label="'Geschlecht*'"
       techName="gender"
       v-model="state.gender"
       :errors="errors.gender?.$errors"
-      :items="[
-        { id: 1, name: 'männlich' },
-        { id: 2, name: 'weiblich' },
-        { id: 3, name: 'divers' },
-        { id: 4, name: 'keine Angabe' },
-      ]"
+      :items="registerStore.genderMappings"
     />
     <BaseField
       component="PhoneNumber"
@@ -64,30 +59,10 @@
     />
     <BaseField
       component="Toggle"
-      :label="'Ich habe die Datenschutzbestimmung gelesen und akzeptiert'"
+      :label="'Ich habe die Datenschutzbestimmung gelesen und akzeptiert*'"
       techName="dsgvoConfirmed"
       v-model="state.dsgvoConfirmed"
       :errors="errors.dsgvoConfirmed?.$errors"
-    />
-    <BaseField
-      component="Select"
-      :label="'E-Mail Benachrichtigungen'"
-      techName="emailNotification"
-      v-model="state.emailNotification"
-      :errors="errors.emailNotification?.$errors"
-      :items="[
-        { id: 1, name: 'Alles' },
-        { id: 2, name: 'Täglich' },
-        { id: 3, name: 'Wöchentlich' },
-        { id: 4, name: 'Nur wichtiges' },
-      ]"
-    />
-    <BaseField
-      component="Toggle"
-      :label="'SMS Benachrichtigungen'"
-      techName="smsNotification"
-      v-model="state.smsNotification"
-      :errors="errors.smsNotification?.$errors"
     />
   </StepFrame>
 </template>
@@ -106,13 +81,11 @@ import { RegisterPersonalDetails } from "./types";
 
 const registerStore = useRegisterStore();
 
-const initialState = registerStore.personalDetails
+const initialState = registerStore.personalDetails;
 
 const state = reactive<RegisterPersonalDetails>({
   mobileNumber: initialState.mobileNumber,
   dsgvoConfirmed: initialState.dsgvoConfirmed,
-  emailNotification: initialState.emailNotification,
-  smsNotification: initialState.smsNotification,
   firstName: initialState.firstName,
   lastName: initialState.lastName,
   address: initialState.address,
@@ -125,32 +98,26 @@ const state = reactive<RegisterPersonalDetails>({
 const rules = {
   mobileNumber: {},
   dsgvoConfirmed: {
-    sameAs: sameAs(true)
-  },
-  emailNotification: {
-    required
-  },
-  smsNotification: {
-    required
+    sameAs: sameAs(true),
   },
   firstName: {
-    required
+    required,
   },
   lastName: {
-    required
+    required,
   },
   address: {
-    required
+    required,
   },
   addressSupplement: {},
   zipCode: {
-    required
+    required,
   },
   gender: {
     required,
   },
   birthdate: {
-    required
+    required,
   },
 };
 
@@ -171,10 +138,7 @@ function onNextButtonClicked() {
   }
 
   registerStore.updatePersonalDetails(state);
-
-  console.log(registerStore.basics)
-  console.log(registerStore.scoutDetails)
-  console.log(registerStore.personalDetails)
-  //todo submits
+  
+  registerStore.register()
 }
 </script>

@@ -1,11 +1,5 @@
-Scout Gruppe
-    Wie umsetzen zwecks Endpunkt
-    (ist intern als Zahl umgesetzt)
-
 Absenden
     Endpunkt Gedöns
-
-Stepper setzt alles direkt auf fertig
 
 Multiselects zeigen noch nicht Defaultwert
 
@@ -28,3 +22,5 @@ Genaue Regeln festlegen
     [ ] DSGVO
     [ ] SMS
     [ ] E-Mail Benachrichtigungen
+
+massig Warnungen in Konsole
