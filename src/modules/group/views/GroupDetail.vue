@@ -44,9 +44,24 @@ import { useAuthStore } from "@/modules/auth/store/index";
 const route = useRoute();
 
 const pages = computed(() => {
-  return [
-    { name: "Gruppe", link: "GroupMain" }
-  ];
+  const returnArry = [{ name: "Alle Gruppen", link: "GroupMain" }];
+  if (group?.value?.parent?.parent?.parent) {
+    returnArry.push(group.value.parent.parent.parent)
+  }
+
+  if (group?.value?.parent?.parent) {
+    returnArry.push(group.value.parent.parent)
+  }
+
+  if (group?.value?.parent) {
+    returnArry.push(group.value.parent)
+  }
+
+  if (group?.value) {
+    returnArry.push(group.value)
+  }
+
+  return returnArry;
 });
 
 const tabs = computed(() => {
@@ -69,6 +84,7 @@ const tabs = computed(() => {
 });
 
 const groupStore = useGroupStore();
+
 const group = computed(() => {
   return groupStore.group;
 });
@@ -90,7 +106,9 @@ watch(
 
 function refreshData() {
   const id = route.params.id;
-  groupStore.fetchGroupById(id);
+  if (id) {
+    groupStore.fetchGroupById(id);
+  }
 }
 
 onMounted(() => {

@@ -415,13 +415,13 @@ const navigation = computed(() => {
     //   icon: RocketLaunchIcon,
     //   route: "simulator",
     // },
-    // {
-    //   name: "Personen",
-    //   linkName: "PersonMain",
-    //   icon: UserIcon,
-    //   route: "person",
-    //   isAuth: true,
-    // },
+    {
+      name: "Mitglieder",
+      linkName: "PersonMain",
+      icon: UserIcon,
+      route: "person",
+      isAuth: true,
+    },
     {
       name: "Gruppen",
       linkName: "GroupMain",
@@ -490,7 +490,7 @@ const secondaryNavigation = computed(() => {
       isAuth: false,
       isNotAuth: true,
     },
-  ].filter((item) => !item.isAuth || isAuth.value);
+  ].filter((item) => (!item.isAuth || isAuth.value) && (item.isAuth || !isAuth.value));
 });
 </script>
 

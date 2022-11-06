@@ -18,11 +18,17 @@ export default [
       {
         path: "member",
         name: "GroupMember",
+        meta: {
+          requiresAuth: true
+        },
         component: () => import(/* webpackChunkName: "GroupMember" */ "@/modules/group/views/tabs/Member.vue"),
       },
       {
         path: "overview",
         name: "GroupOverview",
+        meta: {
+          requiresAuth: true
+        },
         component: () => import(/* webpackChunkName: "GroupOverview" */ "@/modules/group/views/tabs/Overview.vue"),
       },
     ],

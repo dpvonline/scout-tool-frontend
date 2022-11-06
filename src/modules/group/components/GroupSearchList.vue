@@ -61,12 +61,9 @@ const searchValue = ref();
 
 const route = useRoute();
 
-const groupsOverview = computed(() => {
-  return groupStore.groupsOverview;
-});
 
 const groups = computed(() => {
-  return groupStore.groupsOverview;
+  return groupStore.groups;
 });
 
 const isAuth = computed(() => {
@@ -74,7 +71,6 @@ const isAuth = computed(() => {
 });
 
 onMounted(() => {
-  groupStore.fetchGroupsOverview(route.query);
   groupStore.fetchGroups(route.query);
 });
 
@@ -87,7 +83,7 @@ watch(
 );
 
 function updateSearch(params) {
-  groupStore.fetchGroupsOverview(params);
+  groupStore.fetchGroups(params);
 }
 
 function collectParents(items) {

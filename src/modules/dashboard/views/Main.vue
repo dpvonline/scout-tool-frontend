@@ -51,24 +51,7 @@
               </div>
             </div>
           </div>
-
-          <h2
-            class="
-              mx-auto
-              mt-8
-              max-w-6xl
-              px-4
-              text-lg
-              font-medium
-              leading-6
-              text-gray-900
-              sm:px-6
-              lg:px-8
-            "
-          >
-            Neuesten Rezepte
-          </h2>
-          <RecipeList :recipes="recipes.slice(0, 4)" />
+          <NotifyList />
         </div>
       </main>
     </div>
@@ -76,10 +59,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { ScaleIcon } from "@heroicons/vue/24/outline";
+import { ref, computed, onMounted } from "vue";
+import { ScaleIcon, UserGroupIcon, UserIcon } from "@heroicons/vue/24/outline";
 
-import RecipeList from "@/modules/dashboard/components/RecipeList.vue";
+import NotifyList from "@/modules/dashboard/components/NotifyList.vue";
 
 import { useRecipeStore } from "@/modules/recipe/store/index.ts";
 import { useIngredientStore } from "@/modules/ingredient/store/index.ts";
@@ -97,16 +80,16 @@ const ingredients = computed(() => {
 const cards = computed(() => {
   return [
     {
-      name: "Rezepte",
-      href: "RecipesMain",
-      icon: ScaleIcon,
-      amount: recipes.value.length,
+      name: "Mitglieder",
+      href: "GroupMain",
+      icon: UserIcon,
+      amount: 453,
     },
     {
-      name: "Zutaten",
-      href: "IngredientMain",
-      icon: ScaleIcon,
-      amount: ingredients.value.length,
+      name: "Gruppen",
+      href: "GroupMain",
+      icon: UserGroupIcon, 
+      amount: 74,
     },
   ];
 });

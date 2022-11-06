@@ -21,15 +21,6 @@ export const useGroupStore = defineStore("group", {
         console.log(error);
       }
     },
-    async fetchGroupsOverview(params = {}) {
-      try {
-        const response = await GroupApi.fetchSearch(params);
-        this._groupsOverview = response.data;
-      } catch (error) {
-        alert(error);
-        console.log(error);
-      }
-    },
     async fetchGroupById(id: number) {
       try {
         const response = await GroupApi.fetchById(id);

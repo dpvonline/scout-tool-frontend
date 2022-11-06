@@ -9,12 +9,6 @@ export default {
       params: params,
     });
   },
-  fetchSearch(params: any) {
-    return axios.get(`${BASE_URL}/keycloak/group/`, {
-      params: params,
-    });
-  },
-
   fetchById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/`);
   },
