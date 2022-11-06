@@ -84,7 +84,6 @@ const route = useRoute();
 
 const groupStore = useGroupStore();
 const groupMembers = computed(() => {
-  debugger;
   return groupStore.groupMembers;
 });
 

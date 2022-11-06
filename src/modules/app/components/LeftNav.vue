@@ -73,11 +73,11 @@
             <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
               <div class="flex flex-shrink-0 items-center px-4">
                 <router-link :to="{ name: 'DashboardMain' }">
-                <img
-                  class="h-12 w-auto"
-                  src="./../assets/logo.png"
-                  alt="Pfadfinderlilie"
-                />
+                  <img
+                    class="h-12 w-auto"
+                    src="./../assets/logo.png"
+                    alt="Pfadfinderlilie"
+                  />
                 </router-link>
               </div>
               <nav aria-label="Sidebar" class="mt-5">
@@ -110,7 +110,11 @@
                     {{ item.name }}
                   </router-link>
                 </div>
-                <hr class="my-5 border-t border-gray-200" aria-hidden="true" />
+                <hr
+                  v-if="secondaryNavigation.length"
+                  class="my-5 border-t border-gray-200"
+                  aria-hidden="true"
+                />
                 <div class="px-2">
                   <router-link
                     v-for="item in secondaryNavigation"
@@ -242,11 +246,13 @@
       >
         <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
           <div class="flex flex-shrink-0 items-center px-4">
+            <router-link :to="{ name: 'DashboardMain' }">
             <img
               class="h-16 w-auto"
               src="./../assets/logo.png"
               alt="Your Company"
             />
+            </router-link>
           </div>
           <nav class="mt-5 flex-1" aria-label="Sidebar">
             <div class="space-y-1 px-2">
@@ -278,7 +284,11 @@
                 {{ item.name }}
               </router-link>
             </div>
-            <hr class="my-5 border-t border-gray-200" aria-hidden="true" />
+            <hr
+              v-if="secondaryNavigation.length"
+              class="my-5 border-t border-gray-200"
+              aria-hidden="true"
+            />
             <div class="flex-1 space-y-1 px-2">
               <router-link
                 v-for="item in secondaryNavigation"
@@ -416,11 +426,13 @@
         "
       >
         <div>
+          <router-link :to="{ name: 'DashboardMain' }">
           <img
             class="h-12 w-auto"
             src="./../assets/logo.png"
             alt="Your Company"
           />
+          </router-link>
         </div>
         <div>
           <button
@@ -511,12 +523,12 @@ const route = useRoute();
 
 const secondaryNavigation = computed(() => {
   return [
-    {
-      name: "Hintergründe",
-      linkName: "FaqMain",
-      icon: MagnifyingGlassCircleIcon,
-      route: "faq",
-    },
+    // {
+    //   name: "Hintergründe",
+    //   linkName: "FaqMain",
+    //   icon: MagnifyingGlassCircleIcon,
+    //   route: "faq",
+    // },
     {
       name: "Einstellungen",
       linkName: "Settings",
@@ -524,7 +536,7 @@ const secondaryNavigation = computed(() => {
       icon: CogIcon,
       isAuth: true,
     },
-  ].filter(item => !item.isAuth || isAuth.value); 
+  ].filter((item) => !item.isAuth || isAuth.value);
 });
 const sidebarOpen = ref(false);
 
@@ -539,50 +551,50 @@ const currentRoute = computed(() => {
 const navigation = computed(() => {
   return [
     {
-    name: "Dashboard",
-    linkName: "DashboardMain",
-    icon: HomeIcon,
-    route: "dashboard",
-  },
-  {
-    name: "Simulator",
-    linkName: "SimulatorStart",
-    icon: RocketLaunchIcon,
-    route: "simulator",
-  },
-  // {
-  //   name: "Personen",
-  //   linkName: "PersonMain",
-  //   icon: UserIcon,
-  //   route: "person",
-  //   isAuth: true,
-  // },
-  {
-    name: "Gruppen",
-    linkName: "GroupMain",
-    icon: UserGroupIcon,
-    route: "group",
-    isAuth: true,
-  },
-  {
-    name: "Rezept",
-    linkName: "RecipesMain",
-    icon: Bars3Icon,
-    route: "recipe",
-  },
-  {
-    name: "Zutaten",
-    linkName: "IngredientMain",
-    icon: MagnifyingGlassCircleIcon,
-    route: "ingredient",
-  },
-  {
-    name: "Hinweise",
-    linkName: "HintMain",
-    icon: ScaleIcon,
-    route: "hint",
+      name: "Dashboard",
+      linkName: "DashboardMain",
+      icon: HomeIcon,
+      route: "dashboard",
     },
-  ].filter(item => !item.isAuth || isAuth.value); 
+    {
+      name: "Simulator",
+      linkName: "SimulatorStart",
+      icon: RocketLaunchIcon,
+      route: "simulator",
+    },
+    // {
+    //   name: "Personen",
+    //   linkName: "PersonMain",
+    //   icon: UserIcon,
+    //   route: "person",
+    //   isAuth: true,
+    // },
+    {
+      name: "Gruppen",
+      linkName: "GroupMain",
+      icon: UserGroupIcon,
+      route: "group",
+      isAuth: true,
+    },
+    {
+      name: "Rezept",
+      linkName: "RecipesMain",
+      icon: Bars3Icon,
+      route: "recipe",
+    },
+    {
+      name: "Zutaten",
+      linkName: "IngredientMain",
+      icon: MagnifyingGlassCircleIcon,
+      route: "ingredient",
+    },
+    // {
+    //   name: "Hinweise",
+    //   linkName: "HintMain",
+    //   icon: ScaleIcon,
+    //   route: "hint",
+    //   },
+  ].filter((item) => !item.isAuth || isAuth.value);
 });
 </script>
 

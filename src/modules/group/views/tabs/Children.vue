@@ -3,6 +3,7 @@
     <div class="sm:flex sm:items-center">
       <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
         <button
+          @click="onAddGroup"
           type="button"
           class="
             inline-flex
@@ -26,6 +27,34 @@
           "
         >
           Gruppe hinzufügen
+        </button>
+      </div>
+      <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+        <button
+          @click="onRequestAccess"
+          type="button"
+          class="
+            inline-flex
+            items-center
+            justify-center
+            rounded-md
+            border border-transparent
+            bg-blue-600
+            px-4
+            py-2
+            text-sm
+            font-medium
+            text-white
+            shadow-sm
+            hover:bg-blue-700
+            focus:outline-none
+            focus:ring-2
+            focus:ring-blue-500
+            focus:ring-offset-2
+            sm:w-auto
+          "
+        >
+          Mitgliedschaft beantragen
         </button>
       </div>
     </div>
@@ -155,18 +184,52 @@
         </div>
       </div>
     </div>
+    <RequestModal
+      :open="openRequestAccess"
+      :callbackOnConfirm="onConfirmClicked"
+      :callbackOnCancel="onCancellicked"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
+import RequestModal from "@/modules/group/components/RequestModal.vue";
 
 import { useRoute } from "vue-router";
 
+import { useCommonStore } from "@/modules/common/store/index.ts";
+const commonStore = useCommonStore();
+const groupStore = useGroupStore();
+
 const route = useRoute();
 
-const groupStore = useGroupStore();
+const openRequestAccess = ref(false);
+const openAddGroup = ref(false);
+
+function onRequestAccess() {
+  openRequestAccess.value = true;
+}
+
+function onAddGroup() {
+  openAddGroup.value = true;
+}
+
+function onConfirmClicked() {
+    commonStore.showSuccess("Zutat erfolgreich gelöscht");
+    openRequestAccess.value = false;
+    const id = route.params.id;
+    groupStore.sendGroupRequest(id).then((response) => {
+      debugger;
+      console.log(response);
+    })
+
+}
+function onCancellicked() {
+    openRequestAccess.value = false;
+}
+
 const group = computed(() => {
   return groupStore.group;
 });

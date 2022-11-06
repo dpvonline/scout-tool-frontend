@@ -10,13 +10,16 @@ export default {
     });
   },
   fetchSearch(params: any) {
-    return axios.get(`${BASE_URL}/keycloak/group-search/`, {
+    return axios.get(`${BASE_URL}/keycloak/group/`, {
       params: params,
     });
   },
 
   fetchById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/`);
+  },
+  sendGroupRequest(id: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/requests/`);
   },
   fetchMembersById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/members/`);

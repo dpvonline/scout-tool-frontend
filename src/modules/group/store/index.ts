@@ -48,6 +48,14 @@ export const useGroupStore = defineStore("group", {
         console.log(error);
       }
     },
+    async sendGroupRequest(id: number) {
+      try {
+        return await GroupApi.sendGroupRequest(id);
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
   },
   getters: {
     groups: (state) => {
