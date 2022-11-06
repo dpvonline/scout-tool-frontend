@@ -40,7 +40,7 @@
           <span
             :class="[
               stepIdx !== 0 ? 'lg:pl-9' : '',
-              'px-6 py-5 flex items-start text-sm font-medium',
+              'px-6 py-2 lg:py-5 flex items-start text-sm font-medium',
             ]"
           >
             <span class="flex-shrink-0">
@@ -86,7 +86,7 @@
           <span
             :class="[
               stepIdx !== 0 ? 'lg:pl-9' : '',
-              'px-6 py-5 flex items-start text-sm font-medium',
+              'px-6 py-2 lg:py-6 flex items-start text-sm font-medium',
             ]"
           >
             <span class="flex-shrink-0">
@@ -131,7 +131,7 @@
           <span
             :class="[
               stepIdx !== 0 ? 'lg:pl-9' : '',
-              'px-6 py-5 flex items-start text-sm font-medium',
+              'px-6 py-2 lg:py-5 flex items-start text-sm font-medium',
             ]"
           >
             <span class="flex-shrink-0">
