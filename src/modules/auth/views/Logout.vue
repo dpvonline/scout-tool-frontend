@@ -22,7 +22,7 @@ onMounted(() => {
   if (authStore.isAuth) {
     onLogoutClicked();
   } else {
-    router.push({name: 'Dashboard'})
+    router.push({name: 'home'})
   }
 });
 </script>

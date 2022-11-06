@@ -185,11 +185,11 @@
         <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
           <div class="flex flex-shrink-0 items-center px-4">
             <router-link :to="{ name: 'DashboardMain' }">
-            <img
-              class="h-16 w-auto"
-              src="./../assets/logo.png"
-              alt="Your Company"
-            />
+              <img
+                class="h-16 w-auto"
+                src="./../assets/logo.png"
+                alt="Your Company"
+              />
             </router-link>
           </div>
           <nav class="mt-5 flex-1" aria-label="Sidebar">
@@ -290,11 +290,11 @@
       >
         <div>
           <router-link :to="{ name: 'DashboardMain' }">
-          <img
-            class="h-12 w-auto"
-            src="./../assets/logo.png"
-            alt="Your Company"
-          />
+            <img
+              class="h-12 w-auto"
+              src="./../assets/logo.png"
+              alt="Your Company"
+            />
           </router-link>
         </div>
         <div>
@@ -394,6 +394,7 @@ const navigation = computed(() => {
       linkName: "DashboardMain",
       icon: HomeIcon,
       route: "dashboard",
+      isAuth: true,
     },
     // {
     //   name: "Simulator",
@@ -453,7 +454,7 @@ const secondaryNavigation = computed(() => {
     },
     {
       name: "Login",
-      linkName: 'Login',
+      linkName: "Login",
       route: "login",
       icon: ArrowRightIcon,
       isAuth: false,
@@ -474,7 +475,9 @@ const secondaryNavigation = computed(() => {
       isAuth: false,
       isNotAuth: true,
     },
-  ].filter((item) => (!item.isAuth || isAuth.value) && (item.isAuth || !isAuth.value));
+  ].filter(
+    (item) => (!item.isAuth || isAuth.value) && (item.isAuth || !isAuth.value)
+  );
 });
 </script>
 
