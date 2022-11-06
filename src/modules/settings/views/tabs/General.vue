@@ -83,7 +83,7 @@
         <dl class="divide-y divide-gray-200">
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
             <dt class="text-sm font-medium text-gray-500">
-              Email
+              E-Mail-Adresse
             </dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <span class="flex-grow">{{ personalData.email }}</span>
@@ -142,7 +142,7 @@
               Alle deine Essgewohnheiten
             </dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ personalData.eatHabits?.map(item => item.name).join(", ") || 'default'}}</span>
+              <span class="flex-grow">{{ personalData.eatHabits?.map(item => item.name).join(", ") || '-'}}</span>
             </dd>
           </div>
         </dl>

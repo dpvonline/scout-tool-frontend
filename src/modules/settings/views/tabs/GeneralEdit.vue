@@ -6,7 +6,7 @@
         <div class="flex py-4">
           <div class="flex-grow">
             <h3 class="text-lg font-medium leading-6 text-gray-900">
-              Profil Edit
+              Profil bearbeiten
             </h3>
             <p class="max-w-2xl text-sm text-gray-500">
               Deine persönlichen Angaben.
@@ -14,57 +14,63 @@
           </div>
         </div>
       </div>
-      <div class="mt-6">
-        <dl class="divide-y divide-gray-200">
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-            <dt class="text-sm font-medium text-gray-500">
-              Nutzername
-            </dt>
-            <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow text-gray-400">{{ personalData.username }}</span>
-            </dd>
+      <dl class="divide-y divide-gray-200">
+        <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+          <div class="pt-4 sm:py-5">
+            <BaseField
+                component="Text"
+                :label="'Vorname'"
+                techName="firstName"
+                v-model="state.firstName"
+                :errors="errors.firstName?.$errors"
+            />
           </div>
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-            <dt class="text-sm font-medium text-gray-500">
-              Name
-            </dt>
-            <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ personalData.firstName }} {{ personalData.lastName }}</span>
-            </dd>
+          <div class="pt-4 sm:py-5">
+            <BaseField
+                component="Text"
+                :label="'Nachname'"
+                techName="lastName"
+                v-model="state.lastName"
+                :errors="errors.lastName?.$errors"
+            />
           </div>
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-            <dt class="text-sm font-medium text-gray-500">
-              Fahrten-Name
-            </dt>
-            <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ personalData.scoutName }}</span>
-            </dd>
+          <div class="pt-4 sm:py-5">
+            <BaseField
+                component="Text"
+                :label="'Fahrten-Name'"
+                techName="scoutName"
+                v-model="state.scoutName"
+                :errors="errors.scoutName?.$errors"
+            />
           </div>
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-            <dt class="text-sm font-medium text-gray-500">
-              Geburtsdatum
-            </dt>
-            <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ moment(personalData.birthday).format("DD.MM.YYYY") }}</span>
-            </dd>
+          <div class="pt-4 sm:py-5">
+            <BaseField
+                component="Date"
+                :label="'Geburtsdatum'"
+                techName="birthdate"
+                v-model="state.birthday"
+                :errors="errors.birthday?.$errors"
+            />
           </div>
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-b sm:border-gray-200 sm:py-5">
-            <dt class="text-sm font-medium text-gray-500">
-              Geschlecht
-            </dt>
-            <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ personalData.gender }}</span>
-            </dd>
+          <div class="pt-4 sm:py-5">
+            <BaseField
+                component="Select"
+                :label="'Geschlecht'"
+                techName="gender"
+                v-model="state.gender"
+                :errors="errors.gender?.$errors"
+                :items="registerStore.genderMappings"
+            />
           </div>
-        </dl>
-      </div>
+        </div>
+      </dl>
     </div>
 
     <!-- Contact -->
     <div class="mt-10 divide-y divide-gray-200">
       <div class="space-y-1">
         <h3 class="text-lg font-medium leading-6 text-gray-900">
-          Kontakt
+          Kontakt bearbeiten
         </h3>
         <p class="max-w-2xl text-sm text-gray-500">
           Deine Kontaktangaben.
@@ -72,45 +78,52 @@
       </div>
       <div class="mt-6">
         <dl class="divide-y divide-gray-200">
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
-            <dt class="text-sm font-medium text-gray-500">
-              Email
-            </dt>
-            <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ personalData.email }}</span>
-            </dd>
-          </div>
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
-            <dt class="text-sm font-medium text-gray-500">
-              Telefonnummer
-            </dt>
-            <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ personalData.phoneNumber }}</span>
-            </dd>
-          </div>
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-            <dt class="text-sm font-medium text-gray-500">
-              Adresse
-            </dt>
-            <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ personalData.address }}</span>
-            </dd>
-          </div>
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-            <dt class="text-sm font-medium text-gray-500">
-              Adresszusatz
-            </dt>
-            <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ personalData.addressSupplement }}</span>
-            </dd>
-          </div>
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-            <dt class="text-sm font-medium text-gray-500">
-              Postleitzahl & Ort
-            </dt>
-            <dd class="mt-1 flex flex-grow text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span>{{ personalData.zipCode?.zipCode || '' }} {{ personalData.zipCode?.city || '' }}</span>
-            </dd>
+          <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+            <div class="pt-4 sm:py-5">
+              <BaseField
+                  component="EMail"
+                  :label="'E-Mail-Adresse*'"
+                  techName="email"
+                  v-model="state.email"
+                  :errors="errors.email?.$errors"
+              />
+            </div>
+            <div class="pt-4 sm:py-5">
+              <BaseField
+                  component="PhoneNumber"
+                  :label="'Handynummer'"
+                  techName="mobileNumber"
+                  v-model="state.mobileNumber"
+                  :errors="errors.mobileNumber?.$errors"
+              />
+            </div>
+            <div class="pt-4 sm:py-5">
+              <BaseField
+                  component="Text"
+                  :label="'Addresse'"
+                  techName="address"
+                  v-model="state.address"
+                  :errors="errors.address?.$errors"
+              />
+            </div>
+            <div class="pt-4 sm:py-5">
+              <BaseField
+                  component="Text"
+                  :label="'Addresszusatz'"
+                  techName="addressSupplement"
+                  v-model="state.addressSupplement"
+                  :errors="errors.addressSupplement?.$errors"
+              />
+            </div>
+            <div class="pt-4 sm:py-5">
+              <BaseField
+                  component="ZIP"
+                  :label="'Postleitzahl'"
+                  techName="zipCode"
+                  v-model="state.zipCode"
+                  :errors="errors.zipCode?.$errors"
+              />
+            </div>
           </div>
         </dl>
       </div>
@@ -120,7 +133,7 @@
     <div class="mt-10 divide-y divide-gray-200">
       <div class="space-y-1">
         <h3 class="text-lg font-medium leading-6 text-gray-900">
-          Essgewohnheiten
+          Essgewohnheiten bearbeiten
         </h3>
         <p class="max-w-2xl text-sm text-gray-500">
           Deine Happa-Happa-Habits.
@@ -128,13 +141,15 @@
       </div>
       <div class="mt-6">
         <dl class="divide-y divide-gray-200">
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
-            <dt class="text-sm font-medium text-gray-500">
-              Alle deine Essgewohnheiten
-            </dt>
-            <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ personalData.eatHabits?.map(item => item.name).join(", ") || 'default'}}</span>
-            </dd>
+          <div class="pt-4 sm:py-5">
+            <BaseField
+                component="Text"
+                :label="'Essgewohnheiten - TODO'"
+                techName="eatHabits"
+
+                v-model="state.eatHabits"
+                :errors="errors.eatHabits?.$errors"
+            />
           </div>
         </dl>
       </div>
@@ -268,20 +283,40 @@
 
 import moment from "moment";
 import {usePersonalDataStore} from "@/modules/settings/store/personal-data";
-import { PencilIcon } from "@heroicons/vue/20/solid";
+import {useRegisterStore} from "@/modules/auth/store";
 import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue';
-import {computed, onMounted, watch} from "vue";
+import {computed, onMounted, reactive, watch} from "vue";
 import {useRoute} from "vue-router";
+import BaseField from "@/components/field/Base.vue";
 
+const registerStore = useRegisterStore();
 const personalDataStore = usePersonalDataStore();
 
 const route = useRoute();
 
+const state = reactive({
+  firstName: '',
+  lastName: '',
+  scoutName: '',
+  birthday: '',
+  gender: '',
+  email: '',
+  phoneNumber: '',
+  address: '',
+  addressSupplement: '',
+  zipCode: '',
+  eatHabits: [],
+
+});
+
+const errors = ref([]);
+
 const personalData = computed(() => {
-  return personalDataStore.personalData;
+    return personalDataStore.personalData;
 });
 
 onMounted(() => {
+  registerStore.fetchAllMappings();
   personalDataStore.fetchPersonalData(route.query);
 });
 

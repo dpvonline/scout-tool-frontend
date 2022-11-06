@@ -1,22 +1,19 @@
 <template>
   <div class="sm:col-span-3">
     <label class="block text-sm font-medium text-gray-700">{{
-      props.label
+        props.label
     }}</label>
-    <div class="mt-1">
-      <input
-        :value="modelValue"
-        @input="updateValue"
-        placeholder="rainer@zufall.de"
-        type="email"
+    <div class="relative mt-1 rounded-md shadow-sm">
+      <input :value="modelValue" @input="updateValue" placeholder="rainer@zufall.de" type="email"
         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-      />
-    </div>
-    <div
-      v-if="hasError"
-      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
-    >
-      <ExclamationCircleIcon class="h-5 w-5 text-red-500" aria-hidden="true" />
+        :class="
+          !hasError
+            ? 'border-gray-300'
+            : 'border-red-500 text-red-900 placeholder-red-300 focus:border-red-500'
+        " />
+      <div v-if="hasError" class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+        <ExclamationCircleIcon class="h-5 w-5 text-red-500" aria-hidden="true" />
+      </div>
     </div>
     <p class="mt-2 text-sm text-red-500" id="email-description">
       {{ props.errors[0] && props.errors[0].$message }}
@@ -48,4 +45,6 @@ const updateValue = (event) => {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

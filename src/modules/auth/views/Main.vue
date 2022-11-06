@@ -7,40 +7,84 @@
   </div>
 </template>
 <script setup lang="ts">
-import StepperNav from "@/components/stepper/StepperNav.vue"
-import { useRouter } from "vue-router"
+import StepperNav from "@/components/stepper/StepperNav.vue";
+import { useRouter } from "vue-router";
+import { useRegisterStore } from "../store";
+import { onBeforeRouteLeave } from "vue-router";
 
 const router = useRouter();
 
+const registerStore = useRegisterStore();
+
 const steps = computed(() => {
-    return [
-        {
-            id: 1,
-            name: "Basics",
-            description: "Technische Must-haves",
-            link: "RegisterBasics",
-            status: getStatus("RegisterBasics", ["RegisterScoutDetails", "RegisterPersonalDetails"])
-        },
-        {
-            id: 2,
-            name: "Scout details",
-            description: "Pfadi-Details",
-            link: "RegisterScoutDetails",
-            status: getStatus("RegisterScoutDetails", ["RegisterPersonalDetails"])
-        },
-        {
-            id: 3,
-            name: "Personal details",
-            description: "Persönliche Details",
-            link: "RegisterPersonalDetails",
-            status: getStatus("RegisterPersonalDetails", [])
-        }
-    ]
-})
+  return [
+    {
+      id: 1,
+      name: "Basics",
+      description: "Technische Must-haves",
+      link: "RegisterBasics",
+      status: getStatus("RegisterBasics", [
+        "RegisterScoutDetails",
+        "RegisterPersonalDetails",
+      ]),
+    },
+    {
+      id: 2,
+      name: "Scout details",
+      description: "Pfadi-Details",
+      link: "RegisterScoutDetails",
+      status: getStatus("RegisterScoutDetails", ["RegisterPersonalDetails"]),
+    },
+    {
+      id: 3,
+      name: "Personal details",
+      description: "Persönliche Details",
+      link: "RegisterPersonalDetails",
+      status: getStatus("RegisterPersonalDetails", []),
+    },
+  ];
+});
 
 function getStatus(value: string, next: Array<String>) {
-  let status = router.currentRoute.value.name === value ? 'current' : '';
-  status = next.includes(router.currentRoute.value.name) ? 'complete' : status
+  let status = router.currentRoute.value.name === value ? "current" : "";
+  status = next.includes(router.currentRoute.value.name) ? "complete" : status;
   return status;
 }
+
+onMounted(() => {
+  registerStore.fetchAllMappings()
+})
+
+onBeforeRouteLeave((to, from) => {
+  const exit = window.confirm(
+    "Wenn du den Registrierungsprozess verlässt, werden deine Eingaben aus Sicherheitsgründen gelöscht. Möchtest du fortfahren?"
+  );
+  if (exit) {
+    registerStore.updateBasics({
+        username: "",
+        password: "",
+        repeatPassword: "",
+        email: "",
+    })
+    registerStore.updateScoutDetails({
+        scoutName: "",
+        scoutOrganisation: "",
+        scoutLevel: ""
+    })
+    registerStore.updatePersonalDetails( {
+        mobileNumber: "",
+        dsgvoConfirmed: false,
+        firstName: "",
+        lastName: "",
+        address: "",
+        addressSupplement: "",
+        zipCode: "",
+        gender: "",
+        birthdate: "",
+    })
+    return true;
+  } else {
+    return false;
+  }
+});
 </script>

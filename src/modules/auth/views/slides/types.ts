@@ -7,15 +7,13 @@ export interface RegisterBasics {
 
 export interface RegisterScoutDetails {
     scoutName: string,
-    scoutOrganisation: number,
+    scoutOrganisation: string,
     scoutLevel: string//'' | 'Wölfling' | 'Sippling' | 'Rover*in'
 }
 
 export interface RegisterPersonalDetails {
     mobileNumber: string,
     dsgvoConfirmed: boolean,
-    emailNotification: string,//'Alles' | 'Täglich' | 'Wöchentlich' | 'Nur wichtiges',
-    smsNotification: boolean,
     firstName: string,
     lastName: string,
     address: string,

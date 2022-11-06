@@ -8,11 +8,12 @@
       :errors="errors.scoutname?.$errors"
     />
     <BaseField
-      component="Number"
+      component="Select"
       :label="'Stamm'"
       techName="scoutgroup"
       v-model="state.scoutOrganisation"
       :errors="errors.scoutOrganisation?.$errors"
+      :items="registerStore.scoutHierarchyMappings"
     />
     <BaseField
       component="Select"
@@ -20,11 +21,7 @@
       techName="scoutlevel"
       v-model="state.scoutLevel"
       :errors="errors.scoutlevel?.$errors"
-      :items="[
-        { id: 1, name: 'Wölfling' }, 
-        { id: 2, name: 'Sippling' }, 
-        { id: 3, name: 'Rover*in'},
-      ]"
+      :items="registerStore.scoutLevelMappings"
     />
   </StepFrame>
 </template>

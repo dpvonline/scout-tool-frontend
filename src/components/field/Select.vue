@@ -11,7 +11,9 @@
       :class="disabled ? 'text-gray-400' : 'text-gray-700'"
       >{{ props.label }}</ComboboxLabel
     >
-    <div class="relative mt-1">
+    <div
+      class="relative mt-1"
+    >
       <ComboboxInput
         :disabled="disabled"
         class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
@@ -64,7 +66,7 @@
   </Combobox>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/vue/20/solid";
 import {

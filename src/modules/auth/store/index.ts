@@ -1,8 +1,13 @@
 import { defineStore } from "pinia";
 import { keycloak } from "@/modules/auth/keycloak";
 import { KeycloakProfile } from "keycloak-js";
-import { RegisterBasics, RegisterPersonalDetails, RegisterScoutDetails } from "../views/slides/types";
-import { useStorage } from "@vueuse/core"
+import {
+  RegisterBasics,
+  RegisterPersonalDetails,
+  RegisterScoutDetails,
+} from "../views/slides/types";
+import { useStorage } from "@vueuse/core";
+import services from "@/modules/auth/services/mapping";
 
 export const useAuthStore = defineStore("authStore", {
   state: () => ({
@@ -47,22 +52,27 @@ export const useAuthStore = defineStore("authStore", {
 
 export const useRegisterStore = defineStore("registerStore", {
   state: () => ({
-    _basics: useStorage('_basics', {
+    _mappings: useStorage("_mappings", {
+      gender: [],
+      scoutHierarchy: [],
+      scoutLevel: [],
+    }),
+    _userdata: {
+      basics: useStorage("basics", {
         username: "",
         password: "",
         repeatPassword: "",
         email: "",
-    }),
-    _scoutDetails: useStorage('_scoutDetails', {
+      }),
+      scoutDetails: useStorage("scoutDetails", {
         scoutName: "",
-        scoutOrganisation: 0,
-        scoutLevel: ""
-    }),
-    _personalDetails: useStorage('_personalDetails', {
+        scoutOrganisation: "",
+        scoutLevel: "",
+      }),
+      
+      personalDetails: useStorage("personalDetails", {
         mobileNumber: "",
         dsgvoConfirmed: false,
-        emailNotification: "",
-        smsNotification: false,
         firstName: "",
         lastName: "",
         address: "",
@@ -70,34 +80,86 @@ export const useRegisterStore = defineStore("registerStore", {
         zipCode: "",
         gender: "",
         birthdate: "",
-    })
+      }),
+    },
   }),
-
   actions: {
-    register(route: string) {
-        if (this._basics.password !== this._basics.repeatPassword) {
-            //todo abort
-        }
+    async fetchAllMappings(params = {}) {
+      try {
+        const genders = await services.fetchGenderMappings();
+        this._mappings.gender = genders.data;
+        console.log(this._mappings.gender);
+      } catch (e) {
+        alert(e);
+        console.error(e);
+      }
+
+      try {
+        const scoutHierarchy = await services.fetchScoutHierarchyMappings();
+        this._mappings.scoutHierarchy = scoutHierarchy.data;
+        console.log(this._mappings.scoutHierarchy);
+      } catch (e) {
+        alert(e);
+        console.error(e);
+      }
+      try {
+        const scoutLevel = await services.fetchScoutLevelMappings();
+        this._mappings.scoutLevel = scoutLevel.data;
+        console.log(this._mappings.scoutLevel);
+      } catch (e) {
+        alert(e);
+        console.error(e);
+      }
+    },
+    register() {
+      const summary = {
+        username: this._userdata.basics.username,
+        password: this._userdata.basics.password,
+        email: this._userdata.basics.email,
+        scoutName: this._userdata.scoutDetails.scoutName,
+        scoutOrganisation: this._userdata.scoutDetails.scoutOrganisation.id,
+        mobileNumber: this._userdata.personalDetails.mobileNumber,
+        dsgvoConfirmed: this._userdata.personalDetails.dsgvoConfirmed,
+        firstName: this._userdata.personalDetails.firstName,
+        lastName: this._userdata.personalDetails.lastName,
+        address: this._userdata.personalDetails.address,
+        addressSupplement: this._userdata.personalDetails.addressSupplement,
+        zipCode: this._userdata.personalDetails.zipCode,
+        birthDate: this._userdata.personalDetails.birthdate,
+        gender: this._userdata.personalDetails.gender.value,
+        scoutLevel: this._userdata.scoutDetails.scoutLevel.value
+      }
+
+      //todo
     },
     updateBasics(basics: RegisterBasics) {
-        this._basics = basics;
+      this._userdata.basics = basics;
     },
     updateScoutDetails(scoutDetails: RegisterScoutDetails) {
-        this._scoutDetails = scoutDetails;
+      this._userdata.scoutDetails = scoutDetails;
     },
     updatePersonalDetails(personalDetails: RegisterPersonalDetails) {
-        this._personalDetails = personalDetails;
-    }
+      this._userdata.personalDetails = personalDetails;
+    },
   },
   getters: {
     basics: (state) => {
-      return state._basics;
+      return state._userdata.basics;
     },
     scoutDetails: (state) => {
-      return state._scoutDetails;
+      return state._userdata.scoutDetails;
     },
     personalDetails: (state) => {
-      return state._personalDetails;
+      return state._userdata.personalDetails;
+    },
+    genderMappings: (state) => {
+      return state._mappings.gender;
+    },
+    scoutHierarchyMappings: (state) => {
+      return state._mappings.scoutHierarchy;
+    },
+    scoutLevelMappings: (state) => {
+      return state._mappings.scoutLevel;
     },
     // isAuth: (state) => {
     //   return state._isAuth;

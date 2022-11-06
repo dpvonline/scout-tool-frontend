@@ -1,29 +1,29 @@
 <template>
-  <StepFrame header="Basis" @click="onNextButtonClicked">
+  <StepFrame header="Basis" @click="onNextButtonClicked">    
     <BaseField
       component="Text"
-      :label="'Username'"
+      :label="'Username*'"
       techName="username"
       v-model="state.username"
       :errors="errors.username?.$errors"
     />
     <BaseField
       component="Password"
-      :label="'Password'"
+      :label="'Password*'"
       techName="password"
       v-model="state.password"
       :errors="errors.password?.$errors"
     />
     <BaseField
       component="Password"
-      :label="'Password wiederholen'"
+      :label="'Password wiederholen*'"
       techName="repeatPassword"
       v-model="state.repeatPassword"
       :errors="errors.repeatPassword?.$errors"
     />
     <BaseField
       component="EMail"
-      :label="'E-Mail-Adresse'"
+      :label="'E-Mail-Adresse*'"
       techName="email"
       v-model="state.email"
       :errors="errors.email?.$errors"
