@@ -2,7 +2,7 @@ export default [
   {
     path: "/settings",
     name: "Settings",
-    redirect: { name: "SettingsAllgemein" },
+    redirect: { name: "SettingsGeneral" },
     meta: {
       requiresAuth: true
     },
@@ -10,8 +10,13 @@ export default [
     children: [
       {
         path: "general",
-        name: "SettingsAllgemein",
-        component: () => import(/* webpackChunkName: "SettingsAllgemein" */ "@/modules/settings/views/tabs/General.vue"),
+        name: "SettingsGeneral",
+        component: () => import(/* webpackChunkName: "SettingsGeneral" */ "@/modules/settings/views/tabs/General.vue"),
+      },
+      {
+        path: "general/edit",
+        name: "SettingsGeneralEdit",
+        component: () => import(/* webpackChunkName: "SettingsGeneralEdit" */ "@/modules/settings/views/tabs/GeneralEdit.vue"),
       },
       {
         path: "password",
