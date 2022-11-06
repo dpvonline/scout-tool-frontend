@@ -86,49 +86,13 @@
                   >
                     Name
                   </th>
-                  <th
-                    scope="col"
-                    class="
-                      px-3
-                      py-3.5
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                    "
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    class="
-                      px-3
-                      py-3.5
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                    "
-                  >
-                    Email
-                  </th>
-                  <th
-                    scope="col"
-                    class="
-                      px-3
-                      py-3.5
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                    "
-                  >
-                    Role
-                  </th>
                   <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                    <span class="sr-only">Edit</span>
+                    <span class="sr-only">Öffnen</span>
                   </th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="person in group.subGroups" :key="person.email">
+                <tr v-for="person in group.children" :key="person.email">
                   <td
                     class="
                       whitespace-nowrap
@@ -142,15 +106,6 @@
                     "
                   >
                     {{ person.name }}
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ person.title }}
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ person.email }}
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ person.role }}
                   </td>
                   <td
                     class="

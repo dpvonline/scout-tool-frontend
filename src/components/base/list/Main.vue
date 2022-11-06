@@ -562,8 +562,8 @@
               </router-link>
             </li>
           </ul>
-          <ul>
-            <li> 
+          <ul v-else >
+            <li>
             <p class="mt-1 max-w-2xl text-sm text-gray-500 px-2 py-2">Bitte suche nach einer Gruppe</p>
             </li>
           </ul>

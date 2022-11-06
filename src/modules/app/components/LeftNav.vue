@@ -85,8 +85,8 @@
                   <router-link
                     v-for="item in navigation"
                     :key="item.name"
-                    @click="close"
-                    :to="{ name: item.linkName, params: { id: 1 } }"
+                    @click="onButtonClicked(item.handler)"
+                    :to="{ name: item.linkName }"
                     :class="[
                       item.linkName === currentRoute
                         ? 'bg-gray-100 text-gray-900'
@@ -118,9 +118,9 @@
                 <div class="px-2">
                   <router-link
                     v-for="item in secondaryNavigation"
-                    @click="close"
+                    @click="onButtonClicked(item.handler)"
                     :key="item.name"
-                    :to="{ name: item.linkName, params: { id: 1 } }"
+                    :to="{ name: item.linkName }"
                     class="
                       group
                       flex
@@ -157,68 +157,6 @@
                     />
                     {{ item.name }}
                   </router-link>
-                  <hr
-                    class="my-5 border-t border-gray-200"
-                    aria-hidden="true"
-                  />
-                  <button
-                    class="
-                      group
-                      flex
-                      items-center
-                      rounded-md
-                      px-2
-                      py-2
-                      text-base
-                      font-medium
-                      text-gray-600
-                      hover:bg-gray-50 hover:text-gray-900
-                    "
-                    v-if="!isAuth"
-                    @click="onLoginClicked"
-                  >
-                    <ArrowRightIcon
-                      class="
-                        mr-4
-                        h-6
-                        w-6
-                        flex-shrink-0
-                        text-gray-400
-                        group-hover:text-gray-500
-                      "
-                      aria-hidden="true"
-                    />
-                    Login
-                  </button>
-                  <button
-                    class="
-                      group
-                      flex
-                      items-center
-                      rounded-md
-                      px-2
-                      py-2
-                      text-base
-                      font-medium
-                      text-gray-600
-                      hover:bg-gray-50 hover:text-gray-900
-                    "
-                    v-if="isAuth"
-                    @click="onLogoutClicked"
-                  >
-                    <ArrowLeftIcon
-                      class="
-                        mr-4
-                        h-6
-                        w-6
-                        flex-shrink-0
-                        text-gray-400
-                        group-hover:text-gray-500
-                      "
-                      aria-hidden="true"
-                    />
-                    Logout
-                  </button>
                 </div>
               </nav>
             </div>
@@ -258,9 +196,9 @@
             <div class="space-y-1 px-2">
               <router-link
                 v-for="item in navigation"
-                @click="close"
+                @click="onButtonClicked(item.handler)"
                 :key="item.name"
-                :to="{ name: item.linkName, params: { id: 1 } }"
+                :to="{ name: item.linkName }"
                 :class="[
                   currentRoute.includes(item.route)
                     ? 'bg-gray-200 text-gray-900'
@@ -293,7 +231,7 @@
               <router-link
                 v-for="item in secondaryNavigation"
                 :key="item.name"
-                @click="close"
+                @click="onButtonClicked(item.handler)"
                 :to="{ name: item.linkName }"
                 class="
                   group
@@ -331,81 +269,6 @@
                 />
                 {{ item.name }}
               </router-link>
-              <hr class="my-5 border-t border-gray-200" aria-hidden="true" />
-              <button
-                class="
-                  group
-                  flex
-                  items-center
-                  rounded-md
-                  px-2
-                  py-2
-                  text-sm
-                  font-medium
-                  text-gray-600
-                  hover:bg-gray-50 hover:text-gray-900
-                  group
-                  flex
-                  items-center
-                  px-2
-                  py-2
-                  text-sm
-                  font-medium
-                  rounded-md
-                "
-                v-if="!isAuth"
-                @click="onLoginClicked"
-              >
-                <ArrowRightIcon
-                  class="
-                    mr-3
-                    h-6
-                    w-6
-                    flex-shrink-0
-                    text-gray-400
-                    group-hover:text-gray-500
-                  "
-                  aria-hidden="true"
-                />
-                Login
-              </button>
-              <button
-                class="
-                  group
-                  flex
-                  items-center
-                  rounded-md
-                  px-2
-                  py-2
-                  text-sm
-                  font-medium
-                  text-gray-600
-                  hover:bg-gray-50 hover:text-gray-900
-                  group
-                  flex
-                  items-center
-                  px-2
-                  py-2
-                  text-sm
-                  font-medium
-                  rounded-md
-                "
-                v-if="isAuth"
-                @click="onLogoutClicked"
-              >
-                <ArrowLeftIcon
-                  class="
-                    mr-3
-                    h-6
-                    w-6
-                    flex-shrink-0
-                    text-gray-400
-                    group-hover:text-gray-500
-                  "
-                  aria-hidden="true"
-                />
-                Logout
-              </button>
             </div>
           </nav>
         </div>
@@ -502,7 +365,7 @@ import {
   UserIcon,
 } from "@heroicons/vue/24/outline";
 
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 
 import { useAuthStore } from "@/modules/auth/store/index.ts";
@@ -521,6 +384,72 @@ const isAuth = computed(() => {
 
 const route = useRoute();
 
+const sidebarOpen = ref(false);
+
+function close() {
+  sidebarOpen.value = false;
+}
+
+const currentRoute = computed(() => {
+  return route.fullPath;
+});
+
+function onButtonClicked(handler) {
+  if (handler) {
+    this[handler]()
+  }
+  this.close();
+}
+
+const navigation = computed(() => {
+  return [
+    {
+      name: "Dashboard",
+      linkName: "DashboardMain",
+      icon: HomeIcon,
+      route: "dashboard",
+    },
+    // {
+    //   name: "Simulator",
+    //   linkName: "SimulatorStart",
+    //   icon: RocketLaunchIcon,
+    //   route: "simulator",
+    // },
+    // {
+    //   name: "Personen",
+    //   linkName: "PersonMain",
+    //   icon: UserIcon,
+    //   route: "person",
+    //   isAuth: true,
+    // },
+    {
+      name: "Gruppen",
+      linkName: "GroupMain",
+      icon: UserGroupIcon,
+      route: "group",
+      isAuth: true,
+    },
+    // {
+    //   name: "Rezept",
+    //   linkName: "RecipesMain",
+    //   icon: Bars3Icon,
+    //   route: "recipe",
+    // },
+    // {
+    //   name: "Zutaten",
+    //   linkName: "IngredientMain",
+    //   icon: MagnifyingGlassCircleIcon,
+    //   route: "ingredient",
+    // },
+    // {
+    //   name: "Hinweise",
+    //   linkName: "HintMain",
+    //   icon: ScaleIcon,
+    //   route: "hint",
+    //   },
+  ].filter((item) => !item.isAuth || isAuth.value);
+});
+
 const secondaryNavigation = computed(() => {
   return [
     // {
@@ -536,64 +465,31 @@ const secondaryNavigation = computed(() => {
       icon: CogIcon,
       isAuth: true,
     },
-  ].filter((item) => !item.isAuth || isAuth.value);
-});
-const sidebarOpen = ref(false);
-
-function close() {
-  sidebarOpen.value = false;
-}
-
-const currentRoute = computed(() => {
-  return route.fullPath;
-});
-
-const navigation = computed(() => {
-  return [
     {
-      name: "Dashboard",
-      linkName: "DashboardMain",
-      icon: HomeIcon,
-      route: "dashboard",
+      name: "Login",
+      linkName: false,
+      handler: 'onLoginClicked',
+      route: "login",
+      icon: ArrowRightIcon,
+      isAuth: false,
+      isNotAuth: true,
     },
     {
-      name: "Simulator",
-      linkName: "SimulatorStart",
-      icon: RocketLaunchIcon,
-      route: "simulator",
-    },
-    // {
-    //   name: "Personen",
-    //   linkName: "PersonMain",
-    //   icon: UserIcon,
-    //   route: "person",
-    //   isAuth: true,
-    // },
-    {
-      name: "Gruppen",
-      linkName: "GroupMain",
-      icon: UserGroupIcon,
-      route: "group",
+      name: "Logout",
+      linkName: "home",
+      handler: 'onLogoutClicked',
+      route: "logout",
+      icon: ArrowLeftIcon,
       isAuth: true,
     },
     {
-      name: "Rezept",
-      linkName: "RecipesMain",
-      icon: Bars3Icon,
-      route: "recipe",
+      name: "Registrieren",
+      linkName: "register",
+      route: "register",
+      icon: CogIcon,
+      isAuth: false,
+      isNotAuth: true,
     },
-    {
-      name: "Zutaten",
-      linkName: "IngredientMain",
-      icon: MagnifyingGlassCircleIcon,
-      route: "ingredient",
-    },
-    // {
-    //   name: "Hinweise",
-    //   linkName: "HintMain",
-    //   icon: ScaleIcon,
-    //   route: "hint",
-    //   },
   ].filter((item) => !item.isAuth || isAuth.value);
 });
 </script>
