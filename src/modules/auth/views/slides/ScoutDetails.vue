@@ -32,7 +32,6 @@ import BaseField from "@/components/field/Base.vue";
 import StepFrame from "@/components/stepper/StepFrame.vue";
 
 import { useVuelidate } from "@vuelidate/core";
-import { RegisterScoutDetails } from "./types";
 import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
 import { useRegisterStore } from "../../store";
@@ -41,7 +40,7 @@ const registerStore = useRegisterStore();
 
 const initialState = registerStore.scoutDetails;
 
-const state = reactive<RegisterScoutDetails>({
+const state = reactive({
   scoutName: initialState.scoutName,
   scoutOrganisation: initialState.scoutOrganisation,
   scoutLevel: initialState.scoutLevel,
@@ -49,20 +48,19 @@ const state = reactive<RegisterScoutDetails>({
 
 const rules = {
   scoutName: {},
-  scoutOrganization: {},
-  scoutlevel: {},
+  scoutOrganisation: {},
+  scoutLevel: {},
 };
 
 const router = useRouter();
 
 const v$ = useVuelidate(rules, state);
-const errors = ref([]);
+const errors = ref(v$);
 
 const commonStore = useCommonStore();
 
 function onNextButtonClicked() {
-  v$.value.$validate();
-  errors.value = v$.value;
+  errors.value.$validate();
   console.log(errors.value);
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen");

@@ -38,7 +38,6 @@ import StepFrame from "@/components/stepper/StepFrame.vue";
 
 import { useVuelidate } from "@vuelidate/core";
 import { required, minLength, sameAs, email, helpers } from "@vuelidate/validators";
-import { RegisterBasics } from "./types";
 import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
 import { useRegisterStore } from "@/modules/auth/store/index";
@@ -47,7 +46,7 @@ const registerStore = useRegisterStore();
 
 const initialState = registerStore.basics;
 
-const state = reactive<RegisterBasics>({
+const state = reactive({
   username: initialState.username,
   password: initialState.password,
   repeatPassword: initialState.repeatPassword,
@@ -80,14 +79,13 @@ const rules = {
 const router = useRouter();
 
 const v$ = useVuelidate(rules, state);
-const errors = ref([]);
+const errors = reactive(v$);
 
 const commonStore = useCommonStore();
 
 function onNextButtonClicked() {
-  v$.value.$validate();
-  errors.value = v$.value;
-  console.log(errors.value);
+  errors.value.$validate();
+  console.log(errors);
 
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen");

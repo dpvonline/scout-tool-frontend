@@ -55,17 +55,17 @@ import {
 
 const emit = defineEmits(["update:modelValue"]);
 
-const props = defineProps({
-  component: { type: String, required: true },
-  label: { type: String, required: true },
-  errors: { type: Array, required: false, default: [] },
-  hint: { type: String, required: false, default: "" },
-  modelValue: {
-    type: Boolean,
-    default: false,
-    required: true,
-  },
-});
+const props = withDefaults(defineProps<{
+  component: string,
+  label: string,
+  errors?: [],
+  hint?: string,
+  modelValue: boolean
+}>(), {
+  errors: [],
+  hint: "",
+  modelValue: false
+})
 
 const hasError = computed(() => {
   return props.errors[0] && props.errors.length;
