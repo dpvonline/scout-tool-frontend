@@ -23,6 +23,7 @@ import PhoneNumber from "./PhoneNumber.vue";
 import ZIP from "./ZIP.vue";
 import EMail from "./EMail.vue";
 import Password from "@/components/field/Password.vue";
+import { ErrorObject } from "@vuelidate/core";
 
 const components = {
   Text,
@@ -53,22 +54,25 @@ const componentTreeName = [
   "Password",
 ];
 const emit = defineEmits(["update:modelValue"]);
-const updateValue = (event) => {
-  emit("update:modelValue", event.target.value);
+const updateValue = (event: Event) => {
+  emit("update:modelValue", (event.target as HTMLInputElement).value);
 };
 
-const updateValueDirekt = (event) => {
+const updateValueDirekt = (event: Event) => {
   emit("update:modelValue", event);
 };
 
-const props = defineProps({
-  modelValue: { type: String, required: true },
-  errors: { type: Array, required: false, default: [] },
-  techName: { type: String, required: true },
-  component: { type: String, required: true },
-  label: { type: String, required: true },
-  hint: { type: String, required: false, default: "" },
-});
+const props = withDefaults(defineProps<{
+  modelValue: any,
+  errors?: ErrorObject[],
+  techName: string,
+  component: keyof typeof components,
+  label: string,
+  hint?: string
+}>(), {
+  hint: "",
+  errors: [],
+})
 </script>
 
 <style></style>

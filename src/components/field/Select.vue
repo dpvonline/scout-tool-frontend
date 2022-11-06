@@ -11,14 +11,12 @@
       :class="disabled ? 'text-gray-400' : 'text-gray-700'"
       >{{ props.label }}</ComboboxLabel
     >
-    <div
-      class="relative mt-1"
-    >
+    <div class="relative mt-1">
       <ComboboxInput
         :disabled="disabled"
         class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:text-sm"
         @change="updateSearch($event.target.value)"
-        :display-value="(person) => person?.name"
+        :display-value="(person: SelectOption) => person?.name"
       />
       <ComboboxButton
         :disabled="disabled"
@@ -78,23 +76,38 @@ import {
   ComboboxOptions,
 } from "@headlessui/vue";
 
-const props = defineProps({
-  modelValue: { type: Number, required: true },
-  errors: { type: Array, required: false, default: [] },
-  label: { type: String, required: true },
-  hint: { type: String, required: false, default: "" },
-  cols: { type: Number, required: false, default: 3 },
-  items: { type: Array, required: true },
-  disabled: { type: Boolean, required: false, default: false },
-});
+interface SelectOption {
+  id: number;
+  unavailable?: boolean;
+  name: string;
+  value: string;
+}
+
+const props = withDefaults(
+  defineProps<{
+    modelValue: SelectOption;
+    errors?: any[];
+    label: string;
+    hint?: string;
+    cols?: number;
+    items: SelectOption[];
+    disabled?: boolean;
+  }>(),
+  {
+    errors: [],
+    hint: "",
+    cols: 3,
+    disabled: false,
+  }
+);
 
 const emit = defineEmits(["update:modelValue"]);
 
-const updateSearch = (newValue) => {
+const updateSearch = (newValue: string) => {
   query.value = newValue;
 };
 
-function onSelectChanged(value) {
+function onSelectChanged(value: SelectOption) {
   emit("update:modelValue", value);
 }
 

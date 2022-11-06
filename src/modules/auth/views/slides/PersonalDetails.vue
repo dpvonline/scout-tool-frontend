@@ -31,13 +31,12 @@ import { required, minLength, sameAs, helpers } from "@vuelidate/validators";
 import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
 import { useRegisterStore } from "../../store";
-import { RegisterPersonalDetails } from "./types";
 
 const registerStore = useRegisterStore();
 
 const initialState = registerStore.personalDetails;
 
-const state = reactive<RegisterPersonalDetails>({
+const state = reactive({
   mobileNumber: initialState.mobileNumber,
   dsgvoConfirmed: initialState.dsgvoConfirmed,
   firstName: initialState.firstName,
@@ -78,13 +77,12 @@ const rules = {
 const router = useRouter();
 
 const v$ = useVuelidate(rules, state);
-const errors = ref([]);
+const errors = ref(v$);
 
 const commonStore = useCommonStore();
 
 async function onNextButtonClicked() {
-  v$.value.$validate();
-  errors.value = v$.value;
+  errors.value.$validate();
   console.log(errors.value);
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen");
