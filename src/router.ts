@@ -32,7 +32,6 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    debugger;
     return { x: 0, y: 0 }
   },
 });

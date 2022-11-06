@@ -172,12 +172,10 @@ function onAddGroup() {
 }
 
 function onConfirmClicked() {
-    commonStore.showSuccess("Zutat erfolgreich gelöscht");
     openRequestAccess.value = false;
     const id = route.params.id;
     groupStore.sendGroupRequest(id).then((response) => {
-      debugger;
-      console.log(response);
+      commonStore.showSuccess("Antrag erfolgreich eingereicht");
     })
 
 }
