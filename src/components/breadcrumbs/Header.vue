@@ -1,6 +1,6 @@
 <template>
   <nav class="flex border-b border-gray-200 bg-white" aria-label="Breadcrumb">
-    <ol role="list" class="mx-auto flex w-full space-x-4 px-4 sm:px-6">
+    <ol role="list" class="mx-auto flex w-full sm:space-x-4 px-2 lg:px-6">
       <li class="flex">
         <div class="flex items-center">
           <button
@@ -14,7 +14,7 @@
       <li v-for="page in props.pages" :key="page.name" class="flex">
         <div class="flex items-center">
           <svg
-            class="h-full w-6 flex-shrink-0 text-gray-200"
+            class="h-full w-3 sm:w-6 flex-shrink-0 text-gray-300"
             viewBox="0 0 24 44"
             preserveAspectRatio="none"
             fill="currentColor"
@@ -24,8 +24,17 @@
             <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
           </svg>
           <router-link
+            v-if="page.id"
             :to="{ name: page.link, params: { id: page.id } }"
-            class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
+            class="
+              ml-1
+              sm:ml-4
+              text-xs
+              sm:text-sm
+              font-medium
+              text-gray-500
+              hover:text-gray-700
+            "
             :aria-current="page.current ? 'page' : undefined"
             >{{ page.name }}</router-link
           >

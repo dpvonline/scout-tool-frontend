@@ -43,7 +43,9 @@ import { useAuthStore } from "@/modules/auth/store/index";
 const route = useRoute();
 
 const pages = computed(() => {
-  const returnArry = [{ name: "Alle Gruppen", link: "GroupMain" }];
+  const returnArry = [
+    { name: "Alle Gruppen", link: "GroupMain", id: route.params.id },
+  ];
   const groupObj = { link: "GroupOverview" };
   if (group?.value?.parent?.parent?.parent) {
     returnArry.push({ ...group.value.parent.parent.parent, ...groupObj });
