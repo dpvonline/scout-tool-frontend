@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="sm:flex sm:items-center">
+    <div class="sm:flex mx-3 sm:items-center">
       <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
         <button
           @click="onAddGroup"
