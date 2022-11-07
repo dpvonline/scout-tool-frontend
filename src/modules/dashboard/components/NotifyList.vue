@@ -4,10 +4,7 @@
       role="list"
       class="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden"
     >
-      <li
-        v-for="transaction in notofyList"
-        :key="transaction.id"
-      >
+      <li v-for="transaction in notofyList" :key="transaction.id">
         <router-link
           :to="{ name: 'RecipeDetail', params: { id: transaction.id } }"
           class="block bg-white px-4 py-4 hover:bg-gray-50"
@@ -180,17 +177,17 @@
                   }}</time>
                 </td>
                 <td>
-                    <router-link
-                      :to="{
-                        name: 'TaskMain',
-                      }"
-                      class="group inline-flex space-x-2 truncate text-sm"
-                    >
-                  <ChevronRightIcon
-                    class="h-5 w-5 text-gray-400"
-                    aria-hidden="true"
-                  />
-                    </router-link>
+                  <router-link
+                    :to="{
+                      name: 'TaskMain',
+                    }"
+                    class="group inline-flex space-x-2 truncate text-sm"
+                  >
+                    <ChevronRightIcon
+                      class="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </router-link>
                 </td>
               </tr>
             </tbody>
@@ -202,7 +199,7 @@
               items-center
               justify-between
               border-t border-gray-200
-              bg-white
+              bg-blue
               px-4
               py-3
               sm:px-6
@@ -219,13 +216,13 @@
                   items-center
                   rounded-md
                   border border-gray-300
-                  bg-white
+                  bg-blue-600
                   px-4
                   py-2
                   text-sm
                   font-medium
-                  text-gray-700
-                  hover:bg-gray-50
+                  text-gray-100
+                  hover:bg-blue-500
                 "
                 >Alle Aufgaben</router-link
               >
@@ -245,13 +242,13 @@ import { CircleStackIcon, ChevronRightIcon } from "@heroicons/vue/20/solid";
 const notofyList = [
   {
     id: 1,
-    name: 'Freigabe',
-    status: 'Wartet auf Freigabe',
+    name: "Freigabe",
+    status: "Wartet auf Freigabe",
   },
   {
     id: 1,
-    name: 'Freigabe',
-    status: 'Wartet auf Freigabe',
-  }
-]
+    name: "Freigabe",
+    status: "Wartet auf Freigabe",
+  },
+];
 </script>

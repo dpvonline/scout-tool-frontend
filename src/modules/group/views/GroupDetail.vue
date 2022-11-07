@@ -28,7 +28,6 @@
           </TabPanels>
         </TabGroup>
       </article>
-      <div class="xl:hidden" v-else>Bitte Wähle eine Zutat</div>
     </main>
   </div>
 </template>
@@ -45,22 +44,22 @@ const route = useRoute();
 
 const pages = computed(() => {
   const returnArry = [{ name: "Alle Gruppen", link: "GroupMain" }];
+  const groupObj = { link: "GroupOverview" };
   if (group?.value?.parent?.parent?.parent) {
-    returnArry.push(group.value.parent.parent.parent)
+    returnArry.push({ ...group.value.parent.parent.parent, ...groupObj });
   }
 
   if (group?.value?.parent?.parent) {
-    returnArry.push(group.value.parent.parent)
+    returnArry.push({ ...group.value.parent.parent, ...groupObj });
   }
 
   if (group?.value?.parent) {
-    returnArry.push(group.value.parent)
+    returnArry.push({ ...group.value.parent, ...groupObj });
   }
 
   if (group?.value) {
-    returnArry.push(group.value)
+    returnArry.push({ ...group.value, ...groupObj });
   }
-
   return returnArry;
 });
 
@@ -79,6 +78,13 @@ const tabs = computed(() => {
       linkName: "GroupMember",
       component: "GroupMember",
       selected: route.name === "GroupMember",
+    },
+    {
+      name: "Anträge",
+      id: 3,
+      linkName: "GroupRequests",
+      component: "GroupRequests",
+      selected: route.name === "GroupRequests",
     },
   ];
 });

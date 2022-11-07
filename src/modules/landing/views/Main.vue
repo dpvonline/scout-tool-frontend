@@ -25,17 +25,17 @@
                     sm:text-5xl
                   "
                 >
-                  Bundeapp Beta
+                  Beta
                 </h1>
                 <p class="mt-6 text-xl text-gray-500">
-                  Die Bundesapp digitalisiert Pfadfinderverwaltungsprozess,
+                  Diese App  digitalisiert Pfadfinderverwaltungsprozess,
                   sodass mehr Zeit für die echte Arbeit bleibt.
                 </p>
               </div>
               <form action="#" class="mt-12 sm:flex sm:w-full sm:max-w-lg">
                 <div class="mx-4 sm:mt-0 sm:ml-3">
                   <router-link
-                    :to="{ name: 'Login'}"
+                    :to="{ name: 'Login' }"
                     class="
                       block
                       w-full
@@ -61,7 +61,7 @@
                 </div>
                 <div class="mx-4 sm:mt-0 sm:ml-3">
                   <router-link
-                    :to="{ name: 'RegisterBasics'}"
+                    :to="{ name: 'RegisterBasics' }"
                     class="
                       block
                       w-full
@@ -95,7 +95,7 @@
 </template>
 
 <script setup>
-import { defineComponent, h, onMounted } from "vue";
+import { defineComponent, onMounted } from "vue";
 import { ChevronRightIcon, StarIcon } from "@heroicons/vue/20/solid";
 
 import { useAuthStore } from "@/modules/auth/store/index.ts";
@@ -108,7 +108,6 @@ const router = useRouter();
 function onLoginClicked() {
   authStore.login();
 }
-
 
 onMounted(() => {
   if (authStore.isAuth) {

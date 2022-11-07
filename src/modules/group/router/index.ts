@@ -3,15 +3,15 @@ export default [
     path: "/group",
     name: "GroupMain",
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
     },
-    component: () => import(/* webpackChunkName: "groupMain" */ "@/modules/group/views/Main.vue"),
+    component: () => import(/* webpackChunkName: "GroupMain" */ "@/modules/group/views/Main.vue"),
   },
   {
     path: "/group/:id",
     name: "GroupDetail",
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
     },
     component: () => import(/* webpackChunkName: "GroupDetail" */ "@/modules/group/views/GroupDetail.vue"),
     children: [
@@ -19,7 +19,7 @@ export default [
         path: "member",
         name: "GroupMember",
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
         },
         component: () => import(/* webpackChunkName: "GroupMember" */ "@/modules/group/views/tabs/Member.vue"),
       },
@@ -27,10 +27,18 @@ export default [
         path: "overview",
         name: "GroupOverview",
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
         },
         component: () => import(/* webpackChunkName: "GroupOverview" */ "@/modules/group/views/tabs/Overview.vue"),
       },
+      {
+        path: "requests",
+        name: "GroupRequests",
+        meta: {
+          requiresAuth: true,
+        },
+        component: () => import(/* webpackChunkName: "GroupRequests" */ "@/modules/group/views/tabs/Requests.vue"),
+      },
     ],
   },
-]
+];

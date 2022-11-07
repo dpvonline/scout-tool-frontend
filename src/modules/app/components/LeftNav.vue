@@ -72,7 +72,7 @@
             </TransitionChild>
             <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
               <div class="flex flex-shrink-0 items-center px-4">
-                <router-link :to="{ name: 'DashboardMain' }">
+                <router-link :to="{ name: 'LandingMain' }">
                   <img
                     class="h-12 w-auto"
                     src="./../assets/logo.png"
@@ -194,7 +194,7 @@
       >
         <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
           <div class="flex flex-shrink-0 items-center px-4">
-            <router-link :to="{ name: 'DashboardMain' }">
+            <router-link :to="{ name: 'LandingMain' }">
               <img
                 class="h-16 w-auto"
                 src="./../assets/logo.png"
@@ -319,7 +319,7 @@
         "
       >
         <div>
-          <router-link :to="{ name: 'DashboardMain' }">
+          <router-link :to="{ name: 'LandingMain' }">
             <img
               class="h-12 w-auto"
               src="./../assets/logo.png"
@@ -327,50 +327,35 @@
             />
           </router-link>
         </div>
-        <div class="flex flex-1 px-8 justify-end">
-          <li
-            class="
-              font-sans
-              block
-              mt-4
-              lg:inline-block lg:mt-0 lg:ml-6
-              align-middle
-              text-black
-              hover:text-gray-700
-            "
+        <div class="flex flex-1 align-middle px-8 justify-end">
+          <router-link
+            :to="{ name: 'TaskMain' }"
+            role="button"
+            class="relative flex align-middle"
           >
-            <router-link
-              :to="{ name: 'TaskMain' }"
-              role="button"
-              class="relative flex"
-            >
-              <BellIcon
-                class="flex-1 w7 h-7 fill-current"
-                viewbox="0 0 24 24"
-              />
-              <span
-                class="
-                  absolute
-                  right-0
-                  top-0
-                  rounded-full
-                  bg-red-600
-                  w-4
-                  h-4
-                  top
-                  right
-                  p-0
-                  m-0
-                  text-white
-                  font-mono
-                  text-sm
-                  leading-tight
-                  text-center
-                "
-                >5
-              </span>
-            </router-link>
-          </li>
+            <BellIcon class="flex-1 w7 h-7 align-middle" viewbox="0 0 24 24" />
+            <span
+              class="
+                absolute
+                right-0
+                top-0
+                rounded-full
+                bg-red-600
+                w-4
+                h-4
+                top
+                right
+                p-0
+                m-0
+                text-white
+                font-mono
+                text-sm
+                leading-tight
+                text-center
+              "
+              >5
+            </span>
+          </router-link>
         </div>
         <div>
           <button

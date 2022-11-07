@@ -2,13 +2,13 @@ import { defineStore } from "pinia";
 
 import GroupApi from "@/modules/group/services/group";
 
-
 export const useGroupStore = defineStore("group", {
   state: () => ({
     _groups: [],
     _groupsOverview: [],
     _group: [],
     _groupMembers: [],
+    _requests: [],
   }),
 
   actions: {
@@ -39,9 +39,34 @@ export const useGroupStore = defineStore("group", {
         console.log(error);
       }
     },
+    async fetchRequestById(id: number) {
+      try {
+        const response = await GroupApi.fetchRequestById(id);
+        this._requests = response.data;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
     async sendGroupRequest(id: number) {
       try {
         return await GroupApi.sendGroupRequest(id);
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
+    async sendAcceptRequest(groupId: number, requestId: number) {
+      try {
+        return await GroupApi.sendAcceptRequest(groupId, requestId);
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
+    async sendDeclineRequest(groupId: number, requestId: number) {
+      try {
+        return await GroupApi.sendDeclineRequest(groupId, requestId);
       } catch (error) {
         alert(error);
         console.log(error);
@@ -60,6 +85,9 @@ export const useGroupStore = defineStore("group", {
     },
     groupsOverview: (state) => {
       return state._groupsOverview;
+    },
+    requests: (state) => {
+      return state._requests;
     },
   },
 });
