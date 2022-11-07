@@ -1,6 +1,6 @@
 <template>
   <div>
-    Notifications
+    Hier sollst du deine offenen und bearbeiten Anträge stehen könen.
   </div>
 </template>
 

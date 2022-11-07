@@ -108,6 +108,16 @@
                       aria-hidden="true"
                     />
                     {{ item.name }}
+                    <span
+                      v-if="item.count"
+                      :class="[
+                        item.current
+                          ? 'bg-white'
+                          : 'bg-gray-100 group-hover:bg-gray-200',
+                        'ml-3 inline-block py-0.5 px-3 text-xs font-medium rounded-full',
+                      ]"
+                      >{{ item.count }}</span
+                    >
                   </router-link>
                 </div>
                 <hr
@@ -219,7 +229,17 @@
                   ]"
                   aria-hidden="true"
                 />
-                {{ item.name }}
+                <span class="flex-1">{{ item.name }}</span>
+                <span
+                  v-if="item.count"
+                  :class="[
+                    item.current
+                      ? 'bg-white'
+                      : 'bg-gray-100 group-hover:bg-gray-200',
+                    'ml-3 inline-block py-0.5 px-3 text-xs font-medium rounded-full',
+                  ]"
+                  >{{ item.count }}</span
+                >
               </router-link>
             </div>
             <hr
@@ -268,6 +288,16 @@
                   aria-hidden="true"
                 />
                 {{ item.name }}
+                <span
+                  v-if="item.count"
+                  :class="[
+                    item.current
+                      ? 'bg-white'
+                      : 'bg-gray-100 group-hover:bg-gray-200',
+                    'ml-3 inline-block py-0.5 px-3 text-xs font-medium rounded-full',
+                  ]"
+                  >{{ item.count }}</span
+                >
               </router-link>
             </div>
           </nav>
@@ -296,6 +326,51 @@
               alt="Your Company"
             />
           </router-link>
+        </div>
+        <div class="flex flex-1 px-8 justify-end">
+          <li
+            class="
+              font-sans
+              block
+              mt-4
+              lg:inline-block lg:mt-0 lg:ml-6
+              align-middle
+              text-black
+              hover:text-gray-700
+            "
+          >
+            <router-link
+              :to="{ name: 'TaskMain' }"
+              role="button"
+              class="relative flex"
+            >
+              <BellIcon
+                class="flex-1 w7 h-7 fill-current"
+                viewbox="0 0 24 24"
+              />
+              <span
+                class="
+                  absolute
+                  right-0
+                  top-0
+                  rounded-full
+                  bg-red-600
+                  w-4
+                  h-4
+                  top
+                  right
+                  p-0
+                  m-0
+                  text-white
+                  font-mono
+                  text-sm
+                  leading-tight
+                  text-center
+                "
+                >5
+              </span>
+            </router-link>
+          </li>
         </div>
         <div>
           <button
@@ -363,6 +438,7 @@ import {
   ArrowLeftIcon,
   UserGroupIcon,
   UserIcon,
+  BellIcon,
 } from "@heroicons/vue/24/outline";
 
 import { ref, computed } from "vue";
@@ -415,6 +491,14 @@ const navigation = computed(() => {
       icon: UserGroupIcon,
       route: "group",
       isAuth: true,
+    },
+    {
+      name: "Aufgaben",
+      linkName: "TaskMain",
+      icon: BellIcon,
+      route: "task",
+      isAuth: true,
+      count: 5,
     },
     // {
     //   name: "Rezept",

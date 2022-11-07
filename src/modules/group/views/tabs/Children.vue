@@ -1,5 +1,5 @@
 <template>
-  <div class="py-4">
+  <div>
     <div class="sm:flex sm:items-center">
       <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
         <button
@@ -58,87 +58,72 @@
         </button>
       </div>
     </div>
-    <div class="mt-8 flex flex-col">
-      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-          <div
+    <table class="min-w-full divide-y divide-gray-300">
+      <thead class="bg-gray-50">
+        <tr>
+          <th
+            scope="col"
             class="
-              overflow-hidden
-              shadow
-              ring-1 ring-black ring-opacity-5
-              md:rounded-lg
+              py-3.5
+              pl-4
+              pr-3
+              text-left text-sm
+              font-semibold
+              text-gray-900
+              sm:pl-6
             "
           >
-            <table class="min-w-full divide-y divide-gray-300">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th
-                    scope="col"
-                    class="
-                      py-3.5
-                      pl-4
-                      pr-3
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                      sm:pl-6
-                    "
-                  >
-                    Name
-                  </th>
-                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                    <span class="sr-only">Öffnen</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="person in group.children" :key="person.email">
-                  <td
-                    class="
-                      whitespace-nowrap
-                      py-4
-                      pl-4
-                      pr-3
-                      text-sm
-                      font-medium
-                      text-gray-900
-                      sm:pl-6
-                    "
-                  >
-                    {{ person.name }}
-                  </td>
-                  <td
-                    class="
-                      relative
-                      whitespace-nowrap
-                      py-4
-                      pl-3
-                      pr-4
-                      text-right text-sm
-                      font-medium
-                      sm:pr-6
-                    "
-                  >
-                    <router-link
-                      :to="{
-                        name: 'GroupOverview',
-                        params: {
-                          id: person.id,
-                        },
-                      }"
-                      class="text-blue-600 hover:text-blue-900"
-                      >Öffnen<span class="sr-only"
-                        >, {{ person.name }}</span
-                      ></router-link
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+            Name
+          </th>
+          <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+            <span class="sr-only">Öffnen</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200 bg-white">
+        <tr v-for="person in group.children" :key="person.email">
+          <td
+            class="
+              whitespace-nowrap
+              py-4
+              pl-4
+              pr-3
+              text-sm
+              font-medium
+              text-gray-900
+              sm:pl-6
+            "
+          >
+            {{ person.name }}
+          </td>
+          <td
+            class="
+              relative
+              whitespace-nowrap
+              py-4
+              pl-3
+              pr-4
+              text-right text-sm
+              font-medium
+              sm:pr-6
+            "
+          >
+            <router-link
+              :to="{
+                name: 'GroupOverview',
+                params: {
+                  id: person.id,
+                },
+              }"
+              class="text-blue-600 hover:text-blue-900"
+              >Öffnen<span class="sr-only"
+                >, {{ person.name }}</span
+              ></router-link
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <RequestModal
       :open="openRequestAccess"
       :callbackOnConfirm="onConfirmClicked"
@@ -172,15 +157,14 @@ function onAddGroup() {
 }
 
 function onConfirmClicked() {
-    openRequestAccess.value = false;
-    const id = route.params.id;
-    groupStore.sendGroupRequest(id).then((response) => {
-      commonStore.showSuccess("Antrag erfolgreich eingereicht");
-    })
-
+  openRequestAccess.value = false;
+  const id = route.params.id;
+  groupStore.sendGroupRequest(id).then((response) => {
+    commonStore.showSuccess("Antrag erfolgreich eingereicht");
+  });
 }
 function onCancellicked() {
-    openRequestAccess.value = false;
+  openRequestAccess.value = false;
 }
 
 const group = computed(() => {

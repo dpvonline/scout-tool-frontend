@@ -14,6 +14,7 @@ import AuthRouter from "@/modules/auth/router";
 import GroupRouter from "@/modules/group/router";
 import PersonRouter from "@/modules/person/router";
 import LandingMain from "@/modules/landing/router";
+import TaskRouter from "@/modules/task/router";
 
 const routes = [
   ...DashboardRouter,
@@ -28,6 +29,7 @@ const routes = [
   ...GroupRouter,
   ...PersonRouter,
   ...LandingMain,
+  ...TaskRouter,
 ];
 
 const router = createRouter({

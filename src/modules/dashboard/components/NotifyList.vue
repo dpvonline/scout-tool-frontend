@@ -65,7 +65,7 @@
             text-gray-700
             hover:text-gray-500
           "
-          >Alle Nachrichten</router-link
+          >Zu allen Aufgaben</router-link
         >
       </div>
     </nav>
@@ -145,8 +145,7 @@
                   <div class="flex">
                     <router-link
                       :to="{
-                        name: 'RecipeDetail',
-                        params: { id: transaction.id },
+                        name: 'TaskMain',
                       }"
                       class="group inline-flex space-x-2 truncate text-sm"
                     >
@@ -183,8 +182,7 @@
                 <td>
                     <router-link
                       :to="{
-                        name: 'RecipeDetail',
-                        params: { id: transaction.id },
+                        name: 'TaskMain',
                       }"
                       class="group inline-flex space-x-2 truncate text-sm"
                     >
@@ -213,7 +211,7 @@
           >
             <div class="flex flex-1 justify-between sm:justify-end">
               <router-link
-                :to="{ name: 'RecipesMain' }"
+                :to="{ name: 'TaskMain' }"
                 class="
                   relative
                   ml-3

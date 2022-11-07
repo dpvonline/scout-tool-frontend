@@ -5,7 +5,7 @@
         <div class="mt-8">
           <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 class="text-lg font-medium leading-6 text-gray-900">
-              Zusammenfassung
+              Hallo {{ personalData.firstName }}, das ist dein Dashboard.
             </h2>
             <div
               class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
@@ -60,7 +60,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import { ScaleIcon, UserGroupIcon, UserIcon } from "@heroicons/vue/24/outline";
+import { ScaleIcon, UserGroupIcon, UserIcon, BellIcon } from "@heroicons/vue/24/outline";
+import {usePersonalDataStore} from "@/modules/settings/store/personal-data";
 
 import NotifyList from "@/modules/dashboard/components/NotifyList.vue";
 
@@ -78,9 +79,28 @@ const cards = computed(() => {
       icon: UserGroupIcon, 
       amount: 74,
     },
+    {
+      name: "Aufgaben",
+      href: "TaskMain",
+      icon: BellIcon, 
+      amount: 2,
+    },
   ];
 });
 
-onMounted(() => {
+
+import { useRoute } from "vue-router";
+
+const personalDataStore = usePersonalDataStore();
+
+const route = useRoute();
+
+const personalData = computed(() => {
+  return personalDataStore.personalData;
 });
+
+onMounted(() => {
+  personalDataStore.fetchPersonalData();
+});
+
 </script>

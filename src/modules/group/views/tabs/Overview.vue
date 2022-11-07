@@ -1,6 +1,6 @@
 <template>
-  <div class="px-4 sm:px-6 lg:px-8 py-8">
-    <div class="mt-5 border-t border-gray-200">
+  <div class="">
+    <div class="mt-3 border-gray-200">
       <dl class="sm:divide-y sm:divide-gray-200">
         <div v-for="field of infoFields" :key="field.id" class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
           <dt class="text-sm font-medium text-gray-500">{{field.label}}</dt>

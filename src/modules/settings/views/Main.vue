@@ -90,8 +90,8 @@ const router = useRouter();
 const tabs = computed(() => {
   return [
     { name: "Allgemein", linkName: "SettingsGeneral", current: route.name === "SettingsGeneral" || route.name === "SettingsGeneralEdit" },
-    { name: "Passwort", linkName: "SettingsPassword", current: route.name === "SettingsPassword" },
-    { name: "Benachrichtigungen", linkName: "SettingsNotifications", current: route.name === "SettingsNotifications" },
+    // { name: "Passwort", linkName: "SettingsPassword", current: route.name === "SettingsPassword" },
+    { name: "Anträge", linkName: "SettingsNotifications", current: route.name === "SettingsNotifications" },
   ];
 });
 
