@@ -320,6 +320,7 @@ const personalData = computed(() => {
 });
 
 onMounted(() => {
+  moment.updateLocale(moment.locale(), { invalidDate: "" })
   personalDataStore.fetchPersonalData(route.query);
 });
 
