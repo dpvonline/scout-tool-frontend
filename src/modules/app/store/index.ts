@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 
-export const useNavStore = defineStore('navStore', {
+import { useDashboardStore } from "@/modules/dashboard/store/index.ts";
+
+export const useAppStore = defineStore('appStore', {
   state: () => ({
     _currentRoute: 'home'
   }),

@@ -1,7 +1,7 @@
 <template>
-  <div class="h-full" >
+  <div class="h-full">
     <div class="flex flex-1 flex-col 2xl:pa-64">
-      <main class="relative h-screen flex-1 pb-8 overflow-y-auto" >
+      <main class="relative h-screen flex-1 pb-8 overflow-y-auto">
         <div class="mt-8">
           <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 class="text-lg font-medium leading-6 text-gray-900">
@@ -52,6 +52,7 @@
             </div>
           </div>
           <NotifyList />
+          <MyGroups :myGroups="myGroups"/>
         </div>
       </main>
     </div>
@@ -60,10 +61,18 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import { ScaleIcon, UserGroupIcon, UserIcon, BellIcon } from "@heroicons/vue/24/outline";
-import {usePersonalDataStore} from "@/modules/settings/store/personal-data";
+import {
+  ScaleIcon,
+  UserGroupIcon,
+  UserIcon,
+  BellIcon,
+} from "@heroicons/vue/24/outline";
+import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
+import { useDashboardStore } from "@/modules/dashboard/store/index.ts";
+import { useGroupStore } from "@/modules/group/store/index.ts";
 
 import NotifyList from "@/modules/dashboard/components/NotifyList.vue";
+import MyGroups from "@/modules/dashboard/components/MyGroups.vue";
 
 const cards = computed(() => {
   return [
@@ -71,36 +80,52 @@ const cards = computed(() => {
       name: "Mitglieder",
       href: "GroupMain",
       icon: UserIcon,
-      amount: 453,
+      amount: userCount,
     },
     {
       name: "Gruppen",
       href: "GroupMain",
-      icon: UserGroupIcon, 
-      amount: 74,
+      icon: UserGroupIcon,
+      amount: groupCount,
     },
     {
       name: "Aufgaben",
       href: "TaskMain",
-      icon: BellIcon, 
-      amount: 2,
+      icon: BellIcon,
+      amount: openTaskCount,
     },
   ];
 });
 
-
 import { useRoute } from "vue-router";
 
 const personalDataStore = usePersonalDataStore();
+const dashboardStore = useDashboardStore();
+const groupStore = useGroupStore();
 
 const route = useRoute();
 
 const personalData = computed(() => {
   return personalDataStore.personalData;
 });
+const groupCount = computed(() => {
+  return dashboardStore.groupCount;
+});
+const userCount = computed(() => {
+  return dashboardStore.userCount;
+});
+const openTaskCount = computed(() => {
+  return dashboardStore.openTaskCount;
+});
+const myGroups = computed(() => {
+  return groupStore.myGroups;
+});
 
 onMounted(() => {
   personalDataStore.fetchPersonalData();
+  dashboardStore.fetchGroupCount()
+  dashboardStore.fetchUserCount()
+  dashboardStore.fetchMyRequests()
+  groupStore.fetchMyGroups()
 });
-
 </script>

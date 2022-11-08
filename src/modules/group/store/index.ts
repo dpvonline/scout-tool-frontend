@@ -8,7 +8,9 @@ export const useGroupStore = defineStore("group", {
     _groupsOverview: [],
     _group: [],
     _groupMembers: [],
+    _groupCount: 0,
     _requests: [],
+    _myGroups: [],
   }),
 
   actions: {
@@ -72,6 +74,24 @@ export const useGroupStore = defineStore("group", {
         console.log(error);
       }
     },
+    async fetchGroupCount() {
+      try {
+        const response = await GroupApi.fetchGroupCount();
+        this._groupCount = response.data.count;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
+    async fetchMyGroups() {
+      try {
+        const response = await GroupApi.fetchMyGroups();
+        this._myGroups = response.data;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
   },
   getters: {
     groups: (state) => {
@@ -86,8 +106,14 @@ export const useGroupStore = defineStore("group", {
     groupsOverview: (state) => {
       return state._groupsOverview;
     },
+    groupCount: (state) => {
+      return state._groupCount;
+    },
     requests: (state) => {
       return state._requests;
+    },
+    myGroups: (state) => {
+      return state._myGroups;
     },
   },
 });

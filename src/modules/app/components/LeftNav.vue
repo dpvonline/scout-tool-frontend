@@ -353,7 +353,7 @@
                 leading-tight
                 text-center
               "
-              >5
+              >{{ openTaskCount }}
             </span>
           </router-link>
         </div>
@@ -426,14 +426,24 @@ import {
   BellIcon,
 } from "@heroicons/vue/24/outline";
 
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
 import { useAuthStore } from "@/modules/auth/store/index.ts";
 const authStore = useAuthStore();
 
+import { useAppStore } from "@/modules/app/store/index.ts";
+const appStore = useAppStore();
+
+import { useDashboardStore } from "@/modules/dashboard/store/index.ts";
+const dashbordStore = useDashboardStore();
+
 const isAuth = computed(() => {
   return authStore.isAuth;
+});
+
+const openTaskCount = computed(() => {
+  return dashbordStore.openTaskCount;
 });
 
 const route = useRoute();
@@ -483,7 +493,7 @@ const navigation = computed(() => {
       icon: BellIcon,
       route: "task",
       isAuth: true,
-      count: 5,
+      count: openTaskCount
     },
     // {
     //   name: "Rezept",
@@ -548,7 +558,8 @@ const secondaryNavigation = computed(() => {
     (item) => (!item.isAuth || isAuth.value) && (item.isAuth || !isAuth.value)
   );
 });
-</script>
 
-<style>
-</style>
+onMounted(() => {
+  dashbordStore.fetchMyRequests()
+});
+</script>

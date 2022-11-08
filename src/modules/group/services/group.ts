@@ -1,6 +1,7 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_APP_API;
 const SERVICE = "keycloak/group";
+const MODULE = "keycloak";
 
 export default {
   fetchAll(params: any) {
@@ -36,5 +37,11 @@ export default {
 
   delete(id: any) {
     return axios.delete(`${BASE_URL}/${SERVICE}/${id}/`);
+  },
+  fetchGroupCount() {
+    return axios.get(`${BASE_URL}/keycloak/statistics/user-count/`);
+  },
+  fetchMyGroups() {
+    return axios.get(`${BASE_URL}/auth/my-groups/`);
   },
 };
