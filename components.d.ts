@@ -10,7 +10,7 @@ declare module '@vue/runtime-core' {
     AvatarText: typeof import('./src/components/dashboardOld/AvatarText.vue')['default']
     Base: typeof import('./src/components/field/Base.vue')['default']
     BaseButton: typeof import('./src/components/button/BaseButton.vue')['default']
-    Basic: typeof import('./src/components/overlay/Basic.vue')['default']
+    Basic: typeof import('./src/components/modal/Basic.vue')['default']
     ButtonFancy: typeof import('./src/components/dashboardOld/ButtonFancy.vue')['default']
     Date: typeof import('./src/components/field/Date.vue')['default']
     Delete: typeof import('./src/components/modal/Delete.vue')['default']
