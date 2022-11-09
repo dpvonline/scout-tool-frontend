@@ -495,35 +495,11 @@ const navigation = computed(() => {
       isAuth: true,
       count: openTaskCount
     },
-    // {
-    //   name: "Rezept",
-    //   linkName: "RecipesMain",
-    //   icon: Bars3Icon,
-    //   route: "recipe",
-    // },
-    // {
-    //   name: "Zutaten",
-    //   linkName: "IngredientMain",
-    //   icon: MagnifyingGlassCircleIcon,
-    //   route: "ingredient",
-    // },
-    // {
-    //   name: "Hinweise",
-    //   linkName: "HintMain",
-    //   icon: ScaleIcon,
-    //   route: "hint",
-    //   },
   ].filter((item) => !item.isAuth || isAuth.value);
 });
 
 const secondaryNavigation = computed(() => {
   return [
-    // {
-    //   name: "Hintergründe",
-    //   linkName: "FaqMain",
-    //   icon: MagnifyingGlassCircleIcon,
-    //   route: "faq",
-    // },
     {
       name: "Einstellungen",
       linkName: "Settings",

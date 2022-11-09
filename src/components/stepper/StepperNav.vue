@@ -188,7 +188,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { CheckIcon } from "@heroicons/vue/20/solid";
-import { useRecipeStore } from "@/modules/recipe/store/index.ts";
 
 const props = defineProps({
   steps: Array,

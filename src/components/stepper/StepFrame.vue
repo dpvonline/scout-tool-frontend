@@ -43,7 +43,6 @@ import Base from "@/components/field/Base.vue";
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import Success from "@/modules/common/components/Success.vue";
-import { useIngredientStore } from "@/modules/ingredient/store/index.ts";
 
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, maxLength } from "@vuelidate/validators";
@@ -64,8 +63,6 @@ const emit = defineEmits(["click"]);
 const onButtonClicked = () => {
   emit("click");
 };
-
-const ingredientStore = useIngredientStore();
 
 import { useRouter } from "vue-router";
 const router = useRouter();

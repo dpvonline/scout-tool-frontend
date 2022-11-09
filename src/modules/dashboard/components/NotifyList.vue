@@ -6,7 +6,7 @@
     >
       <li v-for="transaction in notofyList" :key="transaction.id">
         <router-link
-          :to="{ name: 'RecipeDetail', params: { id: transaction.id } }"
+          :to="{ name: '', params: { id: transaction.id } }"
           class="block bg-white px-4 py-4 hover:bg-gray-50"
         >
           <span class="flex items-center space-x-4">
@@ -46,7 +46,7 @@
     >
       <div class="flex flex-1 justify-between">
         <router-link
-          :to="{ name: 'RecipesMain' }"
+          :to="{ name: '' }"
           class="
             relative
             ml-3

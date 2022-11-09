@@ -636,8 +636,6 @@ import {
 import { computed, onBeforeMount, watch } from "vue";
 import { useRouter } from "vue-router";
 
-import { useIngredientStore } from "@/modules/ingredient/store/index.ts";
-import NutriSlim from "@/components/score/NutriSlim.vue";
 import ToolDropdown from "@/components/base/list/components/ToolDropdown.vue";
 
 const props = defineProps({
@@ -708,10 +706,6 @@ function updateFilters(option, section) {
 
 const searchInput = ref("");
 
-const ingredientStore = useIngredientStore();
-const ingredients = computed(() => {
-  return ingredientStore.ingredients;
-});
 
 const activeSort = ref("A-Z");
 
