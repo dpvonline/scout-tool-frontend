@@ -30,7 +30,7 @@ import { computed } from "vue";
 import LeftNav from "@/modules/app/components/LeftNav.vue";
 import Success from "@/modules/common/components/Success.vue";
 import Error from "@/modules/common/components/Error.vue";
-import Spinner from "@/components/spinner/Spinner.vue";
+// import Spinner from "@/components/spinner/Spinner.vue";
 
 const authStore = useAuthStore();
 
