@@ -1,6 +1,6 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_APP_API;
-const SERVICE = 'auth/personal-data'
+const SERVICE = 'auth/personal-data/'
 
 export default {
 
