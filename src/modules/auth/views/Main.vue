@@ -7,14 +7,14 @@
   </div>
 </template>
 <script setup lang="ts">
-import StepperNav from "@/components/stepper/StepperNav.vue";
-import { useRouter } from "vue-router";
-import { useRegisterStore } from "../store";
-import { onBeforeRouteLeave } from "vue-router";
+import StepperNav from "@/components/stepper/StepperNav.vue"
+import { useRouter } from "vue-router"
+import { useRegisterStore } from "../store"
+import { onBeforeRouteLeave } from "vue-router"
 
-const router = useRouter();
+const router = useRouter()
 
-const registerStore = useRegisterStore();
+const registerStore = useRegisterStore()
 
 const steps = computed(() => {
   return [
@@ -23,10 +23,7 @@ const steps = computed(() => {
       name: "Basics",
       description: "Technische Must-haves",
       link: "RegisterBasics",
-      status: getStatus("RegisterBasics", [
-        "RegisterScoutDetails",
-        "RegisterPersonalDetails",
-      ]),
+      status: getStatus("RegisterBasics", ["RegisterScoutDetails", "RegisterPersonalDetails"]),
     },
     {
       id: 2,
@@ -42,13 +39,13 @@ const steps = computed(() => {
       link: "RegisterPersonalDetails",
       status: getStatus("RegisterPersonalDetails", []),
     },
-  ];
-});
+  ]
+})
 
 function getStatus(value: string, next: Array<String>) {
-  let status = router.currentRoute.value.name === value ? "current" : "";
-  status = next.includes(router.currentRoute.value.name) ? "complete" : status;
-  return status;
+  let status = router.currentRoute.value.name === value ? "current" : ""
+  status = next.includes(router.currentRoute.value.name?.toString() || "") ? "complete" : status
+  return status
 }
 
 onMounted(() => {
@@ -65,9 +62,9 @@ onBeforeRouteLeave((to, from) => {
   )
   if (exit) {
     registerStore.reset()
-    return true;
+    return true
   } else {
-    return false;
+    return false
   }
-});
+})
 </script>

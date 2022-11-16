@@ -1,14 +1,9 @@
-import { defineStore } from "pinia";
-import { keycloak } from "@/modules/auth/keycloak";
-import { KeycloakProfile } from "keycloak-js";
-import {
-  RegisterBasics,
-  RegisterPersonalDetails,
-  RegisterScoutDetails,
-} from "../views/slides/types";
-import { useStorage } from "@vueuse/core";
-import services from "@/modules/auth/services/mapping";
-import register from "../services/register";
+import { defineStore } from "pinia"
+import { keycloak } from "@/modules/auth/keycloak"
+import { useStorage } from "@vueuse/core"
+import mappingServices from "@/modules/auth/services/mapping"
+import registerServices from "../services/register"
+import checkingServices from "../services/checking"
 
 export const useAuthStore = defineStore("authStore", {
   state: () => ({
@@ -21,35 +16,35 @@ export const useAuthStore = defineStore("authStore", {
   }),
 
   actions: {
-    login(route: string) {
-      keycloak.login();
+    login() {
+      keycloak.login()
     },
-    logout(route: string) {
-      keycloak.logout();
+    logout() {
+      keycloak.logout()
     },
   },
 
   getters: {
     accessToken: (state) => {
-      return state._accessToken;
+      return state._accessToken
     },
     refreshToken: (state) => {
-      return state._refreshToken;
+      return state._refreshToken
     },
     user: (state) => {
-      return state._user;
+      return state._user
     },
     isAuth: (state) => {
-      return state._isAuth;
+      return state._isAuth
     },
     isAdmin: (state) => {
-      return state._isAdmin;
+      return state._isAdmin
     },
     isKeycloakInit: (state) => {
-      return state._isKeycloakInit;
+      return state._isKeycloakInit
     },
   },
-});
+})
 
 export const useRegisterStore = defineStore("registerStore", {
   state: () => ({
@@ -92,12 +87,12 @@ export const useRegisterStore = defineStore("registerStore", {
         password: "",
         repeatPassword: "",
         email: "",
-      });
+      })
       this.updateScoutDetails({
         scoutName: "",
         scoutOrganisation: "",
         scoutLevel: "",
-      });
+      })
       this.updatePersonalDetails({
         mobileNumber: "",
         dsgvoConfirmed: false,
@@ -108,33 +103,33 @@ export const useRegisterStore = defineStore("registerStore", {
         zipCode: "",
         gender: "",
         birthdate: "",
-      });
+      })
     },
     setRegistered() {
-      this._registered = true;
+      this._registered = true
     },
     async fetchAllMappings(params = {}) {
       try {
-        const genders = await services.fetchGenderMappings();
-        this._mappings.gender = genders.data;
+        const genders = await mappingServices.fetchGenderMappings()
+        this._mappings.gender = genders.data
       } catch (e) {
-        alert(e);
-        console.error(e);
+        alert(e)
+        console.error(e)
       }
 
       try {
-        const scoutHierarchy = await services.fetchScoutHierarchyMappings();
-        this._mappings.scoutHierarchy = scoutHierarchy.data;
+        const scoutHierarchy = await mappingServices.fetchScoutHierarchyMappings()
+        this._mappings.scoutHierarchy = scoutHierarchy.data
       } catch (e) {
-        alert(e);
-        console.error(e);
+        alert(e)
+        console.error(e)
       }
       try {
-        const scoutLevel = await services.fetchScoutLevelMappings();
-        this._mappings.scoutLevel = scoutLevel.data;
+        const scoutLevel = await mappingServices.fetchScoutLevelMappings()
+        this._mappings.scoutLevel = scoutLevel.data
       } catch (e) {
-        alert(e);
-        console.error(e);
+        alert(e)
+        console.error(e)
       }
     },
     register() {
@@ -154,44 +149,58 @@ export const useRegisterStore = defineStore("registerStore", {
         birthDate: this._userdata.personalDetails.birthdate,
         gender: this._userdata.personalDetails.gender.value,
         scoutLevel: this._userdata.scoutDetails.scoutLevel.value,
-      };
+      }
 
-      return register.register(summary);
+      return registerServices.register(summary)
     },
-    updateBasics(basics: RegisterBasics) {
-      this._userdata.basics = basics;
+    updateBasics(basics: typeof this._userdata.basics) {
+      this._userdata.basics = basics
     },
-    updateScoutDetails(scoutDetails: RegisterScoutDetails) {
-      this._userdata.scoutDetails = scoutDetails;
+    updateScoutDetails(scoutDetails: typeof this._userdata.scoutDetails) {
+      this._userdata.scoutDetails = scoutDetails
     },
-    updatePersonalDetails(personalDetails: RegisterPersonalDetails) {
-      this._userdata.personalDetails = personalDetails;
+    updatePersonalDetails(personalDetails: typeof this._userdata.personalDetails) {
+      this._userdata.personalDetails = personalDetails
+    },
+    async usernameAlreadyTaken(username: string): Promise<boolean> {
+      //todo for some reason every request with error status is printed to console
+      try {
+        await checkingServices.usernameIsAlreadyTaken(username)
+        return false
+      } catch (e) {
+        if (e.request.status === 409) {
+          return true
+        }
+        console.error("e" + e)
+        //todo what do here? (user should know something about the situation)
+        return false
+      }
     },
   },
   getters: {
     basics: (state) => {
-      return state._userdata.basics;
+      return state._userdata.basics
     },
     scoutDetails: (state) => {
-      return state._userdata.scoutDetails;
+      return state._userdata.scoutDetails
     },
     personalDetails: (state) => {
-      return state._userdata.personalDetails;
+      return state._userdata.personalDetails
     },
     genderMappings: (state) => {
-      return state._mappings.gender;
+      return state._mappings.gender
     },
     scoutHierarchyMappings: (state) => {
-      return state._mappings.scoutHierarchy;
+      return state._mappings.scoutHierarchy
     },
     scoutLevelMappings: (state) => {
-      return state._mappings.scoutLevel;
+      return state._mappings.scoutLevel
     },
     registered: (state) => {
-      return state._registered;
+      return state._registered
     },
     // isAuth: (state) => {
     //   return state._isAuth;
     // }
   },
-});
+})

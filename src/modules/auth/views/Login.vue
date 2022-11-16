@@ -5,24 +5,22 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted } from "vue"
+import { useRouter } from "vue-router"
+import { useAuthStore } from "@/modules/auth/store/index"
 
-import { useAuthStore } from "@/modules/auth/store/index.ts";
-const authStore = useAuthStore();
-
-import { useRouter } from "vue-router";
-
-const router = useRouter();
+const authStore = useAuthStore()
+const router = useRouter()
 
 function onLoginClicked() {
-  authStore.login();
+  authStore.login()
 }
 
 onMounted(() => {
   if (!authStore.isAuth) {
-    onLoginClicked();
+    onLoginClicked()
   } else {
-    router.push({ name: "Dashboard" });
+    router.push({ name: "Dashboard" })
   }
-});
+})
 </script>
