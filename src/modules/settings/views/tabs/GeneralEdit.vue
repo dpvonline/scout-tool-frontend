@@ -92,9 +92,9 @@
               <BaseField
                 component="PhoneNumber"
                 :label="'Handynummer'"
-                techName="mobileNumber"
-                v-model="state.mobileNumber"
-                :errors="errors.mobileNumber?.$errors"
+                techName="phoneNumber"
+                v-model="state.phoneNumber"
+                :errors="errors.phoneNumber?.$errors"
               />
             </div>
             <div class="pt-4 sm:py-5">
@@ -142,7 +142,7 @@
           <div class="pt-4 sm:py-5">
             <BaseField
               component="Text"
-              :label="'Essgewohnheiten - TODO'"
+              :label="'Essgewohnheiten - kann aktuell noch nicht bearbeitet werden'"
               techName="eatHabits"
               v-model="state.eatHabits"
               :errors="errors.eatHabits?.$errors"
@@ -168,7 +168,7 @@
                   component="Text"
                   :label="'Gruppe'"
                   techName="scoutGroup"
-                  v-model="state.scoutGroup"
+                  v-model="state.scoutGroup.name"
                   :errors="errors.scoutGroup?.$errors"
               />
             </div>
@@ -318,7 +318,8 @@ const state = reactive({
   scoutLevel: '',
   leader: '',
   bundespost: '',
-  emailNotification: true,
+  emailNotification: '',
+  smsNotification: false,
   dsgvoConfirmed: false,
 });
 
@@ -417,10 +418,24 @@ const personalData = computed(() => {
   return personalDataStore.personalData;
 });
 
-onMounted(() => {
-  registerStore.fetchAllMappings();
-  personalDataStore.fetchPersonalData(route.query);
+async function fetchAllMappings() {
+  await registerStore.fetchAllMappings();
+}
+
+async function fetchPersonalData() {
+  await personalDataStore.fetchPersonalData(route.query);
+}
+
+onMounted(async () => {
+  await Promise.allSettled([fetchAllMappings(), fetchPersonalData()]);
   fillpersonalDataStore();
+  console.log(emailNotificationChoices);
+  state.gender = registerStore.genderMappings.find(a => a['name'] === state.gender);
+  state.scoutGroup = registerStore.scoutHierarchyMappings.find(a => a['name'] === state.scoutGroup['name']);
+  state.scoutLevel = registerStore.scoutLevelMappings.find(a => a['name'] === state.scoutLevel);
+  state.bundespost = bundespostChoices.find(a => a['name'] === state.bundespost);
+  state.emailNotification = emailNotificationChoices.find(a => a['name'] === state.emailNotification);
+  console.log(state);
 });
 
 function fillpersonalDataStore() {
@@ -432,9 +447,14 @@ function fillpersonalDataStore() {
   state.email = personalDataStore.personalData.email;
   state.phoneNumber = personalDataStore.personalData.phoneNumber;
   state.address = personalDataStore.personalData.address;
+  state.addressSupplement = personalDataStore.personalData.addressSupplement;
   state.zipCode = personalDataStore.personalData.zipCode?.zipCode;
+  state.scoutGroup = personalDataStore.personalData.scoutGroup;
   state.scoutLevel = personalDataStore.personalData.scoutLevel;
-
+  state.bundespost = personalDataStore.personalData.bundespost;
+  state.emailNotification = personalDataStore.personalData.emailNotification;
+  state.smsNotification = personalDataStore.personalData.smsNotification;
+  state.dsgvoConfirmed = personalDataStore.personalData.dsgvoConfirmed;
 }
 
 watch(personalData.value, (newValue) => {
