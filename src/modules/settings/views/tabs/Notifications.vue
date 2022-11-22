@@ -1,6 +1,6 @@
 <template>
-  <div>
-    Hier sollst du deine offenen und bearbeiten Anträge stehen könen.
+  <div class="mt-5">
+    Hier sollst du deine offenen und bearbeiteten Anträge sehen können.
   </div>
 </template>
 
