@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:col-span-3">
+  <div :class="`sm:col-span-${cols}`">
     <label for="first-name" class="block text-sm font-medium text-gray-700">{{
       props.label
     }}</label>
@@ -9,15 +9,17 @@
         @input="updateValue"
         type="number"
         pattern="[0-9]+([\,|\.][0-9]+)?"
-        step="0.01"
-        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+        step="1"
+        class="
+          block
+          w-full
+          rounded-md
+          border-gray-300
+          shadow-sm
+          focus:border-blue-500 focus:ring-blue-500
+          sm:text-sm
+        "
       />
-    </div>
-    <div
-      v-if="hasError"
-      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
-    >
-      <ExclamationCircleIcon class="h-5 w-5 text-red-500" aria-hidden="true" />
     </div>
     <p class="mt-2 text-sm text-red-500" id="email-description">
       {{ props.errors[0] && props.errors[0].$message }}
@@ -36,6 +38,7 @@ const props = defineProps({
   errors: { type: Array, required: false, default: [] },
   label: { type: String, required: true },
   hint: { type: String, required: false, default: null },
+  cols: { type: Number, required: false, default: 3 },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -49,4 +52,5 @@ const updateValue = (event) => {
 };
 </script>
 
-<style></style>
+<style>
+</style>

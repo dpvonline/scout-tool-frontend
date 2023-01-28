@@ -46,8 +46,8 @@
 
 <script setup lang="ts">
 import { reactive } from "vue";
-import BaseField from "@/components-common/field/Base.vue";
-import StepFrame from "@/components-common/stepper/StepFrame.vue";
+import BaseField from "@/components/field/Base.vue";
+import StepFrame from "@/components/stepper/StepFrame.vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, sameAs, helpers } from "@vuelidate/validators";
 import { useRouter } from "vue-router";

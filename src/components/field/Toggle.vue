@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:col-span-3">
+  <div :class="`sm:col-span-${cols}`">
     <SwitchGroup as="div" class="flex items-center">
       <Switch
         :value="modelValue"
@@ -16,31 +16,12 @@
             'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
           ]"
         />
-        <div
-          v-if="hasError"
-          class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
-        >
-          <ExclamationCircleIcon
-            class="h-5 w-5 text-red-500"
-            aria-hidden="true"
-          />
-        </div>
       </Switch>
       <SwitchLabel as="span" class="ml-3">
         <span class="text-sm font-medium text-gray-900">{{ props.label }}</span>
         <span class="text-sm text-gray-500">{{ props.hint }}</span>
       </SwitchLabel>
     </SwitchGroup>
-    <p class="mt-2 text-sm text-red-500" id="email-description">
-      {{ props.errors[0] && props.errors[0].$message }}
-    </p>
-    <p
-      v-if="props.hint"
-      class="mt-2 text-sm text-gray-500"
-      id="email-description"
-    >
-      {{ props.hint }}
-    </p>
   </div>
 </template>
 
@@ -55,20 +36,15 @@ import {
 
 const emit = defineEmits(["update:modelValue"]);
 
-const props = withDefaults(defineProps<{
-  component: string,
-  label: string,
-  errors?: [],
-  hint?: string,
-  modelValue: boolean
-}>(), {
-  errors: [],
-  hint: "",
-  modelValue: false
-})
-
-const hasError = computed(() => {
-  return props.errors[0] && props.errors.length;
+const props = defineProps({
+  component: { type: String, required: true },
+  label: { type: String, required: true },
+  hint: { type: String, required: false, default: "" },
+  modelValue: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 const updateValue = () => {

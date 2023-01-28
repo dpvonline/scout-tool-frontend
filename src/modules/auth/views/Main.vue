@@ -15,8 +15,8 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
 
-import StepperNavSmall from "@/components-common/stepper/StepperNavSmall.vue"
-import StepperNav from "@/components-common/stepper/StepperNav.vue"
+import StepperNavSmall from "@/components/stepper/StepperNavSmall.vue"
+import StepperNav from "@/components/stepper/StepperNav.vue"
 import { useRouter } from "vue-router"
 import { useRegisterStore } from "../store"
 import { onBeforeRouteLeave } from "vue-router"

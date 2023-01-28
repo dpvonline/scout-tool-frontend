@@ -110,7 +110,7 @@
 import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
 import RequestModal from "@/modules/group/components/RequestModal.vue";
-import Basic from "@/components-common/overlay/Basic.vue";
+import Basic from "@/components/overlay/Basic.vue";
 
 import { useRoute } from "vue-router";
 

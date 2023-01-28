@@ -27,12 +27,13 @@
       aria-hidden="true"
     />
     {{ props.label }}
-    <slot/>
+    <!-- <ChevronRightIcon class="ml-1 -mr-1 h-5 w-5 text-gray-400" aria-hidden="true" /> -->
+    <slot />
   </button>
 </template>
 
 <script setup lang="ts">
-import { ArrowPathIcon } from "@heroicons/vue/20/solid";
+import { ArrowPathIcon, ChevronRightIcon } from "@heroicons/vue/20/solid";
 
 const props = defineProps({
   label: { type: String, required: false },

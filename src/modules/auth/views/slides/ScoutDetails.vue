@@ -30,8 +30,8 @@
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import BaseField from "@/components-common/field/Base.vue";
-import StepFrame from "@/components-common/stepper/StepFrame.vue";
+import BaseField from "@/components/field/Base.vue";
+import StepFrame from "@/components/stepper/StepFrame.vue";
 import { useVuelidate } from "@vuelidate/core";
 import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
