@@ -1,12 +1,9 @@
 <template>
-  <ReadOnlyPerson :personalData="personalData"/>
+  <ReadOnlyPerson :personalData="personalData" class="py-3 px-3"/>
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
-import { PencilIcon } from "@heroicons/vue/20/solid";
-import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";
 import { computed, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import ReadOnlyPerson from '@/modules/person/components/list/ReadOnlyPerson.vue'
@@ -20,7 +17,8 @@ const personalData = computed(() => {
 });
 
 onMounted(() => {
-  personalDataStore.fetchPersonalData(route.query);
+  const id = route.params.id;
+  personalDataStore.fetchPersonalData();
 });
 
 </script>

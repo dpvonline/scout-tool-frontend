@@ -22,13 +22,19 @@
         >
           Nachname
         </th>
+        <th
+          scope="col"
+          class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+        >
+          Pfadfindername
+        </th>
         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
           <span class="sr-only">Edit</span>
         </th>
       </tr>
     </thead>
     <tbody class="divide-y divide-gray-200 bg-white">
-      <tr v-for="person in groupMembers" :key="person.email">
+      <tr v-for="item in groupMembers" :key="item.person.id">
         <td
           class="
             whitespace-nowrap
@@ -41,10 +47,13 @@
             sm:pl-6
           "
         >
-          {{ person.firstName }}
+          {{ item.person.firstName }}
         </td>
         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-          {{ person.lastName }}
+          {{ item.person.lastName }}
+        </td>
+        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+          {{ item.person.scoutName }}
         </td>
         <td
           class="
@@ -58,16 +67,16 @@
             sm:pr-6
           "
         >
-          <router-link
+          <!-- <router-link
             :to="{
-              name: 'GroupOverview',
+              name: 'PersonDetails',
               params: {
-                id: person.id,
+                id: item.person.id,
               },
             }"
             class="text-blue-600 hover:text-blue-900"
-            >Öffnen<span class="sr-only">, {{ person.name }}</span></router-link
-          >
+            >Öffnen<span class="sr-only">, {{ item.person.firstName }}</span></router-link
+          > -->
         </td>
       </tr>
     </tbody>

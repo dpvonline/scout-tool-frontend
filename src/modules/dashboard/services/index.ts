@@ -11,4 +11,7 @@ export default {
   fetchMyRequests() {
     return axios.get(`${BASE_URL}/auth/my-requests/`);
   },
+  fetchMyOwnRequests() {
+    return axios.get(`${BASE_URL}/auth/my-own-requests/`);
+  },
 };

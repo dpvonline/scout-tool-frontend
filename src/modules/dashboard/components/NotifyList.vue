@@ -240,15 +240,5 @@ import moment from "moment";
 import { CircleStackIcon, ChevronRightIcon } from "@heroicons/vue/20/solid";
 
 const notofyList = [
-  {
-    id: 1,
-    name: "Freigabe",
-    status: "Wartet auf Freigabe",
-  },
-  {
-    id: 1,
-    name: "Freigabe",
-    status: "Wartet auf Freigabe",
-  },
 ];
 </script>

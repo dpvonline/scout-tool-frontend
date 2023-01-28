@@ -4,15 +4,24 @@
       <tr>
         <th
           scope="col"
-          class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+          class="
+            py-3.5
+            pl-4
+            pr-3
+            text-left text-sm
+            font-semibold
+            text-gray-900
+            sm:pl-6
+            lg:pl-8
+          "
         >
-          Von
+          Gruppe des Antrags
         </th>
         <th
           scope="col"
           class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
         >
-          Freigeg.
+          Überprüft von
         </th>
         <th
           scope="col"
@@ -24,66 +33,35 @@
           scope="col"
           class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
         >
-          <span class="sr-only"></span>
-        </th>
-        <th
-          scope="col"
-          class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-        >
-          <span class="sr-only"></span>
+          Datum
         </th>
       </tr>
     </thead>
     <tbody class="divide-y divide-gray-200 bg-white">
       <tr v-for="person in requests" :key="person.email">
-        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-          {{ person.user }}
+        <td
+          class="
+            whitespace-nowrap
+            py-4
+            pl-4
+            pr-3
+            text-sm
+            font-medium
+            text-gray-900
+            sm:pl-6
+            lg:pl-8
+          "
+        >
+          {{ person.group.name }} ( {{ person.group.parent.name }})
         </td>
         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-          {{ person.checkedBy }}
+          {{ person.checkedBy.scoutName }} ( {{ person.checkedBy.email }} )
+        </td>
+        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+          {{ moment(person.createdAt).format("llll") }}
         </td>
         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
           {{ person.status }}
-        </td>
-        <td
-          class="
-            relative
-            whitespace-nowrap
-            py-4
-            pl-3
-            pr-4
-            text-right text-sm
-            font-medium
-            sm:pr-6
-          "
-        >
-          <button
-            v-if="!person.checkedBy"
-            @click="onDeclineButtonClicked(person)"
-            class="text-blue-600 hover:text-blue-900"
-          >
-            Ablehnen<span class="sr-only">, {{ person.name }}</span>
-          </button>
-        </td>
-        <td
-          class="
-            relative
-            whitespace-nowrap
-            py-4
-            pl-3
-            pr-4
-            text-right text-sm
-            font-medium
-            sm:pr-6
-          "
-        >
-          <button
-            v-if="!person.checkedBy"
-            @click="onAcceptButtonClicked(person)"
-            class="text-blue-600 hover:text-blue-900"
-          >
-            Zustimmen<span class="sr-only">, {{ person.name }}</span>
-          </button>
         </td>
       </tr>
     </tbody>
@@ -107,6 +85,7 @@
 </template>
 
 <script setup lang="ts">
+import moment from "moment";
 import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
 import RequestModal from "@/modules/group/components/RequestModal.vue";

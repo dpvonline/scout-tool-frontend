@@ -8,19 +8,17 @@
       :filters="filters"
       :buttonList="buttonList"
       mainPageLink="PersonMain"
-      detailPageLink="PersonMain"
+      detailPageLink="PersonDetails"
     >
       <template #listitem="{ item }">
         <div class="flex min-w-0 flex-1 items-center">
-          <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-            <div>
-              <p class="truncate text-sm font-medium text-blue-600">
+          <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-3 md:gap-4">
+              <p class="truncate text-sm font-medium text-gray-800">
                 {{ item.person.scoutName }}
               </p>
               <p class="truncate text-sm font-medium text-gray-800">
-                {{ item.email }}
+                {{ item.person.firstName }} {{ item.person.lastName }}
               </p>
-            </div>
           </div>
         </div>
       </template>

@@ -18,6 +18,15 @@
         <dl class="divide-y divide-gray-200">
           <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
             <div class="pt-4 sm:py-5">
+            <div class="pt-4 sm:py-5">
+              <BaseField
+                  component="Text"
+                  :label="'Fahrtenname'"
+                  techName="scoutName"
+                  v-model="state.scoutName"
+                  :errors="errors.scoutName?.$errors"
+              />
+            </div>
               <BaseField
                   component="Text"
                   :label="'Vorname'"
@@ -33,15 +42,6 @@
                   techName="lastName"
                   v-model="state.lastName"
                   :errors="errors.lastName?.$errors"
-              />
-            </div>
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                  component="Text"
-                  :label="'Fahrten-Name'"
-                  techName="scoutName"
-                  v-model="state.scoutName"
-                  :errors="errors.scoutName?.$errors"
               />
             </div>
             <div class="pt-4 sm:py-5">
@@ -81,6 +81,7 @@
           <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
             <div class="pt-4 sm:py-5">
               <BaseField
+                disabled="true"
                 component="EMail"
                 :label="'E-Mail-Adresse*'"
                 techName="email"
@@ -129,7 +130,7 @@
       </div>
     </div>
 
-    <!-- Eat Habits -->
+    <!-- Eat Habits
     <div class="mt-10 divide-y divide-gray-200">
       <div class="space-y-1">
         <h3 class="text-lg font-medium leading-6 text-gray-900">
@@ -150,14 +151,14 @@
           </div>
         </dl>
       </div>
-    </div>
+    </div> -->
 
     <!-- Roles -->
-    <div class="mt-10 divide-y divide-gray-200">
+    <!-- <div class="mt-10 divide-y divide-gray-200">
       <div class="space-y-1">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">Rollen bearbeiten</h3>
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Pfadfinderdaten bearbeiten</h3>
         <p class="max-w-2xl text-sm text-gray-500">
-          Deine Aufgaben und Rollen.
+          Deine Zugehörigkeiten
         </p>
       </div>
       <div class="mt-6">
@@ -165,14 +166,17 @@
           <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
             <div class="pt-4 sm:py-5">
               <BaseField
-                  component="Text"
-                  :label="'Gruppe'"
-                  techName="scoutGroup"
-                  v-model="state.scoutGroup.name"
-                  :errors="errors.scoutGroup?.$errors"
+                component="AutoComplete"
+                :label="'Stamm*'"
+                techName="scoutgroup"
+                v-model="state.scoutgroup"
+                :errors="errors.scoutgroup?.$errors"
+                :items="registerStore.scoutHierarchyMappings"
+                hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."
+                :lookupListDisplay="['bund', '$ - Stamm ', 'name']"
               />
-            </div>
-            <div class="pt-4 sm:py-5">
+            </div> -->
+            <!-- <div class="pt-4 sm:py-5">
               <BaseField
                   component="Select"
                   :label="'Stufe'"
@@ -181,8 +185,8 @@
                   :errors="errors.scoutLevel?.$errors"
                   :items="registerStore.scoutLevelMappings"
               />
-            </div>
-            <div class="pt-4 sm:py-5">
+            </div> -->
+            <!-- <div class="pt-4 sm:py-5">
               <BaseField
                   component="Select"
                   :label="'Position'"
@@ -191,14 +195,14 @@
                   :errors="errors.leader?.$errors"
                   :items="leaderChoices"
               />
-            </div>
-          </div>
+            </div> -->
+          <!-- </div>
         </dl>
       </div>
-    </div>
+    </div> -->
 
     <!-- More -->
-    <div class="mt-10 divide-y divide-gray-200">
+    <!-- <div class="mt-10 divide-y divide-gray-200">
       <div class="space-y-1">
         <h3 class="text-lg font-medium leading-6 text-gray-900">
           Weitere Angaben bearbeiten
@@ -219,8 +223,8 @@
                   :errors="errors.bundespost?.$errors"
                   :items="bundespostChoices"
               />
-            </div>
-            <div class="pt-4 sm:py-5">
+            </div> -->
+            <!-- <div class="pt-4 sm:py-5">
               <BaseField
                   component="Select"
                   :label="'Email Benachrichtigungen'"
@@ -229,8 +233,8 @@
                   :errors="errors.emailNotification?.$errors"
                   :items="emailNotificationChoices"
               />
-            </div>
-            <SwitchGroup as="div" class="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5 sm:pt-5">
+            </div> -->
+            <!-- <SwitchGroup as="div" class="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5 sm:pt-5">
               <SwitchLabel as="dt" class="text-sm font-medium" passive>
                 SMS Benachrichtigungen
               </SwitchLabel>
@@ -254,8 +258,8 @@
                 />
                 </Switch>
               </dd>
-            </SwitchGroup>
-            <SwitchGroup as="div" class="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5 sm:pt-5">
+            </SwitchGroup> -->
+            <!-- <SwitchGroup as="div" class="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5 sm:pt-5">
               <SwitchLabel as="dt" class="text-sm font-medium" passive>
                 DSGVO-Zustimmung
               </SwitchLabel>
@@ -283,18 +287,28 @@
           </div>
         </dl>
       </div>
-    </div>
+    </div> -->
+    <PrimaryButton
+      @click="onButtonClicked"
+      label="speichern"
+      :isLoading="isLoading"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import moment from "moment";
+import { ref, watchEffect } from "vue";
+import PrimaryButton from "@/components/button/Primary.vue";
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
 import { useRegisterStore } from "@/modules/auth/store";
 import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";
 import { computed, onMounted, reactive, watch } from "vue";
 import { useRoute } from "vue-router";
 import BaseField from "@/components/field/Base.vue";
+
+import { useVuelidate } from "@vuelidate/core";
+import { required, email, minLength, maxLength } from "@vuelidate/validators";
 
 const registerStore = useRegisterStore();
 
@@ -303,6 +317,7 @@ const personalDataStore = usePersonalDataStore();
 const route = useRoute();
 
 const state = reactive({
+  id: null,
   firstName: "",
   lastName: "",
   scoutName: "",
@@ -412,7 +427,11 @@ const emailNotificationChoices = [
   },
 ]
 
+import { useCommonStore } from "@/modules/common/store/index";
+const commonStore = useCommonStore();
+
 const errors = ref([]);
+const isLoading = ref(false);
 
 const personalData = computed(() => {
   return personalDataStore.personalData;
@@ -426,38 +445,95 @@ async function fetchPersonalData() {
   await personalDataStore.fetchPersonalData(route.query);
 }
 
+const rules = {
+  firstName: {
+    required,
+  },
+};
+
+const v$ = useVuelidate(rules, state);
+
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+function onButtonClicked() {
+  v$.value.$validate();
+  errors.value = v$.value;
+  if (errors.value.$error) {
+    commonStore.showError("Bitte Felder überprüfen");
+    return;
+  }
+  isLoading.value = true;
+  debugger;
+  personalDataStore
+    .updatePersonalData({
+      id: state?.id,
+      firstName: '12321321312',
+      lastName: state?.lastName,
+      scoutName: state?.scoutName,
+      birthday: state?.birthday,
+      bundespost: 'nothing',
+      leader: 'N',
+      scoutLevel: 'N',
+      gender: state.gender?.value,
+      email: state.email,
+      phoneNumber: state.phoneNumber,
+      address: state.address,
+      addressSupplement: state.addressSupplement,
+      zipCode: state.zipCode,
+    })
+    .then((response) => {
+      if (response && response.status === 200) {
+        router.push({
+          name: "SettingsGeneral",
+        });
+        commonStore.showSuccess("Zutat erfolgreich geändert");
+      } else if (response && response.status === 400) {
+        commonStore.showSuccess(`Die Anfrage ist Fehlerhaft.${response.data}`);
+      } else {
+        console.log(response);
+      }
+    })
+    .finally(() => {
+      isLoading.value = false;
+    });
+}
+
 onMounted(async () => {
-  await Promise.allSettled([fetchAllMappings(), fetchPersonalData()]);
+  await Promise.all([fetchAllMappings()]);
+  console.log(registerStore.genderMappings);
+
+  await fetchPersonalData()
+  console.log(personalData);
   fillpersonalDataStore();
   console.log(emailNotificationChoices);
   state.gender = registerStore.genderMappings.find(a => a['name'] === state.gender);
-  state.scoutGroup = registerStore.scoutHierarchyMappings.find(a => a['name'] === state.scoutGroup['name']);
-  state.scoutLevel = registerStore.scoutLevelMappings.find(a => a['name'] === state.scoutLevel);
-  state.bundespost = bundespostChoices.find(a => a['name'] === state.bundespost);
-  state.emailNotification = emailNotificationChoices.find(a => a['name'] === state.emailNotification);
-  console.log(state);
+  state.scoutGroup = registerStore.scoutHierarchyMappings.find(a => a['id'] === state.scoutGroup['id']);
+  debugger;
+  // state.scoutLevel = registerStore.scoutLevelMappings.find(a => a['name'] === state.scoutLevel);
+  // state.bundespost = bundespostChoices.find(a => a['name'] === state.bundespost);
+  // state.emailNotification = emailNotificationChoices.find(a => a['name'] === state.emailNotification);
 });
 
 function fillpersonalDataStore() {
-  state.firstName = personalDataStore.personalData.firstName;
-  state.lastName = personalDataStore.personalData.lastName;
-  state.scoutName = personalDataStore.personalData.scoutName;
-  state.birthday = personalDataStore.personalData.birthday;
-  state.gender = personalDataStore.personalData.gender;
-  state.email = personalDataStore.personalData.email;
-  state.phoneNumber = personalDataStore.personalData.phoneNumber;
-  state.address = personalDataStore.personalData.address;
-  state.addressSupplement = personalDataStore.personalData.addressSupplement;
-  state.zipCode = personalDataStore.personalData.zipCode?.zipCode;
-  state.scoutGroup = personalDataStore.personalData.scoutGroup;
-  state.scoutLevel = personalDataStore.personalData.scoutLevel;
-  state.bundespost = personalDataStore.personalData.bundespost;
-  state.emailNotification = personalDataStore.personalData.emailNotification;
-  state.smsNotification = personalDataStore.personalData.smsNotification;
-  state.dsgvoConfirmed = personalDataStore.personalData.dsgvoConfirmed;
+  const tempData = personalDataStore.personalData;
+  state.id = tempData.id;
+  state.firstName = tempData.firstName;
+  state.lastName = tempData.lastName;
+  state.scoutName = tempData.scoutName;
+  state.birthday = tempData.birthday;
+  state.gender = tempData.gender;
+  state.email = tempData.email;
+  state.phoneNumber = tempData.phoneNumber;
+  state.address = tempData.address;
+  state.addressSupplement = tempData.addressSupplement;
+  state.zipCode = tempData.zipCode?.zipCode;
+  state.scoutGroup = tempData.scoutGroup;
+  state.scoutLevel = tempData.scoutLevel;
+  state.bundespost = tempData.bundespost;
+  state.emailNotification = tempData.emailNotification;
+  state.smsNotification = tempData.smsNotification;
+  state.dsgvoConfirmed = tempData.dsgvoConfirmed;
+  debugger;
 }
-
-watch(personalData.value, (newValue) => {
-  alert(`Changed DSGVO: ${newValue}`);
-});
 </script>

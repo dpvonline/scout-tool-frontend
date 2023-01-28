@@ -498,7 +498,7 @@ const navigation = computed(() => {
 const secondaryNavigation = computed(() => {
   return [
     {
-      name: "Einstellungen",
+      name: "Meine Daten",
       linkName: "Settings",
       route: "settings",
       icon: CogIcon,

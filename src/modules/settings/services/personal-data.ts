@@ -1,11 +1,11 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_APP_API;
-const SERVICE = 'auth/personal-data/'
+const SERVICE = 'auth/personal-data'
 
 export default {
 
   fetchAll(params: any) {
-    return axios.get(`${BASE_URL}/${SERVICE}`, {
+    return axios.get(`${BASE_URL}/${SERVICE}/`, {
       params: params,
     });
   },
@@ -18,11 +18,11 @@ export default {
   create(data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/`, data );
   },
-
-  update(id: any, data: any) {
-    return axios.put(`${BASE_URL}/${SERVICE}/${id}`, data);
+  */
+  update(data: any) {
+    return axios.put(`${BASE_URL}/${SERVICE}/`, data);
   },
-
+  /*
   delete(id: any) {
     return axios.delete(`${BASE_URL}/${SERVICE}/${id}`)
   },

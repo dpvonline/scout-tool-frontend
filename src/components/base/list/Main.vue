@@ -545,7 +545,7 @@
                 :to="{
                   name: props.detailPageLink,
                   params: {
-                    id: item.id,
+                    id: item.id || item.person.id,
                   },
                 }"
                 class="block hover:bg-gray-50"
