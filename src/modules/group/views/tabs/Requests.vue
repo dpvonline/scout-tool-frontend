@@ -87,7 +87,7 @@
         </td>
       </tr>
     </tbody>
-    <BasicModal
+    <Basic
       :open="openAcceptModal"
       :callbackOnConfirm="onAcceptConfirmClicked"
       :callbackOnCancel="onAcceptCancelClicked"
@@ -95,7 +95,7 @@
       header="Annehmen"
       confirmText="Annehmen"
     />
-    <BasicModal
+    <Basic
       :open="openDeclineModal"
       :callbackOnConfirm="onDeclineConfirmClicked"
       :callbackOnCancel="onDeclineCancelClicked"
@@ -110,7 +110,7 @@
 import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
 import RequestModal from "@/modules/group/components/RequestModal.vue";
-import BasicModal from "@/components/modal/Basic.vue";
+import Basic from "@/components-common/overlay/Basic.vue";
 
 import { useRoute } from "vue-router";
 

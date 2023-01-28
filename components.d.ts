@@ -19,8 +19,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Select: typeof import('./src/components/field/Select.vue')['default']
-    StepFrame: typeof import('./src/components/stepper/StepFrame.vue')['default']
-    StepperNav: typeof import('./src/components/stepper/StepperNav.vue')['default']
     Text: typeof import('./src/components/field/Text.vue')['default']
     TextArea: typeof import('./src/components/field/TextArea.vue')['default']
     Toggle: typeof import('./src/components/field/Toggle.vue')['default']
