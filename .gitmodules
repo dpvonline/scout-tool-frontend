@@ -1,0 +1,3 @@
+[submodule "src/components-common"]
+	path = src/components-common
+	url = git@github.com:dpvonline/vue-tailwind-components.git

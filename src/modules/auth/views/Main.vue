@@ -1,13 +1,22 @@
 <template>
   <div class="lg:border-t lg:border-b lg:border-gray-200">
-    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Progress">
-      <StepperNav :steps="steps" />
+    <nav
+      class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2"
+      aria-label="Progress"
+    >
+      <component
+        :is="components[compNo]"
+        :steps="steps"/>
     </nav>
     <router-view />
   </div>
 </template>
+
 <script setup lang="ts">
-import StepperNav from "@/components/stepper/StepperNav.vue"
+import { computed, onMounted } from "vue";
+
+import StepperNavSmall from "@/components-common/stepper/StepperNavSmall.vue"
+import StepperNav from "@/components-common/stepper/StepperNav.vue"
 import { useRouter } from "vue-router"
 import { useRegisterStore } from "../store"
 import { onBeforeRouteLeave } from "vue-router"
@@ -16,28 +25,48 @@ const router = useRouter()
 
 const registerStore = useRegisterStore()
 
+const components = [
+  StepperNavSmall,
+  StepperNav,
+];
+
+const compNo = computed(() => {
+  console.log(window.innerWidth < 1200 ? 0 : 1)
+  console.log(window.innerWidth)
+  return window.innerWidth < 1200 ? 0 : 1;
+});
+
 const steps = computed(() => {
   return [
     {
       id: 1,
-      name: "Basics",
-      description: "Technische Must-haves",
-      link: "RegisterBasics",
-      status: getStatus("RegisterBasics", ["RegisterScoutDetails", "RegisterPersonalDetails"]),
+      name: "Einwilligung",
+      link: "RegisterStart",
+      status: getStatus("RegisterStart", ["RegisterBasics", "RegisterScoutDetails", "RegisterPersonalDetails", "RegisterAdvanced"]),
     },
     {
       id: 2,
-      name: "Scout details",
-      description: "Pfadi-Details",
-      link: "RegisterScoutDetails",
-      status: getStatus("RegisterScoutDetails", ["RegisterPersonalDetails"]),
+      name: "Account",
+      link: "RegisterBasics",
+      status: getStatus("RegisterBasics", ["RegisterScoutDetails", "RegisterPersonalDetails", "RegisterAdvanced"]),
     },
     {
       id: 3,
-      name: "Personal details",
-      description: "Persönliche Details",
+      name: "Pfadfinderdaten",
+      link: "RegisterScoutDetails",
+      status: getStatus("RegisterScoutDetails", ["RegisterPersonalDetails", "RegisterAdvanced"]),
+    },
+    {
+      id: 4,
+      name: "Persönliches",
       link: "RegisterPersonalDetails",
-      status: getStatus("RegisterPersonalDetails", []),
+      status: getStatus("RegisterPersonalDetails", ['RegisterAdvanced']),
+    },
+    {
+      id: 5,
+      name: "Anschrift",
+      link: "RegisterAdvanced",
+      status: getStatus("RegisterAdvanced", []),
     },
   ]
 })
