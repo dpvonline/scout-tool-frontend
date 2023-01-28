@@ -1,5 +1,5 @@
 <template>
-  <ol role="list" class="flex items-center">
+  <ol role="list" class="flex items-center mx-4 my-2">
     <li
       v-for="(step, stepIdx) in steps"
       :key="step.name"

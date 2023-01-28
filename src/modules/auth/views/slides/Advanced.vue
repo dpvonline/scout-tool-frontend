@@ -10,7 +10,7 @@
       <div class="mt-4 space-y-4">
     <BaseField
       component="Text"
-      :label="'Vorname*'"
+      :label="'Vorname'"
       techName="firstName"
       hint="Geb deinen Vornamen ein und eventuelle weitere Vornamen."
       v-model="state.firstName"
@@ -18,7 +18,7 @@
     />
     <BaseField
       component="Text"
-      :label="'Nachname*'"
+      :label="'Nachname'"
       techName="lastName"
       hint="Geb deine Nachnamen ein."
       v-model="state.lastName"
@@ -26,7 +26,7 @@
     />
     <BaseField
       component="Text"
-      :label="'Addresse*'"
+      :label="'Addresse'"
       techName="address"
       hint="Geb deine Straße und Hausnummer ein."
       v-model="state.address"
@@ -34,7 +34,7 @@
     />
     <BaseField
       component="ZIP"
-      :label="'Postleitzahl*'"
+      :label="'Postleitzahl'"
       techName="zipCode"
       v-model="state.zipCode"
       :errors="errors.zipCode?.$errors"
@@ -55,7 +55,7 @@ import { useCommonStore } from "@/modules/common/store/index";
 import { useRegisterStore } from "../../store";
 
 const registerStore = useRegisterStore();
-const initialState = registerStore.personalDetails;
+const initialState = registerStore.advancedPersonal;
 
 const state = reactive({
   firstName: initialState.firstName,
@@ -66,31 +66,31 @@ const state = reactive({
 });
 
 const rules = {
-  firstName: {
-    required: helpers.withMessage(
-      "Dieses Feld muss angegeben werden.",
-      required
-    ),
-  },
-  lastName: {
-    required: helpers.withMessage(
-      "Dieses Feld muss angegeben werden.",
-      required
-    ),
-  },
-  address: {
-    required: helpers.withMessage(
-      "Dieses Feld muss angegeben werden.",
-      required
-    ),
-  },
-  addressSupplement: {},
-  zipCode: {
-    required: helpers.withMessage(
-      "Dieses Feld muss angegeben werden.",
-      required
-    ),
-  },
+  // firstName: {
+  //   required: helpers.withMessage(
+  //     "Dieses Feld muss angegeben werden.",
+  //     required
+  //   ),
+  // },
+  // lastName: {
+  //   required: helpers.withMessage(
+  //     "Dieses Feld muss angegeben werden.",
+  //     required
+  //   ),
+  // },
+  // address: {
+  //   required: helpers.withMessage(
+  //     "Dieses Feld muss angegeben werden.",
+  //     required
+  //   ),
+  // },
+  // addressSupplement: {},
+  // zipCode: {
+  //   required: helpers.withMessage(
+  //     "Dieses Feld muss angegeben werden.",
+  //     required
+  //   ),
+  // },
 };
 
 const router = useRouter();
@@ -108,22 +108,15 @@ async function onNextButtonClicked() {
     return
   }
 
-  registerStore.updatePersonalDetails(state)
+  registerStore.updateAdvancedPersonal(state)
 
   try {
     const result = await registerStore.register()
     console.log(result)
 
-    alert(
-      "Herzlichen Glückwunsch, du bist registriert :D" +
-      " Du solltest demnächst eine Bestätigungs-E-Mail erhalten." +
-      " Bestätige dort deine E-Mail-Adresse. Danach wirst du aufs Dashboard weitergeleitet," +
-      " diesen Tab kannst du schließen."
-    )
-
     registerStore.setRegistered()
 
-    router.push({ name: "Dashboard" })
+    router.push({ name: "RegComplete" })
   } catch (e) {
     console.log(e)
     // alert("Fehler: " + JSON.stringify(e.response.data))

@@ -14,6 +14,7 @@
       techName="birthdate"
       v-model="state.birthdate"
       :errors="errors.birthdate?.$errors"
+      hint="Wir brauchen dein Geburtsdatum für Anmeldungen bei Veranstaltungen und um dich einer Altersstufe zuzuordnen"
     />
     <BaseField
       component="Radio"
@@ -21,11 +22,12 @@
       techName="gender"
       v-model="state.gender"
       :choices="[
-        { id: 'f', title: 'weiblich' },
-        { id: 'm', title: 'männlich' },
-        { id: 'd', title: 'diver' },
-        { id: 'u', title: 'keine Angabe' },
+        { id: 'F', title: 'weiblich' },
+        { id: 'M', title: 'männlich' },
+        { id: 'D', title: 'divers' },
+        { id: 'N', title: 'keine Angabe' },
       ]"
+      hint="Wir brauchen dein Geschlecht für Anmeldungen bei Veranstaltungen."
       :errors="errors.gender?.$errors"
       :items="registerStore.genderMappings"
     />
@@ -33,6 +35,7 @@
       component="PhoneNumber"
       :label="'Handynummer'"
       techName="mobileNumber"
+      hint="Wir brauchen deine Handynummer, falls der Veranstaltungsorganisator dich erreichen möchte."
       v-model="state.mobileNumber"
       :errors="errors.mobileNumber?.$errors"
     />
@@ -51,7 +54,7 @@ import { useCommonStore } from "@/modules/common/store/index";
 import { useRegisterStore } from "../../store";
 
 const registerStore = useRegisterStore();
-const initialState = registerStore.personalDetails;
+const initialState = registerStore.personal;
 
 const state = reactive({
   mobileNumber: initialState.mobileNumber,
@@ -67,12 +70,12 @@ const rules = {
       required
     ),
   },
-  birthdate: {
-    required: helpers.withMessage(
-      "Dieses Feld muss angegeben werden.",
-      required
-    ),
-  },
+  // birthdate: {
+  //   required: helpers.withMessage(
+  //     "Dieses Feld muss angegeben werden.",
+  //     required
+  //   ),
+  // },
 };
 
 const router = useRouter();
@@ -91,7 +94,7 @@ function onNextButtonClicked() {
     return;
   }
 
-  registerStore.updateBasics(state);
+  registerStore.updatePersonal(state);
 
   router.push({
     name: "RegisterAdvanced",

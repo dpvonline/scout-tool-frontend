@@ -1,5 +1,5 @@
 <template>
-  <div :class="`sm:col-span-${cols}`">
+  <div :class="`sm:col-span-12`">
     <label class="block text-sm font-medium text-gray-700">{{
       props.label
     }}</label>

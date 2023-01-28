@@ -35,7 +35,8 @@
                       text-blue-600
                       ring-1 ring-inset ring-blue-600/10
                     "
-                    >Du hast Fragen?</span
+                    >Du hast Fragen?
+                  </span
                   >
                   <span
                     class="
@@ -66,10 +67,10 @@
                   sm:text-6xl
                 "
               >
-                DPV Bieber
+                DPV Online goes Cloud
               </h1>
               <p class="mt-6 text-lg leading-8 text-gray-600">
-                So wie die Bundesapp nur 27x mal besser und auch am Smartphone verfügbar.
+                So wie die Bundesapp nur 29x mal besser und auch am Smartphone verfügbar.
               </p>
               <div class="mt-10 flex items-center gap-x-6">
                 <router-link

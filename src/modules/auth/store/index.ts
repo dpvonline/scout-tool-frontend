@@ -54,55 +54,57 @@ export const useRegisterStore = defineStore("registerStore", {
       scoutHierarchy: [],
       scoutLevel: [],
     }),
+
     _userdata: {
-      basics: useStorage("basics", {
+      account: useStorage("account", {
         username: "",
+        email: "",
         password: "",
         repeatPassword: "",
-        email: "",
       }),
-      scoutDetails: useStorage("scoutDetails", {
+      scout: useStorage("scout", {
         scoutName: "",
         scoutOrganisation: "",
         scoutLevel: "",
       }),
-
-      personalDetails: useStorage("personalDetails", {
+      personal: useStorage("personal", {
         mobileNumber: "",
-        dsgvoConfirmed: false,
+        gender: "",
+        birthdate: "",
+      }),
+      advancedPersonal: useStorage("advancedPersonal", {
         firstName: "",
         lastName: "",
         address: "",
         addressSupplement: "",
         zipCode: "",
-        gender: "",
-        birthdate: "",
       }),
     },
   }),
   actions: {
     reset() {
-      this.updateBasics({
+      this.updateAccount({
         username: "",
         password: "",
         repeatPassword: "",
         email: "",
       })
-      this.updateScoutDetails({
+      this.updateScout({
         scoutName: "",
         scoutOrganisation: "",
         scoutLevel: "",
       })
-      this.updatePersonalDetails({
+      this.updatePersonal({
         mobileNumber: "",
-        dsgvoConfirmed: false,
+        gender: "N",
+        birthdate: "",
+      })
+      this.updateAdvancedPersonal({
         firstName: "",
         lastName: "",
         address: "",
         addressSupplement: "",
         zipCode: "",
-        gender: "",
-        birthdate: "",
       })
     },
     setRegistered() {
@@ -134,38 +136,75 @@ export const useRegisterStore = defineStore("registerStore", {
     },
     register() {
       const summary = {
-        username: this._userdata.basics.username,
-        password: this._userdata.basics.password,
-        email: this._userdata.basics.email,
-        scoutName: this._userdata.scoutDetails.scoutName,
-        scoutOrganisation: this._userdata.scoutDetails.scoutOrganisation.id,
-        mobileNumber: this._userdata.personalDetails.mobileNumber,
-        dsgvoConfirmed: this._userdata.personalDetails.dsgvoConfirmed,
-        firstName: this._userdata.personalDetails.firstName,
-        lastName: this._userdata.personalDetails.lastName,
-        address: this._userdata.personalDetails.address,
-        addressSupplement: this._userdata.personalDetails.addressSupplement,
-        zipCode: this._userdata.personalDetails.zipCode,
-        birthDate: this._userdata.personalDetails.birthdate,
-        gender: this._userdata.personalDetails.gender.value,
-        scoutLevel: this._userdata.scoutDetails.scoutLevel.value,
+        // start
+        dsgvoConfirmed: true,
+        // account
+        username: this._userdata.account.username,
+        password: this._userdata.account.password,
+        email: this._userdata.account.email,
+
+        // scout
+        scoutName: this._userdata.scout.scoutName,
+        scoutOrganisation: this._userdata.scout.scoutOrganisation.id,
+
+        // personal
+        birthDate: this._userdata.personal.birthdate,
+        gender: this._userdata.personal.gender.value,
+        mobileNumber: this._userdata.personal.mobileNumber,
+
+        // advanced-personal
+        firstName: 'Dummy1',
+        lastName: 'Dummy2',
+        address: this._userdata.advancedPersonal.address,
+        zipCode: '40882',
       }
 
       return registerServices.register(summary)
     },
-    updateBasics(basics: typeof this._userdata.basics) {
-      this._userdata.basics = basics
+    updateAccount(account: typeof this._userdata.account) {
+      this._userdata.account = account
     },
-    updateScoutDetails(scoutDetails: typeof this._userdata.scoutDetails) {
-      this._userdata.scoutDetails = scoutDetails
+    updateScout(scout: typeof this._userdata.scout) {
+      this._userdata.scout = scout
     },
-    updatePersonalDetails(personalDetails: typeof this._userdata.personalDetails) {
-      this._userdata.personalDetails = personalDetails
+    updatePersonal(personal: typeof this._userdata.personal) {
+      this._userdata.personal = personal
     },
-    async usernameAlreadyTaken(username: string): Promise<boolean> {
+    updateAdvancedPersonal(advancedPersonal: typeof this._userdata.advancedPersonal) {
+      this._userdata.advancedPersonal = advancedPersonal
+    },
+    async usernameCheck(username: string): Promise<boolean> {
       //todo for some reason every request with error status is printed to console
       try {
-        await checkingServices.usernameIsAlreadyTaken(username)
+        await checkingServices.usernameCheck(username)
+        return false
+      } catch (e) {
+        if (e.request.status === 409) {
+          return true
+        }
+        console.error("e" + e)
+        //todo what do here? (user should know something about the situation)
+        return false
+      }
+    },
+    async emailCheck(email: string): Promise<boolean> {
+      //todo for some reason every request with error status is printed to console
+      try {
+        await checkingServices.emailCheck(email)
+        return false
+      } catch (e) {
+        if (e.request.status === 409) {
+          return true
+        }
+        console.error("e" + e)
+        //todo what do here? (user should know something about the situation)
+        return false
+      }
+    },
+    async passwordCheck(password: string): Promise<boolean> {
+      //todo for some reason every request with error status is printed to console
+      try {
+        await checkingServices.passwordCheck(password)
         return false
       } catch (e) {
         if (e.request.status === 409) {
@@ -178,15 +217,26 @@ export const useRegisterStore = defineStore("registerStore", {
     },
   },
   getters: {
-    basics: (state) => {
-      return state._userdata.basics
+    // register
+    registered: (state) => {
+      return state._registered
     },
-    scoutDetails: (state) => {
-      return state._userdata.scoutDetails
+
+    // register-data
+    account: (state) => {
+      return state._userdata.account
     },
-    personalDetails: (state) => {
-      return state._userdata.personalDetails
+    scout: (state) => {
+      return state._userdata.scout
     },
+    personal: (state) => {
+      return state._userdata.personal
+    },
+    advancedPersonal: (state) => {
+      return state._userdata.advancedPersonal
+    },
+
+    // mappings
     genderMappings: (state) => {
       return state._mappings.gender
     },
@@ -196,11 +246,5 @@ export const useRegisterStore = defineStore("registerStore", {
     scoutLevelMappings: (state) => {
       return state._mappings.scoutLevel
     },
-    registered: (state) => {
-      return state._registered
-    },
-    // isAuth: (state) => {
-    //   return state._isAuth;
-    // }
   },
 })

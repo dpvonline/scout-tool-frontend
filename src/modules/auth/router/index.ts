@@ -45,4 +45,9 @@ export default [
     name: "Logout",
     component: () => import(/* webpackChunkName: "Logout" */ "@/modules/auth/views/Logout.vue"),
   },
+  {
+    path: "/register-complete",
+    name: "RegComplete",
+    component: () => import(/* webpackChunkName: "RegComplete" */ "@/modules/auth/views/RegComplete.vue"),
+  },
 ];

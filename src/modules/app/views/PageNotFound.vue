@@ -63,7 +63,7 @@
               >Go back home</router-link
             >
             <router-link
-              :to="{ name: 'SupportMain' }"
+              :to="{ name: 'home' }"
               class="
                 inline-flex
                 items-center

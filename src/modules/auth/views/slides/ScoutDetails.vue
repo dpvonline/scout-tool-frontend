@@ -13,15 +13,18 @@
           :label="'Fahrtenname'"
           techName="scoutname"
           v-model="state.scoutName"
-          :errors="errors.scoutname?.$errors"
+          :errors="errors.scoutName?.$errors"
+          hint="Dieser Name ist ein freiwählbarer Anzeigename, der später geändert werden kann."
         />
         <BaseField
-          component="Select"
+          component="AutoComplete"
           :label="'Stamm*'"
           techName="scoutgroup"
           v-model="state.scoutOrganisation"
           :errors="errors.scoutOrganisation?.$errors"
           :items="registerStore.scoutHierarchyMappings"
+          hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."
+          :lookupListDisplay="['bund', '$ - Stamm ', 'name']"
         />
       </div>
     </fieldset>
@@ -36,10 +39,10 @@ import { useVuelidate } from "@vuelidate/core";
 import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
 import { useRegisterStore } from "../../store";
-import { required, helpers } from "@vuelidate/validators";
+import { required, helpers, maxLength } from "@vuelidate/validators";
 
 const registerStore = useRegisterStore();
-const initialState = registerStore.scoutDetails;
+const initialState = registerStore.scout;
 
 const state = reactive({
   scoutName: initialState.scoutName,
@@ -47,9 +50,15 @@ const state = reactive({
 });
 
 const rules = {
+  scoutName: {
+    maxLength: helpers.withMessage(
+      "Der Fahrtenname darf nicht länger als 16 Zeichen sein.",
+      maxLength(16)
+    ),
+  },
   scoutOrganisation: {
     required: helpers.withMessage(
-      "Dieses Feld muss angegeben werden.",
+      "Du musst einen Stamm auswählen, weil wir dich sonst nicht einordnen können.",
       required
     ),
   },
@@ -71,7 +80,7 @@ function onNextButtonClicked() {
     return;
   }
 
-  registerStore.updateScoutDetails(state);
+  registerStore.updateScout(state);
 
   router.push({
     name: "RegisterPersonalDetails",

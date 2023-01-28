@@ -1,21 +1,32 @@
 <template>
   <StepFrame header="" @click="onNextButtonClicked">
-    <fieldset class="mt-6">
+    <fieldset class="mt-6 pb-2 border-b border-gray-200">
       <legend class="contents text-base font-medium text-gray-900">
-        Benutzername
+        Dein DPV-Name
       </legend>
-      <p class="text-sm text-gray-500">
+      <p class="text-sm text-gray-500 mb-3">
         Du musst folgenden Bedinungen zustimmen.
       </p>
-      <div class="mt-4 space-y-4">
+      <div>
         <BaseField
           component="Text"
-          hint="Das ist dein zukünftiger Name bei allen Digitalen Anwendungen im DPV."
+          hint="Das ist dein zukünftiger Name bei allen Digitalen Anwendungen im DPV. Der Name kann nicht mehr geändert werden. Der Username darf keine Leer oder Sonderzeichen enthaten."
           :label="'Benutzername*'"
           techName="username"
           v-model="state.username"
           :errors="errors.username?.$errors"
+          :cols="1"
         />
+      </div>
+    </fieldset>
+    <fieldset class="mt-6 pb-2 border-b border-gray-200" >
+      <legend class="contents text-base font-medium text-gray-900">
+        Deine Pfadfinder E-Mail 
+      </legend>
+      <p class="text-sm text-gray-500">
+        Gebe eine bestehende E-Mail Adresse an, an die wir deine Pfadfinder E-Mail senden sollen.
+      </p>
+      <div class="mt-4 space-y-4">
         <BaseField
           component="EMail"
           hint="Deine Pfadfinder E-Mail Adresse"
@@ -26,10 +37,17 @@
         />
       </div>
     </fieldset>
+    <fieldset class="mt-6 pb-2">
+      <legend class="contents text-base font-medium text-gray-900">
+        Dein DPV-Passwort
+      </legend>
+      <p class="text-sm text-gray-500">
+        Dein Passwort musst du hier einmaig festlegen. Du kannst es später zurücksetzen und ändern. Dieses Passwort wirst du für alle DPV-Dienst nutzen müssen.
+      </p>
       <div class="mt-4 space-y-4">
         <BaseField
           component="Password"
-          hint="Geb ein sicheres Passwort an."
+          hint="Passwort muss mindestens 8 Zeichen haben. Leerzeichen sind verboten. Mindestens eine Zahl. Mindestens ein Groß- und ein Kleinbustaben."
           :label="'Password*'"
           techName="password"
           v-model="state.password"
@@ -44,6 +62,7 @@
           :errors="errors.repeatPassword?.$errors"
         />
       </div>
+    </fieldset>
   </StepFrame>
 </template>
 
@@ -66,7 +85,7 @@ import { useRegisterStore } from "@/modules/auth/store/index";
 
 const registerStore = useRegisterStore();
 
-const initialState = registerStore.basics;
+const initialState = registerStore.account;
 
 const state = reactive({
   username: initialState.username,
@@ -79,11 +98,25 @@ const reactivePassword = computed(() => {
   return state.password;
 });
 
-const usernameIsUnique = async function () {
+const usernameCheck = async function () {
   if (state.username === "") {
     return false;
   }
-  return !(await registerStore.usernameAlreadyTaken(state.username));
+  return !(await registerStore.usernameCheck(state.username));
+};
+
+const emailCheck = async function () {
+  if (state.email === "") {
+    return false;
+  }
+  return !(await registerStore.emailCheck(state.email));
+};
+
+const passwordCheck = async function () {
+  if (state.password === "") {
+    return false;
+  }
+  return !(await registerStore.passwordCheck(state.password));
 };
 
 const rules = {
@@ -92,9 +125,9 @@ const rules = {
       "Du musst einen Benutzernamen angeben.",
       required
     ),
-    isUnique: helpers.withMessage(
+    metBackendRules: helpers.withMessage(
       "Dieser Username ist bereits vergeben.",
-      helpers.withAsync(usernameIsUnique)
+      helpers.withAsync(usernameCheck)
     ),
   },
   password: {
@@ -105,6 +138,10 @@ const rules = {
     minLength: helpers.withMessage(
       "Das Password muss mindestens 8 Zeichen lang sein.",
       minLength(8)
+    ),
+    metBackendRules2: helpers.withMessage(
+      "Dieses Passwort entspricht nicht den Regeln.",
+      helpers.withAsync(passwordCheck)
     ),
   },
   repeatPassword: {
@@ -123,6 +160,10 @@ const rules = {
       required
     ),
     email: helpers.withMessage("Die E-Mail ist ungültig.", email),
+    metBackendRules: helpers.withMessage(
+      "Diese E-Mail ist bereits vergeben.",
+      helpers.withAsync(emailCheck)
+    ),
   },
 };
 
@@ -142,7 +183,7 @@ function onNextButtonClicked() {
     return;
   }
 
-  registerStore.updateBasics(state);
+  registerStore.updateAccount(state);
 
   router.push({
     name: "RegisterScoutDetails",

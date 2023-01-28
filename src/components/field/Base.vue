@@ -8,11 +8,13 @@
     @input="updateValue"
     @update:modelValue="updateValueDirekt"
     :errors="props.errors"
+    :cols="props.cols"
   ></component>
 </template>
 
 <script setup lang="ts">
 import Text from "@/components/field/Text.vue";
+import AutoComplete from "@/components/field/AutoComplete.vue";
 import TextArea from "@/components/field/TextArea.vue";
 import Number from "@/components/field/Number.vue";
 import Radio from "@/components/field/Radio.vue";
@@ -26,6 +28,7 @@ import Password from "@/components/field/Password.vue";
 import { ErrorObject } from "@vuelidate/core";
 
 const components = {
+  AutoComplete,
   Text,
   TextArea,
   Number,
