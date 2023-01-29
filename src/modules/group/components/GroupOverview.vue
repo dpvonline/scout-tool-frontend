@@ -6,7 +6,7 @@
       </h3>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
-      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-3">
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Recht</dt>
           <dd class="mt-1 text-sm text-gray-900">{{ group.permission }}</dd>
@@ -17,6 +17,12 @@
             {{ group.parent ? group.parent.name : "hat keine höheres Element" }}
           </dd>
         </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Beschreibung</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+           {{ group.isMember ? 'Mitglied' : 'Kein Mitglied' }}
+          </dd>
+        </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">Beschreibung</dt>
           <dd class="mt-1 text-sm text-gray-900">
@@ -24,7 +30,7 @@
           </dd>
         </div>
 
-        <div class="sm:col-span-2">
+        <div class="sm:col-span-2" v-if="!group.isMember">
           <dt class="text-sm font-medium text-gray-500">Aktionen</dt>
           <dd class="mt-1 text-sm text-gray-900">
             <ul
@@ -74,7 +80,7 @@
           </dd>
         </div>
 
-        <div class="sm:col-span-2">
+        <div class="sm:col-span-2" v-if="group?.children?.length">
           <dt class="text-sm font-medium text-gray-500">Untergruppen</dt>
           <dd class="mt-1 text-sm text-gray-900">
             <ul

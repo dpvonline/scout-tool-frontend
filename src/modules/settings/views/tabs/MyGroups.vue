@@ -32,6 +32,51 @@
                   >
                     Gruppenname
                   </th>
+                  <th
+                    scope="col"
+                    class="
+                      py-3.5
+                      pl-4
+                      pr-3
+                      text-left text-sm
+                      font-semibold
+                      text-gray-900
+                      sm:pl-6
+                      lg:pl-8
+                    "
+                  >
+                    Mitglied?
+                  </th>
+                  <th
+                    scope="col"
+                    class="
+                      py-3.5
+                      pl-4
+                      pr-3
+                      text-left text-sm
+                      font-semibold
+                      text-gray-900
+                      sm:pl-6
+                      lg:pl-8
+                    "
+                  >
+                    Rolle
+                  </th>
+                  <th
+                    scope="col"
+                    class="
+                      py-3.5
+                      pl-4
+                      pr-3
+                      text-left text-sm
+                      font-semibold
+                      text-gray-900
+                      sm:pl-6
+                      lg:pl-8
+                    "
+                  >
+                    Link zur Gruppe
+                  </th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
@@ -49,7 +94,61 @@
                       lg:pl-8
                     "
                   >
-                    {{ group.name }}
+                    {{ group.parent ? `${group.parent.name} - ${group.name} ` : group.name }}
+                  </td>
+                  <td
+                    class="
+                      whitespace-nowrap
+                      py-4
+                      pl-4
+                      pr-3
+                      text-sm
+                      font-medium
+                      text-gray-900
+                      sm:pl-6
+                      lg:pl-8
+                    "
+                  >
+                    {{ group.isMember ? 'Mitglied' : 'kein Mitglied' }}
+                  </td>
+                  <td
+                    class="
+                      whitespace-nowrap
+                      py-4
+                      pl-4
+                      pr-3
+                      text-sm
+                      font-medium
+                      text-gray-900
+                      sm:pl-6
+                      lg:pl-8
+                    "
+                  >
+                    {{ group.permission }}
+                  </td>
+                  <td
+                    class="
+                      whitespace-nowrap
+                      py-4
+                      pl-4
+                      pr-3
+                      text-sm
+                      font-medium
+                      text-gray-900
+                      sm:pl-6
+                      lg:pl-8
+                    "
+                  >
+                 <router-link
+                    :to="{
+                      name: 'GroupOverview',
+                      params: {
+                        id: group.id,
+                      },
+                    }"
+                    class="text-blue-600 hover:text-blue-900"
+                    >Gruppe öffnen
+                  </router-link>
                   </td>
                 </tr>
               </tbody>
