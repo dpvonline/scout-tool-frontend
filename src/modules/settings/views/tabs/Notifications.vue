@@ -71,7 +71,7 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="person in myOwnRequests" :key="person.email">
+                <tr v-for="request in myOwnRequests" :key="request.id">
                   <td
                     class="
                       whitespace-nowrap
@@ -85,17 +85,17 @@
                       lg:pl-8
                     "
                   >
-                    {{ person.group.name }} ( {{ person.group.parent.name}})
+                    {{ request.group ? request.group.name : '-' }} ( {{ request.group.parent ? request.group.parent.name : ' - '}})
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ person.checkedBy ? person.checkedBy.scoutName : '-' }}
+                    {{ request.checkedBy ? request.checkedBy.scoutName : '-' }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ moment(person.createdAt).format("llll") }}
+                    {{ moment(request.createdAt).format("llll") }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ person.status }}
-                  </td>
+                    {{ request.status }}
+                  </td> 
                 </tr>
               </tbody>
             </table>

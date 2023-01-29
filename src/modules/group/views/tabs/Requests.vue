@@ -38,7 +38,7 @@
       </tr>
     </thead>
     <tbody class="divide-y divide-gray-200 bg-white">
-      <tr v-for="person in requests" :key="person.email">
+      <tr v-for="request in requests" :key="request.id">
         <td
           class="
             whitespace-nowrap
@@ -52,16 +52,16 @@
             lg:pl-8
           "
         >
-          {{ person.group.name }} ( {{ person.group.parent.name }})
+          {{ request.group ? request.user.scoutName : ' - ' }} ( {{ request.user && request.user.scoutGroup ? request.user.scoutGroup.name : ' - '}})
         </td>
         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-          {{ person.checkedBy.scoutName }} ( {{ person.checkedBy.email }} )
+          {{ request.checkedBy ? request.checkedBy.scoutName : ' - ' }} ( {{ request.checkedBy ? request.checkedBy.email : ' - ' }} )
         </td>
         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-          {{ moment(person.createdAt).format("llll") }}
+          {{ moment(request.createdAt).format("llll") }}
         </td>
         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-          {{ person.status }}
+          {{ request.status }}
         </td>
       </tr>
     </tbody>
@@ -88,7 +88,6 @@
 import moment from "moment";
 import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
-import RequestModal from "@/modules/group/components/RequestModal.vue";
 import Basic from "@/components/overlay/Basic.vue";
 
 import { useRoute } from "vue-router";

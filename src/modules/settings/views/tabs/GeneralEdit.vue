@@ -464,7 +464,6 @@ function onButtonClicked() {
     return;
   }
   isLoading.value = true;
-  debugger;
   personalDataStore
     .updatePersonalData({
       id: state?.id,
@@ -509,7 +508,6 @@ onMounted(async () => {
   console.log(emailNotificationChoices);
   state.gender = registerStore.genderMappings.find(a => a['name'] === state.gender);
   state.scoutGroup = registerStore.scoutHierarchyMappings.find(a => a['id'] === state.scoutGroup['id']);
-  debugger;
   // state.scoutLevel = registerStore.scoutLevelMappings.find(a => a['name'] === state.scoutLevel);
   // state.bundespost = bundespostChoices.find(a => a['name'] === state.bundespost);
   // state.emailNotification = emailNotificationChoices.find(a => a['name'] === state.emailNotification);
@@ -534,6 +532,5 @@ function fillpersonalDataStore() {
   state.emailNotification = tempData.emailNotification;
   state.smsNotification = tempData.smsNotification;
   state.dsgvoConfirmed = tempData.dsgvoConfirmed;
-  debugger;
 }
 </script>
