@@ -91,7 +91,7 @@ const tabs = computed(() => {
       selected: route.name === "GroupRequests",
       permission: true,
     },
-  ].filter(item => !item.permission || group.value.permission === 'admin');
+  ].filter(item => !item.permission || group.value.permission !== 'none');
 });
 
 const groupStore = useGroupStore();
