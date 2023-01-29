@@ -124,7 +124,7 @@
                       lg:pl-8
                     "
                   >
-                    {{ group.permission }}
+                    {{ group.permission === 'none' ? 'Keine' :  group.permission}}
                   </td>
                   <td
                     class="

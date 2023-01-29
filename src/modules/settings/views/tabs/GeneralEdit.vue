@@ -486,7 +486,7 @@ function onButtonClicked() {
         router.push({
           name: "SettingsGeneral",
         });
-        commonStore.showSuccess("Zutat erfolgreich geändert");
+        commonStore.showSuccess("Person erfolgreich geändert");
       } else if (response && response.status === 400) {
         commonStore.showSuccess(`Die Anfrage ist Fehlerhaft.${response.data}`);
       } else {

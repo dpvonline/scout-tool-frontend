@@ -44,7 +44,7 @@
                     <router-link
                       :to="{ name: card.href }"
                       class="font-medium text-blue-700 hover:text-blue-900"
-                      >Anzeigen</router-link
+                      >Alle Anzeigen</router-link
                     >
                   </div>
                 </div>
@@ -77,19 +77,19 @@ import MyGroups from "@/modules/dashboard/components/MyGroups.vue";
 const cards = computed(() => {
   return [
     {
-      name: "Mitglieder",
-      href: "GroupMain",
+      name: "Alle Mitglieder",
+      href: "PersonMain",
       icon: UserIcon,
       amount: userCount,
     },
     {
-      name: "Gruppen",
+      name: "Alle Gruppen",
       href: "GroupMain",
       icon: UserGroupIcon,
       amount: groupCount,
     },
     {
-      name: "Aufgaben",
+      name: "Offene Aufgaben",
       href: "TaskMain",
       icon: BellIcon,
       amount: openTaskCount,

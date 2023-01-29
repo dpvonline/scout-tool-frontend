@@ -85,10 +85,10 @@
                       lg:pl-8
                     "
                   >
-                    {{ request.group ? request.group.name : '-' }} ( {{ request.group.parent ? request.group.parent.name : ' - '}})
+                    {{ request.group ? request.group.name : '-' }} ({{ request.group.parent ? request.group.parent.name : ' - '}})
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ request.checkedBy ? request.checkedBy.scoutName : '-' }}
+                    {{ request.checkedBy ? `${request.checkedBy.username} (${request.checkedBy.email})` : '-' }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                     {{ moment(request.createdAt).format("llll") }}

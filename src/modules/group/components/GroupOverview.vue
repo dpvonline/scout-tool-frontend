@@ -8,19 +8,19 @@
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-3">
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Recht</dt>
-          <dd class="mt-1 text-sm text-gray-900">{{ group.permission }}</dd>
+          <dt class="text-sm font-medium text-gray-500">Zugriff</dt>
+          <dd class="mt-1 text-sm text-gray-900">{{ group.permission === 'none' ? 'Keine Rechte' : group.permission  }}</dd>
         </div>
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Hierarchie</dt>
+          <dt class="text-sm font-medium text-gray-500">Nächst höheres Element</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ group.parent ? group.parent.name : "hat keine höheres Element" }}
+            {{ group.parent ? group.parent.name : "keins" }}
           </dd>
         </div>
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Beschreibung</dt>
+          <dt class="text-sm font-medium text-gray-500">Mitglied?</dt>
           <dd class="mt-1 text-sm text-gray-900">
-           {{ group.isMember ? 'Mitglied' : 'Kein Mitglied' }}
+           {{ group.isMember ? 'Ja' : 'Nein' }}
           </dd>
         </div>
         <div class="sm:col-span-2">

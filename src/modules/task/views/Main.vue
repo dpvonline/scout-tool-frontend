@@ -201,6 +201,7 @@
                       </tbody>
                     </table>
                   </div>
+                    <p v-if="!myRequests.length" class="px-2 py-2">Keine Anträge vorhanden</p>
                 </div>
               </div>
             </div>
