@@ -11,8 +11,8 @@ export const usepersonStore = defineStore("person", {
   actions: {
     async fetchPersons(params = {}) {
       try {
-        const response = await personApi.fetchAll(params);
-        this._persons = response.data;
+        // const response = await personApi.fetchAll(params);
+        this._persons = []// response.data;
       } catch (error) {
         alert(error);
         console.log(error);

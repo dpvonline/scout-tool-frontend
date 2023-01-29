@@ -153,10 +153,10 @@ export const useRegisterStore = defineStore("registerStore", {
         mobileNumber: this._userdata.personal.mobileNumber,
 
         // advanced-personal
-        firstName: 'Dummy1',
-        lastName: 'Dummy2',
+        firstName: this._userdata.advancedPersonal.firstName,
+        lastName: this._userdata.advancedPersonal.lastName,
         address: this._userdata.advancedPersonal.address,
-        zipCode: '40882',
+        zipCode: this._userdata.advancedPersonal.zipCode,
       }
 
       return registerServices.register(summary)
@@ -179,6 +179,9 @@ export const useRegisterStore = defineStore("registerStore", {
         await checkingServices.usernameCheck(username)
         return false
       } catch (e) {
+        if (e.request.status === 400) {
+          return true
+        }
         if (e.request.status === 409) {
           return true
         }
@@ -193,6 +196,9 @@ export const useRegisterStore = defineStore("registerStore", {
         await checkingServices.emailCheck(email)
         return false
       } catch (e) {
+        if (e.request.status === 400) {
+          return true
+        }
         if (e.request.status === 409) {
           return true
         }
@@ -207,7 +213,7 @@ export const useRegisterStore = defineStore("registerStore", {
         await checkingServices.passwordCheck(password)
         return false
       } catch (e) {
-        if (e.request.status === 409) {
+        if (e.request.status === 400) {
           return true
         }
         console.error("e" + e)

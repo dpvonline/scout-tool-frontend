@@ -73,6 +73,7 @@ const tabs = computed(() => {
       linkName: "GroupOverview",
       component: "GroupOverview",
       selected: route.name === "GroupOverview",
+      permission: false,
     },
     {
       name: "Mitglieder",
@@ -80,6 +81,7 @@ const tabs = computed(() => {
       linkName: "GroupMember",
       component: "GroupMember",
       selected: route.name === "GroupMember",
+      permission: true,
     },
     {
       name: "Anträge",
@@ -87,8 +89,9 @@ const tabs = computed(() => {
       linkName: "GroupRequests",
       component: "GroupRequests",
       selected: route.name === "GroupRequests",
+      permission: true,
     },
-  ];
+  ].filter(item => !item.permission || group.value.permission === 'admin');
 });
 
 const groupStore = useGroupStore();

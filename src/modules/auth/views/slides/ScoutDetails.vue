@@ -10,7 +10,7 @@
       <div class="mt-4 space-y-4">
         <BaseField
           component="Text"
-          :label="'Fahrtenname'"
+          :label="'Fahrtenname*'"
           techName="scoutname"
           v-model="state.scoutName"
           :errors="errors.scoutName?.$errors"
@@ -51,6 +51,10 @@ const state = reactive({
 
 const rules = {
   scoutName: {
+    required: helpers.withMessage(
+      "Du musst einen Fahrtennamen angeben.",
+      required
+    ),
     maxLength: helpers.withMessage(
       "Der Fahrtenname darf nicht länger als 16 Zeichen sein.",
       maxLength(16)

@@ -51,8 +51,8 @@
               </div>
             </div>
           </div>
-          <NotifyList />
-          <MyGroups :myGroups="myGroups"/>
+          <!-- <NotifyList /> -->
+          <!-- <MyGroups :myGroups="myGroups"/> -->
         </div>
       </main>
     </div>

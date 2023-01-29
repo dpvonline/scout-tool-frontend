@@ -126,7 +126,7 @@ const rules = {
       required
     ),
     metBackendRules: helpers.withMessage(
-      "Dieser Username ist bereits vergeben.",
+      "Dieser Benutzername ist bereits vergeben oder darf nicht verwendet werden.",
       helpers.withAsync(usernameCheck)
     ),
   },
@@ -139,6 +139,26 @@ const rules = {
       "Das Password muss mindestens 8 Zeichen lang sein.",
       minLength(8)
     ),
+    containsUppercase: helpers.withMessage(
+      "Das Password muss ein Großbuchstaben haben.",
+      function(value) {
+      return /[A-Z]/.test(value)
+    }),
+    containsLowercase: helpers.withMessage(
+      "Das Password muss ein Kleinbuchstaben haben.",
+      function(value) {
+      return /[a-z]/.test(value)
+    }),
+    containsNumber: helpers.withMessage(
+      "Das Password muss ein Zahl enthalten.",
+      function(value) {
+      return /[0-9]/.test(value)
+    }),
+    containsSpecial: helpers.withMessage(
+      "Das Password muss ein Sonderzeichen enthalten. z.B. #,?,!,@,$,%,^,&,*,-",
+      function(value) {
+      return /[#?!@$%^&*-]/.test(value)
+    }),
     metBackendRules2: helpers.withMessage(
       "Dieses Passwort entspricht nicht den Regeln.",
       helpers.withAsync(passwordCheck)
@@ -160,8 +180,9 @@ const rules = {
       required
     ),
     email: helpers.withMessage("Die E-Mail ist ungültig.", email),
-    metBackendRules: helpers.withMessage(
-      "Diese E-Mail ist bereits vergeben.",
+
+    metBackendRules3: helpers.withMessage(
+      "Diese E-Mail ist bereits vergeben oder darf nicht verwendet werden.",
       helpers.withAsync(emailCheck)
     ),
   },

@@ -6,6 +6,7 @@ export const useTaskStore = defineStore("task", {
   state: () => ({
     _myRequests: [],
     _myOwnRequests: [],
+    _task: {},
   }),
 
   actions: {
@@ -35,5 +36,8 @@ export const useTaskStore = defineStore("task", {
     myOwnRequests: (state) => {
       return state._myOwnRequests;
     },
+    task: (state) => {
+      state._task
+    }
   },
 });

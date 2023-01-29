@@ -28,6 +28,11 @@ export default [
         name: "SettingsNotifications",
         component: () => import(/* webpackChunkName: "SettingsNotifications" */ "@/modules/settings/views/tabs/Notifications.vue"),
       },
+      {
+        path: "myGroups",
+        name: "SettingsMyGroups",
+        component: () => import(/* webpackChunkName: "SettingsMyGroups" */ "@/modules/settings/views/tabs/MyGroups.vue"),
+      },
     ],
   },
 ];

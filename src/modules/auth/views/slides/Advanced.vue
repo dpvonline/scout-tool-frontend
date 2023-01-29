@@ -10,7 +10,7 @@
       <div class="mt-4 space-y-4">
     <BaseField
       component="Text"
-      :label="'Vorname'"
+      :label="'Vorname*'"
       techName="firstName"
       hint="Geb deinen Vornamen ein und eventuelle weitere Vornamen."
       v-model="state.firstName"
@@ -18,7 +18,7 @@
     />
     <BaseField
       component="Text"
-      :label="'Nachname'"
+      :label="'Nachname*'"
       techName="lastName"
       hint="Geb deine Nachnamen ein."
       v-model="state.lastName"
@@ -66,18 +66,18 @@ const state = reactive({
 });
 
 const rules = {
-  // firstName: {
-  //   required: helpers.withMessage(
-  //     "Dieses Feld muss angegeben werden.",
-  //     required
-  //   ),
-  // },
-  // lastName: {
-  //   required: helpers.withMessage(
-  //     "Dieses Feld muss angegeben werden.",
-  //     required
-  //   ),
-  // },
+  firstName: {
+    required: helpers.withMessage(
+      "Dieses Feld muss angegeben werden.",
+      required
+    ),
+  },
+  lastName: {
+    required: helpers.withMessage(
+      "Dieses Feld muss angegeben werden.",
+      required
+    ),
+  },
   // address: {
   //   required: helpers.withMessage(
   //     "Dieses Feld muss angegeben werden.",

@@ -26,7 +26,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    return { x: 0, y: 0 }
+    return { x: 0, y: 0 };
   },
 });
 
@@ -42,9 +42,29 @@ router.beforeEach(async (to, from, next) => {
     // eslint-disable-next-line no-await-in-loop
     await sleep(100);
   }
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!authStore.isAuth) {
+      console.log('1')
+      next({ path: "/login" });
+    } else {
+      console.log('2')
+      next();
+    }
+  }
 
-  if (!to.meta.requiresAuth || authStore.isAuth) next()
-  else next('/')
-})
+  if (to.matched.some((record) => record.meta.hideForAuth)) {
+    if (authStore.isAuth) {
+      console.log('3')
+      next({ path: "/dashboard" });
+    } else {
+      console.log('4')
+      next();
+    }
+  }
+
+  if (!to.matched.some((record) => record.meta.hideForAuth) && !to.matched.some((record) => record.meta.requiresAuth)) {
+    next()
+  }
+});
 
 export default router;
