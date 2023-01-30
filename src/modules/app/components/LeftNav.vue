@@ -470,13 +470,13 @@ const navigation = computed(() => {
       route: "dashboard",
       isAuth: true,
     },
-    {
-      name: "Mitglieder",
-      linkName: "PersonMain",
-      icon: UserIcon,
-      route: "person",
-      isAuth: true,
-    },
+    // {
+    //   name: "Mitglieder",
+    //   linkName: "PersonMain",
+    //   icon: UserIcon,
+    //   route: "person",
+    //   isAuth: true,
+    // },
     {
       name: "Gruppen",
       linkName: "GroupMain",
@@ -518,21 +518,13 @@ const secondaryNavigation = computed(() => {
       route: "logout",
       icon: ArrowLeftIcon,
       isAuth: true,
-    },
-    {
-      name: "Registrieren",
-      linkName: "register",
-      route: "register",
-      icon: CogIcon,
-      isAuth: false,
-      isNotAuth: true,
-    },
+    }
   ].filter(
     (item) => (!item.isAuth || isAuth.value) && (item.isAuth || !isAuth.value)
   );
 });
 
 onMounted(() => {
-  // dashbordStore.fetchMyRequests()
+  dashbordStore.fetchMyRequests()
 });
 </script>
