@@ -18,7 +18,7 @@
             alt="Your Company"
           />
           <div class="mt-12 sm:mt-24 lg:mt-16">
-            <a href="#" class="inline-flex space-x-6">
+            <router-link :to="{ name: 'FaqMain' }" class="inline-flex space-x-6">
               <span
                 class="
                   rounded-full
@@ -50,7 +50,7 @@
                   aria-hidden="true"
                 />
               </span>
-            </a>
+            </router-link>
           </div>
           <h1
             class="

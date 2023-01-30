@@ -525,6 +525,8 @@ const secondaryNavigation = computed(() => {
 });
 
 onMounted(() => {
-  dashbordStore.fetchMyRequests()
+  if (isAuth.value){ 
+    dashbordStore.fetchMyRequests()
+  }
 });
 </script>

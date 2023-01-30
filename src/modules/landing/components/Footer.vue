@@ -6,10 +6,18 @@
         aria-label="Footer"
       >
         <div v-for="item in navigation.main" :key="item.name" class="pb-6">
-          <a
-            :href="item.href"
+          <router-link
+            :to="{ name: item.link }"
             class="text-sm leading-6 text-gray-600 hover:text-gray-900"
-            >{{ item.name }}</a
+            >{{ item.name }}</router-link
+          >
+        </div>
+        <div class="pb-6">
+          <a
+            target="_blank"
+            href="https://dpvonline.de"
+            class="text-sm leading-6 text-gray-600 hover:text-gray-900"
+            >dpvonline.de</a
           >
         </div>
       </nav>
@@ -42,9 +50,9 @@ import { defineComponent, h } from "vue";
 
 const navigation = {
   main: [
-    { name: "Datenschutz", href: "#" },
-    { name: "Impressum", href: "#" },
-    { name: "dpvonline.de", href: "https://dpvonline.de" },
+    { name: "Datenschutz", link: "PrivacyMain" },
+    { name: "Impressum", link: "ImpressumMain" },
+    { name: "Fragen/Antworten", link: "FaqMain" },
   ],
   social: [
     {

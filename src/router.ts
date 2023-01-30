@@ -44,20 +44,16 @@ router.beforeEach(async (to, from, next) => {
   }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!authStore.isAuth) {
-      console.log('1')
-      next({ path: "/login" });
+      authStore.login()
     } else {
-      console.log('2')
       next();
     }
   }
 
   if (to.matched.some((record) => record.meta.hideForAuth)) {
     if (authStore.isAuth) {
-      console.log('3')
       next({ path: "/dashboard" });
     } else {
-      console.log('4')
       next();
     }
   }
