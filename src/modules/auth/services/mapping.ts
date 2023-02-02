@@ -6,7 +6,7 @@ export default {
     return axios.get(`${BASE_URL}/basic/gender/`);
   },
 
-  fetchScoutHierarchyMappings: async () => {
+  fetchScoutGroupMapping: async () => {
     return axios.get(`${BASE_URL}/basic/scout-hierarchy-detail/?level=5`);
   },
 

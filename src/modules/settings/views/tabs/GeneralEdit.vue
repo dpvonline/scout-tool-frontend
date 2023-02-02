@@ -48,7 +48,7 @@
               <BaseField
                   component="Date"
                   :label="'Geburtsdatum'"
-                  techName="birthdate"
+                  techName="birthday"
                   v-model="state.birthday"
                   :errors="errors.birthday?.$errors"
               />
@@ -464,10 +464,11 @@ function onButtonClicked() {
     return;
   }
   isLoading.value = true;
+  debugger;
   personalDataStore
     .updatePersonalData({
       id: state?.id,
-      firstName: '12321321312',
+      firstName: state?.firstName,
       lastName: state?.lastName,
       scoutName: state?.scoutName,
       birthday: state?.birthday,
@@ -507,7 +508,8 @@ onMounted(async () => {
   fillpersonalDataStore();
   console.log(emailNotificationChoices);
   state.gender = registerStore.genderMappings.find(a => a['name'] === state.gender);
-  state.scoutGroup = registerStore.scoutHierarchyMappings.find(a => a['id'] === state.scoutGroup['id']);
+  debugger;
+  state.scoutGroup = registerStore.scoutGroupMappings.find(a => a['id'] === state?.scoutGroup);
   // state.scoutLevel = registerStore.scoutLevelMappings.find(a => a['name'] === state.scoutLevel);
   // state.bundespost = bundespostChoices.find(a => a['name'] === state.bundespost);
   // state.emailNotification = emailNotificationChoices.find(a => a['name'] === state.emailNotification);

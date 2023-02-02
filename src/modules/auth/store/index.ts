@@ -51,7 +51,7 @@ export const useRegisterStore = defineStore("registerStore", {
     _registered: false,
     _mappings: useStorage("_mappings", {
       gender: [],
-      scoutHierarchy: [],
+      scoutGroup: [],
       scoutLevel: [],
     }),
 
@@ -64,7 +64,7 @@ export const useRegisterStore = defineStore("registerStore", {
       }),
       scout: useStorage("scout", {
         scoutName: "",
-        scoutOrganisation: "",
+        scoutGroup: "",
         scoutLevel: "",
       }),
       personal: useStorage("personal", {
@@ -91,7 +91,7 @@ export const useRegisterStore = defineStore("registerStore", {
       })
       this.updateScout({
         scoutName: "",
-        scoutOrganisation: "",
+        scoutGroup: "",
         scoutLevel: "",
       })
       this.updatePersonal({
@@ -120,8 +120,8 @@ export const useRegisterStore = defineStore("registerStore", {
       }
 
       try {
-        const scoutHierarchy = await mappingServices.fetchScoutHierarchyMappings()
-        this._mappings.scoutHierarchy = scoutHierarchy.data
+        const scoutGroup = await mappingServices.fetchScoutGroupMapping()
+        this._mappings.scoutGroup = scoutGroup.data
       } catch (e) {
         alert(e)
         console.error(e)
@@ -145,11 +145,11 @@ export const useRegisterStore = defineStore("registerStore", {
 
         // scout
         scoutName: this._userdata.scout.scoutName,
-        scoutOrganisation: this._userdata.scout.scoutOrganisation.id,
+        scoutGroup: this._userdata.scout.scoutGroup,
 
         // personal
         birthDate: this._userdata.personal.birthdate,
-        gender: this._userdata.personal.gender.value,
+        gender: this._userdata.personal.gender,
         mobileNumber: this._userdata.personal.mobileNumber,
 
         // advanced-personal
@@ -246,8 +246,8 @@ export const useRegisterStore = defineStore("registerStore", {
     genderMappings: (state) => {
       return state._mappings.gender
     },
-    scoutHierarchyMappings: (state) => {
-      return state._mappings.scoutHierarchy
+    scoutGroupMappings: (state) => {
+      return state._mappings.scoutGroup
     },
     scoutLevelMappings: (state) => {
       return state._mappings.scoutLevel

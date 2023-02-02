@@ -73,7 +73,7 @@
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
             <dt class="text-sm font-medium text-gray-500">Stamm (nicht änderbar)</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{
+              <span class="flex-grow text-gray-400">{{
                 props.personalData.scoutGroup?.name || ""
               }}</span>
             </dd>
