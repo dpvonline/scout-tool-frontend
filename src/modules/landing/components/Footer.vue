@@ -2,13 +2,13 @@
   <footer class="bg-white">
     <div class="mx-auto max-w-7xl overflow-hidden py-4 px-6 sm:py-4 lg:px-8">
       <nav
-        class="-mb-6 columns-3 sm:flex sm:justify-center sm:space-x-12"
+        class="-mb-6 columns-4 sm:flex justify-center sm:space-x-12"
         aria-label="Footer"
       >
-        <div v-for="item in navigation.main" :key="item.name" class="pb-6">
+        <div v-for="item in navigation.main" :key="item.name" class="pb-6 text-center">
           <router-link
             :to="{ name: item.link }"
-            class="text-sm leading-6 text-gray-600 hover:text-gray-900"
+            class="text-sm leading-6 text-gray-600 justify-center text-center hover:text-gray-900"
             >{{ item.name }}</router-link
           >
         </div>
@@ -16,7 +16,7 @@
           <a
             target="_blank"
             href="https://dpvonline.de"
-            class="text-sm leading-6 text-gray-600 hover:text-gray-900"
+            class="text-sm leading-6 text-gray-600 text-center hover:text-gray-900"
             >dpvonline.de</a
           >
         </div>
@@ -52,7 +52,7 @@ const navigation = {
   main: [
     { name: "Datenschutz", link: "PrivacyMain" },
     { name: "Impressum", link: "ImpressumMain" },
-    { name: "Fragen/Antworten", link: "FaqMain" },
+    { name: "FAQ", link: "FaqMain" },
   ],
   social: [
     {

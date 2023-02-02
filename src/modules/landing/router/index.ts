@@ -8,17 +8,17 @@ export default [
     component: () => import(/* webpackChunkName: "LandingMain" */ "@/modules/landing/views/Main.vue"),
   },
   {
-    path: "/faq-main",
+    path: "/landing-faq-main",
     name: "FaqMain",
     component: () => import(/* webpackChunkName: "FaqMain" */ "@/modules/landing/views/FaqMain.vue"),
   },
   {
-    path: "/impressum-main",
+    path: "/landing-impressum-main",
     name: "ImpressumMain",
     component: () => import(/* webpackChunkName: "ImpressumMain" */ "@/modules/landing/views/ImpressumMain.vue"),
   },
   {
-    path: "/privacy-main",
+    path: "/landing-privacy-main",
     name: "PrivacyMain",
     component: () => import(/* webpackChunkName: "PrivacyMain" */ "@/modules/landing/views/PrivacyMain.vue"),
   },

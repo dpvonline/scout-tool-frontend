@@ -87,7 +87,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   CloudIcon,
   CalendarIcon,
@@ -97,21 +97,21 @@ import {
 const supportLinks = [
   {
     name: "Wiki",
-    href: "#",
+    href: "https://wiki.dpvonline.de",
     description:
       "Zentrale Informations Plattform um einfach und schnell alle Informationen zu speichern.",
     icon: InformationCircleIcon,
   },
   {
     name: "Cloud",
-    href: "#",
+    href: "https://cloud.dpvonline.de",
     description:
       "Du kannst alle deine Pfadfinderdaten zentral und einfach sichern und teilen.",
     icon: CloudIcon,
   },
   {
     name: "Veranstaltungen",
-    href: "#",
+    href: "https://dpvonline.cloud",
     description:
       "Einfache Art deine Veranstaltungen zu planen und zu verwalten. Deine Mitglieder können sich Anmelden und sich über alle Neuigkeiten informieren.",
     icon: CalendarIcon,
