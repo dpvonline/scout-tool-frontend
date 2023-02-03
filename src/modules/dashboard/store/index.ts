@@ -31,7 +31,7 @@ export const useDashboardStore = defineStore("dashboard", {
     async fetchMyRequests() {
       try {
         const response = await DashboardApi.fetchMyRequests();
-        this._openTaskCount = response.data.length;
+        this._openTaskCount = response.data.filter(task => task.status === 'nothing').length;
       } catch (error) {
         alert(error);
         console.log(error);

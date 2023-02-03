@@ -41,7 +41,7 @@
           Deutscher Pfadfinderverband e.V. <br />
           Robert-Perthel-Str. 79, 50739 Köln <br />
         </p>
-      </div>
+
 
       <a
         class="mt-8 text-sm leading-8 text-blue-500"
@@ -49,7 +49,7 @@
       >
         Link zum Impressum der Hauptseite</a
       >
-
+      </div>
       <div class="prose prose-lg prose-blue mx-auto mt-6 text-gray-500">
         <h2>Haftung für Links</h2>
 

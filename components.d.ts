@@ -4,6 +4,7 @@
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ActionsList: typeof import('./src/components/actionlist/ActionsList.vue')['default']
     AutoComplete: typeof import('./src/components/field/AutoComplete.vue')['default']
     Base: typeof import('./src/components/field/Base.vue')['default']
     BaseItem: typeof import('./src/components/list/BaseItem.vue')['default']

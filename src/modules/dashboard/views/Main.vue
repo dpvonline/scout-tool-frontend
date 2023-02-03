@@ -51,6 +51,7 @@
               </div>
             </div>
           </div>
+          <ActionsList  class="mx-8 my-8" :actions="actionList"/>
           <!-- <NotifyList /> -->
           <!-- <MyGroups :myGroups="myGroups"/> -->
         </div>
@@ -73,6 +74,7 @@ import { useGroupStore } from "@/modules/group/store/index.ts";
 
 import NotifyList from "@/modules/dashboard/components/NotifyList.vue";
 import MyGroups from "@/modules/dashboard/components/MyGroups.vue";
+import ActionsList from "@/components/actionlist/ActionsList.vue";
 
 const cards = computed(() => {
   return [
@@ -121,6 +123,69 @@ const myGroups = computed(() => {
   return groupStore.myGroups;
 });
 
+import {
+  AcademicCapIcon,
+  BanknotesIcon,
+  CheckBadgeIcon,
+  ClockIcon,
+  ReceiptRefundIcon,
+  UsersIcon,
+  BuildingStorefrontIcon,
+  BuildingOfficeIcon,
+  PencilSquareIcon,
+  UserCircleIcon
+} from "@heroicons/vue/24/outline";
+
+const actionList = [
+  {
+    title: "Zeige mir alle Gruppen an",
+    description: 'Du bekommst alle Gruppen des DPVs angezeigt und kannst dort Anträge stellen oder Mitglieder einsehen, wenn du die Rechte dazu hast.',
+    link: "GroupMain",
+    icon:UserGroupIcon,
+    iconForeground: "text-teal-700",
+    iconBackground: "bg-teal-50",
+  },
+  {
+    title: "Zeige mir meine Gruppen an",
+    description: 'Zeige dir die Gruppen an, die du selbst erstellt hast.',
+    link: "SettingsMyGroups",
+    icon: BuildingStorefrontIcon,
+    iconForeground: "text-blue-700",
+    iconBackground: "bg-blue-50",
+  },
+  {
+    title: "Meine aktuellen persönlichen Daten einsehen ",
+    description: 'Du kannst deine persönlichen Daten einsehen.',
+    link: "SettingsGeneral",
+    icon: UserCircleIcon,
+    iconForeground: "text-red-700",
+    iconBackground: "bg-red-50",
+  },
+  {
+    title: "Meine aktuellen persönlichen Daten ändern ",
+    description: 'Du kannst deine persönlichen Daten ändern.',
+    link: "SettingsGeneralEdit",
+    icon: PencilSquareIcon,
+    iconForeground: "text-indigo-700",
+    iconBackground: "bg-indigo-50",
+  },
+  {
+    title: "Meine offenen Aufgaben",
+    description: 'Du kannst deine noch zu erledigen Aufgaben einsehen und direkt erledigen.',
+    link: "TaskMain",
+    icon: BuildingOfficeIcon,
+    iconForeground: "text-green-700",
+    iconBackground: "bg-green-50",
+  },
+  {
+    title: "Deine von dir gestellten Anträge einsehen",
+    description: 'Du kannst die Aufgaben ansehen die andere für dich erledigen sollen.',
+    link: "SettingsNotifications",
+    icon: BuildingOfficeIcon,
+    iconForeground: "text-yellow-700",
+    iconBackground: "bg-yellow-50",
+  },
+]
 onMounted(() => {
   personalDataStore.fetchPersonalData();
   dashboardStore.fetchGroupCount()
