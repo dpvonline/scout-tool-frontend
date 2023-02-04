@@ -70,7 +70,7 @@
 
   <!-- Activity table (small breakpoint and up) -->
   <div class="hidden sm:block">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl my-3 px-4 sm:px-6 lg:px-8">
       <div class="mt-2 flex flex-col">
         <div
           class="

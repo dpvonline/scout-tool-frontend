@@ -5,8 +5,8 @@
       <div class="mx-auto flex max-w-4xl flex-col md:px-8 xl:px-0">
         <main class="flex-1">
           <div class="relative mx-auto max-w-4xl md:px-8 xl:px-0">
-            <div class="pt-10 pb-16">
-              <div class="px-4 sm:px-6 md:px-0">
+            <div class="pt-10 sm:pt- pb-16">
+              <div class="px-1 sm:px-6 py-2">
                 <div class="py-6">
                   <TabGroup as="div" class="mt-2">
                     <!-- Tabs -->
@@ -19,7 +19,7 @@
                               tab.current
                                 ? 'text-blue-600 border-blue-600'
                                 : 'text-gray-900 border-transparent',
-                              'flex-1 whitespace-nowrap border-b-2 py-4 px-1 text-base font-medium text-center',
+                              'flex-1 whitespace-nowrap border-b-2 py-4 px-1 sm:text-base text-sm font-medium text-center',
                             ]"
                           >
                             {{ tab.name }}
