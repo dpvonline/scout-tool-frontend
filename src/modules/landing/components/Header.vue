@@ -9,7 +9,7 @@
       lg:grid lg:grid-cols-2 lg:gap-x-8 lg:py-20 lg:px-8
     "
   >
-    <div class="px-6 lg:px-0 lg:pt-4">
+    <div class="md:mx-8 px-6 lg:px-0 lg:pt-4">
       <div class="mx-auto max-w-2xl">
         <div class="max-w-lg">
           <img

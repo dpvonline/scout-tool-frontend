@@ -11,9 +11,9 @@
     <BaseField
       component="Date"
       :label="'Geburtsdatum*'"
-      techName="birthdate"
-      v-model="state.birthdate"
-      :errors="errors.birthdate?.$errors"
+      techName="birthday"
+      v-model="state.birthday"
+      :errors="errors.birthday?.$errors"
       hint="Wir brauchen dein Geburtsdatum für Anmeldungen bei Veranstaltungen und um dich einer Altersstufe zuzuordnen"
     />
     <BaseField
@@ -34,10 +34,10 @@
     <BaseField
       component="PhoneNumber"
       :label="'Handynummer'"
-      techName="mobileNumber"
+      techName="phoneNumber"
       hint="Wir brauchen deine Handynummer, falls der Veranstaltungsorganisator dich erreichen möchte."
-      v-model="state.mobileNumber"
-      :errors="errors.mobileNumber?.$errors"
+      v-model="state.phoneNumber"
+      :errors="errors.phoneNumber?.$errors"
     />
       </div></fieldset>
   </StepFrame>
@@ -57,20 +57,20 @@ const registerStore = useRegisterStore();
 const initialState = registerStore.personal;
 
 const state = reactive({
-  mobileNumber: initialState.mobileNumber,
+  phoneNumber: initialState.phoneNumber,
   gender: initialState.gender,
-  birthdate: initialState.birthdate,
+  birthday: initialState.birthday,
 });
 
 const rules = {
-  mobileNumber: {},
+  phoneNumber: {},
   gender: {
     required: helpers.withMessage(
       "Dieses Feld muss angegeben werden.",
       required
     ),
   },
-  // birthdate: {
+  // birthday: {
   //   required: helpers.withMessage(
   //     "Dieses Feld muss angegeben werden.",
   //     required

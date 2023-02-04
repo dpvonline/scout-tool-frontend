@@ -66,13 +66,13 @@ export const useRegisterStore = defineStore("registerStore", {
       }),
       scout: useStorage("scout", {
         scoutName: "",
-        scoutGroup: "",
+        scoutGroup: null,
         scoutLevel: "",
       }),
       personal: useStorage("personal", {
-        mobileNumber: "",
+        phoneNumber: "",
         gender: "",
-        birthdate: "",
+        birthday: "",
       }),
       advancedPersonal: useStorage("advancedPersonal", {
         firstName: "",
@@ -93,13 +93,13 @@ export const useRegisterStore = defineStore("registerStore", {
       })
       this.updateScout({
         scoutName: "",
-        scoutGroup: "",
+        scoutGroup: null,
         scoutLevel: "",
       })
       this.updatePersonal({
-        mobileNumber: "",
+        phoneNumber: "",
         gender: "N",
-        birthdate: "",
+        birthday: "",
       })
       this.updateAdvancedPersonal({
         firstName: "",
@@ -147,12 +147,12 @@ export const useRegisterStore = defineStore("registerStore", {
 
         // scout
         scoutName: this._userdata.scout.scoutName,
-        scoutGroup: this._userdata.scout.scoutGroup,
+        scoutGroup: this._userdata.scout.scoutGroup?.id,
 
         // personal
-        birthDate: this._userdata.personal.birthdate,
+        birthday: this._userdata.personal.birthday,
         gender: this._userdata.personal.gender,
-        mobileNumber: this._userdata.personal.mobileNumber,
+        phoneNumber: this._userdata.personal.phoneNumber,
 
         // advanced-personal
         firstName: this._userdata.advancedPersonal.firstName,

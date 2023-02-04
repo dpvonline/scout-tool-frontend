@@ -42,10 +42,10 @@
                     </div>
                     <div class="min-w-0 flex-1">
                       <div class="text-sm font-medium text-gray-900">
-                        <a :href="item.href">
+                        <router-link :to="{ name: item.href }">
                           <span class="absolute inset-0" aria-hidden="true" />
                           {{ item.name }}
-                        </a>
+                        </router-link>
                       </div>
                       <p class="text-sm text-gray-500">
                         {{ item.description }}
@@ -81,13 +81,6 @@ import { CheckCircleIcon } from "@heroicons/vue/24/solid";
 
 const items = [
   {
-    name: "Login",
-    description: "Gehe direkt zur Login Seite",
-    href: "Login",
-    iconColor: "bg-blue-500",
-    icon: ArrowRightCircleIcon,
-  },
-  {
     name: "Startseite",
     description: "Zurück zur Startseite",
     href: "home",
@@ -97,7 +90,7 @@ const items = [
   {
     name: "Hilfe",
     description: "Ich habe ein Problem und suche Hilfe",
-    href: "Faq",
+    href: "FaqMain",
     iconColor: "bg-red-500",
     icon: MegaphoneIcon,
   },

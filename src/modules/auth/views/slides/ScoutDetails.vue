@@ -20,9 +20,9 @@
           component="AutoComplete"
           :label="'Stamm*'"
           techName="scoutgroup"
-          v-model="state.scoutOrganisation"
-          :errors="errors.scoutOrganisation?.$errors"
-          :items="registerStore.scoutHierarchyMappings"
+          v-model="state.scoutGroup"
+          :errors="errors.scoutGroup?.$errors"
+          :items="registerStore.scoutGroupMappings"
           hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."
           :lookupListDisplay="['bund', '$ - Stamm ', 'name']"
         />
@@ -46,7 +46,7 @@ const initialState = registerStore.scout;
 
 const state = reactive({
   scoutName: initialState.scoutName,
-  scoutOrganisation: initialState.scoutOrganisation,
+  scoutGroup: initialState.scoutGroup,
 });
 
 const rules = {
@@ -60,7 +60,7 @@ const rules = {
       maxLength(16)
     ),
   },
-  scoutOrganisation: {
+  scoutGroup: {
     required: helpers.withMessage(
       "Du musst einen Stamm auswählen, weil wir dich sonst nicht einordnen können.",
       required

@@ -57,7 +57,6 @@ const requestId = ref(false);
 
 // Accept Button
 function onAcceptButtonClicked(item) {
-  debugger;
   openAcceptModal.value = true;
   requestId.value = item.id;
 }

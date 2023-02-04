@@ -32,7 +32,13 @@
           "
           @focus="$event.target.select()"
           @change="updateSearch($event.target.value)"
-          :display-value="(person) => person && typeof person === 'object' ? getItemText(person) : 'Hier Suchtext eingeben!'"
+          :display-value="
+            (person) => {
+              return person && typeof person === 'object' && !isEmpty(person)
+                ? getItemText(person)
+                : 'Hier Suchtext eingeben!';
+            }
+          "
         />
         <ComboboxButton
           :disabled="disabled"
@@ -51,7 +57,7 @@
         </ComboboxButton>
 
         <ComboboxOptions
-          v-if="filteredPeople.length > 0"
+          v-if="filteredPeople?.length > 0"
           :disabled="disabled"
           class="
             absolute
@@ -135,7 +141,7 @@ const props = defineProps({
   cols: { type: Number, required: false, default: 3 },
   items: { type: Array, required: true },
   disabled: { type: Boolean, required: false, default: false },
-  lookupListDisplay: {type: Array, required: false, default: ['name']}
+  lookupListDisplay: { type: Array, required: false, default: ["name"] },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -157,17 +163,21 @@ const filteredPeople = computed(() => {
       });
 });
 
-  function getItemText(item) {
-    let template = '';
-    props.lookupListDisplay.forEach((field, i) => {
-      if (field.charAt(0) === '$') {
-        template += field.substring(1, field.length);
-      } else if (i === 0) {
-        template += item[field];
-      } else {
-        template = `${template} ${item[field]}`;
-      }
-    });
-    return template;
-  }
+function isEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
+
+function getItemText(item) {
+  let template = "";
+  props.lookupListDisplay.forEach((field, i) => {
+    if (field.charAt(0) === "$") {
+      template += field.substring(1, field.length);
+    } else if (i === 0) {
+      template += item[field];
+    } else {
+      template = `${template} ${item[field]}`;
+    }
+  });
+  return template;
+}
 </script>
