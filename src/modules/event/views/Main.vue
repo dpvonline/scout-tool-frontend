@@ -17,10 +17,22 @@ const route = useRoute();
 const tabs = computed(() => {
   return [
     {
-      name: "Alle Aufgaben",
-      linkName: "AllTasks",
+      name: "Einladungen",
+      linkName: "EventInvitations",
       current:
-        route.name === "AllTasks",
+        route.name === "EventInvitations",
+    },
+    {
+      name: "Anmeldungen",
+      linkName: "EventRegistrations",
+      current:
+        route.name === "EventRegistrations" ||
+        route.name === "EventRegistrations",
+    },
+    {
+      name: "Planungsjurte",
+      linkName: "EventPlanungsjurte",
+      current: route.name === "EventPlanungsjurte",
     },
   ];
 });

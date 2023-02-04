@@ -17,7 +17,7 @@
     "
     :class="
       isLoading
-        ? `px-8 py-3 text-white bg-${color}-300 rounded focus:outline-none bg-${color}-600`
+        ? `px-8 py-3 text-white bg-${color}-300 rounded focus:outline-none bg-${color}-500`
         : `focus:outline-none focus:ring-2 focus:ring-${color}-500 focus:ring-offset-2 hover:bg-${color}-700 bg-${color}-600`
     "
   >
@@ -26,8 +26,13 @@
       class="animate-spin -ml-0.5 mr-2 h-4 w-4"
       aria-hidden="true"
     />
+    <component
+      v-if="props.icon"
+      :is="props.icon"
+      class="ml-1 mr-2 h-5 w-5 text-white"
+      aria-hidden="true"
+    />
     {{ props.label }}
-    <!-- <ChevronRightIcon class="ml-1 -mr-1 h-5 w-5 text-gray-400" aria-hidden="true" /> -->
     <slot />
   </button>
 </template>
@@ -39,6 +44,7 @@ const props = defineProps({
   label: { type: String, required: false },
   isLoading: { type: Boolean, required: false },
   color: { type: String, required: false, default: "blue" },
+  icon: { type: Object, required: false, default: null },
 });
 
 const emit = defineEmits(["click"]);

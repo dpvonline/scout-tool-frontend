@@ -11,6 +11,7 @@ import PersonRouter from "@/modules/person/router";
 import LandingMain from "@/modules/landing/router";
 import TaskRouter from "@/modules/task/router";
 import MessageRouter from "@/modules/message/router";
+import EventRouter from "@/modules/event/router";
 
 const routes = [
   ...DashboardRouter,
@@ -22,6 +23,7 @@ const routes = [
   ...LandingMain,
   ...TaskRouter,
   ...MessageRouter,
+  ...EventRouter,
 ];
 
 const router = createRouter({

@@ -5,10 +5,29 @@ export default [
     meta: {
       requiresAuth: true,
     },
+    redirect: { name: "MyGroups" },
     component: () => import(/* webpackChunkName: "GroupMain" */ "@/modules/group/views/Main.vue"),
+    children: [
+      {
+        path: "my-groups",
+        name: "MyGroups",
+        meta: {
+          requiresAuth: true,
+        },
+        component: () => import(/* webpackChunkName: "GroupMember" */ "@/modules/group/views/tabs/MyGroups.vue"),
+      },
+      {
+        path: "group-search",
+        name: "GroupSearch",
+        meta: {
+          requiresAuth: true,
+        },
+        component: () => import(/* webpackChunkName: "GroupSearch" */ "@/modules/group/views/tabs/GroupSearch.vue"),
+      },
+    ]
   },
   {
-    path: "/group/:id",
+    path: "/group-details/:id",
     name: "GroupDetail",
     meta: {
       requiresAuth: true,
@@ -21,7 +40,7 @@ export default [
         meta: {
           requiresAuth: true,
         },
-        component: () => import(/* webpackChunkName: "GroupMember" */ "@/modules/group/views/tabs/Member.vue"),
+        component: () => import(/* webpackChunkName: "GroupMember" */ "@/modules/group/views/detail/tabs/Member.vue"),
       },
       {
         path: "overview",
@@ -29,7 +48,7 @@ export default [
         meta: {
           requiresAuth: true,
         },
-        component: () => import(/* webpackChunkName: "GroupOverview" */ "@/modules/group/views/tabs/Overview.vue"),
+        component: () => import(/* webpackChunkName: "GroupOverview" */ "@/modules/group/views/detail/tabs/Overview.vue"),
       },
       {
         path: "requests",
@@ -37,7 +56,7 @@ export default [
         meta: {
           requiresAuth: true,
         },
-        component: () => import(/* webpackChunkName: "GroupRequests" */ "@/modules/group/views/tabs/Requests.vue"),
+        component: () => import(/* webpackChunkName: "GroupRequests" */ "@/modules/group/views/detail/tabs/Requests.vue"),
       },
     ],
   },

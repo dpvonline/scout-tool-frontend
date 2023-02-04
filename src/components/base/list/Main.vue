@@ -725,7 +725,6 @@ watch(searchInput, (searchInput) => {
 });
 
 function onDetailPageClicked(id) {
-  debugger;
   router.push({
     name: props.detailPageLink,
     params: {

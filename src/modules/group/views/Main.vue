@@ -1,9 +1,33 @@
 <template>
-  <div class="2xl:px-64 xl:px-30">
-    <GroupSearchList/>
-  </div>
+    <PageWrapper>
+      <MyTabGroup :tabs="tabs"/>
+    </PageWrapper>
 </template>
 
 <script setup lang="ts">
-import GroupSearchList from "@/modules/group/components/GroupSearchList.vue";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+
+
+import MyTabGroup from "@/components/menu/TabGroup.vue";
+import PageWrapper from "@/components/base/PageWrapper.vue";
+
+const route = useRoute();
+
+const tabs = computed(() => {
+  return [
+    {
+      name: "Meine Gruppen",
+      linkName: "MyGroups",
+      current:
+        route.name === "MyGroups",
+    },
+    {
+      name: "Gruppe suchen",
+      linkName: "GroupSearch",
+      current:
+        route.name === "GroupSearch",
+    },
+  ];
+});
 </script>

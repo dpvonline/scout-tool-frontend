@@ -399,7 +399,7 @@
             role="button"
             class="relative flex align-middle"
           >
-            <BellIcon class="flex-1 w7 h-7 align-middle" viewbox="0 0 24 24" />
+            <BellAlertIcon class="flex-1 w7 h-7 align-middle" viewbox="0 0 24 24" />
             <span
               class="
                 absolute
@@ -489,8 +489,9 @@ import {
   ArrowLeftIcon,
   UserGroupIcon,
   UserIcon,
-  BellIcon,
+  BellAlertIcon,
   InboxIcon,
+  CalendarDaysIcon,
 } from "@heroicons/vue/24/outline";
 
 import { ref, computed, onMounted } from "vue";
@@ -564,7 +565,7 @@ const navigation = computed(() => {
     {
       name: "Aufgaben",
       linkName: "TaskMain",
-      icon: BellIcon,
+      icon: BellAlertIcon,
       route: "task",
       isAuth: true,
       count: openTaskCount,
@@ -576,6 +577,13 @@ const navigation = computed(() => {
       route: "message",
       isAuth: true,
       count: unProcessedMessages,
+    },
+    {
+      name: "Veranstaltungen",
+      linkName: "EventMain",
+      icon: CalendarDaysIcon,
+      route: "event",
+      isAuth: true,
     },
   ].filter((item) => !item.isAuth || isAuth.value);
 });

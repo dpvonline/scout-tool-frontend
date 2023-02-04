@@ -7,7 +7,7 @@
       :sortOptions="sortOptions"
       :filters="filters"
       :buttonList="buttonList"
-      mainPageLink="GroupMain"
+      mainPageLink="GroupSearch"
       detailPageLink="GroupOverview"
     >
       <template #listitem="{ item }">

@@ -1,47 +1,19 @@
 <template>
   <div>
-    <button
-      type="button"
-      @click="onAcceptButtonClicked(props.request)"
-      class="
-        inline-flex
-        items-center
-        rounded
-        border border-gray-300
-        bg-green-600
-        px-2.5
-        py-1.5
-        text-xs
-        font-medium
-        text-gray-100
-        shadow-sm
-        hover:bg-green-800
-        focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
-      "
-    >
-      Annehmen
-    </button>
-    <button
-      type="button"
-      @click="onDeclineButtonClicked(props.request)"
-      class="
-        inline-flex
-        items-center
-        rounded
-        border border-gray-300
-        bg-red-600
-        px-2.5
-        py-1.5
-        text-xs
-        font-medium
-        text-gray-100
-        hover:bg-red-800
-        shadow-sm
-        focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2
-      "
-    >
-      Ablehnen
-    </button>
+      <PrimaryButton
+        class="mx-2 my-2"
+        @click="onAcceptButtonClicked(props.request)"
+        color="green"
+        :icon="HandThumbUpIcon"
+        label="Annehmen"
+      />
+      <PrimaryButton
+        class="mx-2 my-2"
+        @click="onDeclineButtonClicked(props.request)"
+        color="red"
+        :icon="HandThumbDownIcon"
+        label="Ablehnen"
+      />
     <RequestModal
       :open="openAcceptModal"
       :callbackOnConfirm="onAcceptConfirmClicked"
@@ -66,6 +38,7 @@ import moment from "moment";
 import { ref, watch, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
 import RequestModal from "@/modules/group/components/RequestModal.vue";
+import PrimaryButton from "@/components/button/Primary.vue";
 
 import { useRoute } from "vue-router";
 
@@ -84,6 +57,7 @@ const requestId = ref(false);
 
 // Accept Button
 function onAcceptButtonClicked(item) {
+  debugger;
   openAcceptModal.value = true;
   requestId.value = item.id;
 }

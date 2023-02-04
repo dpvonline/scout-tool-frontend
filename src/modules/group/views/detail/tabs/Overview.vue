@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
-import Children from "@/modules/group/views/tabs/Children.vue";
+import Children from "@/modules/group/views/detail/tabs/Children.vue";
 
 import { useRoute } from "vue-router";
 
