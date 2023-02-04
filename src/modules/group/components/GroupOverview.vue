@@ -9,10 +9,16 @@
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-3">
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Zugriff</dt>
-          <dd class="mt-1 text-sm text-gray-900">{{ group.permission === 'none' ? 'Keine Rechte' : group.permission  }}</dd>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{
+              group.permission === "none" ? "Keine Rechte" : group.permission
+            }}
+          </dd>
         </div>
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Nächst höheres Element</dt>
+          <dt class="text-sm font-medium text-gray-500">
+            Nächst höheres Element
+          </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ group.parent ? group.parent.name : "keins" }}
           </dd>
@@ -20,7 +26,7 @@
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Mitglied?</dt>
           <dd class="mt-1 text-sm text-gray-900">
-           {{ group.isMember ? 'Ja' : 'Nein' }}
+            {{ group.isMember ? "Ja" : "Nein" }}
           </dd>
         </div>
         <div class="sm:col-span-2">
@@ -46,7 +52,7 @@
                     aria-hidden="true"
                   />
                   <span class="ml-2 w-0 flex-1 truncate"
-                    >Ich möchte Mitglied in dieser Gruppe werden.</span
+                    >Mitglied in dieser Gruppe werden.</span
                   >
                 </div>
                 <div class="ml-4 flex-shrink-0">
@@ -72,8 +78,42 @@
                       focus:ring-offset-2
                     "
                   >
-                    Mitgliedschaft beantragen
+                    beantragen
                   </button>
+                </div>
+              </li>
+            </ul>
+          </dd>
+        </div>
+
+        <div class="sm:col-span-2" v-if="group?.externallinks">
+          <dt class="text-sm font-medium text-gray-500">Links</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <ul
+              role="list"
+              class="divide-y divide-gray-200 rounded-md border border-gray-200"
+            >
+              <li
+                class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+                v-for="child in Object.keys(group.externallinks)"
+                :key="child.id"
+              >
+                <div class="flex w-0 flex-1 items-center">
+                  <LinkIcon
+                    class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <span> {{ child }}</span>
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                  <a
+                    target="_blank"
+                    :href="group.externallinks[child]"
+                    class="text-blue-600 hover:text-blue-900"
+                    >Im neuem Tab öffnen<span class="sr-only"
+                      > {{ child.name }}</span
+                    ></a
+                  >
                 </div>
               </li>
             </ul>
@@ -128,7 +168,7 @@
 </template>
 
 <script setup lang="ts">
-import { RocketLaunchIcon, UserGroupIcon } from "@heroicons/vue/20/solid";
+import { RocketLaunchIcon, UserGroupIcon, LinkIcon } from "@heroicons/vue/20/solid";
 import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
 import RequestModal from "@/modules/group/components/RequestModal.vue";
