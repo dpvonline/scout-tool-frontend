@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:col-span-3">
+<div :class="`sm:col-span-${cols}`">
     <label :disabled="disabled" class="block text-sm font-medium text-gray-700">{{
       props.label
     }}</label>
@@ -8,7 +8,7 @@
         :value="modelValue"
         @input="updateValue"
         :disabled="disabled"
-        placeholder="rainer@zufall.de"
+        placeholder="deine@email.adresse"
         type="email"
         class="
           block
@@ -61,6 +61,7 @@ const props = defineProps({
   label: { type: String, required: true },
   hint: { type: String, required: false, default: null },
   disabled: { type: Boolean, required: false, default: false },
+  cols: { type: Number, required: false, default: 3}
 });
 
 const emit = defineEmits(["update:modelValue"]);

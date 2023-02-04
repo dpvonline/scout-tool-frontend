@@ -50,8 +50,8 @@
                 </div>
               </div>
             </div>
+          <ActionsList  class="my-8" :actions="actionList"/>
           </div>
-          <ActionsList  class="mx-8 my-8" :actions="actionList"/>
           <!-- <NotifyList /> -->
           <!-- <MyGroups :myGroups="myGroups"/> -->
         </div>

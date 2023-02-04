@@ -1,11 +1,11 @@
 <template>
-  <div :class="`sm:col-span-${cols}`">
+  <div :class="`sm:col-span-${props.cols}`">
     <label
       for="about"
       class="block text-sm font-medium text-gray-700"
       >{{ props.label }}</label
     >
-    <div class="mt-1">
+    <div class="mt-1 relative">
       <textarea
         :value="props.modelValue"
         @input="updateValue"
@@ -14,7 +14,6 @@
         class="
           block
           w-full
-          max-w-lg
           rounded-md
           border-gray-300
           shadow-sm

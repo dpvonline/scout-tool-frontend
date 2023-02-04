@@ -10,8 +10,10 @@
           <p class="mt-4 text-lg text-gray-500">
             Such dir die passende Frage aus der Liste her. Wenn dir eine Frage
             fehlt schreibe eine
-            <a href="#" class="font-medium text-blue-600 hover:text-blue-500"
-              >Fragen an uns senden senden</a
+            <router-link
+              :to="{ name: 'ContactMain' }"
+              class="font-medium text-blue-600 hover:text-blue-500"
+              >Fragen an uns</router-link
             >
           </p>
         </div>
@@ -54,6 +56,4 @@ const props = defineProps({
   qas: Array,
   header: String,
 });
-
-
 </script>

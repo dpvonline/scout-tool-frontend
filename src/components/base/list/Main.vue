@@ -551,20 +551,32 @@
                 class="block hover:bg-gray-50"
               >
                 <div class="flex items-center px-4 py-4 sm:px-6">
-                  <slot name="listitem" v-bind:item="item"></slot>
-                  <button @click="onDetailPageClicked(item.id, detailPageLink)">
-                    <ChevronRightIcon
-                      class="h-5 w-5 text-gray-400"
-                      aria-hidden="true"
-                    />
-                  </button>
+                  <div class="grow">
+                    <slot
+                      name="listitem"
+                      v-bind:item="item"
+                      class="weight-max"
+                    ></slot>
+                  </div>
+                  <div class="flex-none">
+                    <button
+                      @click="onDetailPageClicked(item.id, detailPageLink)"
+                    >
+                      <ChevronRightIcon
+                        class="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </div>
                 </div>
               </router-link>
             </li>
           </ul>
-          <ul v-else >
+          <ul v-else>
             <li>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500 px-2 py-2">Bitte suche nach einer Gruppe</p>
+              <p class="mt-1 max-w-2xl text-sm text-gray-500 px-2 py-2">
+                Bitte suche nach einer Gruppe
+              </p>
             </li>
           </ul>
         </div>
@@ -706,7 +718,6 @@ function updateFilters(option, section) {
 
 const searchInput = ref("");
 
-
 const activeSort = ref("A-Z");
 
 watch(searchInput, (searchInput) => {
@@ -714,6 +725,7 @@ watch(searchInput, (searchInput) => {
 });
 
 function onDetailPageClicked(id) {
+  debugger;
   router.push({
     name: props.detailPageLink,
     params: {

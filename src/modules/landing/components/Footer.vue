@@ -52,7 +52,8 @@ const navigation = {
   main: [
     { name: "Datenschutz", link: "PrivacyMain" },
     { name: "Impressum", link: "ImpressumMain" },
-    { name: "FAQ", link: "FaqMain" },
+    { name: "F.A.Q.", link: "FaqMain" },
+    { name: "Kontakt", link: "ContactMain" },
   ],
   social: [
     {

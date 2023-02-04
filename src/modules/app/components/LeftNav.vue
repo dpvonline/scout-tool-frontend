@@ -427,6 +427,7 @@ import {
   UserGroupIcon,
   UserIcon,
   BellIcon,
+  InboxIcon,
 } from "@heroicons/vue/24/outline";
 
 import { ref, computed, onMounted } from "vue";
@@ -441,12 +442,19 @@ const appStore = useAppStore();
 import { useDashboardStore } from "@/modules/dashboard/store/index.ts";
 const dashbordStore = useDashboardStore();
 
+import { useMessageStore } from "@/modules/message/store/index";
+const messageStore = useMessageStore();
+
 const isAuth = computed(() => {
   return authStore.isAuth;
 });
 
 const openTaskCount = computed(() => {
   return dashbordStore.openTaskCount;
+});
+
+const unProcessedMessages = computed(() => {
+  return messageStore.unProcessedMessages;
 });
 
 const route = useRoute();
@@ -491,6 +499,14 @@ const navigation = computed(() => {
       route: "task",
       isAuth: true,
       count: openTaskCount,
+    },
+    {
+      name: "Nachrichten",
+      linkName: "MessageMain",
+      icon: InboxIcon,
+      route: "message",
+      isAuth: true,
+      count: unProcessedMessages,
     },
   ].filter((item) => !item.isAuth || isAuth.value);
 });

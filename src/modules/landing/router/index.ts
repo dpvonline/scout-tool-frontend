@@ -22,4 +22,9 @@ export default [
     name: "PrivacyMain",
     component: () => import(/* webpackChunkName: "PrivacyMain" */ "@/modules/landing/views/PrivacyMain.vue"),
   },
+  {
+    path: "/landing-contact-main",
+    name: "ContactMain",
+    component: () => import(/* webpackChunkName: "ContactMain" */ "@/modules/landing/views/ContactMain.vue"),
+  },
 ];

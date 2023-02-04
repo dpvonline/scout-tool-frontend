@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import { useAuthStore } from "@/modules/auth/store/index.ts";
+import { useAuthStore } from "@/modules/auth/store";
 
 import AppRouter from "@/modules/app/router";
 import DashboardRouter from "@/modules/dashboard/router";
@@ -10,6 +10,7 @@ import GroupRouter from "@/modules/group/router";
 import PersonRouter from "@/modules/person/router";
 import LandingMain from "@/modules/landing/router";
 import TaskRouter from "@/modules/task/router";
+import MessageRouter from "@/modules/message/router";
 
 const routes = [
   ...DashboardRouter,
@@ -20,6 +21,7 @@ const routes = [
   ...PersonRouter,
   ...LandingMain,
   ...TaskRouter,
+  ...MessageRouter,
 ];
 
 const router = createRouter({

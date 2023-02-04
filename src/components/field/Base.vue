@@ -1,6 +1,6 @@
 <template>
   <component
-    class="pa-3"
+    class="px-1 pt-2"
     :is="components[props.component]"
     :label="props.label"
     :hint="props.hint"
@@ -72,6 +72,7 @@ const props = withDefaults(defineProps<{
   component: keyof typeof components,
   label: string,
   hint?: string
+  cols?: Number,
 }>(), {
   hint: "",
   errors: [],
