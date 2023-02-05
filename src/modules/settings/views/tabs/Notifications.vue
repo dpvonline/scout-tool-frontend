@@ -37,8 +37,8 @@ import { useDashboardStore } from "@/modules/dashboard/store/index";
 import RequestListButton from "@/modules/group/components/RequestListButton.vue";
 import SimpleList from "@/components/list/SimpleList.vue";
 import TabWrapper from "@/components/base/TabWrapper.vue";
-import MyOwnRequestsListItem from "@/modules/settings/components/MyOwnRequestsListItem.vue"
-import MyOwnRequestsListItemEmpty from "@/modules/settings/components/MyOwnRequestsListItemEmpty.vue"
+import MyOwnRequestsListItem from "@/modules/task/components/MyOwnRequestsListItem.vue"
+import MyOwnRequestsListItemEmpty from "@/modules/task/components/MyOwnRequestsListItemEmpty.vue"
 
 const taskStore = useTaskStore();
 
