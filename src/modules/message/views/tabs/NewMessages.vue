@@ -56,7 +56,7 @@
         </nav>
       </div>
     </div>
-    <SimpleList :items="newMessagesFiltered" detailPageLink="TaskDetail">
+    <SimpleList :items="newMessagesFiltered" detailPageLink="MessageDetail">
       <template v-slot:notEmpty="slotProps">
         <MessageListItem :item="slotProps.item"/>
       </template>
@@ -78,15 +78,12 @@ import {
   UserIcon,
   BellIcon,
 } from "@heroicons/vue/24/outline";
-import { useTaskStore } from "@/modules/task/store/index";
 import { useDashboardStore } from "@/modules/dashboard/store/index";
 import RequestListButton from "@/modules/group/components/RequestListButton.vue";
 import SimpleList from "@/components/list/SimpleList.vue";
 import TabWrapper from "@/components/base/TabWrapper.vue";
 import MessageListItem from "@/modules/message/components/MessageListItem.vue";
-import MyOwnRequestsListItemEmpty from "@/modules/task/components/MyOwnRequestsListItemEmpty.vue";
 
-const taskStore = useTaskStore();
 const dashboardStore = useDashboardStore();
 
 const newMessages = computed(() => {
@@ -143,6 +140,6 @@ const route = useRoute();
 
 
 onMounted(() => {
-  messageStore.fetchMessages(route.query);
+  messageStore.fetchMessages();
 });
 </script>

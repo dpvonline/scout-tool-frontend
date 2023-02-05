@@ -67,6 +67,7 @@ import {
   UserGroupIcon,
   UserIcon,
   BellIcon,
+  InboxIcon,
 } from "@heroicons/vue/24/outline";
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
 import { useDashboardStore } from "@/modules/dashboard/store/index.ts";
@@ -78,12 +79,12 @@ import ActionsList from "@/components/actionlist/ActionsList.vue";
 
 const cards = computed(() => {
   return [
-    {
-      name: "Alle Mitglieder",
-      href: "PersonMain",
-      icon: UserIcon,
-      amount: userCount,
-    },
+    // {
+    //   name: "Alle Mitglieder",
+    //   href: "PersonMain",
+    //   icon: UserIcon,
+    //   amount: userCount,
+    // },
     {
       name: "Alle Gruppen",
       href: "GroupMain",
@@ -96,6 +97,12 @@ const cards = computed(() => {
       icon: BellIcon,
       amount: openTaskCount,
     },
+    {
+      name: "Neue Nachrichten",
+      href: "MessageMain",
+      icon: InboxIcon,
+      amount: unProcessedMessages,
+    },
   ];
 });
 
@@ -104,6 +111,9 @@ import { useRoute } from "vue-router";
 const personalDataStore = usePersonalDataStore();
 const dashboardStore = useDashboardStore();
 const groupStore = useGroupStore();
+
+import { useMessageStore } from "@/modules/message/store/index";
+const messageStore = useMessageStore();
 
 const route = useRoute();
 
@@ -121,6 +131,9 @@ const openTaskCount = computed(() => {
 });
 const myGroups = computed(() => {
   return groupStore.myGroups;
+});
+const unProcessedMessages = computed(() => {
+  return messageStore.unProcessedMessages;
 });
 
 import {
@@ -192,5 +205,6 @@ onMounted(() => {
   dashboardStore.fetchUserCount()
   dashboardStore.fetchMyRequests()
   groupStore.fetchMyGroups()
+  messageStore.fetchMessages();
 });
 </script>

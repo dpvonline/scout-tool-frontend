@@ -1,6 +1,6 @@
 <template>
-  <div class="2xl:px-64 xl:px-30">
-    <Breadcrumbs :pages="pages" />
+  <PageWrapper>
+    <Breadcrumbs v-if="group" :pages="pages" />
     <main class="relative z-40 flex-1 focus:outline-none">
       <article v-if="group.name">
         <!-- Tabs -->
@@ -9,7 +9,11 @@
             <TabList class="-mb-px flex space-x-8 px-4">
               <Tab as="template" v-for="tab in tabs" :key="tab.name">
                 <router-link
-                  :to="{ name: tab.linkName }"
+                  v-if="route.params.id"
+                  :to="{
+                    name: tab.linkName,
+                    params: { name: route.params.id },
+                  }"
                   tag="button"
                   :class="[
                     tab.selected
@@ -29,13 +33,14 @@
         </TabGroup>
       </article>
     </main>
-  </div>
+  </PageWrapper>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
+import PageWrapper from "@/components/base/PageWrapper.vue";
 import { useRoute } from "vue-router";
 import { useGroupStore } from "@/modules/group/store/index";
 import { useAuthStore } from "@/modules/auth/store/index";
@@ -43,12 +48,10 @@ import { useAuthStore } from "@/modules/auth/store/index";
 const route = useRoute();
 
 const pages = computed(() => {
-  const returnArry = [
-    { name: "Alle Gruppen", link: "GroupMain", id: route.params.id },
-  ];
+  const returnArry = [{ name: "Alle", link: "GroupMain"}];
   const groupObj = { link: "GroupOverview" };
   if (group?.value?.parent?.parent?.parent) {
-    returnArry.push({ ...group.value.parent.parent.parent, ...groupObj });
+    returnArry.push({ ...group.value.parent.parent.parent.id, ...groupObj });
   }
 
   if (group?.value?.parent?.parent) {
@@ -62,7 +65,7 @@ const pages = computed(() => {
   if (group?.value) {
     returnArry.push({ ...group.value, ...groupObj });
   }
-  return returnArry;
+  return returnArry.filter(item => item.link === "GroupMain" || (item.link === "GroupOverview" && item?.id ));
 });
 
 const tabs = computed(() => {
@@ -91,7 +94,7 @@ const tabs = computed(() => {
       selected: route.name === "GroupRequests",
       permission: true,
     },
-  ].filter(item => !item.permission || group.value.permission !== 'none');
+  ].filter((item) => !item.permission || group.value.permission !== "none");
 });
 
 const groupStore = useGroupStore();

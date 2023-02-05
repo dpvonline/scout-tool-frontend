@@ -14,7 +14,7 @@
       <li v-for="page in props.pages" :key="page.name" class="flex">
         <div class="flex items-center">
           <svg
-            class="h-full w-6 flex-shrink-0 text-gray-200"
+            class="h-full w-3 md:w-6 wflex-shrink-0 text-gray-200"
             viewBox="0 0 24 44"
             preserveAspectRatio="none"
             fill="currentColor"
@@ -25,7 +25,7 @@
           </svg>
           <router-link
             :to="{ name: page.link, params: { id: page.id} }"
-            class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
+            class="ml-1 md:ml-4 text-xs md:text-sm font-medium text-gray-500 hover:text-gray-700"
             :aria-current="page.current ? 'page' : undefined"
             >{{ page.name }}</router-link
           >

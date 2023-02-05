@@ -1,8 +1,8 @@
 <template>
   <TabWrapper>
-    <PrimaryButton class="my-2" color="blue" :icon="PlusIcon">
+    <!-- <PrimaryButton class="my-2" color="blue" :icon="PlusIcon">
       Neue Veranstaltungen erstellen
-    </PrimaryButton>
+    </PrimaryButton> -->
     <SimpleList :items="eventOverviews" detailPageLink="EventDetail">
       <template v-slot:notEmpty="slotProps">
         <EventListItem :item="slotProps.item" />
@@ -22,7 +22,7 @@ import TabWrapper from "@/components/base/TabWrapper.vue";
 import EventListItem from "@/modules/event/components/EventListItem.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 
-import { PlusIcon } from '@heroicons/vue/20/solid'
+import { PlusIcon } from "@heroicons/vue/20/solid";
 
 import { ref, watch, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";

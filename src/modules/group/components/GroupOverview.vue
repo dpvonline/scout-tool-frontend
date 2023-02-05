@@ -141,6 +141,7 @@
                 </div>
                 <div class="ml-4 flex-shrink-0">
                   <router-link
+                    v-if="child.id"
                     :to="{
                       name: 'GroupOverview',
                       params: {

@@ -140,6 +140,7 @@
                     "
                   >
                  <router-link
+                  v-if="group.id"
                     :to="{
                       name: 'GroupOverview',
                       params: {

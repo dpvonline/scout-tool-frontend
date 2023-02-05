@@ -7,7 +7,7 @@
       :sortOptions="sortOptions"
       :filters="filters"
       :buttonList="buttonList"
-      mainPageLink="MessageMain"
+      mainPageLink="AllMessages"
       detailPageLink="MessageDetail"
     >
       <template #listitem="{ item }">

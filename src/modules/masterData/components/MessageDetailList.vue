@@ -28,7 +28,7 @@
         </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">Internes Kommentar</dt>
-          <dd class="mt-1 text-sm text-gray-900">{{ message.internalComment ? message.internalComment : 'Noch keine Vermerk' }}</dd>
+          <dd class="mt-1 text-sm text-gray-900">{{ message.internalComment ? message.internalComment : 'Noch kein Vermerk' }}</dd>
         </div>
       </dl>
     </div>
