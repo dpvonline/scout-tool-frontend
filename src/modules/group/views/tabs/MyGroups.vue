@@ -2,168 +2,21 @@
   <div class="px-4 sm:px-6 py-3 lg:px-8">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
-        <h1 class="text-xl font-semibold text-gray-900">
-          In folgenden Gruppen bist du Mitglied
-        </h1>
+        <h1 class="text-xl font-semibold text-gray-900">Deine Gruppen</h1>
         <p class="mt-2 text-sm text-gray-700">
-          In dieser Liste sind alle deine Gruppen dargestellt.
+          In dieser Liste sind alle deine Gruppen
         </p>
       </div>
     </div>
     <div class="mt-8 flex flex-col">
-      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full py-2 align-middle">
-          <div
-            class="overflow-hidden shadow-sm ring-1 ring-black ring-opacity-5"
-          >
-            <table class="min-w-full divide-y divide-gray-300">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th
-                    scope="col"
-                    class="
-                      py-3.5
-                      pl-4
-                      pr-3
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                      sm:pl-6
-                      lg:pl-8
-                    "
-                  >
-                    Gruppenname
-                  </th>
-                  <th
-                    scope="col"
-                    class="
-                      py-3.5
-                      pl-4
-                      pr-3
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                      sm:pl-6
-                      lg:pl-8
-                    "
-                  >
-                    Mitglied?
-                  </th>
-                  <th
-                    scope="col"
-                    class="
-                      py-3.5
-                      pl-4
-                      pr-3
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                      sm:pl-6
-                      lg:pl-8
-                    "
-                  >
-                    Rolle
-                  </th>
-                  <th
-                    scope="col"
-                    class="
-                      py-3.5
-                      pl-4
-                      pr-3
-                      text-left text-sm
-                      font-semibold
-                      text-gray-900
-                      sm:pl-6
-                      lg:pl-8
-                    "
-                  >
-                    Link zur Gruppe
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="group in myGroups" :key="group.id">
-                  <td
-                    class="
-                      whitespace-nowrap
-                      py-4
-                      pl-4
-                      pr-3
-                      text-sm
-                      font-medium
-                      text-gray-900
-                      sm:pl-6
-                      lg:pl-8
-                    "
-                  >
-                    {{
-                      group.parent
-                        ? `${group.parent.name} - ${group.name} `
-                        : group.name
-                    }}
-                  </td>
-                  <td
-                    class="
-                      whitespace-nowrap
-                      py-4
-                      pl-4
-                      pr-3
-                      text-sm
-                      font-medium
-                      text-gray-900
-                      sm:pl-6
-                      lg:pl-8
-                    "
-                  >
-                    {{ group.isMember ? "Mitglied" : "kein Mitglied" }}
-                  </td>
-                  <td
-                    class="
-                      whitespace-nowrap
-                      py-4
-                      pl-4
-                      pr-3
-                      text-sm
-                      font-medium
-                      text-gray-900
-                      sm:pl-6
-                      lg:pl-8
-                    "
-                  >
-                    {{
-                      group.permission === "none" ? "Keine" : group.permission
-                    }}
-                  </td>
-                  <td
-                    class="
-                      whitespace-nowrap
-                      py-4
-                      pl-4
-                      pr-3
-                      text-sm
-                      font-medium
-                      text-gray-900
-                      sm:pl-6
-                      lg:pl-8
-                    "
-                  >
-                    <router-link
-                      :to="{
-                        name: 'GroupOverview',
-                        params: {
-                          id: group.id,
-                        },
-                      }"
-                      class="text-blue-600 hover:text-blue-900"
-                      >Gruppe öffnen
-                    </router-link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+    <SimpleList :items="myGroups" detailPageLink="GroupOverview">
+      <template v-slot:notEmpty="slotProps">
+        <GroupListItem :item="slotProps.item" />
+      </template>
+      <template v-slot:empty>
+          Glückwunsch. Du bist aktuell keine offenen Aufgaben
+      </template>
+    </SimpleList>
     </div>
   </div>
 </template>
@@ -178,6 +31,10 @@ import {
   BellIcon,
 } from "@heroicons/vue/24/outline";
 import { useGroupStore } from "@/modules/group/store/index";
+import RequestListButton from "@/modules/group/components/RequestListButton.vue";
+import SimpleList from "@/components/list/SimpleList.vue";
+import TabWrapper from "@/components/base/TabWrapper.vue";
+import GroupListItem from "@/modules/group/components/GroupListItem.vue"
 
 import { useRoute } from "vue-router";
 

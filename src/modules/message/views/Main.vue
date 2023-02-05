@@ -143,7 +143,7 @@ function getIconByMessageType(id) {
 }
 
 const sortOptions = [
-  { name: "Neuste", value: "-created_at", current: true },
+  { name: "Neuste", value: "-created_at", current: false },
   { name: "A-Z", value: "alpha", current: false },
 ];
 
@@ -152,7 +152,7 @@ const filters = [
     id: "message_type",
     name: "Nachrichten Typ",
     options: [
-      { value: "1", label: "Verbesserungsvorschlag", checked: true },
+      { value: "1", label: "Verbesserungsvorschlag", checked: false },
       { value: "2", label: "Fehlermeldung", checked: false },
       { value: "4", label: "Frage Allgemein", checked: false },
     ],
@@ -161,7 +161,7 @@ const filters = [
     id: "is_processed",
     name: "Status",
     options: [
-      { value: "True", label: "Bearbeitet", checked: true },
+      { value: "True", label: "Bearbeitet", checked: false },
       { value: "False", label: "Nicht Bearbeitet", checked: false },
     ],
   },

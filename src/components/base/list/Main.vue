@@ -2,11 +2,10 @@
   <main
     class="relative h-screen z-40 flex-1 focus:outline-none overflow-y-auto"
   >
-    <article class="flex-shrink-0 border border-gray-200 ma-12">
+    <article class="flex-shrink-0 ma-12">
       <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
         <div
           class="
-            border-b border-gray-200
             pb-5
             sm:flex sm:items-center sm:justify-between
           "

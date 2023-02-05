@@ -138,17 +138,17 @@ import {
 
 const actionList = [
   {
-    title: "Zeige mir alle Gruppen an",
+    title: "Suche in alle Gruppen",
     description: 'Du bekommst alle Gruppen des DPVs angezeigt und kannst dort Anträge stellen oder Mitglieder einsehen, wenn du die Rechte dazu hast.',
-    link: "GroupMain",
+    link: "GroupSearch",
     icon:UserGroupIcon,
     iconForeground: "text-teal-700",
     iconBackground: "bg-teal-50",
   },
   {
-    title: "Zeige mir meine Gruppen an",
+    title: "Zeige meine Gruppen",
     description: 'Zeige dir die Gruppen an, die du selbst erstellt hast.',
-    link: "SettingsMyGroups",
+    link: "MyGroups",
     icon: BuildingStorefrontIcon,
     iconForeground: "text-blue-700",
     iconBackground: "bg-blue-50",
@@ -172,7 +172,7 @@ const actionList = [
   {
     title: "Meine offenen Aufgaben",
     description: 'Du kannst deine noch zu erledigen Aufgaben einsehen und direkt erledigen.',
-    link: "TaskMain",
+    link: "AllTasks",
     icon: BuildingOfficeIcon,
     iconForeground: "text-green-700",
     iconBackground: "bg-green-50",

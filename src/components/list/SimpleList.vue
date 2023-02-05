@@ -32,7 +32,7 @@
         </div>
       </router-link>
     </li>
-    <li v-else>
+    <li class="py-5 px-4" v-else>
       <slot name="empty"></slot>
     </li>
   </ul>
