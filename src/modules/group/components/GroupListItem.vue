@@ -34,12 +34,6 @@
       </div>
       <div class="hidden md:block">
         <div>
-          <!-- <p class="text-sm text-gray-900">
-            von
-            {{ moment(props.item.startDate).format("DD.MM.YYYY") }}
-            bis
-            {{ moment(props.item.endDate).format("DD.MM.YYYY") }}
-          </p> -->
           <p class="mt-2 flex items-center text-sm text-gray-500">
             <CheckCircleIcon
               class="mr-1.5 h-5 w-5 flex-shrink-0 text-green-400"
@@ -48,6 +42,7 @@
             {{
               props.item?.isMember ? "Du bist Mitglied" : "Du bist kein Mitglied"
             }}
+            <span class="px-1" v-if="props.item?.permission !== 'none'"> und {{ props.item?.permission ? props.item?.permission : "" }} </span>
           </p>
         </div>
       </div>
