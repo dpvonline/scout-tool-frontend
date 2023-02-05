@@ -3,7 +3,7 @@
       <PrimaryButton
         class="mx-2 my-2"
         @click="onAcceptButtonClicked(props.request)"
-        color="green"
+        color="blue"
         :icon="HandThumbUpIcon"
         label="Annehmen"
       />
