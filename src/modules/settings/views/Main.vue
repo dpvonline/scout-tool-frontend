@@ -18,7 +18,7 @@ const tabs = computed(() => {
   return [
     { name: "Über mich", linkName: "SettingsGeneral", current: route.name === "SettingsGeneral" || route.name === "SettingsGeneralEdit" },
     // { name: "Passwort", linkName: "SettingsPassword", current: route.name === "SettingsPassword" },
-    { name: "Meine Anträge", linkName: "SettingsNotifications", current: route.name === "SettingsNotifications" },
+    // { name: "Meine Anträge", linkName: "SettingsNotifications", current: route.name === "SettingsNotifications" },
   ];
 });
 

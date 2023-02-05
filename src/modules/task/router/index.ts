@@ -14,6 +14,12 @@ export default [
         component: () =>
           import(/* webpackChunkName: "AllTasks" */ "@/modules/task/views/tabs/AllTasks.vue"),
       },
+      {
+        path: "my-requested-tasks",
+        name: "MyRequestedTasks",
+        component: () =>
+          import(/* webpackChunkName: "MyRequestedTasks" */ "@/modules/task/views/tabs/MyRequestedTasks.vue"),
+      },
     ],
   },
   {

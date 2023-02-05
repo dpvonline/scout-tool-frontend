@@ -16,14 +16,9 @@ const route = useRoute();
 const tabs = computed(() => {
   return [
     {
-      name: "Neue Nachrichten",
-      linkName: "NewMessages",
-      current: route.name === "NewMessages",
-    },
-    {
-      name: "Alle Nachrichten",
-      linkName: "AllMessages",
-      current: route.name === "AllMessages",
+      name: "Heimabend der Woche",
+      linkName: "EventOfTheWeek",
+      current: route.name === "EventOfTheWeek",
     },
   ];
 });

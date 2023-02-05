@@ -58,12 +58,12 @@
     </div>
     <SimpleList :items="myRequestsFiltered" detailPageLink="TaskDetail">
       <template v-slot:notEmpty="slotProps">
-        <TaskListItem :item="slotProps.item" />
+        <MyOwnRequestsListItem :item="slotProps.item" />
       </template>
       <template v-slot:empty>
-        <EventListItemEmpty>
+        <MyOwnRequestsListItemEmpty>
           Glückwunsch. Du bist aktuell keine offenen Aufgaben
-        </EventListItemEmpty>
+        </MyOwnRequestsListItemEmpty>
       </template>
     </SimpleList>
   </TabWrapper>
@@ -83,58 +83,61 @@ import { useDashboardStore } from "@/modules/dashboard/store/index";
 import RequestListButton from "@/modules/group/components/RequestListButton.vue";
 import SimpleList from "@/components/list/SimpleList.vue";
 import TabWrapper from "@/components/base/TabWrapper.vue";
-import TaskListItem from "@/modules/task/components/TaskListItem.vue";
-import EventListItemEmpty from "@/modules/event/components/EventListItemEmpty.vue";
+import MyOwnRequestsListItem from "@/modules/task/components/MyOwnRequestsListItem.vue";
+import MyOwnRequestsListItemEmpty from "@/modules/task/components/MyOwnRequestsListItemEmpty.vue";
 
 const taskStore = useTaskStore();
 const dashboardStore = useDashboardStore();
 
 const myRequests = computed(() => {
-  return taskStore.myRequests
+  return taskStore.myOwnRequests;
 });
 const myRequestsFiltered = computed(() => {
-const query = { ...router.currentRoute.value.query };
-  return taskStore.myRequests.filter(q => q.status === query.status)
+  const query = { ...router.currentRoute.value.query };
+  return taskStore.myOwnRequests.filter((q) => q.status === query.status);
 });
 
-const selectedValue = ref('Offen');
+const selectedValue = ref("Offen");
 
 function onChange(event) {
-  const linkName = tabs.value.find(item => item.name === selectedValue.value)['linkName']
-  router.push(linkName)
+  const linkName = tabs.value.find((item) => item.name === selectedValue.value)[
+    "linkName"
+  ];
+  router.push(linkName);
 }
 
 const tabs = computed(() => {
-const query = { ...router.currentRoute.value.query };
+  const query = { ...router.currentRoute.value.query };
   return [
     {
       name: "Offen",
-      linkName: { name: "AllTasks", query: { status: "offen" } },
-      count: myRequests.value.filter(q => q.status === 'offen').length,
-      current: query.status === 'offen',
+      linkName: { name: "MyRequestedTasks", query: { status: "offen" } },
+      count: myRequests.value.filter((q) => q.status === "offen").length,
+      current: query.status === "offen",
     },
     {
       name: "Genemigt",
-      linkName: { name: "AllTasks", query: { status: "akzeptiert" } },
-      count: myRequests.value.filter(q => q.status === 'akzeptiert').length | 0,
-      current: query.status === 'akzeptiert',
+      linkName: { name: "MyRequestedTasks", query: { status: "akzeptiert" } },
+      count:
+        myRequests.value.filter((q) => q.status === "akzeptiert").length | 0,
+      current: query.status === "akzeptiert",
     },
     {
       name: "Abgeleht",
-      linkName: { name: "AllTasks", query: { status: "abgelehnt" } },
-      count: myRequests.value.filter(q => q.status === 'abgelehnt').length,
-      current: query.status === 'abgelehnt',
+      linkName: { name: "MyRequestedTasks", query: { status: "abgelehnt" } },
+      count: myRequests.value.filter((q) => q.status === "abgelehnt").length,
+      current: query.status === "abgelehnt",
     },
   ];
 });
 
 import { useRouter } from "vue-router";
 
-
 const router = useRouter();
 
 onMounted(() => {
   taskStore.fetchMyRequests();
   dashboardStore.fetchMyRequests();
+  taskStore.fetchMyOwnRequests();
 });
 </script>

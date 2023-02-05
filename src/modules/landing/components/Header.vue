@@ -69,7 +69,8 @@
           </p>
           <div class="mt-10 flex items-center gap-x-6">
             <router-link
-              :to="{ name: 'Login' }"
+              :to="{ name: '' }"
+              @click="onLoginButtonClicked()"
               class="
                 inline-flex
                 items-center
@@ -164,5 +165,17 @@
 
 <script setup lang="ts">
 import { ChevronRightIcon, LockClosedIcon, PlusIcon } from "@heroicons/vue/20/solid";
+
+import { useAuthStore } from "@/modules/auth/store/index"
+
+const authStore = useAuthStore()
+
+function Login() {
+  authStore.login()
+}
+
+function onLoginButtonClicked() {
+  Login()
+}
 
 </script>

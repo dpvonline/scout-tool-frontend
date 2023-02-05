@@ -2,10 +2,25 @@ export default [
   {
     path: "/message",
     name: "MessageMain",
+    redirect: { name: "NewMessages" },
     meta: {
       requiresAuth: true,
     },
     component: () => import(/* webpackChunkName: "MessageMain" */ "@/modules/message/views/Main.vue"),
+      children: [
+        {
+          path: "new-messages",
+          name: "NewMessages",
+          component: () =>
+            import(/* webpackChunkName: "NewMessages" */ "@/modules/message/views/tabs/NewMessages.vue"),
+        },
+        {
+          path: "all-messages",
+          name: "AllMessages",
+          component: () =>
+            import(/* webpackChunkName: "AllMessages" */ "@/modules/message/views/tabs/AllMessages.vue"),
+        },
+    ]
   },
   {
     path: "/message-details/:id",

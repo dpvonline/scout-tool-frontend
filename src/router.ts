@@ -12,6 +12,7 @@ import LandingMain from "@/modules/landing/router";
 import TaskRouter from "@/modules/task/router";
 import MessageRouter from "@/modules/message/router";
 import EventRouter from "@/modules/event/router";
+import MasterDataRouter from "@/modules/masterData/router";
 
 const routes = [
   ...DashboardRouter,
@@ -24,6 +25,7 @@ const routes = [
   ...TaskRouter,
   ...MessageRouter,
   ...EventRouter,
+  ...MasterDataRouter,
 ];
 
 const router = createRouter({

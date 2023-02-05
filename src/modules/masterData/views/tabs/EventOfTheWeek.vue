@@ -1,5 +1,5 @@
 <template>
-  <h1>Hallo</h1>
+  <h1> Heimabend der Woche </h1>
 </template>
 
 <script setup>

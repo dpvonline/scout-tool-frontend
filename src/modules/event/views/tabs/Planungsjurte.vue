@@ -1,6 +1,6 @@
 <template>
   <TabWrapper>
-    <PrimaryButton :icon="PlusIcon">
+    <PrimaryButton class="my-2" color="green" :icon="PlusIcon">
       Neue Veranstaltungen erstellen
     </PrimaryButton>
     <SimpleList :items="eventOverviews" detailPageLink="EventDetail">

@@ -56,14 +56,14 @@
         </nav>
       </div>
     </div>
-    <SimpleList :items="myRequestsFiltered" detailPageLink="TaskDetail">
+    <SimpleList :items="newMessagesFiltered" detailPageLink="TaskDetail">
       <template v-slot:notEmpty="slotProps">
-        <TaskListItem :item="slotProps.item" />
+        <MessageListItem :item="slotProps.item"/>
       </template>
       <template v-slot:empty>
-        <EventListItemEmpty>
-          Glückwunsch. Du bist aktuell keine offenen Aufgaben
-        </EventListItemEmpty>
+        <MessageListItemEmpty>
+          Du hast keine Nachrichten
+        </MessageListItemEmpty>
       </template>
     </SimpleList>
   </TabWrapper>
@@ -83,18 +83,18 @@ import { useDashboardStore } from "@/modules/dashboard/store/index";
 import RequestListButton from "@/modules/group/components/RequestListButton.vue";
 import SimpleList from "@/components/list/SimpleList.vue";
 import TabWrapper from "@/components/base/TabWrapper.vue";
-import TaskListItem from "@/modules/task/components/TaskListItem.vue";
-import EventListItemEmpty from "@/modules/event/components/EventListItemEmpty.vue";
+import MessageListItem from "@/modules/message/components/MessageListItem.vue";
+import MyOwnRequestsListItemEmpty from "@/modules/task/components/MyOwnRequestsListItemEmpty.vue";
 
 const taskStore = useTaskStore();
 const dashboardStore = useDashboardStore();
 
-const myRequests = computed(() => {
-  return taskStore.myRequests
+const newMessages = computed(() => {
+  return messageStore.messages.filter(q => !q.isProcessed)
 });
-const myRequestsFiltered = computed(() => {
+const newMessagesFiltered = computed(() => {
 const query = { ...router.currentRoute.value.query };
-  return taskStore.myRequests.filter(q => q.status === query.status)
+  return messageStore.messages.filter(q => !q.isProcessed).filter(q => q.messageType.id == query.message_type)
 });
 
 const selectedValue = ref('Offen');
@@ -106,35 +106,43 @@ function onChange(event) {
 
 const tabs = computed(() => {
 const query = { ...router.currentRoute.value.query };
+console.log(query.message_type);
   return [
     {
-      name: "Offen",
-      linkName: { name: "AllTasks", query: { status: "offen" } },
-      count: myRequests.value.filter(q => q.status === 'offen').length,
-      current: query.status === 'offen',
+      name: "Fehlermeldung",
+      linkName: { name: "NewMessages", query: { message_type: 2 } },
+      count: newMessages.value.filter(q => q.messageType.id === 2).length,
+      current: query?.message_type === '2',
     },
     {
       name: "Genemigt",
-      linkName: { name: "AllTasks", query: { status: "akzeptiert" } },
-      count: myRequests.value.filter(q => q.status === 'akzeptiert').length | 0,
-      current: query.status === 'akzeptiert',
+      linkName: { name: "NewMessages", query: { message_type: 3 } },
+      count: newMessages.value.filter(q => q.status === 'akzeptiert').length | 0,
+      current: query?.message_type === '3',
     },
     {
       name: "Abgeleht",
-      linkName: { name: "AllTasks", query: { status: "abgelehnt" } },
-      count: myRequests.value.filter(q => q.status === 'abgelehnt').length,
-      current: query.status === 'abgelehnt',
+      linkName: { name: "NewMessages", query: { message_type: 4 } },
+      count: newMessages.value.filter(q => q.status === 'abgelehnt').length,
+      current: query?.message_type === '4',
     },
   ];
 });
 
+import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
-
+import { useMessageStore } from "@/modules/message/store";
 
 const router = useRouter();
 
+const messageStore = useMessageStore();
+
+const searchValue = ref();
+
+const route = useRoute();
+
+
 onMounted(() => {
-  taskStore.fetchMyRequests();
-  dashboardStore.fetchMyRequests();
+  messageStore.fetchMessages(route.query);
 });
 </script>
