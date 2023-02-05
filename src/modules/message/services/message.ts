@@ -16,6 +16,9 @@ export default {
   create(data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/`, data );
   },
+  createIntern(data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}-intern/`, data );
+  },
 
   update(data: any) {
     return axios.put(`${BASE_URL}/${SERVICE}/${data.id}/`, data);

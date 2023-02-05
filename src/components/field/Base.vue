@@ -44,6 +44,7 @@ const components = {
 
 // I do NOT want to use [CompA, CompA] because my inputs are strings
 const componentTreeName = [
+  "AutoComplete",
   "Text",
   "TextArea",
   "Number",

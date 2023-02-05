@@ -49,6 +49,28 @@ export const useMessageStore = defineStore("message", {
         }
       }
     },
+    async createMessageIntern(data: object) {
+      try {
+        return await MessageApi.createIntern(data);
+      } catch (error) {
+        if (error.response.status === 400) {
+          // commonStore.showError(error.response.data);
+        } else if (error.response.status === 500) {
+          // commonStore.showError('Schwerer Server Fehler');
+        }
+      }
+    },
+    async updateMessage(data: object) {
+      try {
+        return await MessageApi.update(data);
+      } catch (error: any) {
+        if (error.response.status === 400) {
+          // commonStore.showError(error.response.data);
+        } else if (error.response.status === 500) {
+          // commonStore.showError('Schwerer Server Fehler');
+        }
+      }
+    },
   },
   getters: {
     messages: (state) => {

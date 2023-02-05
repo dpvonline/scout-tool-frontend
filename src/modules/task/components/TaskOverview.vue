@@ -67,7 +67,7 @@
     </div>
     <div>
       <h3 class="text-lg px-4 py-4 font-medium leading-6 text-gray-900">
-        Du hat keinen Zugriff auf diese Anforderug
+        Du hat keinen Zugriff auf diese Anforderung
       </h3>
     </div>
   </div>

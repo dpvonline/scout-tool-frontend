@@ -106,22 +106,40 @@ const query = { ...router.currentRoute.value.query };
 console.log(query.message_type);
   return [
     {
-      name: "Fehlermeldung",
+      name: "Vorschlag",
+      linkName: { name: "NewMessages", query: { message_type: 1 } },
+      count: newMessages.value.filter(q => q.messageType.id === 1).length,
+      current: query?.message_type === '1',
+    },
+    {
+      name: "Fehler",
       linkName: { name: "NewMessages", query: { message_type: 2 } },
       count: newMessages.value.filter(q => q.messageType.id === 2).length,
       current: query?.message_type === '2',
     },
     {
-      name: "Genemigt",
+      name: "Rechtsschreibfehler",
       linkName: { name: "NewMessages", query: { message_type: 3 } },
-      count: newMessages.value.filter(q => q.status === 'akzeptiert').length | 0,
+      count: newMessages.value.filter(q => q.messageType.id === 3).length,
       current: query?.message_type === '3',
     },
     {
-      name: "Abgeleht",
+      name: "Frage",
       linkName: { name: "NewMessages", query: { message_type: 4 } },
-      count: newMessages.value.filter(q => q.status === 'abgelehnt').length,
+      count: newMessages.value.filter(q => q.messageType.id === 4).length,
       current: query?.message_type === '4',
+    },
+    {
+      name: "Veranstaltung",
+      linkName: { name: "NewMessages", query: { message_type: 5 } },
+      count: newMessages.value.filter(q => q.messageType.id === 5).length,
+      current: query?.message_type === '5',
+    },
+    {
+      name: "Mitmachen",
+      linkName: { name: "NewMessages", query: { message_type: 6 } },
+      count: newMessages.value.filter(q => q.messageType.id === 6).length,
+      current: query?.message_type === '6',
     },
   ];
 });

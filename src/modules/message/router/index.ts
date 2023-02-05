@@ -34,16 +34,16 @@ export default [
     path: "/message-new",
     name: "MessageNew",
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
     component: () => import(/* webpackChunkName: "MessageNew" */ "@/modules/message/views/NewMessage.vue"),
   },
   {
-    path: "/message-edit/:id",
-    name: "MessageEdit",
+    path: "/message-new-intern",
+    name: "MessageNew2",
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
-    component: () => import(/* webpackChunkName: "MessageEdit" */ "@/modules/message/views/EditMessage.vue"),
-  }
+    component: () => import(/* webpackChunkName: "MessageNew2" */ "@/modules/message/components/NewMessageFormIntern.vue"),
+  },
 ];

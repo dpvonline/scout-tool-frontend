@@ -493,6 +493,7 @@ import {
   InboxIcon,
   CalendarDaysIcon,
   TableCellsIcon,
+  BugAntIcon,
 } from "@heroicons/vue/24/outline";
 
 import { ref, computed, onMounted } from "vue";
@@ -579,30 +580,37 @@ const navigation = computed(() => {
       isAuth: true,
       count: unProcessedMessages,
     },
-    {
-      name: "Veranstaltungen",
-      linkName: "EventMain",
-      icon: CalendarDaysIcon,
-      route: "event",
-      isAuth: true,
-    },
+    // {
+    //   name: "Veranstaltungen",
+    //   linkName: "EventMain",
+    //   icon: CalendarDaysIcon,
+    //   route: "event",
+    //   isAuth: true,
+    // },
   ].filter((item) => !item.isAuth || isAuth.value);
 });
 
 const secondaryNavigation = computed(() => {
   return [
-    {
-      name: "Sonstiges",
-      linkName: "MasterDataMain",
-      route: "master-data",
-      icon: TableCellsIcon,
-      isAuth: true,
-    },
+    // {
+    //   name: "Sonstiges",
+    //   linkName: "MasterDataMain",
+    //   route: "master-data",
+    //   icon: TableCellsIcon,
+    //   isAuth: true,
+    // },
     {
       name: "Meine Daten",
       linkName: "Settings",
       route: "settings",
       icon: CogIcon,
+      isAuth: true,
+    },
+    {
+      name: "Fehler melden",
+      linkName: "MessageNew2",
+      route: "message-new-intern",
+      icon: BugAntIcon,
       isAuth: true,
     },
     {
