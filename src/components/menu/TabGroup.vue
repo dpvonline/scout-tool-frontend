@@ -16,7 +16,7 @@
                         as="template"
                       >
                         <router-link
-                          :to="{ name: tab.linkName }"
+                          :to="tab.linkName"
                           :class="[
                             tab.current
                               ? 'text-blue-600 border-blue-600'

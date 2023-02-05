@@ -1,7 +1,7 @@
 <template>
-    <PageWrapper>
-      <MyTabGroup :tabs="tabs"/>
-    </PageWrapper>
+  <PageWrapper>
+    <MyTabGroup :tabs="tabs" />
+  </PageWrapper>
 </template>
 
 <script setup lang="ts">
@@ -16,7 +16,11 @@ const route = useRoute();
 
 const tabs = computed(() => {
   return [
-    { name: "Über mich", linkName: "SettingsGeneral", current: route.name === "SettingsGeneral" || route.name === "SettingsGeneralEdit" },
+    {
+      name: "Über mich",
+      linkName: { name: 'SettingsGeneral'},
+      current: route.name === "SettingsGeneral" || route.name === "SettingsGeneralEdit" 
+    },
     // { name: "Passwort", linkName: "SettingsPassword", current: route.name === "SettingsPassword" },
     // { name: "Meine Anträge", linkName: "SettingsNotifications", current: route.name === "SettingsNotifications" },
   ];

@@ -17,12 +17,12 @@ const tabs = computed(() => {
   return [
     {
       name: "Meine Aufgaben",
-      linkName: "AllTasks",
+      linkName: { name: "AllTasks", query: { status: "offen" } },
       current: route.name === "AllTasks",
     },
     {
       name: "Von mir erstellt",
-      linkName: "MyRequestedTasks",
+      linkName: { name: "MyRequestedTasks", query: { status: "offen" } },
       current: route.name === "MyRequestedTasks",
     },
   ];

@@ -2,7 +2,7 @@ export default [
   {
     path: "/task",
     name: "TaskMain",
-    redirect: { name: "AllTasks" },
+    redirect: { name: "AllTasks", query: { status: "offen" } },
     meta: {
       requiresAuth: true,
     },

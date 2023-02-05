@@ -18,13 +18,13 @@ const tabs = computed(() => {
   return [
     {
       name: "Meine Gruppen",
-      linkName: "MyGroups",
+      linkName: {name: "MyGroups" },
       current:
         route.name === "MyGroups",
     },
     {
       name: "Gruppe suchen",
-      linkName: "GroupSearch",
+      linkName: {name: "GroupSearch" },
       current:
         route.name === "GroupSearch",
     },

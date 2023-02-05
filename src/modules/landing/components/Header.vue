@@ -69,8 +69,7 @@
           </p>
           <div class="mt-10 flex items-center gap-x-6">
             <router-link
-              :to="{ name: '' }"
-              @click="onLoginButtonClicked()"
+              :to="{ name: 'DashboardMain' }"
               class="
                 inline-flex
                 items-center

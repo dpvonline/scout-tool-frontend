@@ -1,13 +1,12 @@
 <template>
-    <PageWrapper>
-      <MyTabGroup :tabs="tabs"/>
-    </PageWrapper>
+  <PageWrapper>
+    <MyTabGroup :tabs="tabs" />
+  </PageWrapper>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-
 
 import MyTabGroup from "@/components/menu/TabGroup.vue";
 import PageWrapper from "@/components/base/PageWrapper.vue";
@@ -18,20 +17,19 @@ const tabs = computed(() => {
   return [
     {
       name: "Einladungen",
-      linkName: "EventInvitations",
-      current:
-        route.name === "EventInvitations",
+      linkName: { name: "EventInvitations" },
+      current: route.name === "EventInvitations",
     },
     {
       name: "Anmeldungen",
-      linkName: "EventRegistrations",
+      linkName: { name: "EventRegistrations" },
       current:
         route.name === "EventRegistrations" ||
         route.name === "EventRegistrations",
     },
     {
       name: "Planungsjurte",
-      linkName: "EventPlanungsjurte",
+      linkName: { name: "EventPlanungsjurte" },
       current: route.name === "EventPlanungsjurte",
     },
   ];

@@ -2,7 +2,7 @@ export default [
   {
     path: "/message",
     name: "MessageMain",
-    redirect: { name: "NewMessages" },
+    redirect: { name: "NewMessages", query: { message_type: 2 } },
     meta: {
       requiresAuth: true,
     },
