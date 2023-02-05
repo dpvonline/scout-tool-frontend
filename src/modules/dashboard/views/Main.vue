@@ -180,7 +180,7 @@ const actionList = [
   {
     title: "Deine von dir gestellten Anträge einsehen",
     description: 'Du kannst die Aufgaben ansehen die andere für dich erledigen sollen.',
-    link: "SettingsNotifications",
+    link: "MyRequestedTasks",
     icon: BuildingOfficeIcon,
     iconForeground: "text-yellow-700",
     iconBackground: "bg-yellow-50",
