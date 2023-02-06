@@ -9,10 +9,10 @@ export default [
   },
   {
     path: "/person/:id",
-    name: "PersonDetails",
+    name: "PersonDetail",
     meta: {
       requiresAuth: true
     },
-    component: () => import(/* webpackChunkName: "PersonDetails" */ "@/modules/person/views/Person.vue"),
+    component: () => import(/* webpackChunkName: "PersonDetail" */ "@/modules/person/views/Person.vue"),
   }
 ]

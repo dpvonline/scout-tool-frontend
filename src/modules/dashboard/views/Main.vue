@@ -5,7 +5,7 @@
         <div class="mt-8">
           <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 class="text-lg font-medium leading-6 text-gray-900">
-              Hallo {{ personalData.firstName }}, das ist dein Dashboard.
+              Hallo {{ personalData.scoutName }}, das ist dein Dashboard.
             </h2>
             <div
               class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
@@ -32,7 +32,7 @@
                         </dt>
                         <dd>
                           <div class="text-lg font-medium text-gray-900">
-                            {{ card.amount }}
+                            {{ card.amount ? card.amount  : '0' }}
                           </div>
                         </dd>
                       </dl>
@@ -119,6 +119,9 @@ const route = useRoute();
 
 const personalData = computed(() => {
   return personalDataStore.personalData;
+});
+const isLoading = computed(() => {
+  return dashboardStore.isLoading;
 });
 const groupCount = computed(() => {
   return dashboardStore.groupCount;

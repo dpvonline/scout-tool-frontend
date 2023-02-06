@@ -17,7 +17,7 @@
     "
     :class="
       isLoading
-        ? `px-8 py-3 text-white bg-${color}-300 rounded focus:outline-none bg-${color}-500`
+        ? `bg-blue-300 focus:outline-none bg-blue-500`
         : `focus:outline-none focus:ring-2 focus:ring-${color}-500 focus:ring-offset-2 hover:bg-${color}-700 bg-${color}-600`
     "
   >

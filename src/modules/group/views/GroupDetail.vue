@@ -32,6 +32,7 @@
           </TabPanels>
         </TabGroup>
       </article>
+      <LoadingItem v-else/>
     </main>
   </PageWrapper>
 </template>
@@ -41,6 +42,7 @@ import { ref, watch, onMounted, computed } from "vue";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 import PageWrapper from "@/components/base/PageWrapper.vue";
+import LoadingItem from "@/components/list/LoadingItem.vue";
 import { useRoute } from "vue-router";
 import { useGroupStore } from "@/modules/group/store/index";
 import { useAuthStore } from "@/modules/auth/store/index";

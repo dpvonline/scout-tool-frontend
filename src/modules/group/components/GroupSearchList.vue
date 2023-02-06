@@ -9,6 +9,7 @@
       :buttonList="buttonList"
       mainPageLink="GroupSearch"
       detailPageLink="GroupOverview"
+      :isLoading="isLoading"
     >
       <template #listitem="{ item }">
         <GroupListItem :item="item"/>
@@ -41,6 +42,10 @@ const groups = computed(() => {
 
 const isAuth = computed(() => {
   return authStore.isAuth;
+});
+
+const isLoading = computed(() => {
+  return groupStore.isLoading;
 });
 
 onMounted(() => {

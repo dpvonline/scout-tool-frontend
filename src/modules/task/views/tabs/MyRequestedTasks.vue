@@ -56,7 +56,7 @@
         </nav>
       </div>
     </div>
-    <SimpleList :items="myRequestsFiltered" detailPageLink="TaskDetail">
+    <SimpleList :items="myRequestsFiltered" :isLoading="isLoading" detailPageLink="TaskDetail">
       <template v-slot:notEmpty="slotProps">
         <MyOwnRequestsListItem :item="slotProps.item" />
       </template>
@@ -88,6 +88,10 @@ import MyOwnRequestsListItemEmpty from "@/modules/task/components/MyOwnRequestsL
 
 const taskStore = useTaskStore();
 const dashboardStore = useDashboardStore();
+
+const isLoading = computed(() => {
+  return taskStore.isLoading
+});
 
 const myRequests = computed(() => {
   return taskStore.myOwnRequests;

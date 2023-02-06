@@ -536,6 +536,7 @@
       <!-- Directory list -->
       <div class="min-h-0 flex-1 overflow-scroll" aria-label="Directory">
         <div
+          v-if="!isLoading"
           class="overflow-hidden bg-white shadow sm:rounded-md overflow-scroll"
         >
           <ul role="list" v-if="items.length" class="divide-y divide-gray-200">
@@ -574,11 +575,14 @@
           <ul v-else>
             <li>
               <p class="mt-1 max-w-2xl text-sm text-gray-500 px-2 py-2">
-                Bitte suche nach einer Gruppe
+                Bitte nutze die Sucge
               </p>
             </li>
           </ul>
         </div>
+      <div v-else>
+        <LoadingItem/>
+      </div>
       </div>
     </article>
   </main>
@@ -648,6 +652,7 @@ import { computed, onBeforeMount, watch } from "vue";
 import { useRouter } from "vue-router";
 
 import ToolDropdown from "@/components/base/list/components/ToolDropdown.vue";
+import LoadingItem from "@/components/list/LoadingItem.vue";
 
 const props = defineProps({
   name: String,
@@ -657,6 +662,7 @@ const props = defineProps({
   mainPageLink: String,
   detailPageLink: String,
   buttonList: Array,
+  isLoading: Boolean
 });
 
 onBeforeMount(() => {

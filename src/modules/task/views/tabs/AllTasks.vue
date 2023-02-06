@@ -56,7 +56,7 @@
         </nav>
       </div>
     </div>
-    <SimpleList :items="myRequestsFiltered" detailPageLink="TaskDetail">
+    <SimpleList :items="myRequestsFiltered" :isLoading="isLoading" detailPageLink="TaskDetail">
       <template v-slot:notEmpty="slotProps">
         <TaskListItem :item="slotProps.item" />
       </template>
@@ -92,6 +92,11 @@ const dashboardStore = useDashboardStore();
 const myRequests = computed(() => {
   return taskStore.myRequests
 });
+
+const isLoading = computed(() => {
+  return taskStore.isLoading
+});
+
 const myRequestsFiltered = computed(() => {
 const query = { ...router.currentRoute.value.query };
   return taskStore.myRequests.filter(q => q.status === query.status)

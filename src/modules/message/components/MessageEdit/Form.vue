@@ -38,7 +38,7 @@
       v-model="state.internalComment"
       :errors="errors.internalComment?.$errors"
     />
-    <PrimaryButton @click="onSaveClicked" label="Nachricht speichern" />
+    <PrimaryButton @click="onSaveClicked" :isLoading="!!isLoading" label="Nachricht speichern" />
   </div>
 </template>
 
@@ -114,6 +114,8 @@ function onSaveClicked() {
     commonStore.showError("Bitte Felder überprüfen");
     return;
   }
+
+  isLoading.value = true;
 
   messageStore
     .updateMessage({

@@ -20,5 +20,5 @@
 
 
 <script setup lang="ts">
-import NewMessageFormIntern from "@/modules/message/components/NewMessageFormIntern.vue";
+// import NewMessageFormIntern from "@/modules/message/components/NewMessageFormIntern.vue";
 </script>

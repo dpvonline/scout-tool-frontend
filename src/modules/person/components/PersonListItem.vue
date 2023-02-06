@@ -1,6 +1,6 @@
 <template>
   <div class="flex space-x-3">
-    <div class="flex-shrink-0">
+    <!-- <div class="flex-shrink-0">
       <span
         :class="[
           getColorByProcessed(item.isProcessed),
@@ -17,7 +17,11 @@
     <div>
       <div class="text-sm">
         <div class="font-medium text-gray-600">
-          {{ item.createdByEmail ? `Extern: ${item.createdByEmail}` : `${item?.createdBy?.scoutName} (${item?.createdBy?.username})` }}
+          {{
+            item.createdByEmail
+              ? `Extern: ${item.createdByEmail}`
+              : `${item?.createdBy?.scoutName} (${item?.createdBy?.username})`
+          }}
         </div>
       </div>
       <div class="text-sm">
@@ -40,64 +44,62 @@
           {{ item.messageType.name }}
         </span>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  TagIcon,
-  BugAntIcon,
-  ArrowTrendingUpIcon,
-  CheckCircleIcon,
-} from "@heroicons/vue/20/solid";
-import { QuestionMarkCircleIcon } from "@heroicons/vue/24/outline";
-import moment from "moment";
-const props = defineProps({
-  item: Object,
-});
+// import {
+//   TagIcon,
+//   BugAntIcon,
+//   ArrowTrendingUpIcon,
+//   CheckCircleIcon,
+// } from "@heroicons/vue/20/solid";
+// import { QuestionMarkCircleIcon } from "@heroicons/vue/24/outline";
+// import moment from "moment";
+// const props = defineProps({
+//   item: Object,
+// });
 
+// function getColorByProcessed(isProcessed) {
+//   switch (isProcessed) {
+//     case true: {
+//       return "bg-green-500";
+//       break;
+//     }
+//     case false: {
+//       return "bg-red-500";
+//       break;
+//     }
+//     default: {
+//       return "bg-black-400";
+//       break;
+//     }
+//   }
+// }
 
-
-function getColorByProcessed(isProcessed) {
-  switch (isProcessed) {
-    case true: {
-      return "bg-green-500";
-      break;
-    }
-    case false: {
-      return "bg-red-500";
-      break;
-    }
-    default: {
-      return "bg-black-400";
-      break;
-    }
-  }
-}
-
-function getIconByMessageType(id) {
-  switch (id) {
-    case 1: {
-      return BugAntIcon;
-      break;
-    }
-    case 2: {
-      return ArrowTrendingUpIcon;
-      break;
-    }
-    case 4: {
-      return QuestionMarkCircleIcon;
-      break;
-    }
-    case 5: {
-      return TagIcon;
-      break;
-    }
-    default: {
-      return QuestionMarkCircleIcon;
-      break;
-    }
-  }
-}
+// function getIconByMessageType(id) {
+//   switch (id) {
+//     case 1: {
+//       return BugAntIcon;
+//       break;
+//     }
+//     case 2: {
+//       return ArrowTrendingUpIcon;
+//       break;
+//     }
+//     case 4: {
+//       return QuestionMarkCircleIcon;
+//       break;
+//     }
+//     case 5: {
+//       return TagIcon;
+//       break;
+//     }
+//     default: {
+//       return QuestionMarkCircleIcon;
+//       break;
+//     }
+//   }
+// }
 </script>

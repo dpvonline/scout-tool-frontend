@@ -9,6 +9,7 @@
       :buttonList="buttonList"
       mainPageLink="AllMessages"
       detailPageLink="MessageDetail"
+      :isLoading="isLoading"
     >
       <template #listitem="{ item }">
         <MessageListItem :item="item"/>
@@ -30,6 +31,10 @@ const messageStore = useMessageStore();
 const searchValue = ref();
 
 const route = useRoute();
+
+const isLoading = computed(() => {
+  return messageStore.isLoading;
+});
 
 const messages = computed(() => {
   return messageStore.messages;

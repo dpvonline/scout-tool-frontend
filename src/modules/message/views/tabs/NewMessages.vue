@@ -56,7 +56,7 @@
         </nav>
       </div>
     </div>
-    <SimpleList :items="newMessagesFiltered" detailPageLink="MessageDetail">
+    <SimpleList :items="newMessagesFiltered" :isLoading="isLoading" detailPageLink="MessageDetail">
       <template v-slot:notEmpty="slotProps">
         <MessageListItem :item="slotProps.item"/>
       </template>
@@ -155,6 +155,11 @@ const messageStore = useMessageStore();
 const searchValue = ref();
 
 const route = useRoute();
+
+const isLoading = computed(() => {
+  return messageStore.isLoading;
+});
+
 
 
 onMounted(() => {

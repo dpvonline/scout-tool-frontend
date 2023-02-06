@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="mt-8 flex flex-col">
-    <SimpleList :items="myGroups" detailPageLink="GroupOverview">
+    <SimpleList :items="myGroups" detailPageLink="GroupOverview" :isLoading="isLoading">
       <template v-slot:notEmpty="slotProps">
         <GroupListItem :item="slotProps.item" />
       </template>
@@ -44,6 +44,9 @@ const groupStore = useGroupStore();
 
 const myGroups = computed(() => {
   return groupStore.myGroups;
+});
+const isLoading = computed(() => {
+  return groupStore.isLoading;
 });
 
 onMounted(() => {

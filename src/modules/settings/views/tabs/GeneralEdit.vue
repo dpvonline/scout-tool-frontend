@@ -18,7 +18,6 @@
         <dl class="divide-y divide-gray-200">
           <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
             <div class="pt-4 sm:py-5">
-            <div class="pt-4 sm:py-5">
               <BaseField
                   component="Text"
                   :label="'Fahrtenname'"
@@ -27,6 +26,7 @@
                   :errors="errors.scoutName?.$errors"
               />
             </div>
+            <div class="pt-4 sm:py-5">
               <BaseField
                   component="Text"
                   :label="'Vorname'"

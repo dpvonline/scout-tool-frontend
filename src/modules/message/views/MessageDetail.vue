@@ -2,7 +2,8 @@
   <div class="2xl:px-64 xl:px-30">
     <Breadcrumbs :pages="pages" />
     <main class="relative z-40 flex-1 focus:outline-none">
-      <MessageDetailList :message="message"/>
+      <MessageDetailList :message="message" v-if="!isLoading"/>
+      <LoadingItem v-else/>
     </main>
   </div>
 </template>
@@ -13,12 +14,17 @@ import { useRoute } from "vue-router";
 
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 import MessageDetailList from "@/modules/message/components/MessageDetailList.vue";
+import LoadingItem from "@/components/list/LoadingItem.vue";
 
 import { useMessageStore } from "@/modules/message/store";
 
 const messageStore = useMessageStore();
 
 const route = useRoute();
+
+const isLoading = computed(() => {
+  return messageStore.isLoading;
+});
 
 const message = computed(() => {
   return messageStore.message;

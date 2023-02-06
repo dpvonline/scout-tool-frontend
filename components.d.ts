@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     Delete: typeof import('./src/components/modal/Delete.vue')['default']
     EMail: typeof import('./src/components/field/EMail.vue')['default']
     Header: typeof import('./src/components/breadcrumbs/Header.vue')['default']
+    LoadingItem: typeof import('./src/components/list/LoadingItem.vue')['default']
     Main: typeof import('./src/components/base/list/Main.vue')['default']
     Number: typeof import('./src/components/field/Number.vue')['default']
     NutriBar: typeof import('./src/components/score/NutriBar.vue')['default']

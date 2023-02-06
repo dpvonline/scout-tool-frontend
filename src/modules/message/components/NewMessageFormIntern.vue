@@ -44,7 +44,7 @@
         <PrimaryButton
           @click="onButtonClicked"
           label="Speichern"
-          :isLoading="isLoading"
+          :isLoading="!!isLoading"
         />
       </div>
     </div>
@@ -131,7 +131,7 @@ function onButtonClicked() {
       }
     })
     .finally(() => {
-      isLoading.value = false;
+      // isLoading.value = false;
     });
 }
 

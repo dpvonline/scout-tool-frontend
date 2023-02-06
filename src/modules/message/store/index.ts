@@ -8,16 +8,21 @@ export const useMessageStore = defineStore("message", {
     _messages: [],
     _message: {},
     _messageTypes: {},
+    _isLoading: false
   }),
 
   actions: {
     async fetchMessages(params = {}) {
+      this._isLoading = true;
+      this._messages = [];
       try {
         const response = await MessageApi.fetchAll(params);
         this._messages = response.data;
+        this._isLoading = false;
       } catch (error) {
         alert(error);
         console.log(error);
+        this._isLoading = false;
       }
     },
     async fetchMessageTypes(params = {}) {
@@ -30,12 +35,16 @@ export const useMessageStore = defineStore("message", {
       }
     },
     async fetchMessage(id: number) {
+      this._message = [];
+      this._isLoading = true;
       try {
         const response = await MessageApi.fetchById(id);
         this._message = response.data;
+        this._isLoading = false;
       } catch (error) {
         alert(error);
         console.log(error);
+        this._isLoading = false;
       }
     },
     async createMessage(data: object) {
@@ -84,6 +93,9 @@ export const useMessageStore = defineStore("message", {
     },
     messageTypes: (state) => {
       return state._messageTypes;
+    },
+    isLoading: (state) => {
+      return state._isLoading;
     },
   },
 });
