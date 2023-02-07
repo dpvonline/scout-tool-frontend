@@ -13,6 +13,7 @@ import TaskRouter from "@/modules/task/router";
 import MessageRouter from "@/modules/message/router";
 import EventRouter from "@/modules/event/router";
 import MasterDataRouter from "@/modules/masterData/router";
+import HelpMain from "@/modules/help/router";
 
 const routes = [
   ...DashboardRouter,
@@ -26,6 +27,7 @@ const routes = [
   ...MessageRouter,
   ...EventRouter,
   ...MasterDataRouter,
+  ...HelpMain,
 ];
 
 const router = createRouter({

@@ -494,6 +494,7 @@ import {
   CalendarDaysIcon,
   TableCellsIcon,
   BugAntIcon,
+  QuestionMarkCircleIcon
 } from "@heroicons/vue/24/outline";
 
 import { ref, computed, onMounted } from "vue";
@@ -607,10 +608,10 @@ const secondaryNavigation = computed(() => {
       isAuth: true,
     },
     {
-      name: "Fehler melden",
-      linkName: "MessageNew2",
+      name: "Hilfe",
+      linkName: "HelpMain",
       route: "message-new-intern",
-      icon: BugAntIcon,
+      icon: QuestionMarkCircleIcon,
       isAuth: true,
     },
     {

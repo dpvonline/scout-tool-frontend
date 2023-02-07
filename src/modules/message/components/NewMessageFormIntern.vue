@@ -1,5 +1,5 @@
 <template>
-  <form class="space-y-8 divide-y px-3 py-4 divide-gray-200 xl:px-64">
+  <form class="space-y-8 divide-y px-3 py-4 divide-gray-200">
     <div class="space-y-8 divide-y divide-gray-200">
       <h2 class="text-h1 font-medium text-gray-900">Deine Nachricht</h2>
       <div class="pt-8">
