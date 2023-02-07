@@ -575,7 +575,7 @@
           <ul v-else>
             <li>
               <p class="mt-1 max-w-2xl text-sm text-gray-500 px-2 py-2">
-                Bitte nutze die Sucge
+                Bitte nutze die Suche
               </p>
             </li>
           </ul>

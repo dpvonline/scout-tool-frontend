@@ -1,5 +1,5 @@
 <template>
-  <ReadOnlyPerson :personalData="personalData"/>
+  <ReadOnlyPerson :editable="true" :personalData="personalData"/>
 </template>
 
 <script setup lang="ts">

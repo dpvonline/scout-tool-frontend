@@ -10,7 +10,7 @@
               Dein DPV-Account
             </p>
           </div>
-          <div class="ml-4 flex-shrink-0 sm:ml-16">
+          <div v-if="props.editable" class="ml-4 flex-shrink-0 sm:ml-16">
             <router-link
               :to="{ name: 'SettingsGeneralEdit' }"
               class="
@@ -319,6 +319,7 @@ const route = useRoute();
 
 const props = defineProps({
   personalData: Object,
+  editable: Boolean,
 });
 
 </script>
