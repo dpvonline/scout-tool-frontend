@@ -86,5 +86,5 @@ function flattenObject(items) {
 const sortOptions = [];
 
 const filters = [];
-const buttonList = [{ name: "Neue Gruppe", linkName: "" }];
+const buttonList = [];
 </script>

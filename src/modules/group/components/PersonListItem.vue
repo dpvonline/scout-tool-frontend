@@ -15,7 +15,7 @@
           Name: {{ props.item.person.scoutName }} ({{ props.item.person.firstName }} {{ props.item.person.lastName }})
         </p>
         <p class="truncate text-sm font-medium text-gray-400">
-          Stamm: {{ props.item.person.scoutGroup.name }} ({{ props.item.person.scoutGroup.bund }})
+          Stamm: {{ props.item?.person?.scoutGroup?.name }} ({{ props.item?.person?.scoutGroup?.bund }})
         </p>
       </div>
     </div>

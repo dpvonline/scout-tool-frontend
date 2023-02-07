@@ -4,7 +4,7 @@ const SERVICE = 'keycloak/person'
 
 export default {
   fetchAll(params: any) {
-    return axios.get(`${BASE_URL}/keycloak/group/f25c6d30-77ee-4b9a-9c78-70e2e1379180/members/`, {
+    return axios.get(`${BASE_URL}/keycloak/members/`, {
       params: params,
     });
   },

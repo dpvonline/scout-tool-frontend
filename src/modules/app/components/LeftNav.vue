@@ -550,13 +550,13 @@ const navigation = computed(() => {
       route: "dashboard",
       isAuth: true,
     },
-    // {
-    //   name: "Mitglieder",
-    //   linkName: "PersonMain",
-    //   icon: UserIcon,
-    //   route: "person",
-    //   isAuth: true,
-    // },
+    {
+      name: "Mitglieder",
+      linkName: "PersonMain",
+      icon: UserIcon,
+      route: "person",
+      isAuth: true,
+    },
     {
       name: "Gruppen",
       linkName: "GroupMain",
