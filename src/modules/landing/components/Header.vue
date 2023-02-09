@@ -165,16 +165,4 @@
 <script setup lang="ts">
 import { ChevronRightIcon, LockClosedIcon, PlusIcon } from "@heroicons/vue/20/solid";
 
-import { useAuthStore } from "@/modules/auth/store/index"
-
-const authStore = useAuthStore()
-
-function Login() {
-  authStore.login()
-}
-
-function onLoginButtonClicked() {
-  Login()
-}
-
 </script>

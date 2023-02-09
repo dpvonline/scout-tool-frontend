@@ -36,11 +36,6 @@ export default [
     ],
   },
   {
-    path: "/login",
-    name: "Login",
-    component: () => import(/* webpackChunkName: "Login" */ "@/modules/auth/views/Login.vue"),
-  },
-  {
     path: "/logout",
     name: "Logout",
     component: () => import(/* webpackChunkName: "Logout" */ "@/modules/auth/views/Logout.vue"),
