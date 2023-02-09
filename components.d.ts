@@ -29,6 +29,8 @@ declare module '@vue/runtime-core' {
     Radio: typeof import('./src/components/field/Radio.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Secondary: typeof import('./src/components/button/Secondary.vue')['default']
+    Seconday: typeof import('./src/components/button/Seconday.vue')['default']
     Select: typeof import('./src/components/field/Select.vue')['default']
     SimpleList: typeof import('./src/components/list/SimpleList.vue')['default']
     StepFrame: typeof import('./src/components/stepper/StepFrame.vue')['default']

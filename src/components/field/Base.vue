@@ -9,6 +9,8 @@
     @update:modelValue="updateValueDirekt"
     :errors="props.errors"
     :cols="props.cols"
+    :lookupListDisplay="props.lookupListDisplay"
+    :searchField="props.searchField"
   ></component>
 </template>
 
@@ -39,7 +41,7 @@ const components = {
   PhoneNumber,
   ZIP,
   EMail,
-  Password
+  Password,
 };
 
 // I do NOT want to use [CompA, CompA] because my inputs are strings
@@ -66,18 +68,23 @@ const updateValueDirekt = (event: Event) => {
   emit("update:modelValue", event);
 };
 
-const props = withDefaults(defineProps<{
-  modelValue: any,
-  errors?: ErrorObject[],
-  techName: string,
-  component: keyof typeof components,
-  label: string,
-  hint?: string
-  cols?: Number,
-}>(), {
-  hint: "",
-  errors: [],
-})
+const props = withDefaults(
+  defineProps<{
+    modelValue: any;
+    errors?: ErrorObject[];
+    techName: string;
+    component: keyof typeof components;
+    label: string;
+    hint?: string;
+    cols?: Number;
+    lookupListDisplay?: String[];
+    searchField?: String[];
+  }>(),
+  {
+    hint: "",
+    errors: [],
+  }
+);
 </script>
 
 <style></style>

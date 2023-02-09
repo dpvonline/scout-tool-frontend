@@ -36,7 +36,10 @@
           </dd>
         </div>
 
-        <div class="sm:col-span-2" v-if="!group.isMember">
+        <div
+          class="sm:col-span-2"
+          v-if="(!group.isMember && group.membershipAllowed) || true"
+        >
           <dt class="text-sm font-medium text-gray-500">Aktionen</dt>
           <dd class="mt-1 text-sm text-gray-900">
             <ul
@@ -44,6 +47,7 @@
               class="divide-y divide-gray-200 rounded-md border border-gray-200"
             >
               <li
+                v-if="!group.isMember && group.membershipAllowed"
                 class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
               >
                 <div class="flex w-0 flex-1 items-center">
@@ -56,30 +60,44 @@
                   >
                 </div>
                 <div class="ml-4 flex-shrink-0">
-                  <button
-                    @click="onRequestAccess"
-                    type="button"
-                    class="
-                      inline-flex
-                      items-center
-                      rounded
-                      border border-gray-300
-                      bg-white
-                      px-2.5
-                      py-1.5
-                      text-xs
-                      font-medium
-                      text-gray-700
-                      shadow-sm
-                      hover:bg-gray-50
-                      focus:outline-none
-                      focus:ring-2
-                      focus:ring-blue-500
-                      focus:ring-offset-2
-                    "
+                  <Secondary :label="'beantragen'" @click="onRequestAccess" />
+                </div>
+              </li>
+              <li
+                v-if="group.permission === 'Administrator'"
+                class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              >
+                <div class="flex w-0 flex-1 items-center">
+                  <UserPlusIcon
+                    class="h-5 w-5 flex-shrink-0 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <span class="ml-2 w-0 flex-1 truncate"
+                    >Mitglied zu dieser Gruppe hinzufügen</span
                   >
-                    beantragen
-                  </button>
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                  <Secondary :label="'auswählen'" @click="onAddMemberClicked" />
+                </div>
+              </li>
+              <li
+                v-if="group.isMember"
+                class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              >
+                <div class="flex w-0 flex-1 items-center">
+                  <UserMinusIcon
+                    class="h-5 w-5 flex-shrink-0 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <span class="ml-2 w-0 flex-1 truncate"
+                    >eigene Mitgliedschaft beenden</span
+                  >
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                  <Secondary
+                    :label="'austreten'"
+                    @click="onLeaveGroupClicked"
+                  />
                 </div>
               </li>
             </ul>
@@ -110,8 +128,8 @@
                     target="_blank"
                     :href="group.externallinks[child]"
                     class="text-blue-600 hover:text-blue-900"
-                    >Im neuem Tab öffnen<span class="sr-only"
-                      > {{ child.name }}</span
+                    >Im neuem Tab öffnen<span class="sr-only">
+                      {{ child.name }}</span
                     ></a
                   >
                 </div>
@@ -165,14 +183,34 @@
       :callbackOnConfirm="onConfirmClicked"
       :callbackOnCancel="onCancellicked"
     />
+    <AddMemberModal
+      :open="openAddMember"
+      :callbackOnConfirm="onAddMemberConfirmClicked"
+      :callbackOnCancel="onAddMemberCancellicked"
+    />
+    <RequestModal
+      :open="openLeaveGroup"
+      :header="'Gruppe verlassen'"
+      :text="'Möchtest du die Gruppe verlassen.'"
+      :callbackOnConfirm="onLeaveGroupConfirmClicked"
+      :callbackOnCancel="onLeaveGroupCancellicked"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { RocketLaunchIcon, UserGroupIcon, LinkIcon } from "@heroicons/vue/20/solid";
+import {
+  RocketLaunchIcon,
+  UserGroupIcon,
+  LinkIcon,
+  UserPlusIcon,
+  UserMinusIcon,
+} from "@heroicons/vue/20/solid";
 import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
 import RequestModal from "@/modules/group/components/RequestModal.vue";
+import AddMemberModal from "@/modules/group/components/AddMemberModal.vue";
+import Secondary from "@/components/button/Secondary.vue";
 
 const groupStore = useGroupStore();
 
@@ -187,17 +225,15 @@ const commonStore = useCommonStore();
 
 const route = useRoute();
 
-const openRequestAccess = ref(false);
 const openAddGroup = ref(false);
-
-function onRequestAccess() {
-  openRequestAccess.value = true;
-}
-
 function onAddGroup() {
   openAddGroup.value = true;
 }
 
+const openRequestAccess = ref(false);
+function onRequestAccess() {
+  openRequestAccess.value = true;
+}
 function onConfirmClicked() {
   openRequestAccess.value = false;
   const id = route.params.id;
@@ -207,5 +243,35 @@ function onConfirmClicked() {
 }
 function onCancellicked() {
   openRequestAccess.value = false;
+}
+// - - - - - - - - - - - - - - - -
+
+const openAddMember = ref(false);
+function onAddMemberClicked() {
+  openAddMember.value = true;
+}
+function onAddMemberConfirmClicked() {
+  openAddMember.value = false;
+  const id = route.params.id;
+
+  commonStore.showSuccess("Du hast die Person hinzugefügt.");
+}
+function onAddMemberCancellicked() {
+  openAddMember.value = false;
+}
+// - - - - - - - - - - - - - - - -
+
+const openLeaveGroup = ref(false);
+function onLeaveGroupClicked() {
+  openLeaveGroup.value = true;
+}
+function onLeaveGroupConfirmClicked() {
+  openLeaveGroup.value = false;
+  const id = route.params.id;
+
+  commonStore.showSuccess("Du hast die Gruppe verlassen.");
+}
+function onLeaveGroupCancellicked() {
+  openLeaveGroup.value = false;
 }
 </script>

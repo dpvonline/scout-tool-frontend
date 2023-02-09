@@ -12,10 +12,15 @@
     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
         <p class="truncate text-sm font-medium text-blue-600">
-          Name: {{ props.item.person.scoutName }} ({{ props.item.person.firstName }} {{ props.item.person.lastName }})
+          {{ props.item.person.scoutName }} - {{ props.item.person.firstName }}
         </p>
-        <p class="truncate text-sm font-medium text-gray-400">
-          Stamm: {{ props.item?.person?.scoutGroup?.name }} ({{ props.item?.person?.scoutGroup?.bund }})
+        <p
+          v-if="props.item?.person?.scoutGroup"
+          class="truncate text-sm font-medium text-gray-400"
+        >
+          Stamm: {{ props.item?.person?.scoutGroup?.name }} ({{
+            props.item?.person?.scoutGroup?.bund
+          }})
         </p>
       </div>
     </div>
@@ -23,7 +28,13 @@
 </template>
 
 <script setup lang="ts">
-import { ClipboardIcon, RocketLaunchIcon, UserIcon, Cog8ToothIcon, BuildingLibraryIcon } from "@heroicons/vue/24/outline";
+import {
+  ClipboardIcon,
+  RocketLaunchIcon,
+  UserIcon,
+  Cog8ToothIcon,
+  BuildingLibraryIcon,
+} from "@heroicons/vue/24/outline";
 import moment from "moment";
 const props = defineProps({
   item: Object,

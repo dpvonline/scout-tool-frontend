@@ -142,6 +142,7 @@ const props = defineProps({
   items: { type: Array, required: true },
   disabled: { type: Boolean, required: false, default: false },
   lookupListDisplay: { type: Array, required: false, default: ["name"] },
+  searchField: { type: Array, required: false, default: ["name"] },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -158,8 +159,11 @@ const query = ref("");
 const filteredPeople = computed(() => {
   return query.value === ""
     ? props.items
-    : props.items.filter((person) => {
-        return person.name.toLowerCase().includes(query.value.toLowerCase());
+    : props.items.filter((item) => {
+        const selectedItem = item[props.searchField]
+          ? item[props.searchField]
+          : item["person"][props.searchField];
+        return selectedItem.toLowerCase().includes(query.value.toLowerCase());
       });
 });
 
