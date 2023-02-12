@@ -10,6 +10,14 @@
         </div>
         <div class="mt-6 grid grid-cols-1">
           <Base
+            component="Text"
+            :label="'Dein Name*'"
+            techName="createdByName"
+            v-model="state['createdByName']"
+            :errors="errors.createdByName && errors.createdByName.$errors"
+            :cols="12"
+          />
+          <Base
             component="EMail"
             :label="'Deine E-Mail*'"
             techName="createdByEmail"
@@ -20,20 +28,30 @@
           <Base
             component="Text"
             :label="'Betreff*'"
-            techName="messageSubject"
-            v-model="state['messageSubject']"
-            :errors="errors.messageSubject && errors.messageSubject.$errors"
+            techName="issueSubject"
+            v-model="state['issueSubject']"
+            :errors="errors.issueSubject && errors.issueSubject.$errors"
             :cols="12"
           />
           <Base
             :cols="12"
             component="Select"
-            techName="messageType"
-            v-model="state['messageType']"
+            techName="issueType"
+            v-model="state['issueType']"
             label="Hauptkategorie"
-            :items="messageTypes"
-            hint="Wähle eine Hauptkategorie für deine Zutat."
-            :errors="errors.messageType && errors.messageType.$errors"
+            :items="issueTypes"
+            hint="Wählenklnkjlnkklnlkeine Zutat."
+            :errors="errors.issueType && errors.issueType.$errors"
+          />
+          <Base
+            :cols="12"
+            component="Select"
+            techName="priority"
+            v-model="state['priority']"
+            label="Prioität"
+            :items="messagePrios"
+            hint="W"
+            :errors="errors.priority && errors.priority.$errors"
           />
           <Base
             component="TextArea"
@@ -80,9 +98,11 @@ const pages = computed(() => {
 
 const state = ref({
   createdByEmail: null,
-  messageType: null,
+  createdByName: null,
+  priority: null,
+  issueType: null,
   messageBody: null,
-  messageSubject: null,
+  issueSubject: null,
 });
 
 const rules = {
@@ -91,8 +111,8 @@ const rules = {
     minLength: minLength(5),
     email,
   },
-  messageType: { required },
-  messageSubject: { required },
+  issueType: { required },
+  issueSubject: { required },
   messageBody: {
     required,
   },
@@ -104,6 +124,10 @@ const errors = ref([]);
 const isLoading = ref(false);
 
 const messageStore = useMessageStore();
+
+import { useAuthStore } from "@/modules/auth/store/index"
+
+const authStore = useAuthStore()
 
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -120,11 +144,13 @@ function onButtonClicked() {
   }
   isLoading.value = true;
   messageStore
-    .createMessage({
+    .createIssue({
+      createdByName: state.value.createdByName,
       createdByEmail: state.value.createdByEmail,
-      messageType: state.value.messageType.id,
+      priority: state.value.priority.id,
+      issueType: state.value.issueType.id,
       messageBody: state.value.messageBody,
-      messageSubject: state.value.messageSubject,
+      issueSubject: state.value.issueSubject,
     })
     .then((response) => {
       if (response && response.status === 201) {
@@ -143,11 +169,20 @@ function onButtonClicked() {
     });
 }
 
-const messageTypes = computed(() => {
-  return messageStore.messageTypes;
+const issueTypes = computed(() => {
+  return messageStore.issueTypes;
+});
+
+const messagePrios = computed(() => {
+  return messageStore.messagePrios;
 });
 
 onMounted(() => {
-  messageStore.fetchMessageTypes();
+  messageStore.fetchMessagePrio();
+  if (authStore.isAuth) {
+    messageStore.fetchIssueTypes();
+  } else {
+    messageStore.fetchIssueTypesShort()
+  }
 });
 </script>

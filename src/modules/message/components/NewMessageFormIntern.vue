@@ -12,20 +12,30 @@
           <Base
             component="Text"
             :label="'Betreff*'"
-            techName="messageSubject"
-            v-model="state['messageSubject']"
-            :errors="errors.messageSubject && errors.messageSubject.$errors"
+            techName="issueSubject"
+            v-model="state['issueSubject']"
+            :errors="errors.issueSubject && errors.issueSubject.$errors"
             :cols="12"
           />
           <Base
             :cols="12"
             component="Select"
-            techName="messageType"
-            v-model="state['messageType']"
+            techName="issueType"
+            v-model="state['issueType']"
             label="Hauptkategorie"
-            :items="messageTypes"
-            hint="Wähle eine Hauptkategorie für deine Zutat."
-            :errors="errors.messageType && errors.messageType.$errors"
+            :items="issueTypes"
+            hint="Wähle ehhhhhhhhine Zutat."
+            :errors="errors.issueType && errors.issueType.$errors"
+          />
+          <Base
+            :cols="12"
+            component="Select"
+            techName="priority"
+            v-model="state['priority']"
+            label="Prioität"
+            :items="messagePrios"
+            hint="Wäiijljkljhle utat."
+            :errors="errors.priority && errors.priority.$errors"
           />
           <Base
             component="TextArea"
@@ -71,14 +81,16 @@ const pages = computed(() => {
 });
 
 const state = ref({
-  messageType: null,
+  priority: null,
+  issueType: null,
   messageBody: null,
-  messageSubject: null,
+  issueSubject: null,
 });
 
 const rules = {
-  messageType: { required },
-  messageSubject: { required },
+  issueType: { required },
+  issueSubject: { required },
+  priority: { required },
   messageBody: {
     required,
   },
@@ -113,10 +125,11 @@ function onButtonClicked() {
   }
   isLoading.value = true;
   messageStore
-    .createMessageIntern({
-      messageType: state.value.messageType.id,
+    .createIssue({
+      priority: state.value.priority.id,
+      issueType: state.value.issueType.id,
       messageBody: state.value.messageBody,
-      messageSubject: state.value.messageSubject,
+      issueSubject: state.value.issueSubject,
     })
     .then((response) => {
       if (response && response.status === 201) {
@@ -135,11 +148,16 @@ function onButtonClicked() {
     });
 }
 
-const messageTypes = computed(() => {
-  return messageStore.messageTypes;
+const issueTypes = computed(() => {
+  return messageStore.issueTypes;
+});
+
+const messagePrios = computed(() => {
+  return messageStore.messagePrios;
 });
 
 onMounted(() => {
-  messageStore.fetchMessageTypes();
+  messageStore.fetchMessagePrio();
+  messageStore.fetchIssueTypes();
 });
 </script>

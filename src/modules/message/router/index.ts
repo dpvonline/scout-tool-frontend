@@ -2,7 +2,7 @@ export default [
   {
     path: "/message",
     name: "MessageMain",
-    redirect: { name: "NewMessages", query: { message_type: 2 } },
+    redirect: { name: "NewMessages", query: { status: 'unread' } },
     meta: {
       requiresAuth: true,
     },
@@ -19,6 +19,12 @@ export default [
           name: "AllMessages",
           component: () =>
             import(/* webpackChunkName: "AllMessages" */ "@/modules/message/views/tabs/AllMessages.vue"),
+        },
+        {
+          path: "issue-types",
+          name: "IssueTypes",
+          component: () =>
+            import(/* webpackChunkName: "IssueTypes" */ "@/modules/message/views/tabs/IssueTypes.vue"),
         },
     ]
   },
@@ -45,5 +51,13 @@ export default [
       requiresAuth: false,
     },
     component: () => import(/* webpackChunkName: "MessageNew2" */ "@/modules/message/components/NewMessageFormIntern.vue"),
+  },
+  {
+    path: "/issueType/:id",
+    name: "IssueTypeDetail",
+    meta: {
+      requiresAuth: false,
+    },
+    component: () => import(/* webpackChunkName: "IssueTypeDetail" */ "@/modules/message/views/IssueTypeDetail.vue"),
   },
 ];

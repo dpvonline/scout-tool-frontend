@@ -2,7 +2,7 @@
   <div class="2xl:px-64 xl:px-30">
     <Breadcrumbs :pages="pages" />
     <main class="relative z-40 flex-1 focus:outline-none">
-      <MessageDetailList :message="message" v-if="!isLoading"/>
+      <MessageDetailList :message="issue" v-if="!isLoading"/>
       <LoadingItem v-else/>
     </main>
   </div>
@@ -26,16 +26,16 @@ const isLoading = computed(() => {
   return messageStore.isLoading;
 });
 
-const message = computed(() => {
-  return messageStore.message;
+const issue = computed(() => {
+  return messageStore.issue;
 });
 
-const pages = [{ name: "Alle Nachrichten", link: "MessageMain" }];
+const pages = [{ name: "Alle Issues", link: "MessageMain" }];
 
 onMounted(() => {
   const id = route.params.id;
   if (id) {
-    messageStore.fetchMessage(id);
+    messageStore.fetchIssue(id);
   }
 });
 </script>

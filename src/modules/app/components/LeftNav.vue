@@ -545,7 +545,7 @@ function onLogoutClicked() {
 const navigation = computed(() => {
   return [
     {
-      name: "Dashboard",
+      name: "Home",
       linkName: "DashboardMain",
       icon: HomeIcon,
       route: "dashboard",
@@ -581,13 +581,13 @@ const navigation = computed(() => {
       isAuth: true,
       count: unProcessedMessages,
     },
-    // {
-    //   name: "Veranstaltungen",
-    //   linkName: "EventMain",
-    //   icon: CalendarDaysIcon,
-    //   route: "event",
-    //   isAuth: true,
-    // },
+    {
+      name: "Veranstaltungen",
+      linkName: "EventMain",
+      icon: CalendarDaysIcon,
+      route: "event",
+      isAuth: true,
+    },
   ].filter((item) => !item.isAuth || isAuth.value);
 });
 

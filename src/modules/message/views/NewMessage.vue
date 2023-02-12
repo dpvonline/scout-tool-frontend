@@ -41,7 +41,8 @@ const pages = computed(() => {
 
 const state = ref({
   createdByEmail: null,
-  messageType: null,
+  issueType: null,
+  priority: null,
   messageBody: null,
   messageSubject: null,
 });
@@ -52,7 +53,7 @@ const rules = {
     minLength: minLength(5),
     email,
   },
-  messageType: { required },
+  issueType: { required },
   messageSubject: { required },
   messageBody: {
     required,
@@ -83,9 +84,10 @@ function onButtonClicked() {
   messageStore
     .createMessage({
       createdByEmail: state.value.createdByEmail,
-      messageType: state.value.messageType.id,
+      issueType: state.value.issueType.id,
+      priority: state.value.priority.id,
+      issueSubject: state.value.messageSubject,
       messageBody: state.value.messageBody,
-      messageSubject: state.value.messageSubject,
     })
     .then((response) => {
       if (response && response.status === 201) {
@@ -104,11 +106,16 @@ function onButtonClicked() {
     });
 }
 
-const messageTypes = computed(() => {
-  return messageStore.messageTypes;
+const issueTypes = computed(() => {
+  return messageStore.issueTypes;
+});
+
+const messagePrios = computed(() => {
+  return messageStore.messagePrios;
 });
 
 onMounted(() => {
-  messageStore.fetchMessageTypes();
+  messageStore.fetchIssueTypesShort();
+  messageStore.fetchMessagePrio();
 });
 </script>

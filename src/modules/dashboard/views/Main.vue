@@ -4,55 +4,24 @@
       <main class="relative h-screen flex-1 pb-8 overflow-y-auto">
         <div class="mt-8">
           <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <h2 class="text-lg font-medium leading-6 text-gray-900">
+            <h2 class="text-lg font-medium leading-6 py-4 text-gray-900">
               Hallo {{ personalData.scoutName }}, das ist dein Dashboard.
             </h2>
-            <div
-              class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
-            >
-              <!-- Card -->
-              <div
-                v-for="card in cards"
-                :key="card.name"
-                class="overflow-hidden rounded-lg bg-white shadow"
-              >
-                <div class="p-5">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                      <component
-                        :is="card.icon"
-                        class="h-6 w-6 text-gray-400"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div class="ml-5 w-0 flex-1">
-                      <dl>
-                        <dt class="truncate text-sm font-medium text-gray-500">
-                          {{ card.name }}
-                        </dt>
-                        <dd>
-                          <div class="text-lg font-medium text-gray-900">
-                            {{ card.amount ? card.amount  : '0' }}
-                          </div>
-                        </dd>
-                      </dl>
-                    </div>
-                  </div>
-                </div>
-                <div class="bg-gray-50 px-5 py-3">
-                  <div class="text-sm">
-                    <router-link
-                      :to="{ name: card.href }"
-                      class="font-medium text-blue-700 hover:text-blue-900"
-                      >Alle Anzeigen</router-link
-                    >
-                  </div>
-                </div>
+            <div class="grid grid-cols-3 gap-6" >
+              <div class="col-span-2 max-h-full" >
+                <NotifyList class="max-h-full"/>
+              </div>
+              <div class="col-span-1">
+                <MyGroups :myGroups="myGroups" />
+              </div>
+              <div class="col-span-2">
+                <EventList/>
+              </div>
+              <div class="col-span-1">
+                <MessageList/>
               </div>
             </div>
           </div>
-          <!-- <NotifyList /> -->
-          <!-- <MyGroups :myGroups="myGroups"/> -->
         </div>
       </main>
     </div>
@@ -75,6 +44,8 @@ import { useGroupStore } from "@/modules/group/store/index.ts";
 import NotifyList from "@/modules/dashboard/components/NotifyList.vue";
 import MyGroups from "@/modules/dashboard/components/MyGroups.vue";
 import ActionsList from "@/components/actionlist/ActionsList.vue";
+import EventList from '@/modules/dashboard/components/EventList.vue'
+import MessageList from '@/modules/dashboard/components/MessageList.vue'
 
 const cards = computed(() => {
   return [
@@ -148,16 +119,15 @@ import {
   BuildingStorefrontIcon,
   BuildingOfficeIcon,
   PencilSquareIcon,
-  UserCircleIcon
+  UserCircleIcon,
 } from "@heroicons/vue/24/outline";
-
 
 onMounted(() => {
   personalDataStore.fetchPersonalData();
-  dashboardStore.fetchGroupCount()
-  dashboardStore.fetchUserCount()
-  dashboardStore.fetchMyRequests()
-  groupStore.fetchMyGroups()
+  dashboardStore.fetchGroupCount();
+  dashboardStore.fetchUserCount();
+  dashboardStore.fetchMyRequests();
+  groupStore.fetchMyGroups();
   messageStore.fetchMessages();
 });
 </script>

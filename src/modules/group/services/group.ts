@@ -12,6 +12,15 @@ export default {
   fetchById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/`);
   },
+  sendGroupInvitation(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/invite/`);
+  },
+  sendGroupKick(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/kick/`);
+  },
+  sendGroupLeave(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/leave/`);
+  },
   fetchRequestById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/requests/`);
   },
@@ -30,7 +39,6 @@ export default {
   create(data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/`, data);
   },
-
   update(data: any) {
     return axios.put(`${BASE_URL}/${SERVICE}/${data.id}/`, data);
   },

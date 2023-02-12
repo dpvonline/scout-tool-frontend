@@ -27,6 +27,7 @@ import PhoneNumber from "./PhoneNumber.vue";
 import ZIP from "./ZIP.vue";
 import EMail from "./EMail.vue";
 import Password from "@/components/field/Password.vue";
+import MultiSelect from "@/components/field/MultiSelect.vue";
 import { ErrorObject } from "@vuelidate/core";
 
 const components = {
@@ -42,6 +43,7 @@ const components = {
   ZIP,
   EMail,
   Password,
+  MultiSelect,
 };
 
 // I do NOT want to use [CompA, CompA] because my inputs are strings
@@ -58,6 +60,7 @@ const componentTreeName = [
   "ZIP",
   "EMail",
   "Password",
+  "MultiSelect",
 ];
 const emit = defineEmits(["update:modelValue"]);
 const updateValue = (event: Event) => {
@@ -86,5 +89,3 @@ const props = withDefaults(
   }
 );
 </script>
-
-<style></style>

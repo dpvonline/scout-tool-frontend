@@ -73,7 +73,7 @@ function getColorByProcessed(isProcessed) {
   }
 }
 
-function getIconByMessageType(id) {
+function getIconByissueType(id) {
   switch (id) {
     case 1: {
       return BugAntIcon;

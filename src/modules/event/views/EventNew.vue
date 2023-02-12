@@ -41,7 +41,7 @@ const pages = computed(() => {
 
 const state = ref({
   createdByEmail: null,
-  messageType: null,
+  issueType: null,
   messageBody: null,
   messageSubject: null,
 });
@@ -52,7 +52,7 @@ const rules = {
     minLength: minLength(5),
     email,
   },
-  messageType: { required },
+  issueType: { required },
   messageSubject: { required },
   messageBody: {
     required,
@@ -83,7 +83,7 @@ function onButtonClicked() {
   messageStore
     .createMessage({
       createdByEmail: state.value.createdByEmail,
-      messageType: state.value.messageType.id,
+      issueType: state.value.issueType.id,
       messageBody: state.value.messageBody,
       messageSubject: state.value.messageSubject,
     })
@@ -104,11 +104,11 @@ function onButtonClicked() {
     });
 }
 
-const messageTypes = computed(() => {
-  return messageStore.messageTypes;
+const issueTypes = computed(() => {
+  return messageStore.issueTypes;
 });
 
 onMounted(() => {
-  messageStore.fetchMessageTypes();
+  messageStore.fetchIssueTypes();
 });
 </script>

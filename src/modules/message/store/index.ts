@@ -1,17 +1,24 @@
 import { defineStore } from "pinia";
 
 import MessageApi from "@/modules/message/services/message";
-import MessageTypeApi from "@/modules/message/services/messageType";
+import IssueTypeApi from "@/modules/message/services/issueType";
+import IssueApi from "@/modules/message/services/issue";
+import MessagePrioApi from "@/modules/message/services/messagePrio";
 
 export const useMessageStore = defineStore("message", {
   state: () => ({
     _messages: [],
     _message: {},
-    _messageTypes: {},
-    _isLoading: false
+    _issues: [],
+    _issue: {},
+    _issueTypes: [],
+    _issueType: {},
+    _isLoading: false,
+    _messagePrios: [],
   }),
 
   actions: {
+    // Message
     async fetchMessages(params = {}) {
       this._isLoading = true;
       this._messages = [];
@@ -23,15 +30,6 @@ export const useMessageStore = defineStore("message", {
         alert(error);
         console.log(error);
         this._isLoading = false;
-      }
-    },
-    async fetchMessageTypes(params = {}) {
-      try {
-        const response = await MessageTypeApi.fetchAll(params);
-        this._messageTypes = response.data;
-      } catch (error) {
-        alert(error);
-        console.log(error);
       }
     },
     async fetchMessage(id: number) {
@@ -47,9 +45,79 @@ export const useMessageStore = defineStore("message", {
         this._isLoading = false;
       }
     },
-    async createMessage(data: object) {
+    // Issue
+    async fetchIssues(params = {}) {
+      this._isLoading = true;
+      this._issues = [];
       try {
-        return await MessageApi.create(data);
+        const response = await IssueApi.fetchAll(params);
+        this._issues = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchIssue(params = {}) {
+      this._isLoading = true;
+      this._issue = {};
+      try {
+        const response = await IssueApi.fetchById(params);
+        this._issue = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    // Issue Type
+    async fetchIssueTypes(params = {}) {
+      try {
+        const response = await IssueTypeApi.fetchAll(params);
+        this._issueTypes = response.data;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
+    async fetchIssueTypesShort(params = {}) {
+      try {
+        const response = await IssueTypeApi.fetchAllShorts(params);
+        this._issueTypes = response.data;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
+    async fetchIssueTypeById(id: number) {
+      this._issueType = {};
+      this._isLoading = true;
+      try {
+        const response = await IssueTypeApi.fetchById(id);
+        this._issueType = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    // message-prio
+    async fetchMessagePrio() {
+      try {
+        const response = await MessagePrioApi.fetchAll();
+        this._messagePrios = response.data;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
+
+    async createIssue(data: object) {
+      try {
+        return await IssueApi.create(data);
       } catch (error) {
         if (error.response.status === 400) {
           // commonStore.showError(error.response.data);
@@ -58,13 +126,15 @@ export const useMessageStore = defineStore("message", {
         }
       }
     },
-    async createMessageIntern(data: object) {
+    async createMessage(data: object) {
       try {
-        return await MessageApi.createIntern(data);
+        debugger;
+        return await MessageApi.create(data);
       } catch (error) {
-        if (error.response.status === 400) {
+        debugger;
+        if (error?.response?.status === 400) {
           // commonStore.showError(error.response.data);
-        } else if (error.response.status === 500) {
+        } else if (error?.response?.status === 500) {
           // commonStore.showError('Schwerer Server Fehler');
         }
       }
@@ -86,16 +156,28 @@ export const useMessageStore = defineStore("message", {
       return state._messages;
     },
     unProcessedMessages: (state) => {
-      return state._messages.filter(item => item?.isProcessed === false).length;
+      return state._messages.length
     },
     message: (state) => {
       return state._message;
     },
-    messageTypes: (state) => {
-      return state._messageTypes;
+    issue: (state) => {
+      return state._issue;
+    },
+    issues: (state) => {
+      return state._issues;
+    },
+    issueTypes: (state) => {
+      return state._issueTypes;
+    },
+    issueType: (state) => {
+      return state._issueType;
     },
     isLoading: (state) => {
       return state._isLoading;
+    },
+    messagePrios: (state) => {
+      return state._messagePrios;
     },
   },
 });

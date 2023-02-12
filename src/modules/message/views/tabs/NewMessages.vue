@@ -56,9 +56,9 @@
         </nav>
       </div>
     </div>
-    <SimpleList :items="newMessagesFiltered" :isLoading="isLoading" detailPageLink="MessageDetail">
+    <SimpleList :items="currentIssues" :isLoading="isLoading" detailPageLink="MessageDetail">
       <template v-slot:notEmpty="slotProps">
-        <MessageListItem :item="slotProps.item"/>
+        <IssueListItem :item="slotProps.item"/>
       </template>
       <template v-slot:empty>
         <MessageListItemEmpty>
@@ -82,19 +82,25 @@ import { useDashboardStore } from "@/modules/dashboard/store/index";
 import RequestListButton from "@/modules/group/components/RequestListButton.vue";
 import SimpleList from "@/components/list/SimpleList.vue";
 import TabWrapper from "@/components/base/TabWrapper.vue";
-import MessageListItem from "@/modules/message/components/MessageListItem.vue";
+import IssueListItem from "@/modules/message/components/IssueListItem.vue";
+import MessageListItemEmpty from "@/modules/message/components/MessageListItemEmpty.vue";
 
 const dashboardStore = useDashboardStore();
 
-const newMessages = computed(() => {
-  return messageStore.messages.filter(q => !q.isProcessed)
+const issues = computed(() => {
+  return messageStore.issues;
 });
-const newMessagesFiltered = computed(() => {
+const currentIssues = computed(() => {
 const query = { ...router.currentRoute.value.query };
-  return messageStore.messages.filter(q => !q.isProcessed).filter(q => q.messageType.id == query.message_type)
+  return messageStore.issues.filter(q => q.status == query.status)
 });
 
-const selectedValue = ref('Offen');
+// const newMessagesFiltered = computed(() => {
+// const query = { ...router.currentRoute.value.query };
+//   return messageStore.messages;
+// });
+
+const selectedValue = ref('unread');
 
 function onChange(event) {
   const linkName = tabs.value.find(item => item.name === selectedValue.value)['linkName']
@@ -103,43 +109,30 @@ function onChange(event) {
 
 const tabs = computed(() => {
 const query = { ...router.currentRoute.value.query };
-console.log(query.message_type);
   return [
     {
-      name: "Vorschlag",
-      linkName: { name: "NewMessages", query: { message_type: 1 } },
-      count: newMessages.value.filter(q => q.messageType.id === 1).length,
-      current: query?.message_type === '1',
+      name: "Neu",
+      linkName: { name: "NewMessages", query: { status: 'unread' } },
+      count: issues.value.filter(q => q.status === 'unread').length,
+      current: query?.status === 'unread',
     },
     {
-      name: "Fehler",
-      linkName: { name: "NewMessages", query: { message_type: 2 } },
-      count: newMessages.value.filter(q => q.messageType.id === 2).length,
-      current: query?.message_type === '2',
+      name: "In Bearbeitung",
+      linkName: { name: "NewMessages", query: { status: 'wip' } },
+      count: issues.value.filter(q => q.status === 'wip').length,
+      current: query?.status === 'wip',
     },
     {
-      name: "Rechtsschreibfehler",
-      linkName: { name: "NewMessages", query: { message_type: 3 } },
-      count: newMessages.value.filter(q => q.messageType.id === 3).length,
-      current: query?.message_type === '3',
+      name: "Fertig",
+      linkName: { name: "NewMessages", query: { status: 'success' } },
+      count: issues.value.filter(q => q.status === 'success').length,
+      current: query?.status === 'success',
     },
     {
-      name: "Frage",
-      linkName: { name: "NewMessages", query: { message_type: 4 } },
-      count: newMessages.value.filter(q => q.messageType.id === 4).length,
-      current: query?.message_type === '4',
-    },
-    {
-      name: "Veranstaltung",
-      linkName: { name: "NewMessages", query: { message_type: 5 } },
-      count: newMessages.value.filter(q => q.messageType.id === 5).length,
-      current: query?.message_type === '5',
-    },
-    {
-      name: "Mitmachen",
-      linkName: { name: "NewMessages", query: { message_type: 6 } },
-      count: newMessages.value.filter(q => q.messageType.id === 6).length,
-      current: query?.message_type === '6',
+      name: "Nicht Lösbar",
+      linkName: { name: "NewMessages", query: { status: 'failed' } },
+      count: issues.value.filter(q => q.status === 'failed').length,
+      current: query?.status === 'failed',
     },
   ];
 });
@@ -163,6 +156,6 @@ const isLoading = computed(() => {
 
 
 onMounted(() => {
-  messageStore.fetchMessages();
+  messageStore.fetchIssues();
 });
 </script>

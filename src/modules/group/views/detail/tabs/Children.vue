@@ -30,10 +30,9 @@ function onAddGroup() {
   openAddGroup.value = true;
 }
 
-function onConfirmClicked() {
+function onConfirmClicked(userId) {
   openRequestAccess.value = false;
-  const id = route.params.id;
-  groupStore.sendGroupRequest(id).then((response) => {
+  groupStore.sendGroupRequest(userId).then((response) => {
     commonStore.showSuccess("Antrag erfolgreich eingereicht");
   });
 }

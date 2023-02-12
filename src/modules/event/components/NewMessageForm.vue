@@ -28,12 +28,12 @@
           <Base
             :cols="12"
             component="Select"
-            techName="messageType"
-            v-model="state['messageType']"
+            techName="issueType"
+            v-model="state['issueType']"
             label="Hauptkategorie"
-            :items="messageTypes"
+            :items="issueTypes"
             hint="Wähle eine Hauptkategorie für deine Zutat."
-            :errors="errors.messageType && errors.messageType.$errors"
+            :errors="errors.issueType && errors.issueType.$errors"
           />
           <Base
             component="TextArea"
@@ -80,7 +80,7 @@ const pages = computed(() => {
 
 const state = ref({
   createdByEmail: null,
-  messageType: null,
+  issueType: null,
   messageBody: null,
   messageSubject: null,
 });
@@ -91,7 +91,7 @@ const rules = {
     minLength: minLength(5),
     email,
   },
-  messageType: { required },
+  issueType: { required },
   messageSubject: { required },
   messageBody: {
     required,
@@ -122,7 +122,7 @@ function onButtonClicked() {
   messageStore
     .createMessage({
       createdByEmail: state.value.createdByEmail,
-      messageType: state.value.messageType.id,
+      issueType: state.value.issueType.id,
       messageBody: state.value.messageBody,
       messageSubject: state.value.messageSubject,
     })
@@ -143,11 +143,11 @@ function onButtonClicked() {
     });
 }
 
-const messageTypes = computed(() => {
-  return messageStore.messageTypes;
+const issueTypes = computed(() => {
+  return messageStore.issueTypes;
 });
 
 onMounted(() => {
-  messageStore.fetchMessageTypes();
+  messageStore.fetchIssueTypes();
 });
 </script>

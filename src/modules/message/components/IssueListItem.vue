@@ -3,16 +3,17 @@
     <div>
       <div class="text-sm">
         <div class="font-medium text-gray-600">
-          {{ item.createdByEmail ? `Extern: ${item.createdByEmail}` : `${item?.createdBy?.scoutName} (${item?.createdBy?.username})` }}
+          {{
+            item.createdByEmail
+              ? `Extern: ${item.createdByEmail}`
+              : `${item?.createdBy?.scoutName} (${item?.createdBy?.username})`
+          }}
         </div>
       </div>
-      <div class="text-sm">
+      <div class="text-md">
         <div class="pt-1 text-sm font-medium text-gray-900">
-          Betreff: {{ item.issue?.issueSubject }}
+          {{ item?.issue ? item?.issue?.issueSubject : '' }}
         </div>
-      </div>
-      <div class="mt-1 text-sm text-gray-700">
-        <p>{{ item.messageBody }}</p>
       </div>
       <div class="mt-2 space-x-2 text-sm">
         <span class="font-medium text-gray-800"
@@ -23,7 +24,7 @@
         }}</span>
         <span class="font-medium text-gray-500">&middot;</span>
         <span class="font-medium text-gray-400">
-          <!-- {{ item.issueType.name }} -->
+          {{ item.status === "unread" ? "Ungelesen" : "" }}
         </span>
       </div>
     </div>
@@ -42,8 +43,6 @@ import moment from "moment";
 const props = defineProps({
   item: Object,
 });
-
-
 
 function getColorByProcessed(isProcessed) {
   switch (isProcessed) {

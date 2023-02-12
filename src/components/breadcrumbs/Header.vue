@@ -24,11 +24,19 @@
             <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
           </svg>
           <router-link
+            v-if="props.pages.length > 1"
             :to="{ name: page.link, params: { id: page.id} }"
-            class="ml-1 md:ml-4 text-xs md:text-sm font-medium text-gray-500 hover:text-gray-700"
+            class="ml-1 md:ml-4 text-xs md:text-md font-medium text-gray-500 hover:text-gray-700"
             :aria-current="page.current ? 'page' : undefined"
-            >{{ page.name }}</router-link
-          >
+            >{{ page.name }}
+          </router-link>
+          <router-link
+            v-else
+            :to="{ name: page.link, params: { id: page.id} }"
+            class="ml-1 md:ml-4 text-md font-medium text-gray-500 hover:text-gray-700"
+            :aria-current="page.current ? 'page' : undefined"
+            >{{ page.name }}
+          </router-link>
         </div>
       </li>
     </ol>

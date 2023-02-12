@@ -250,9 +250,12 @@ const openAddMember = ref(false);
 function onAddMemberClicked() {
   openAddMember.value = true;
 }
-function onAddMemberConfirmClicked() {
+function onAddMemberConfirmClicked(userId) {
   openAddMember.value = false;
   const id = route.params.id;
+  groupStore.sendGroupInvitation(id).then((response) => {
+    commonStore.showSuccess("Antrag erfolgreich eingereicht");
+  });
 
   commonStore.showSuccess("Du hast die Person hinzugefügt.");
 }

@@ -1,13 +1,13 @@
 import { defineStore } from "pinia";
 
-import MessageApi from "@/modules/message/services/message";
-import MessageTypeApi from "@/modules/message/services/messageType";
+import MessageApi from "@/modules/message/services/messagePrio";
+import issueTypeApi from "@/modules/message/services/issueType";
 
 export const useMessageStore = defineStore("message", {
   state: () => ({
     _messages: [],
     _message: {},
-    _messageTypes: {},
+    _issueTypes: {},
   }),
 
   actions: {
@@ -20,10 +20,10 @@ export const useMessageStore = defineStore("message", {
         console.log(error);
       }
     },
-    async fetchMessageTypes(params = {}) {
+    async fetchIssueTypes(params = {}) {
       try {
-        const response = await MessageTypeApi.fetchAll(params);
-        this._messageTypes = response.data;
+        const response = await issueTypeApi.fetchAll(params);
+        this._issueTypes = response.data;
       } catch (error) {
         alert(error);
         console.log(error);
@@ -60,8 +60,8 @@ export const useMessageStore = defineStore("message", {
     message: (state) => {
       return state._message;
     },
-    messageTypes: (state) => {
-      return state._messageTypes;
+    issueTypes: (state) => {
+      return state._issueTypes;
     },
   },
 });

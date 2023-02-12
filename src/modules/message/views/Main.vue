@@ -16,14 +16,19 @@ const route = useRoute();
 const tabs = computed(() => {
   return [
     {
-      name: "Neue Nachrichten",
-      linkName: { name: "NewMessages", query: { message_type: 2 } },
+      name: "Issues",
+      linkName: { name: "NewMessages", query: { status: 'unread' } },
       current: route.name === "NewMessages",
     },
     {
-      name: "Alle Nachrichten",
+      name: "Nachrichten durchsuchen",
       linkName: { name: "AllMessages" },
       current: route.name === "AllMessages",
+    },
+    {
+      name: "Nachricht Typen",
+      linkName: { name: "IssueTypes" },
+      current: route.name === "IssueTypes",
     },
   ];
 });

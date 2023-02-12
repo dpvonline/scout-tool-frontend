@@ -126,7 +126,7 @@
                     focus:ring-offset-2
                     sm:ml-3 sm:w-auto sm:text-sm
                   "
-                  @click="onButtonDeleteClicked"
+                  @click="onButtonClicked"
                 >
                   Antrag senden
                 </button>
@@ -203,7 +203,7 @@ const props = defineProps({
 function close() {
   props.callbackOnCancel();
 }
-function onButtonDeleteClicked() {
+function onButtonClicked() {
   errors.value.$validate();
   console.log(errors);
 
@@ -211,7 +211,8 @@ function onButtonDeleteClicked() {
     commonStore.showError("Bitte Felder überprüfen");
     return;
   }
-  props.callbackOnConfirm();
+  debugger;
+  props.callbackOnConfirm(state.user.id);
 }
 
 const state = reactive({

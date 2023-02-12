@@ -1,30 +1,27 @@
 <template>
   <div class="flex space-x-3">
     <div>
-      <div class="text-sm">
+      <div class="text-md">
         <div class="font-medium text-gray-600">
-          {{ item.createdByEmail ? `Extern: ${item.createdByEmail}` : `${item?.createdBy?.scoutName} (${item?.createdBy?.username})` }}
+          {{ item.name }}
         </div>
       </div>
       <div class="text-sm">
         <div class="pt-1 text-sm font-medium text-gray-900">
-          Betreff: {{ item.issue?.issueSubject }}
+          {{ item.description }}
         </div>
       </div>
       <div class="mt-1 text-sm text-gray-700">
-        <p>{{ item.messageBody }}</p>
+        <span
+          v-for="group in item.responsableGroups"
+          :key="group.id"
+          class="inline-flex mx-1 items-center rounded-full bg-gray-100 px-3 py-0.5 text-sm font-medium text-gray-800"
+          >
+          {{ group.name }}
+        </span>
       </div>
       <div class="mt-2 space-x-2 text-sm">
-        <span class="font-medium text-gray-800"
-          >vor {{ -moment(item.createdAt).diff(moment(), "days") }} Tagen</span
-        >
-        <span class="font-medium text-gray-500">{{
-          moment(item.createdAt).format("llll")
-        }}</span>
-        <span class="font-medium text-gray-500">&middot;</span>
-        <span class="font-medium text-gray-400">
-          <!-- {{ item.issueType.name }} -->
-        </span>
+        {{ item.isPublic ? 'Öffentlich' : 'Nicht öffentlich' }}
       </div>
     </div>
   </div>
@@ -42,8 +39,6 @@ import moment from "moment";
 const props = defineProps({
   item: Object,
 });
-
-
 
 function getColorByProcessed(isProcessed) {
   switch (isProcessed) {

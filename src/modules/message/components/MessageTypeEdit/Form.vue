@@ -2,24 +2,43 @@
   <div>
     <BaseField
       component="Toggle"
-      label="Öffentlich?"
-      techName="is_public"
-      :disabled="true"
-      v-model="state.is_public"
-      :errors="errors.is_public?.$errors"
+      label="isPublic"
+      techName="isPublic"
+      v-model="state.isPublic"
+      :errors="errors.isPublic?.$errors"
     />
     <BaseField
-      component="TextArea"
-      label="Text"
-      techName="messageBody"
-      :disabled="true"
-      v-model="state.messageBody"
-      :errors="errors.messageBody?.$errors"
+      component="Text"
+      label="name"
+      techName="name"
+      v-model="state.name"
+      :errors="errors.name?.$errors"
+    />
+    <BaseField
+      component="Text"
+      label="description"
+      techName="description"
+      v-model="state.description"
+      :errors="errors.description?.$errors"
+    />
+    <BaseField
+      component="Number"
+      label="sorting"
+      techName="sorting"
+      v-model="state.sorting"
+      :errors="errors.sorting?.$errors"
+    />
+    <BaseField
+      component="MultiSelect"
+      label="responsableGroups"
+      techName="responsableGroups"
+      v-model="state.responsableGroups"
+      :errors="errors.responsableGroups?.$errors"
     />
     <PrimaryButton
       @click="onSaveClicked"
       :isLoading="!!isLoading"
-      label="Nachricht speichern"
+      label="speichern"
     />
   </div>
 </template>
@@ -27,37 +46,50 @@
 <script setup lang="ts">
 import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
-import moment from "moment";
 
 import { reactive, onMounted, ref, watch, computed } from "vue";
 import BaseField from "@/components/field/Base.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import { useMessageStore } from "@/modules/message/store/index";
 
+import { useRegisterStore } from "@/modules/auth/store/index";
+
+
+const registerStore = useRegisterStore();
+
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, maxLength } from "@vuelidate/validators";
 
 import { useAuthStore } from "@/modules/auth/store/index";
+import { usePersonStore } from "@/modules/person/store/index";
 const authStore = useAuthStore();
 
 const state = reactive({
-  issue: null,
-  messageBody: "",
-  isPublic: false,
+  id: null,
+  name: null,
+  description: null,
+  isPublic: null,
+  responsableGroups: null,
+  sorting: null,
 });
 
 const rules = {
-  messageBody: {
+  name: {
+    required,
+  },
+  description: {
+    required,
+  },
+  responsableGroups: {
+    required,
+  },
+  sorting: {
     required,
   },
 };
 
 const props = defineProps({
   items: { type: Object, required: true },
-});
-
-const isAuth = computed(() => {
-  return authStore.isAuth;
 });
 
 const v$ = useVuelidate(rules, state);
@@ -82,10 +114,13 @@ function onSaveClicked() {
   isLoading.value = true;
 
   messageStore
-    .createMessage({
-      issue: state.issue,
-      messageBody: state.messageBody,
+    .updateMessage({
+      id: state.id,
+      name: state.name,
+      description: state.description,
       isPublic: state.isPublic,
+      responsableGroups: state.responsableGroups,
+      sorting: state.sorting,
     })
     .then((response: any) => {
       goToRoute(response.data.id);
@@ -110,7 +145,21 @@ const route = useRoute();
 import { useRouter } from "vue-router";
 const router = useRouter();
 
+const personStore = usePersonStore();
+
+const users = computed(() => {
+  return personStore.users;
+});
+
 onMounted(() => {
-  state.issue = props.items?.id
+  personStore.fetchUsers();
+  setTimeout(function () {
+    (state.id = props.items.id),
+      (state.name = props.items.name),
+      (state.description = props.items.description),
+      (state.isPublic = props.items.isPublic),
+      (state.responsableGroups = props.items.responsableGroups),
+      (state.sorting = props.items.sorting);
+  }, 300);
 });
 </script>

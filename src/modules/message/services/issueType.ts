@@ -1,10 +1,15 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_APP_API;
-const SERVICE = 'message/message'
+const SERVICE = 'message/issue-type'
 
 export default {
   fetchAll(params: any) {
     return axios.get(`${BASE_URL}/${SERVICE}-read/`, {
+      params: params,
+    });
+  },
+  fetchAllShorts(params: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}-read-short/`, {
       params: params,
     });
   },
