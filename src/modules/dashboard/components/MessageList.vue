@@ -1,14 +1,15 @@
 <template>
   <SmallList
-    title="Neue Nachrichten"
+    title="Meine Nachrichten"
     :items="messages"
     emptyText="Keine unbeantworteten Nachrichten"
-    allButton="Alle Nachrichten"
+    allButton="Zu den Nachrichten"
     :isLoading="isLoading"
+    allLinkButtonName="NewMessages"
   >
     <template v-slot:item="props">
       <p>
-        {{ props.item?.issue?.issueSubject }}
+        {{ props.item?.issue?.issueSubject }}:
       </p>
       <p>
         {{ props.item?.messageBody }}

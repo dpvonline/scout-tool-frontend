@@ -32,7 +32,6 @@
             class="
               justify-stretch
               mt-6
-
               flex flex-col-reverse
               space-y-4 space-y-reverse
               sm:flex-row-reverse
@@ -43,8 +42,8 @@
               md:mt-0 md:flex-row md:space-x-3
             "
           >
-            <!-- <button type="button" class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100">Disqualify</button> -->
             <button
+              @click="onLinkButtonClicked"
               type="button"
               class="
                 inline-flex
@@ -74,7 +73,7 @@
       </div>
     </div>
     <div v-else>
-      LAden
+      Laden...
     </div>
   </section>
 </template>
@@ -88,9 +87,14 @@ const props = defineProps({
   emptyText: String,
   allButton: String,
   isLoading: Boolean,
+  allLinkButtonName: String,
 });
 
-function onButtonClicked() {
-  console.log("clicked");
+import { useRouter } from "vue-router"
+
+const router = useRouter()
+
+function onLinkButtonClicked() {
+  router.push({ name: props.allLinkButtonName })
 }
 </script>

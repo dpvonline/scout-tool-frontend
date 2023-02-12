@@ -1,14 +1,15 @@
 <template>
   <SmallList
-    title="Offene Aufgaben"
+    title="Meine Aufgaben"
     :items="myRequests"
     emptyText="Keine offenen Aufgaben"
-    allButton="Alle Aufgaben"
+    allButton="Zu dem Aufgaben"
     :isLoading="isLoading"
+    allLinkButtonName="AllTasks"
   >
     <template v-slot:item="props">
       <p>
-        {{ props.item.name }}
+        Antrag: {{ props.item.user.scoutName }} in {{ props.item.group.name }} 
       </p>
     </template>
   </SmallList>

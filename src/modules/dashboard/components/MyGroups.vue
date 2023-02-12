@@ -3,12 +3,13 @@
     title="Meine Gruppen"
     :items="myGroups"
     emptyText="Du bist in keiner Gruppe"
-    allButton="Alle Gruppen"
+    allButton="Zu den Gruppen"
     :isLoading="isLoading"
+    allLinkButtonName="MyGroups"
   >
     <template v-slot:item="props">
       <p>
-        {{ props.item.name }}
+        {{ props.item.name }} ({{ props.item.parent.name }})
       </p>
     </template>
   </SmallList>

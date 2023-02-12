@@ -38,7 +38,7 @@
           </div>
         </dl>
       </div>
-      <div v-if="task?.status !== 'Nicht überprüft'" class="px-4 py-5 sm:px-6">
+      <div v-if="task?.status !== 'offen'" class="px-4 py-5 sm:px-6">
         <div class="">
           <h3 class="text-lg font-medium leading-6 text-gray-900">
             Freigabeprozess
@@ -65,7 +65,7 @@
         <RequestListButton :request="task" />
       </div>
     </div>
-    <div>
+    <div v-else>
       <h3 class="text-lg px-4 py-4 font-medium leading-6 text-gray-900">
         Du hat keinen Zugriff auf diese Anforderung
       </h3>

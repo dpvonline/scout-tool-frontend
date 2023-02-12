@@ -38,7 +38,7 @@
 
         <div
           class="sm:col-span-2"
-          v-if="(!group.isMember && group.membershipAllowed) || group.isMember || group.permission === 'Administrator'"
+          v-if="(!group.isMember) || group.isMember || group.permission === 'Administrator'"
         >
           <dt class="text-sm font-medium text-gray-500">Aktionen</dt>
           <dd class="mt-1 text-sm text-gray-900">
@@ -47,7 +47,7 @@
               class="divide-y divide-gray-200 rounded-md border border-gray-200"
             >
               <li
-                v-if="!group.isMember && group.membershipAllowed"
+                v-if="!group.isMember"
                 class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
               >
                 <div class="flex w-0 flex-1 items-center">

@@ -1,11 +1,12 @@
 <template>
   <!-- Announcements -->
   <SmallList
-    title="Deine Einladungen"
+    title="Meine Einladungen"
     :items ="eventOverviews"
     emptyText="Keine Einladungen"
-    allButton="Alle Einladungen"
+    allButton="Zu meinen Einladungen"
     :isLoading="false"
+    allLinkButtonName="EventInvitations"
   >
     <template v-slot:item="props">
       <p>
