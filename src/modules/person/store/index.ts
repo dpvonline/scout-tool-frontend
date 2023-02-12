@@ -7,8 +7,9 @@ import userApi from "@/modules/person/services/user";
 export const usePersonStore = defineStore("person", {
   state: () => ({
     _persons: [],
-    _person: [],
+    _person: {},
     _users: [],
+    _user: {},
     _isLoading: false
   }),
 
@@ -50,6 +51,18 @@ export const usePersonStore = defineStore("person", {
         this._isLoading = false;
       }
     },
+    async fetchUserById(id: number) {
+      this._isLoading = true;
+      try {
+        const response = await userApi.fetchById(id);
+        this._user = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
   },
   getters: {
     persons: (state) => {
@@ -60,6 +73,9 @@ export const usePersonStore = defineStore("person", {
     },
     users: (state) => {
       return state._users;
+    },
+    user: (state) => {
+      return state._user;
     },
     isLoading: (state) => {
       return state._isLoading;
