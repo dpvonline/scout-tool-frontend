@@ -1,6 +1,6 @@
 <template>
-  <section aria-labelledby="recent-hires-title">
-    <div class="overflow-hidden rounded-lg bg-gray-50 shadow">
+  <section aria-labelledby="recent-hires-title" >
+    <div class="overflow-hidden rounded-lg bg-gray-50 shadow" v-if="!props.isLoading">
       <div class="p-6">
         <div class="border-b border-gray-400 px-4 py-5 sm:px-6">
           <h3 class="text-lg font-medium leading-6 text-gray-900">
@@ -17,42 +17,7 @@
               class="py-4"
             >
               <div class="flex items-center space-x-4">
-                <div class="flex-shrink-0">
-                  <img
-                    class="h-8 w-8 rounded-full"
-                    :src="person.imageUrl"
-                    alt=""
-                  />
-                </div>
-                <div class="min-w-0 flex-1">
-                  <p class="truncate text-sm font-medium text-gray-900">
-                    {{ person.name }}
-                  </p>
-                  <p class="truncate text-sm text-gray-500">
-                    {{ "@" + person.handle }}
-                  </p>
-                </div>
-                <div>
-                  <a
-                    :href="person.href"
-                    class="
-                      inline-flex
-                      items-center
-                      rounded-full
-                      border-t border-gray-400
-                      bg-white
-                      px-2.5
-                      py-0.5
-                      text-sm
-                      font-medium
-                      leading-5
-                      text-gray-700
-                      shadow-sm
-                      hover:bg-gray-50
-                    "
-                    >View</a
-                  >
-                </div>
+                <slot name="item" :item="person"></slot>
               </div>
             </li>
             <li v-else class="my-5">
@@ -107,6 +72,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div v-else>
+      LAden
     </div>
   </section>
 </template>

@@ -5,7 +5,13 @@
     emptyText="Keine offenen Aufgaben"
     allButton="Alle Aufgaben"
     :isLoading="isLoading"
-  />
+  >
+    <template v-slot:item="props">
+      <p>
+        {{ props.item.name }}
+      </p>
+    </template>
+  </SmallList>
 </template>
 
 <script setup lang="ts">
@@ -28,11 +34,11 @@ import EventListItemEmpty from "@/modules/event/components/EventListItemEmpty.vu
 const taskStore = useTaskStore();
 
 const myRequests = computed(() => {
-  return taskStore.myRequests
+  return taskStore.myRequests;
 });
 
 const isLoading = computed(() => {
-  return taskStore.isLoading
+  return taskStore.isLoading;
 });
 
 onMounted(() => {

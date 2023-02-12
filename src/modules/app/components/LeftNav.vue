@@ -582,7 +582,7 @@ const navigation = computed(() => {
       count: unProcessedMessages,
     },
     {
-      name: "Veranstaltungen",
+      name: "Veranstaltungen (Beta)",
       linkName: "EventMain",
       icon: CalendarDaysIcon,
       route: "event",

@@ -38,7 +38,7 @@
 
         <div
           class="sm:col-span-2"
-          v-if="(!group.isMember && group.membershipAllowed) || true"
+          v-if="(!group.isMember && group.membershipAllowed) || group.isMember || group.permission === 'Administrator'"
         >
           <dt class="text-sm font-medium text-gray-500">Aktionen</dt>
           <dd class="mt-1 text-sm text-gray-900">
@@ -213,6 +213,9 @@ import AddMemberModal from "@/modules/group/components/AddMemberModal.vue";
 import Secondary from "@/components/button/Secondary.vue";
 import { useAuthStore } from "@/modules/auth/store/index.ts";
 
+import { useRouter } from "vue-router";
+const router = useRouter();
+
 const groupStore = useGroupStore();
 const authStore = useAuthStore();
 
@@ -232,6 +235,12 @@ function onAddGroup() {
   openAddGroup.value = true;
 }
 
+function refresh() {
+  debugger;
+}
+
+//  - - - - - Ask for Membership - - - - - - -
+
 const openRequestAccess = ref(false);
 function onRequestAccess() {
   openRequestAccess.value = true;
@@ -246,7 +255,7 @@ function onConfirmClicked() {
 function onCancellicked() {
   openRequestAccess.value = false;
 }
-// - - - - - - - - - - - - - - - -
+// - - - - - Add Member - - - - - - - - - - -
 
 const openAddMember = ref(false);
 function onAddMemberClicked() {
@@ -257,12 +266,13 @@ function onAddMemberConfirmClicked(userId) {
   const groupId = route.params.id;
   groupStore.sendGroupInvitation(groupId, userId).then((response) => {
     commonStore.showSuccess("Einladung erfolgreich eingereicht");
+    router.go(router.currentRoute.value);
   });
 }
 function onAddMemberCancellicked() {
   openAddMember.value = false;
 }
-// - - - - - - - - - - - - - - - -
+// - - - - - -Leave Group  - - - - - - - - - -
 
 const openLeaveGroup = ref(false);
 function onLeaveGroupClicked() {
@@ -275,9 +285,10 @@ function onLeaveGroupConfirmClicked() {
 
   groupStore.sendGroupLeave(groupId, userId).then((response) => {
     commonStore.showSuccess("Du bist erfolgreich ausgetreten.");
+    router.go(router.currentRoute.value);
   });
 
-  commonStore.showSuccess("Du hast die Gruppe verlassen.");
+
 }
 function onLeaveGroupCancellicked() {
   openLeaveGroup.value = false;

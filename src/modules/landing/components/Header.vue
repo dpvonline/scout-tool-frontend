@@ -89,8 +89,8 @@
                 focus-visible:outline-blue-600
               "
             >
-              <LockClosedIcon class="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
-              Anmelden
+              <LockClosedIcon v-if="!isAuth" class="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
+               {{ !isAuth ? 'Anmelden' : 'Dashboard' }}
             </router-link>
             <router-link
               :to="{ name: 'RegisterStart' }"
@@ -163,6 +163,12 @@
 
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { ChevronRightIcon, LockClosedIcon, PlusIcon } from "@heroicons/vue/20/solid";
+import { useAuthStore } from "@/modules/auth/store/index.ts";
+const authStore = useAuthStore();
 
+const isAuth = computed(() => {
+  return authStore.isAuth;
+});
 </script>

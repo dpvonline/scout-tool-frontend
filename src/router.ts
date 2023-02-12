@@ -64,8 +64,8 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.matched.some((record) => record.meta.hideForAuth)) {
-    if (authStore.isAuth) {
-      next();
+    if (authStore.isAuth && !from.name) {
+      next({ path: "/dashboard" });
     } else {
       next();
     }

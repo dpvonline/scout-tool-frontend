@@ -6,7 +6,13 @@
     emptyText="Keine Einladungen"
     allButton="Alle Einladungen"
     :isLoading="false"
-  />
+  >
+    <template v-slot:item="props">
+      <p>
+        {{ props.item.name }}
+      </p>
+    </template>
+  </SmallList>
 </template>
 
 <script setup lang="ts">

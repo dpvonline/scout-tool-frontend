@@ -5,7 +5,13 @@
     emptyText="Du bist in keiner Gruppe"
     allButton="Alle Gruppen"
     :isLoading="isLoading"
-  />
+  >
+    <template v-slot:item="props">
+      <p>
+        {{ props.item.name }}
+      </p>
+    </template>
+  </SmallList>
 </template>
 
 <script setup lang="ts">
