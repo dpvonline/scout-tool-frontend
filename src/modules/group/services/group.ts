@@ -12,14 +12,14 @@ export default {
   fetchById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/`);
   },
-  sendGroupInvitation(id: any) {
-    return axios.get(`${BASE_URL}/${SERVICE}/${id}/invite/`);
+  sendGroupInvitation(groupId: any, userId: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${groupId}/invite/`, { userId });
   },
-  sendGroupKick(id: any) {
-    return axios.get(`${BASE_URL}/${SERVICE}/${id}/kick/`);
+  sendGroupKick(groupId: any, userId: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${groupId}/kick/`, { userId });
   },
-  sendGroupLeave(id: any) {
-    return axios.get(`${BASE_URL}/${SERVICE}/${id}/leave/`);
+  sendGroupLeave(groupId: any, userId: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${groupId}/leave/`, { userId });
   },
   fetchRequestById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/requests/`);

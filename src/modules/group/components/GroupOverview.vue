@@ -211,8 +211,10 @@ import { useGroupStore } from "@/modules/group/store/index";
 import RequestModal from "@/modules/group/components/RequestModal.vue";
 import AddMemberModal from "@/modules/group/components/AddMemberModal.vue";
 import Secondary from "@/components/button/Secondary.vue";
+import { useAuthStore } from "@/modules/auth/store/index.ts";
 
 const groupStore = useGroupStore();
+const authStore = useAuthStore();
 
 const group = computed(() => {
   return groupStore.group;
@@ -252,12 +254,10 @@ function onAddMemberClicked() {
 }
 function onAddMemberConfirmClicked(userId) {
   openAddMember.value = false;
-  const id = route.params.id;
-  groupStore.sendGroupInvitation(id).then((response) => {
-    commonStore.showSuccess("Antrag erfolgreich eingereicht");
+  const groupId = route.params.id;
+  groupStore.sendGroupInvitation(groupId, userId).then((response) => {
+    commonStore.showSuccess("Einladung erfolgreich eingereicht");
   });
-
-  commonStore.showSuccess("Du hast die Person hinzugefügt.");
 }
 function onAddMemberCancellicked() {
   openAddMember.value = false;
@@ -270,7 +270,12 @@ function onLeaveGroupClicked() {
 }
 function onLeaveGroupConfirmClicked() {
   openLeaveGroup.value = false;
-  const id = route.params.id;
+  const groupId = route.params.id;
+  const userId = authStore.user.sub;
+
+  groupStore.sendGroupLeave(groupId, userId).then((response) => {
+    commonStore.showSuccess("Du bist erfolgreich ausgetreten.");
+  });
 
   commonStore.showSuccess("Du hast die Gruppe verlassen.");
 }

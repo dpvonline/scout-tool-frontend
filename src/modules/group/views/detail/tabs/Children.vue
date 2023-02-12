@@ -30,12 +30,6 @@ function onAddGroup() {
   openAddGroup.value = true;
 }
 
-function onConfirmClicked(userId) {
-  openRequestAccess.value = false;
-  groupStore.sendGroupRequest(userId).then((response) => {
-    commonStore.showSuccess("Antrag erfolgreich eingereicht");
-  });
-}
 function onCancellicked() {
   openRequestAccess.value = false;
 }

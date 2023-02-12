@@ -73,6 +73,22 @@ export const useGroupStore = defineStore("group", {
         console.log(error);
       }
     },
+    async sendGroupInvitation(groupId: number, userId: number) {
+      try {
+        return await GroupApi.sendGroupInvitation(groupId, userId);
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
+    async sendGroupLeave(groupId: number, userId: number) {
+      try {
+        return await GroupApi.sendGroupLeave(groupId, userId);
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
     async sendAcceptRequest(groupId: number, requestId: number) {
       try {
         return await GroupApi.sendAcceptRequest(groupId, requestId);
