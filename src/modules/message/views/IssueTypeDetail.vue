@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import issueTypeDetail from '@/modules/message/components/issueType/issueTypeDetail.vue'
+import issueTypeDetail from '@/modules/message/components/issueType/IssueTypeDetail.vue'
 </script>
