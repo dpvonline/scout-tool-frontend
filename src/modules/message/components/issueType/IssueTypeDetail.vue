@@ -117,7 +117,7 @@ const issueType = computed(() => {
 onMounted(() => {
   const id = route.params.id;
   if (id) {
-    messageStore.fetchissueTypeById(id);
+    messageStore.fetchIssueTypeById(id);
   }
 });
 
