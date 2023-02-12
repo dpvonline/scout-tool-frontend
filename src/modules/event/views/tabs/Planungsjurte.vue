@@ -9,7 +9,7 @@
       </template>
       <template v-slot:empty>
         <EventListItemEmpty>
-          Du bist aktuell bei keiner Veranstaltungen angmeldet
+          Du bist aktuell bei keiner Veranstaltungen angemeldet
         </EventListItemEmpty>
       </template>
     </SimpleList>

@@ -7,12 +7,12 @@
             <h2 class="text-lg font-medium leading-6 py-4 text-gray-900">
               Hallo {{ personalData.scoutName }}, das ist dein Dashboard.
             </h2>
-            <div class="grid grid-cols-3 gap-6" >
-              <div class="col-span-2 max-h-full" >
-                <NotifyList class="max-h-full"/>
+            <div class="lg:grid lg:grid-cols-3 lg:items-center lg:gap-8 gap-6" >
+              <div class="col-span-2 w-full max-h-full" >
+                <NotifyList class="w-full max-h-full"/>
               </div>
-              <div class="col-span-1">
-                <MyGroups :myGroups="myGroups" />
+              <div class="col-span-1 w-full max-h-full">
+                <MyGroups class="w-full max-h-full" :myGroups="myGroups" />
               </div>
               <div class="col-span-2">
                 <EventList/>

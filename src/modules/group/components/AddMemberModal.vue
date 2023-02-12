@@ -211,7 +211,6 @@ function onButtonClicked() {
     commonStore.showError("Bitte Felder überprüfen");
     return;
   }
-  debugger;
   props.callbackOnConfirm(state.user.id);
 }
 

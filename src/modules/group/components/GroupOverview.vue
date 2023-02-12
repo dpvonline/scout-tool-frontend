@@ -235,10 +235,6 @@ function onAddGroup() {
   openAddGroup.value = true;
 }
 
-function refresh() {
-  debugger;
-}
-
 //  - - - - - Ask for Membership - - - - - - -
 
 const openRequestAccess = ref(false);

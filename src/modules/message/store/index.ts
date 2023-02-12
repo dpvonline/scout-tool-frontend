@@ -128,10 +128,8 @@ export const useMessageStore = defineStore("message", {
     },
     async createMessage(data: object) {
       try {
-        debugger;
         return await MessageApi.create(data);
       } catch (error) {
-        debugger;
         if (error?.response?.status === 400) {
           // commonStore.showError(error.response.data);
         } else if (error?.response?.status === 500) {
