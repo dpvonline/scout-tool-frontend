@@ -7,7 +7,6 @@
       :filters="filters"
       :buttonList="buttonList"
       mainPageLink="AllUsers"
-      detailPageLink="UserDetail"
       :isLoading="isLoading"
     >
       <template #listitem="{ item }">

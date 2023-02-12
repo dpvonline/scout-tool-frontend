@@ -542,6 +542,7 @@
           <ul role="list" v-if="items.length" class="divide-y divide-gray-200">
             <li v-for="item in items" :key="item.id">
               <router-link
+                :is="props.detailPageLink ? 'span' : 'router-link'"
                 :to="{
                   name: props.detailPageLink,
                   params: {
@@ -558,15 +559,11 @@
                       class="weight-max"
                     ></slot>
                   </div>
-                  <div class="flex-none">
-                    <button
-                      @click="onDetailPageClicked(item.id, detailPageLink)"
-                    >
+                  <div v-if="props.detailPageLink" class="flex-none">
                       <ChevronRightIcon
                         class="h-5 w-5 text-gray-400"
                         aria-hidden="true"
                       />
-                    </button>
                   </div>
                 </div>
               </router-link>

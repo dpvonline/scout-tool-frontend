@@ -81,6 +81,23 @@
                 </div>
               </li>
               <li
+                v-if="group.permission === 'Administrator'"
+                class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              >
+                <div class="flex w-0 flex-1 items-center">
+                  <UserMinusIcon
+                    class="h-5 w-5 flex-shrink-0 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <span class="ml-2 w-0 flex-1 truncate"
+                    >Mitglied aus der Gruppe entfernen</span
+                  >
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                  <Secondary :label="'auswählen'" @click="onKickMemberClicked" />
+                </div>
+              </li>
+              <li
                 v-if="group.isMember"
                 class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
               >
@@ -188,6 +205,13 @@
       :callbackOnConfirm="onAddMemberConfirmClicked"
       :callbackOnCancel="onAddMemberCancellicked"
     />
+    <KickMemberModal
+      :header="'User entfernen'"
+      :text="'Welchen User möchtest du aus der Gruppe entfernen?'"
+      :open="openKickMember"
+      :callbackOnConfirm="onKickMemberConfirmClicked"
+      :callbackOnCancel="onKickMemberCancellicked"
+    />
     <RequestModal
       :open="openLeaveGroup"
       :header="'Gruppe verlassen'"
@@ -210,6 +234,7 @@ import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
 import RequestModal from "@/modules/group/components/RequestModal.vue";
 import AddMemberModal from "@/modules/group/components/AddMemberModal.vue";
+import KickMemberModal from "@/modules/group/components/AddMemberModal.vue";
 import Secondary from "@/components/button/Secondary.vue";
 import { useAuthStore } from "@/modules/auth/store/index.ts";
 
@@ -267,6 +292,23 @@ function onAddMemberConfirmClicked(userId) {
 }
 function onAddMemberCancellicked() {
   openAddMember.value = false;
+}
+// - - - - - kick Member - - - - - - - - - - -
+
+const openKickMember = ref(false);
+function onKickMemberClicked() {
+  openKickMember.value = true;
+}
+function onKickMemberConfirmClicked(userId) {
+  openKickMember.value = false;
+  const groupId = route.params.id;
+  groupStore.sendGroupKick(groupId, userId).then((response) => {
+    commonStore.showSuccess("Kick erfolgreich eingereicht");
+    router.go(router.currentRoute.value);
+  });
+}
+function onKickMemberCancellicked() {
+  openKickMember.value = false;
 }
 // - - - - - -Leave Group  - - - - - - - - - -
 
