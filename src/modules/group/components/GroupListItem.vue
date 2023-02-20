@@ -3,7 +3,7 @@
     <div class="flex-shrink-0">
       <span
         :class="[
-          'bg-blue-400 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white',
+          'bg-blue-600 h-10 w-10 rounded-full flex items-center justify-center ring-8 ring-white',
         ]"
       >
         <UserGroupIcon class="h-5 w-5 text-white" aria-hidden="true" />
@@ -23,28 +23,19 @@
             class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
             aria-hidden="true"
           />
-          <Cog8ToothIcon
-            v-else
-            class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-            aria-hidden="true"
-          />
-          <span v-if="props.item.scouthierarchy" class="truncate">Ebene: {{ props.item.scouthierarchy.levelChoice }}</span>
-          <span v-else class="truncate">Virtuelle Ebene</span>
         </p>
-      </div>
-      <div class="hidden md:block">
         <div>
           <p class="mt-2 flex items-center text-sm text-gray-500">
-            <CheckCircleIcon
-              class="mr-1.5 h-5 w-5 flex-shrink-0 text-green-400"
-              aria-hidden="true"
-            />
             {{
-              props.item?.isMember ? "Du bist Mitglied" : "Du bist kein Mitglied"
+              props.item?.isMember ? "Mitglied" : "kein Mitglied"
             }}
             <span class="px-1" v-if="props.item?.permission !== 'none'"> und {{ props.item?.permission ? props.item?.permission : "" }} </span>
           </p>
         </div>
+      </div>
+      <div class="hidden md:block text-sm " >
+          <span v-if="props.item.scouthierarchy" class="truncate">Ebene: {{ props.item.scouthierarchy.levelChoice }}</span>
+          <span v-else class="truncate">Virtuelle Ebene</span>
       </div>
     </div>
   </div>

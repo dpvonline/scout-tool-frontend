@@ -166,15 +166,36 @@
                         >
                           <span class="sr-only">View notifications</span>
                           <span class="relative inline-block">
-                          <BellAlertIcon class=" h-6 w-6 text-blue-800"/>
-                            <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+                            <BellAlertIcon class="h-6 w-6 text-blue-800" />
+                            <span
+                              v-if="!!notificationCount.unreadCount"
+                              class="
+                                absolute
+                                top-0
+                                right-0
+                                inline-flex
+                                items-center
+                                justify-center
+                                px-2
+                                py-1
+                                text-xs
+                                font-bold
+                                leading-none
+                                text-red-100
+                                transform
+                                translate-x-1/2
+                                -translate-y-1/2
+                                bg-red-600
+                                rounded-full
+                              "
+                            >
                               {{ notificationCount.unreadCount }}
                             </span>
                           </span>
                         </router-link>
                       </div>
                       <div class="mt-3 space-y-1 px-2">
-                                                <router-link
+                        <router-link
                           v-for="item in props.secondaryNavigation"
                           :key="item.name"
                           :to="{ name: item.linkName }"
@@ -188,7 +209,8 @@
                             text-gray-900
                             hover:bg-gray-100 hover:text-gray-800
                           "
-                          >{{ item.name }}</router-link>
+                          >{{ item.name }}</router-link
+                        >
 
                         <router-link
                           :to="{}"
@@ -224,6 +246,7 @@
 <script setup lang="ts">
 const props = defineProps({
   navigation: { type: Array, required: true },
+  secondaryNavigation: { type: Array, required: true },
   sidebarOpen: { type: Boolean, required: true },
 });
 import {
@@ -306,7 +329,7 @@ const personalData = computed(() => {
 });
 
 const notificationCount = computed(() => {
-  return notificationsStore.notificationCount
+  return notificationsStore.notificationCount;
 });
 
 const route = useRoute();
