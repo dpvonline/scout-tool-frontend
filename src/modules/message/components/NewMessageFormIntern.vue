@@ -1,4 +1,5 @@
 <template>
+<PageWrapper>
   <form class="space-y-8 divide-y px-3 py-4 divide-gray-200">
     <div class="space-y-8 divide-y divide-gray-200">
       <h2 class="text-h1 font-medium text-gray-900">Deine Nachricht</h2>
@@ -59,6 +60,7 @@
       </div>
     </div>
   </form>
+  </PageWrapper>
 </template>
 
 
@@ -69,6 +71,7 @@ import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import Success from "@/modules/common/components/Success.vue";
 import { useMessageStore } from "@/modules/message/store";
+import PageWrapper from "@/components/base/PageWrapper.vue";
 import { useRoute } from "vue-router";
 
 import { useVuelidate } from "@vuelidate/core";

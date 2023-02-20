@@ -1,5 +1,5 @@
 <template>
-  <div class="2xl:px-80 xl:px-60 lg:px-40 md:px-30">
+  <PageWrapper>
     <div class="lg:border-t lg:border-b lg:border-gray-200">
       <nav
         class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 md:py-8"
@@ -9,7 +9,7 @@
       </nav>
       <router-view />
     </div>
-  </div>
+  </PageWrapper>
 </template>
 
 <script setup lang="ts">
@@ -17,6 +17,7 @@ import { computed, onMounted } from "vue";
 
 import StepperNavSmall from "@/components/stepper/StepperNavSmall.vue";
 import StepperNav from "@/components/stepper/StepperNav.vue";
+import PageWrapper from "@/components/base/PageWrapper.vue";
 import { useRouter } from "vue-router";
 import { useRegisterStore } from "../store";
 import { onBeforeRouteLeave } from "vue-router";

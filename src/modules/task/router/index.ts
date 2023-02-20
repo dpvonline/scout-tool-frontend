@@ -20,6 +20,12 @@ export default [
         component: () =>
           import(/* webpackChunkName: "MyRequestedTasks" */ "@/modules/task/views/tabs/MyRequestedTasks.vue"),
       },
+      {
+        path: "new-messages",
+        name: "NewMessages",
+        component: () =>
+          import(/* webpackChunkName: "NewMessages" */ "@/modules/message/views/tabs/NewMessages.vue"),
+      },
     ],
   },
   {

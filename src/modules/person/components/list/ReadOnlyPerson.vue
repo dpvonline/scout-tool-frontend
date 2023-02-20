@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="px-2">
     <!-- Profile -->
     <div class="mt-10 divide-y divide-gray-200">
       <div class="space-y-1">

@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 
-import Footer from '@/modules/app/components/Footer.vue'
+import Footer from '@/modules/landing/components/Footer.vue'
 import Header from '@/modules/app/components/GlobalHeader.vue'
 
 </script>

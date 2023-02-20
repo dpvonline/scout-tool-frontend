@@ -2,7 +2,7 @@ export default [
   {
     path: "/message",
     name: "MessageMain",
-    redirect: { name: "NewMessages", query: { status: 'unread' } },
+    redirect: { name: "NewMessages2", query: { status: 'unread' } },
     meta: {
       requiresAuth: true,
     },
@@ -10,7 +10,7 @@ export default [
       children: [
         {
           path: "new-messages",
-          name: "NewMessages",
+          name: "NewMessages2",
           component: () =>
             import(/* webpackChunkName: "NewMessages" */ "@/modules/message/views/tabs/NewMessages.vue"),
         },

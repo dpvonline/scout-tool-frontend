@@ -1,7 +1,7 @@
 <template>
   <PageWrapper>
     <Breadcrumbs v-if="group" :pages="pages" />
-    <main class="relative z-40 flex-1 focus:outline-none">
+    <main class="relative flex-1 focus:outline-none">
       <article v-if="group.name">
         <!-- Tabs -->
         <TabGroup as="div" class="mt-2">

@@ -84,6 +84,7 @@ import Base from "@/components/field/Base.vue";
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import Success from "@/modules/common/components/Success.vue";
+import PageWrapper from "@/components/base/PageWrapper.vue";
 import { useMessageStore } from "@/modules/message/store";
 import { useRoute } from "vue-router";
 

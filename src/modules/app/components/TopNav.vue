@@ -5,7 +5,7 @@
       :key="item.name"
       :to="{ name: item.linkName }"
       class="
-        text-cyan-100 text-sm
+        text-blue-100 text-sm
         font-medium
         rounded-md
         bg-white bg-opacity-0

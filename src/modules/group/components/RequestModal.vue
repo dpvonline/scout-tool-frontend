@@ -1,6 +1,6 @@
 <template>
   <TransitionRoot as="template" :show="props.open">
-    <Dialog as="div" class="relative z-10" @close="close">
+    <Dialog as="div" class="relative" @close="close">
       <TransitionChild
         as="template"
         enter="ease-out duration-300"
@@ -15,7 +15,7 @@
         />
       </TransitionChild>
 
-      <div class="fixed inset-0 z-10 overflow-y-auto">
+      <div class="fixed inset-0 overflow-y-auto">
         <div
           class="
             flex

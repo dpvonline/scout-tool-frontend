@@ -14,6 +14,7 @@ import MessageRouter from "@/modules/message/router";
 import EventRouter from "@/modules/event/router";
 import InspiRouter from "@/modules/inspi/router";
 import HelpMain from "@/modules/help/router";
+import NotificationMain from "@/modules/notification/router";
 
 const routes = [
   ...DashboardRouter,
@@ -28,6 +29,7 @@ const routes = [
   ...EventRouter,
   ...InspiRouter,
   ...HelpMain,
+  ...NotificationMain,
 ];
 
 const router = createRouter({

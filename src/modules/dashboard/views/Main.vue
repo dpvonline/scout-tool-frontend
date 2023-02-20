@@ -22,6 +22,9 @@
                       <p class="text-xl font-bold text-gray-900 sm:text-2xl">
                         {{ personalData.scoutName }}
                       </p>
+                      <p class="text-sm text-gray-700">
+                        {{ personalData.email }}
+                      </p>
                     </div>
                   </div>
                   <div class="mt-5 flex justify-center sm:mt-0">
@@ -99,7 +102,7 @@
                       <div
                         class="
                           relative
-                          focus-within:ring-2 focus-within:ring-cyan-500
+                          focus-within:ring-2 focus-within:ring-blue-500
                         "
                       >
                         <h3 class="text-sm font-semibold text-gray-800">
@@ -128,7 +131,7 @@
                       <div
                         class="
                           relative
-                          focus-within:ring-2 focus-within:ring-cyan-500
+                          focus-within:ring-2 focus-within:ring-blue-500
                         "
                       >
                         <h3 class="text-sm font-semibold text-gray-800">
@@ -158,7 +161,7 @@
                       <div
                         class="
                           relative
-                          focus-within:ring-2 focus-within:ring-cyan-500
+                          focus-within:ring-2 focus-within:ring-blue-500
                         "
                       >
                         <h3 class="text-sm font-semibold text-gray-800">

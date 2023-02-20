@@ -1,40 +1,54 @@
 <template>
   <footer class="bg-white">
-    <div class="mx-auto max-w-7xl overflow-hidden py-4 px-6 sm:py-4 lg:px-8">
-      <nav
-        class="-mb-6 columns-4 sm:flex justify-center sm:space-x-12"
-        aria-label="Footer"
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div
+        class="
+          border-t border-gray-200
+          py-8
+          text-center text-sm text-gray-500
+          sm:text-left
+        "
       >
-        <div v-for="item in navigation.main" :key="item.name" class="pb-6 text-center">
-          <router-link
-            :to="{ name: item.link }"
-            class="text-sm leading-6 text-gray-600 justify-center text-center hover:text-gray-900"
-            >{{ item.name }}</router-link
-          >
-        </div>
-        <div class="pb-6">
-          <a
-            target="_blank"
-            href="https://dpvonline.de"
-            class="text-sm leading-6 text-gray-600 text-center hover:text-gray-900"
-            >dpvonline.de</a
-          >
-        </div>
-      </nav>
-      <!-- <div class="mt-10 flex justify-center space-x-10">
-        <a
-          v-for="item in navigation.social"
-          :key="item.name"
-          :href="item.href"
-          class="text-gray-400 hover:text-gray-500"
+        <nav
+          class="-mb-6 columns-4 sm:flex justify-center sm:space-x-12"
+          aria-label="Footer"
         >
-          <span class="sr-only">{{ item.name }}</span>
-          <component :is="item.icon" class="h-6 w-6" aria-hidden="true" />
-        </a>
-      </div> -->
-      <p class="mt-10 text-center text-xs leading-5 text-gray-500">
-        &copy; 2023 Deutscher Pfadfinderverband
-      </p>
+          <div
+            v-for="item in navigation.main"
+            :key="item.name"
+            class="pb-6 text-center"
+          >
+            <router-link
+              :to="{ name: item.link }"
+              class="
+                text-sm
+                leading-6
+                text-gray-600
+                justify-center
+                text-center
+                hover:text-gray-900
+              "
+              >{{ item.name }}</router-link
+            >
+          </div>
+          <div class="pb-6">
+            <a
+              target="_blank"
+              href="https://dpvonline.de"
+              class="
+                text-sm
+                leading-6
+                text-gray-600 text-center
+                hover:text-gray-900
+              "
+              >dpvonline.de</a
+            >
+          </div>
+        </nav>
+        <p class="mt-10 text-center text-xs leading-5 text-gray-500">
+          &copy; 2023 Deutscher Pfadfinderverband
+        </p>
+      </div>
     </div>
   </footer>
 </template>

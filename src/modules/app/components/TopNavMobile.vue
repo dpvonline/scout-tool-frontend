@@ -86,7 +86,7 @@
                               focus:outline-none
                               focus:ring-2
                               focus:ring-inset
-                              focus:ring-cyan-500
+                              focus:ring-blue-500
                             "
                           >
                             <span class="sr-only">Close menu</span>
@@ -108,7 +108,9 @@
                         </div>
                       </div>
                       <div class="mt-3 space-y-1 px-2">
-                        <router-link v-for="item in props.navigation" :key="item.name"
+                        <router-link
+                          v-for="item in props.navigation"
+                          :key="item.name"
                           :to="{ name: item.linkName }"
                           class="
                             block
@@ -137,7 +139,7 @@
                           <div
                             class="truncate text-base font-medium text-gray-800"
                           >
-                            {{ personalData.scoutName}}
+                            {{ personalData.scoutName }}
                           </div>
                           <div
                             class="truncate text-sm font-medium text-gray-500"
@@ -146,7 +148,7 @@
                           </div>
                         </div>
                         <router-link
-                          :to="{ name: 'AllTasks'}"
+                          :to="{ name: 'AllNotification' }"
                           type="button"
                           class="
                             ml-auto
@@ -158,30 +160,24 @@
                             hover:text-gray-500
                             focus:outline-none
                             focus:ring-2
-                            focus:ring-cyan-500
+                            focus:ring-blue-500
                             focus:ring-offset-2
                           "
                         >
                           <span class="sr-only">View notifications</span>
-                          <svg
-                            class="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            aria-hidden="true"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
-                            />
-                          </svg>
+                          <span class="relative inline-block">
+                          <BellAlertIcon class=" h-6 w-6 text-blue-800"/>
+                            <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+                              {{ notificationCount.unreadCount }}
+                            </span>
+                          </span>
                         </router-link>
                       </div>
                       <div class="mt-3 space-y-1 px-2">
-                        <router-link
-                          :to="{ name: 'SettingsGeneral'}"
+                                                <router-link
+                          v-for="item in props.secondaryNavigation"
+                          :key="item.name"
+                          :to="{ name: item.linkName }"
                           class="
                             block
                             rounded-md
@@ -192,23 +188,7 @@
                             text-gray-900
                             hover:bg-gray-100 hover:text-gray-800
                           "
-                          >Dein Profil</router-link
-                        >
-
-                        <router-link
-                          :to="{ name: 'SettingsGeneral'}"
-                          class="
-                            block
-                            rounded-md
-                            px-3
-                            py-2
-                            text-base
-                            font-medium
-                            text-gray-900
-                            hover:bg-gray-100 hover:text-gray-800
-                          "
-                          >Settings</router-link
-                        >
+                          >{{ item.name }}</router-link>
 
                         <router-link
                           :to="{}"
@@ -306,6 +286,8 @@ const dashbordStore = useDashboardStore();
 import { useMessageStore } from "@/modules/message/store/index";
 const messageStore = useMessageStore();
 
+import { useNotificationStore } from "@/modules/notification/store";
+const notificationsStore = useNotificationStore();
 
 const isAuth = computed(() => {
   return authStore.isAuth;
@@ -321,6 +303,10 @@ const unProcessedMessages = computed(() => {
 
 const personalData = computed(() => {
   return personalDataStore.personalData;
+});
+
+const notificationCount = computed(() => {
+  return notificationsStore.notificationCount
 });
 
 const route = useRoute();

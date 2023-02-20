@@ -1,5 +1,5 @@
 <template>
-  <div>
+<PageWrapper>
     <Breadcrumbs :pages="pages" />
     <main
       class="
@@ -16,7 +16,7 @@
        <NewMessageForm/>
       </article>
     </main>
-  </div>
+</PageWrapper>
 </template>
 
 
@@ -28,6 +28,7 @@ import PrimaryButton from "@/components/button/Primary.vue";
 import Success from "@/modules/common/components/Success.vue";
 import { useMessageStore } from "@/modules/message/store";
 import NewMessageForm from "@/modules/message/components/NewMessageForm.vue";
+import PageWrapper from "@/components/base/PageWrapper.vue";
 import { useRoute } from "vue-router";
 
 import { useVuelidate } from "@vuelidate/core";

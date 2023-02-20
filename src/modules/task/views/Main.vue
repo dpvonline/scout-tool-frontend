@@ -25,6 +25,11 @@ const tabs = computed(() => {
       linkName: { name: "MyRequestedTasks", query: { status: "offen" } },
       current: route.name === "MyRequestedTasks",
     },
+    {
+      name: "Anfragen",
+      linkName: { name: "NewMessages"},
+      current: route.name === "NewMessages",
+    },
   ];
 });
 </script>
