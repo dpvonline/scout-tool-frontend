@@ -17,11 +17,11 @@
         <TransitionChild
           as="template"
           enter="transition ease-in-out duration-300 transform"
-          enter-from="-translate-x-full"
-          enter-to="translate-x-0"
+          enter-from="-translate-y-full"
+          enter-to="translate-y-0"
           leave="transition ease-in-out duration-300 transform"
-          leave-from="translate-x-0"
-          leave-to="-translate-x-full"
+          leave-from="translate-y-0"
+          leave-to="-translate-y-full"
         >
           <DialogPanel
             class="relative flex w-full flex-col bg-white focus:outline-none"
@@ -129,11 +129,23 @@
                     <div class="pt-4 pb-2">
                       <div class="flex items-center px-5">
                         <div class="flex-shrink-0">
-                          <img
-                            class="h-10 w-10 rounded-full"
-                            src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
-                          />
+                      <span
+                  class="
+                    inline-flex
+                    h-8
+                    w-8
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-blue-100
+                  "
+                >
+                  <span class="text-lg font-medium leading-none text-black">{{
+                    personalData?.scoutName?.charAt(0)
+                  }}
+                  </span>
+                  
+                </span>
                         </div>
                         <div class="ml-3 min-w-0 flex-1">
                           <div

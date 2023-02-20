@@ -16,9 +16,25 @@
                 <div class="sm:flex sm:items-center sm:justify-between">
                   <div class="sm:flex sm:space-x-5">
                     <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
-                      <p class="text-sm font-medium text-gray-600">
-                        Gut Pfad,
-                      </p>
+                      <span
+                        class="
+                          inline-flex
+                          h-12
+                          w-12
+                          items-center
+                          justify-center
+                          rounded-full
+                          bg-blue-100
+                        "
+                      >
+                        <span
+                          class="text-lg font-medium leading-none text-black"
+                          >{{ personalData?.scoutName?.charAt(0) }}
+                        </span>
+                      </span>
+                    </div>
+                    <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                      <p class="text-sm font-medium text-gray-600">Gut Pfad,</p>
                       <p class="text-xl font-bold text-gray-900 sm:text-2xl">
                         {{ personalData.scoutName }}
                       </p>
@@ -29,7 +45,7 @@
                   </div>
                   <div class="mt-5 flex justify-center sm:mt-0">
                     <router-link
-                      :to="{ name: 'SettingsGeneral'}"
+                      :to="{ name: 'SettingsGeneral' }"
                       class="
                         flex
                         items-center
@@ -79,8 +95,7 @@
 
           <!-- Actions panel -->
           <section aria-labelledby="quick-links-title">
-              <ActionsList class="my-8" :actions="actionList" />
-              
+            <ActionsList class="my-8" :actions="actionList" />
           </section>
         </div>
 
@@ -94,11 +109,15 @@
                   class="text-base font-medium text-gray-900"
                   id="announcements-title"
                 >
-                  Neuigkeiten
+                  Benachrichtigungen
                 </h2>
                 <div class="mt-6 flow-root">
                   <ul role="list" class="-my-5 divide-y divide-gray-200">
-                    <li class="py-5">
+                    <li
+                      class="py-5"
+                      v-for="notification in notifications"
+                      :key="notification.id"
+                    >
                       <div
                         class="
                           relative
@@ -106,8 +125,11 @@
                         "
                       >
                         <h3 class="text-sm font-semibold text-gray-800">
-                          <a
-                            href="#"
+                          <router-link
+                            :to="{
+                              name: 'AllNotification',
+                              params: { id: notification.id },
+                            }"
                             class="hover:underline focus:outline-none"
                           >
                             <!-- Extend touch target to entire panel -->
@@ -115,82 +137,29 @@
                               class="absolute inset-0"
                               aria-hidden="true"
                             ></span>
-                            Office closed on July 2nd
-                          </a>
+                            {{ notification.target.name }}
+                          </router-link>
                         </h3>
                         <p class="mt-1 text-sm text-gray-600 line-clamp-2">
-                          Cum qui rem deleniti. Suscipit in dolor veritatis
-                          sequi aut. Vero ut earum quis deleniti. Ut a sunt eum
-                          cum ut repudiandae possimus. Nihil ex tempora neque
-                          cum consectetur dolores.
+                          vor
+                          {{
+                            -moment(notification.timestamp).diff(
+                              moment(),
+                              "days"
+                            )
+                          }}
+                          Tagen
                         </p>
-                      </div>
-                    </li>
-
-                    <li class="py-5">
-                      <div
-                        class="
-                          relative
-                          focus-within:ring-2 focus-within:ring-blue-500
-                        "
-                      >
-                        <h3 class="text-sm font-semibold text-gray-800">
-                          <a
-                            href="#"
-                            class="hover:underline focus:outline-none"
-                          >
-                            <!-- Extend touch target to entire panel -->
-                            <span
-                              class="absolute inset-0"
-                              aria-hidden="true"
-                            ></span>
-                            New password policy
-                          </a>
-                        </h3>
-                        <p class="mt-1 text-sm text-gray-600 line-clamp-2">
-                          Alias inventore ut autem optio voluptas et
-                          repellendus. Facere totam quaerat quam quo laudantium
-                          cumque eaque excepturi vel. Accusamus maxime ipsam
-                          reprehenderit rerum id repellendus rerum. Culpa cum
-                          vel natus. Est sit autem mollitia.
-                        </p>
-                      </div>
-                    </li>
-
-                    <li class="py-5">
-                      <div
-                        class="
-                          relative
-                          focus-within:ring-2 focus-within:ring-blue-500
-                        "
-                      >
-                        <h3 class="text-sm font-semibold text-gray-800">
-                          <a
-                            href="#"
-                            class="hover:underline focus:outline-none"
-                          >
-                            <!-- Extend touch target to entire panel -->
-                            <span
-                              class="absolute inset-0"
-                              aria-hidden="true"
-                            ></span>
-                            Office closed on July 2nd
-                          </a>
-                        </h3>
-                        <p class="mt-1 text-sm text-gray-600 line-clamp-2">
-                          Tenetur libero voluptatem rerum occaecati qui est
-                          molestiae exercitationem. Voluptate quisquam iure
-                          assumenda consequatur ex et recusandae. Alias
-                          consectetur voluptatibus. Accusamus a ab dicta et.
-                          Consequatur quis dignissimos voluptatem nisi.
-                        </p>
+                        <span class="font-medium text-gray-500">{{
+                          moment(notification.timestamp).format("llll")
+                        }}</span>
                       </div>
                     </li>
                   </ul>
                 </div>
                 <div class="mt-6">
-                  <a
-                    href="#"
+                  <router-link
+                    :to="{ name: 'AllNotification' }"
                     class="
                       flex
                       w-full
@@ -207,7 +176,7 @@
                       shadow-sm
                       hover:bg-gray-50
                     "
-                    >View all</a
+                    >Alle Benachrichtigungen</router-link
                   >
                 </div>
               </div>
@@ -222,30 +191,27 @@
                   class="text-base font-medium text-gray-900"
                   id="recent-hires-title"
                 >
-                  Recent Hires
+                  Veranstaltungen
                 </h2>
                 <div class="mt-6 flow-root">
                   <ul role="list" class="-my-5 divide-y divide-gray-200">
-                    <li class="py-4">
+                    <li
+                      class="py-4"
+                      v-for="event in eventOverviews"
+                      :key="event.id"
+                    >
                       <div class="flex items-center space-x-4">
-                        <div class="flex-shrink-0">
-                          <img
-                            class="h-8 w-8 rounded-full"
-                            src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
-                          />
-                        </div>
                         <div class="min-w-0 flex-1">
                           <p class="truncate text-sm font-medium text-gray-900">
-                            Leonard Krasner
+                            {{ event.name }}
                           </p>
                           <p class="truncate text-sm text-gray-500">
-                            @leonardkrasner
+                            {{ event.shortDescription }}
                           </p>
                         </div>
                         <div>
-                          <a
-                            href="#"
+                          <router-link
+                            :to="{ name: 'EventPlanungsjurte' }"
                             class="
                               inline-flex
                               items-center
@@ -261,130 +227,7 @@
                               shadow-sm
                               hover:bg-gray-50
                             "
-                            >View</a
-                          >
-                        </div>
-                      </div>
-                    </li>
-
-                    <li class="py-4">
-                      <div class="flex items-center space-x-4">
-                        <div class="flex-shrink-0">
-                          <img
-                            class="h-8 w-8 rounded-full"
-                            src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
-                          />
-                        </div>
-                        <div class="min-w-0 flex-1">
-                          <p class="truncate text-sm font-medium text-gray-900">
-                            Floyd Miles
-                          </p>
-                          <p class="truncate text-sm text-gray-500">
-                            @floydmiles
-                          </p>
-                        </div>
-                        <div>
-                          <a
-                            href="#"
-                            class="
-                              inline-flex
-                              items-center
-                              rounded-full
-                              border border-gray-300
-                              bg-white
-                              px-2.5
-                              py-0.5
-                              text-sm
-                              font-medium
-                              leading-5
-                              text-gray-700
-                              shadow-sm
-                              hover:bg-gray-50
-                            "
-                            >View</a
-                          >
-                        </div>
-                      </div>
-                    </li>
-
-                    <li class="py-4">
-                      <div class="flex items-center space-x-4">
-                        <div class="flex-shrink-0">
-                          <img
-                            class="h-8 w-8 rounded-full"
-                            src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
-                          />
-                        </div>
-                        <div class="min-w-0 flex-1">
-                          <p class="truncate text-sm font-medium text-gray-900">
-                            Emily Selman
-                          </p>
-                          <p class="truncate text-sm text-gray-500">
-                            @emilyselman
-                          </p>
-                        </div>
-                        <div>
-                          <a
-                            href="#"
-                            class="
-                              inline-flex
-                              items-center
-                              rounded-full
-                              border border-gray-300
-                              bg-white
-                              px-2.5
-                              py-0.5
-                              text-sm
-                              font-medium
-                              leading-5
-                              text-gray-700
-                              shadow-sm
-                              hover:bg-gray-50
-                            "
-                            >View</a
-                          >
-                        </div>
-                      </div>
-                    </li>
-
-                    <li class="py-4">
-                      <div class="flex items-center space-x-4">
-                        <div class="flex-shrink-0">
-                          <img
-                            class="h-8 w-8 rounded-full"
-                            src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
-                          />
-                        </div>
-                        <div class="min-w-0 flex-1">
-                          <p class="truncate text-sm font-medium text-gray-900">
-                            Kristin Watson
-                          </p>
-                          <p class="truncate text-sm text-gray-500">
-                            @kristinwatson
-                          </p>
-                        </div>
-                        <div>
-                          <a
-                            href="#"
-                            class="
-                              inline-flex
-                              items-center
-                              rounded-full
-                              border border-gray-300
-                              bg-white
-                              px-2.5
-                              py-0.5
-                              text-sm
-                              font-medium
-                              leading-5
-                              text-gray-700
-                              shadow-sm
-                              hover:bg-gray-50
-                            "
-                            >View</a
+                            >Öffnen</router-link
                           >
                         </div>
                       </div>
@@ -410,7 +253,7 @@
                       shadow-sm
                       hover:bg-gray-50
                     "
-                    >View all</a
+                    >Alle Veranstaltungen</a
                   >
                 </div>
               </div>
@@ -423,6 +266,7 @@
 </template>
 
 <script setup lang="ts">
+import moment from "moment";
 import { ref, computed, onMounted } from "vue";
 import {
   ScaleIcon,
@@ -431,7 +275,6 @@ import {
   BellIcon,
   InboxIcon,
 } from "@heroicons/vue/24/outline";
-
 
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
 import { useDashboardStore } from "@/modules/dashboard/store/index.ts";
@@ -519,6 +362,13 @@ import {
   UserCircleIcon,
 } from "@heroicons/vue/24/outline";
 
+import { useNotificationStore } from "@/modules/notification/store";
+const notificationsStore = useNotificationStore();
+
+const notifications = computed(() => {
+  return notificationsStore.notifications;
+});
+
 onMounted(() => {
   personalDataStore.fetchPersonalData();
   dashboardStore.fetchGroupCount();
@@ -526,6 +376,16 @@ onMounted(() => {
   dashboardStore.fetchMyRequests();
   groupStore.fetchMyGroups();
   messageStore.fetchMessages();
+  notificationsStore.fetchNotifications();
+  eventStore.fetchEventOverviews();
+});
+
+import { useEventStore } from "@/modules/event/store";
+
+const eventStore = useEventStore();
+
+const eventOverviews = computed(() => {
+  return eventStore.eventOverviews;
 });
 
 const actionList = [

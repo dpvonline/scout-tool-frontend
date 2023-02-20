@@ -2,7 +2,7 @@
 <PageWrapper>
   <form class="space-y-8 divide-y px-3 py-4 divide-gray-200">
     <div class="space-y-8 divide-y divide-gray-200">
-      <h2 class="text-h1 font-medium text-gray-900">Deine Nachricht</h2>
+      <h2 class="text-h1 font-medium text-gray-900">Dein Anliegen</h2>
       <div class="pt-8">
         <div>
           <h3 class="text-lg font-medium leading-6 text-gray-900">
@@ -15,6 +15,7 @@
             :label="'Betreff*'"
             techName="issueSubject"
             v-model="state['issueSubject']"
+            hint="Fasse dein Anliegen kurz zusammen."
             :errors="errors.issueSubject && errors.issueSubject.$errors"
             :cols="12"
           />
@@ -25,7 +26,7 @@
             v-model="state['issueType']"
             label="Hauptkategorie"
             :items="issueTypes"
-            hint="Wähle ehhhhhhhhine Zutat."
+            hint="Wähle den Typ deines Anliegens."
             :errors="errors.issueType && errors.issueType.$errors"
           />
           <Base
@@ -35,7 +36,7 @@
             v-model="state['priority']"
             label="Prioität"
             :items="messagePrios"
-            hint="Wäiijljkljhle utat."
+            hint="Wie drigend ist dein Anliegen?"
             :errors="errors.priority && errors.priority.$errors"
           />
           <Base
@@ -45,6 +46,7 @@
             v-model="state['messageBody']"
             :errors="errors.messageBody && errors.messageBody.$errors"
             :cols="12"
+            hint="Erkläre dein Anliegen."
           />
         </div>
       </div>
