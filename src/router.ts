@@ -12,7 +12,7 @@ import LandingMain from "@/modules/landing/router";
 import TaskRouter from "@/modules/task/router";
 import MessageRouter from "@/modules/message/router";
 import EventRouter from "@/modules/event/router";
-import MasterDataRouter from "@/modules/masterData/router";
+import InspiRouter from "@/modules/inspi/router";
 import HelpMain from "@/modules/help/router";
 
 const routes = [
@@ -26,7 +26,7 @@ const routes = [
   ...TaskRouter,
   ...MessageRouter,
   ...EventRouter,
-  ...MasterDataRouter,
+  ...InspiRouter,
   ...HelpMain,
 ];
 

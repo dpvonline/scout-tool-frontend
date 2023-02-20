@@ -30,6 +30,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Secondary: typeof import('./src/components/button/Secondary.vue')['default']
     Select: typeof import('./src/components/field/Select.vue')['default']
+    Simple: typeof import('./src/components/avatar/Simple.vue')['default']
     SimpleList: typeof import('./src/components/list/SimpleList.vue')['default']
     SmallList: typeof import('./src/components/list/SmallList.vue')['default']
     StepFrame: typeof import('./src/components/stepper/StepFrame.vue')['default']

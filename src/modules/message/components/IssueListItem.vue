@@ -12,7 +12,7 @@
       </div>
       <div class="text-md">
         <div class="pt-1 text-sm font-medium text-gray-900">
-          {{ item?.issue ? item?.issue?.issueSubject : '' }}
+          {{ item ? `Betreff: ${item?.issueSubject}` : '' }}
         </div>
       </div>
       <div class="mt-2 space-x-2 text-sm">
@@ -24,7 +24,7 @@
         }}</span>
         <span class="font-medium text-gray-500">&middot;</span>
         <span class="font-medium text-gray-400">
-          {{ item.status === "unread" ? "Ungelesen" : "" }}
+          {{ item.messages?.length === 1 ? "Unbeantwortet" : `${item.messages?.length} Nachricht(en)` }}
         </span>
       </div>
     </div>

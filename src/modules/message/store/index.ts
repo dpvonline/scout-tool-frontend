@@ -4,6 +4,7 @@ import MessageApi from "@/modules/message/services/message";
 import IssueTypeApi from "@/modules/message/services/issueType";
 import IssueApi from "@/modules/message/services/issue";
 import MessagePrioApi from "@/modules/message/services/messagePrio";
+import MessageStatusesApi from "@/modules/message/services/messageStatuses";
 
 export const useMessageStore = defineStore("message", {
   state: () => ({
@@ -15,6 +16,7 @@ export const useMessageStore = defineStore("message", {
     _issueType: {},
     _isLoading: false,
     _messagePrios: [],
+    _messageStatuses: [],
   }),
 
   actions: {
@@ -114,7 +116,15 @@ export const useMessageStore = defineStore("message", {
         console.log(error);
       }
     },
-
+    async fetchMessageStatuses() {
+      try {
+        const response = await MessageStatusesApi.fetchAll();
+        this._messageStatuses = response.data;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+      }
+    },
     async createIssue(data: object) {
       try {
         return await IssueApi.create(data);
@@ -140,6 +150,17 @@ export const useMessageStore = defineStore("message", {
     async updateMessage(data: object) {
       try {
         return await MessageApi.update(data);
+      } catch (error: any) {
+        if (error.response.status === 400) {
+          // commonStore.showError(error.response.data);
+        } else if (error.response.status === 500) {
+          // commonStore.showError('Schwerer Server Fehler');
+        }
+      }
+    },
+    async updateIssue(data: object) {
+      try {
+        return await IssueApi.update(data);
       } catch (error: any) {
         if (error.response.status === 400) {
           // commonStore.showError(error.response.data);
@@ -176,6 +197,9 @@ export const useMessageStore = defineStore("message", {
     },
     messagePrios: (state) => {
       return state._messagePrios;
+    },
+    messageStatuses: (state) => {
+      return state._messageStatuses;
     },
   },
 });

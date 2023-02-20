@@ -16,7 +16,7 @@ const route = useRoute();
 const tabs = computed(() => {
   return [
     {
-      name: "Alle Tips ",
+      name: "Alle Tipps ",
       linkName: { name: "AllHints" },
       current: route.name === "AllHints",
     },

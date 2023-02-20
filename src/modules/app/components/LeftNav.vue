@@ -494,7 +494,8 @@ import {
   CalendarDaysIcon,
   TableCellsIcon,
   BugAntIcon,
-  QuestionMarkCircleIcon
+  QuestionMarkCircleIcon,
+  PuzzlePieceIcon,
 } from "@heroicons/vue/24/outline";
 
 import { ref, computed, onMounted } from "vue";
@@ -553,7 +554,7 @@ const navigation = computed(() => {
     },
     {
       name: "Mitglieder",
-      linkName: "PersonMain",
+      linkName: "AllUsers",
       icon: UserIcon,
       route: "person",
       isAuth: true,
@@ -574,7 +575,7 @@ const navigation = computed(() => {
       count: openTaskCount,
     },
     {
-      name: "Nachrichten",
+      name: "Anliegen",
       linkName: "MessageMain",
       icon: InboxIcon,
       route: "message",
@@ -593,13 +594,13 @@ const navigation = computed(() => {
 
 const secondaryNavigation = computed(() => {
   return [
-    // {
-    //   name: "Sonstiges",
-    //   linkName: "MasterDataMain",
-    //   route: "master-data",
-    //   icon: TableCellsIcon,
-    //   isAuth: true,
-    // },
+    {
+      name: "Weitere Anwendungen",
+      linkName: "InspiMain",
+      route: "inspi",
+      icon: PuzzlePieceIcon,
+      isAuth: true,
+    },
     {
       name: "Meine Daten",
       linkName: "Settings",

@@ -8,7 +8,6 @@
       :filters="filters"
       :buttonList="buttonList"
       mainPageLink="AllMessages"
-      detailPageLink="MessageDetail"
       :isLoading="isLoading"
     >
       <template #listitem="{ item }">

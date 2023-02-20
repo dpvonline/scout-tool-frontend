@@ -20,16 +20,16 @@ const tabs = computed(() => {
       linkName: { name: "NewMessages", query: { status: 'unread' } },
       current: route.name === "NewMessages",
     },
-    {
-      name: "Nachrichten durchsuchen",
-      linkName: { name: "AllMessages" },
-      current: route.name === "AllMessages",
-    },
-    {
-      name: "Nachricht Typen",
-      linkName: { name: "IssueTypes" },
-      current: route.name === "IssueTypes",
-    },
+    // {
+    //   name: "Nachrichten durchsuchen",
+    //   linkName: { name: "AllMessages" },
+    //   current: route.name === "AllMessages",
+    // },
+    // {
+    //   name: "Nachricht Typen",
+    //   linkName: { name: "IssueTypes" },
+    //   current: route.name === "IssueTypes",
+    // },
   ];
 });
 </script>

@@ -19,7 +19,7 @@
         <BaseField
           component="AutoComplete"
           :label="'Stamm*'"
-          techName="scoutgroup"
+          techName="scoutGroup"
           v-model="state.scoutGroup"
           :errors="errors.scoutGroup?.$errors"
           :items="registerStore.scoutGroupMappings"

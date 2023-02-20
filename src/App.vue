@@ -1,22 +1,10 @@
 <template>
   <div class="flex h-full">
-    <LeftNav v-if="isKeycloakInit">
+    <BaseLayout v-if="isKeycloakInit">
       <router-view />
-    </LeftNav>
+    </BaseLayout>
     <div v-else class="flex justify-center items-center w-full h-screen">
-      <div class="flex justify-center items-center">
-        <div class="flex items-center justify-center space-x-2">
-          <div
-            class="w-6 h-6 rounded-full animate-pulse dark:bg-blue-400"
-          ></div>
-          <div
-            class="w-6 h-6 rounded-full animate-pulse dark:bg-blue-400"
-          ></div>
-          <div
-            class="w-6 h-6 rounded-full animate-pulse dark:bg-blue-400"
-          ></div>
-        </div>
-      </div>
+      <LoadingItem />
     </div>
     <Success />
     <Error />
@@ -27,10 +15,10 @@
 import { useAuthStore } from "@/modules/auth/store/index.ts";
 import { computed } from "vue";
 
-import LeftNav from "@/modules/app/components/LeftNav.vue";
+import BaseLayout from "@/modules/app/components/BaseLayout.vue";
 import Success from "@/modules/common/components/Success.vue";
 import Error from "@/modules/common/components/Error.vue";
-// import Spinner from "@/components/spinner/Spinner.vue";
+import LoadingItem from "@/components/list/LoadingItem.vue";
 
 const authStore = useAuthStore();
 

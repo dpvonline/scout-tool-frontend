@@ -81,6 +81,14 @@
             }}
           </dd>
         </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Prioität</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{
+              message.priority
+            }}
+          </dd>
+        </div>
         <div class="sm:col-span-2">
           <h2>Nachrichten</h2>
         </div>

@@ -17,8 +17,8 @@ const tabs = computed(() => {
   return [
     {
       name: "Heimabend der Woche",
-      linkName: {name: "EventOfTheWeek" },
-      current: route.name === "EventOfTheWeek",
+      linkName: {name: "ActivityOfTheWeek" },
+      current: route.name === "ActivityOfTheWeek",
     },
   ];
 });

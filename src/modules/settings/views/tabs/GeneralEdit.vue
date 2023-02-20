@@ -19,48 +19,48 @@
           <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
             <div class="pt-4 sm:py-5">
               <BaseField
-                  component="Text"
-                  :label="'Fahrtenname'"
-                  techName="scoutName"
-                  v-model="state.scoutName"
-                  :errors="errors.scoutName?.$errors"
+                component="Text"
+                :label="'Fahrtenname'"
+                techName="scoutName"
+                v-model="state.scoutName"
+                :errors="errors.scoutName?.$errors"
               />
             </div>
             <div class="pt-4 sm:py-5">
               <BaseField
-                  component="Text"
-                  :label="'Vorname'"
-                  techName="firstName"
-                  v-model="state.firstName"
-                  :errors="errors.firstName?.$errors"
+                component="Text"
+                :label="'Vorname'"
+                techName="firstName"
+                v-model="state.firstName"
+                :errors="errors.firstName?.$errors"
               />
             </div>
             <div class="pt-4 sm:py-5">
               <BaseField
-                  component="Text"
-                  :label="'Nachname'"
-                  techName="lastName"
-                  v-model="state.lastName"
-                  :errors="errors.lastName?.$errors"
+                component="Text"
+                :label="'Nachname'"
+                techName="lastName"
+                v-model="state.lastName"
+                :errors="errors.lastName?.$errors"
               />
             </div>
             <div class="pt-4 sm:py-5">
               <BaseField
-                  component="Date"
-                  :label="'Geburtsdatum'"
-                  techName="birthday"
-                  v-model="state.birthday"
-                  :errors="errors.birthday?.$errors"
+                component="Date"
+                :label="'Geburtsdatum'"
+                techName="birthday"
+                v-model="state.birthday"
+                :errors="errors.birthday?.$errors"
               />
             </div>
             <div class="pt-4 sm:py-5">
               <BaseField
-                  component="Select"
-                  :label="'Geschlecht'"
-                  techName="gender"
-                  v-model="state.gender"
-                  :errors="errors.gender?.$errors"
-                  :items="registerStore.genderMappings"
+                component="Select"
+                :label="'Geschlecht'"
+                techName="gender"
+                v-model="state.gender"
+                :errors="errors.gender?.$errors"
+                :items="registerStore.genderMappings"
               />
             </div>
           </div>
@@ -154,12 +154,12 @@
     </div> -->
 
     <!-- Roles -->
-    <!-- <div class="mt-10 divide-y divide-gray-200">
+    <div class="mt-10 divide-y divide-gray-200">
       <div class="space-y-1">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">Pfadfinderdaten bearbeiten</h3>
-        <p class="max-w-2xl text-sm text-gray-500">
-          Deine Zugehörigkeiten
-        </p>
+        <h3 class="text-lg font-medium leading-6 text-gray-900">
+          Pfadfinderdaten bearbeiten
+        </h3>
+        <p class="max-w-2xl text-sm text-gray-500">Deine Zugehörigkeiten</p>
       </div>
       <div class="mt-6">
         <dl class="divide-y divide-gray-200">
@@ -168,15 +168,19 @@
               <BaseField
                 component="AutoComplete"
                 :label="'Stamm*'"
-                techName="scoutgroup"
-                v-model="state.scoutgroup"
-                :errors="errors.scoutgroup?.$errors"
-                :items="registerStore.scoutHierarchyMappings"
+                techName="scoutGroup"
+                v-model="state.scoutGroup"
+                :errors="errors.scoutGroup?.$errors"
+                :items="registerStore.scoutGroupMappings"
                 hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."
                 :lookupListDisplay="['bund', '$ - Stamm ', 'name']"
               />
-            </div> -->
-            <!-- <div class="pt-4 sm:py-5">
+            </div>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <!-- <div class="pt-4 sm:py-5">
               <BaseField
                   component="Select"
                   :label="'Stufe'"
@@ -186,7 +190,7 @@
                   :items="registerStore.scoutLevelMappings"
               />
             </div> -->
-            <!-- <div class="pt-4 sm:py-5">
+    <!-- <div class="pt-4 sm:py-5">
               <BaseField
                   component="Select"
                   :label="'Position'"
@@ -196,7 +200,7 @@
                   :items="leaderChoices"
               />
             </div> -->
-          <!-- </div>
+    <!-- </div>
         </dl>
       </div>
     </div> -->
@@ -224,7 +228,7 @@
                   :items="bundespostChoices"
               />
             </div> -->
-            <!-- <div class="pt-4 sm:py-5">
+    <!-- <div class="pt-4 sm:py-5">
               <BaseField
                   component="Select"
                   :label="'Email Benachrichtigungen'"
@@ -234,7 +238,7 @@
                   :items="emailNotificationChoices"
               />
             </div> -->
-            <!-- <SwitchGroup as="div" class="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5 sm:pt-5">
+    <!-- <SwitchGroup as="div" class="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5 sm:pt-5">
               <SwitchLabel as="dt" class="text-sm font-medium" passive>
                 SMS Benachrichtigungen
               </SwitchLabel>
@@ -259,7 +263,7 @@
                 </Switch>
               </dd>
             </SwitchGroup> -->
-            <!-- <SwitchGroup as="div" class="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5 sm:pt-5">
+    <!-- <SwitchGroup as="div" class="py-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5 sm:pt-5">
               <SwitchLabel as="dt" class="text-sm font-medium" passive>
                 DSGVO-Zustimmung
               </SwitchLabel>
@@ -329,11 +333,11 @@ const state = reactive({
   addressSupplement: "",
   zipCode: "",
   eatHabits: [],
-  scoutGroup: '',
-  scoutLevel: '',
-  leader: '',
-  bundespost: '',
-  emailNotification: '',
+  scoutGroup: "",
+  scoutLevel: "",
+  leader: "",
+  bundespost: "",
+  emailNotification: "",
   smsNotification: false,
   dsgvoConfirmed: false,
 });
@@ -341,91 +345,91 @@ const state = reactive({
 const leaderChoices = [
   {
     id: 1,
-    name: 'Kein Amt',
-    value: 'Kein Amt'
+    name: "Kein Amt",
+    value: "Kein Amt",
   },
   {
     id: 2,
-    name: 'DPV-Führung',
-    value: 'DPV-Führung'
+    name: "DPV-Führung",
+    value: "DPV-Führung",
   },
   {
     id: 3,
-    name: 'Bundesführung',
-    value: 'Bundesführung'
+    name: "Bundesführung",
+    value: "Bundesführung",
   },
   {
     id: 4,
-    name: 'Ringführung',
-    value: 'Ringführung'
+    name: "Ringführung",
+    value: "Ringführung",
   },
   {
     id: 5,
-    name: 'Stammesführung',
-    value: 'Stammesführung'
+    name: "Stammesführung",
+    value: "Stammesführung",
   },
   {
     id: 6,
-    name: 'Sippenführung',
-    value: 'Sippenführung'
+    name: "Sippenführung",
+    value: "Sippenführung",
   },
   {
     id: 7,
-    name: 'Roverrundenführung',
-    value: 'Roverrundenführung'
+    name: "Roverrundenführung",
+    value: "Roverrundenführung",
   },
   {
     id: 8,
-    name: 'Meutenführung',
-    value: 'Meutenführung'
+    name: "Meutenführung",
+    value: "Meutenführung",
   },
-]
+];
 
 const bundespostChoices = [
   {
     id: 1,
-    name: 'Keine Bundespost',
-    value: 'Keine Bundespost'
+    name: "Keine Bundespost",
+    value: "Keine Bundespost",
   },
   {
     id: 2,
-    name: 'Nur Digital',
-    value: 'Nur Digital'
+    name: "Nur Digital",
+    value: "Nur Digital",
   },
   {
     id: 3,
-    name: 'Digital und Post',
-    value: 'Digital und Post'
+    name: "Digital und Post",
+    value: "Digital und Post",
   },
   {
     id: 4,
-    name: 'Nur per Post',
-    value: 'Nur per Post'
+    name: "Nur per Post",
+    value: "Nur per Post",
   },
-]
+];
 
 const emailNotificationChoices = [
   {
     id: 1,
-    name: 'Alles',
-    value: 'Alles'
+    name: "Alles",
+    value: "Alles",
   },
   {
     id: 2,
-    name: 'Täglich',
-    value: 'Täglich'
+    name: "Täglich",
+    value: "Täglich",
   },
   {
     id: 3,
-    name: 'Wöchentlich',
-    value: 'Wöchentlich'
+    name: "Wöchentlich",
+    value: "Wöchentlich",
   },
   {
     id: 4,
-    name: 'Nur wichtiges',
-    value: 'Nur wichtiges'
+    name: "Nur wichtiges",
+    value: "Nur wichtiges",
   },
-]
+];
 
 import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
@@ -471,10 +475,11 @@ function onButtonClicked() {
       lastName: state?.lastName,
       scoutName: state?.scoutName,
       birthday: state?.birthday,
-      bundespost: 'nothing',
-      leader: 'N',
-      scoutLevel: 'N',
+      bundespost: "nothing",
+      leader: "N",
+      scoutLevel: "N",
       gender: state.gender?.value,
+      scoutGroup: state.scoutGroup?.id,
       email: state.email,
       phoneNumber: state.phoneNumber,
       address: state.address,
@@ -501,13 +506,18 @@ function onButtonClicked() {
 onMounted(async () => {
   await Promise.all([fetchAllMappings()]);
   console.log(registerStore.genderMappings);
+  console.log(registerStore.scoutGroupMappings);
 
-  await fetchPersonalData()
+  await fetchPersonalData();
   console.log(personalData);
   fillpersonalDataStore();
   console.log(emailNotificationChoices);
-  state.gender = registerStore.genderMappings.find(a => a['name'] === state.gender);
-  state.scoutGroup = registerStore.scoutGroupMappings.find(a => a['id'] === state?.scoutGroup);
+  state.gender = registerStore.genderMappings.find(
+    (a) => a["name"] === state.gender
+  );
+  state.scoutGroup = registerStore.scoutGroupMappings.find(
+    (a) => a["id"] === state?.scoutGroup?.id
+  );
   // state.scoutLevel = registerStore.scoutLevelMappings.find(a => a['name'] === state.scoutLevel);
   // state.bundespost = bundespostChoices.find(a => a['name'] === state.bundespost);
   // state.emailNotification = emailNotificationChoices.find(a => a['name'] === state.emailNotification);

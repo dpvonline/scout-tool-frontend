@@ -1,0 +1,347 @@
+<template>
+  <TransitionRoot as="template" :show="props.sidebarOpen">
+    <Dialog as="div" class="relative z-40 lg:hidden" @close="onCloseClicked">
+      <TransitionChild
+        as="template"
+        enter="transition-opacity ease-linear duration-300"
+        enter-from="opacity-0"
+        enter-to="opacity-100"
+        leave="transition-opacity ease-linear duration-300"
+        leave-from="opacity-100"
+        leave-to="opacity-0"
+      >
+        <div class="fixed inset-0 bg-gray-600 bg-opacity-75" />
+      </TransitionChild>
+
+      <div class="fixed inset-0 z-40">
+        <TransitionChild
+          as="template"
+          enter="transition ease-in-out duration-300 transform"
+          enter-from="-translate-x-full"
+          enter-to="translate-x-0"
+          leave="transition ease-in-out duration-300 transform"
+          leave-from="translate-x-0"
+          leave-to="-translate-x-full"
+        >
+          <DialogPanel
+            class="relative flex w-full flex-col bg-white focus:outline-none"
+          >
+            <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
+              <div class="flex flex-shrink-0 items-center px-4">
+                <router-link :to="{ name: 'LandingMain' }">
+                  <img
+                    class="h-12 w-auto"
+                    src="./../assets/logo-white.png"
+                    alt="Pfadfinderlilie"
+                  />
+                </router-link>
+              </div>
+              <nav aria-label="Sidebar" class="mt-5">
+                <div
+                  class="
+                    absolute
+                    inset-x-0
+                    top-0
+                    z-30
+                    mx-auto
+                    w-full
+                    max-w-3xl
+                    origin-top
+                    transform
+                    p-2
+                    transition
+                  "
+                >
+                  <div
+                    class="
+                      divide-y divide-gray-200
+                      rounded-lg
+                      bg-white
+                      shadow-lg
+                      ring-1 ring-black ring-opacity-5
+                    "
+                  >
+                    <div class="pt-3 pb-2">
+                      <div class="flex items-center justify-between px-4">
+                        <div>
+                          <img
+                            class="h-12 w-auto"
+                            src="./../assets/logo.png"
+                            alt="Pfadfinderlilie"
+                          />
+                        </div>
+                        <div class="-mr-2">
+                          <button
+                            type="button"
+                            @click="onCloseClicked"
+                            class="
+                              inline-flex
+                              items-center
+                              justify-center
+                              rounded-md
+                              bg-white
+                              p-2
+                              text-gray-400
+                              hover:bg-gray-100 hover:text-gray-500
+                              focus:outline-none
+                              focus:ring-2
+                              focus:ring-inset
+                              focus:ring-cyan-500
+                            "
+                          >
+                            <span class="sr-only">Close menu</span>
+                            <svg
+                              class="h-6 w-6"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              aria-hidden="true"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="mt-3 space-y-1 px-2">
+                        <router-link v-for="item in props.navigation" :key="item.name"
+                          :to="{ name: item.linkName }"
+                          class="
+                            block
+                            rounded-md
+                            px-3
+                            py-2
+                            text-base
+                            font-medium
+                            text-gray-900
+                            hover:bg-gray-100 hover:text-gray-800
+                          "
+                          >{{ item.name }}</router-link
+                        >
+                      </div>
+                    </div>
+                    <div class="pt-4 pb-2">
+                      <div class="flex items-center px-5">
+                        <div class="flex-shrink-0">
+                          <img
+                            class="h-10 w-10 rounded-full"
+                            src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div class="ml-3 min-w-0 flex-1">
+                          <div
+                            class="truncate text-base font-medium text-gray-800"
+                          >
+                            {{ personalData.scoutName}}
+                          </div>
+                          <div
+                            class="truncate text-sm font-medium text-gray-500"
+                          >
+                            {{ personalData.email }}
+                          </div>
+                        </div>
+                        <router-link
+                          :to="{ name: 'AllTasks'}"
+                          type="button"
+                          class="
+                            ml-auto
+                            flex-shrink-0
+                            rounded-full
+                            bg-white
+                            p-1
+                            text-gray-400
+                            hover:text-gray-500
+                            focus:outline-none
+                            focus:ring-2
+                            focus:ring-cyan-500
+                            focus:ring-offset-2
+                          "
+                        >
+                          <span class="sr-only">View notifications</span>
+                          <svg
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            aria-hidden="true"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+                            />
+                          </svg>
+                        </router-link>
+                      </div>
+                      <div class="mt-3 space-y-1 px-2">
+                        <router-link
+                          :to="{ name: 'SettingsGeneral'}"
+                          class="
+                            block
+                            rounded-md
+                            px-3
+                            py-2
+                            text-base
+                            font-medium
+                            text-gray-900
+                            hover:bg-gray-100 hover:text-gray-800
+                          "
+                          >Dein Profil</router-link
+                        >
+
+                        <router-link
+                          :to="{ name: 'SettingsGeneral'}"
+                          class="
+                            block
+                            rounded-md
+                            px-3
+                            py-2
+                            text-base
+                            font-medium
+                            text-gray-900
+                            hover:bg-gray-100 hover:text-gray-800
+                          "
+                          >Settings</router-link
+                        >
+
+                        <router-link
+                          :to="{}"
+                          @click="onLogoutClicked"
+                          class="
+                            block
+                            rounded-md
+                            px-3
+                            py-2
+                            text-base
+                            font-medium
+                            text-gray-900
+                            hover:bg-gray-100 hover:text-gray-800
+                          "
+                          >Ausloggen</router-link
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </DialogPanel>
+        </TransitionChild>
+        <div class="w-14 flex-shrink-0" aria-hidden="true">
+          <!-- Force sidebar to shrink to fit close icon -->
+        </div>
+      </div>
+    </Dialog>
+  </TransitionRoot>
+</template>
+
+<script setup lang="ts">
+const props = defineProps({
+  navigation: { type: Array, required: true },
+  sidebarOpen: { type: Boolean, required: true },
+});
+import {
+  Dialog,
+  DialogPanel,
+  Popover,
+  PopoverButton,
+  PopoverGroup,
+  PopoverPanel,
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
+  TransitionChild,
+  ComboboxOption,
+  Combobox,
+  ComboboxLabel,
+  ComboboxInput,
+  ComboboxOptions,
+  ComboboxButton,
+  TransitionRoot,
+} from "@headlessui/vue";
+import {
+  Bars3Icon,
+  CogIcon,
+  HomeIcon,
+  MagnifyingGlassCircleIcon,
+  XMarkIcon,
+  RocketLaunchIcon,
+  ScaleIcon,
+  ArrowRightIcon,
+  ArrowLeftIcon,
+  UserGroupIcon,
+  UserIcon,
+  BellAlertIcon,
+  InboxIcon,
+  CalendarDaysIcon,
+  TableCellsIcon,
+  BugAntIcon,
+  QuestionMarkCircleIcon,
+  PuzzlePieceIcon,
+} from "@heroicons/vue/24/outline";
+
+import { ref, computed, onMounted } from "vue";
+import { useRoute } from "vue-router";
+
+import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
+const personalDataStore = usePersonalDataStore();
+
+import { useAuthStore } from "@/modules/auth/store/index.ts";
+const authStore = useAuthStore();
+
+import { useAppStore } from "@/modules/app/store/index.ts";
+const appStore = useAppStore();
+
+import { useDashboardStore } from "@/modules/dashboard/store/index.ts";
+const dashbordStore = useDashboardStore();
+
+import { useMessageStore } from "@/modules/message/store/index";
+const messageStore = useMessageStore();
+
+
+const isAuth = computed(() => {
+  return authStore.isAuth;
+});
+
+const openTaskCount = computed(() => {
+  return dashbordStore.openTaskCount;
+});
+
+const unProcessedMessages = computed(() => {
+  return messageStore.unProcessedMessages;
+});
+
+const personalData = computed(() => {
+  return personalDataStore.personalData;
+});
+
+const route = useRoute();
+
+const currentRoute = computed(() => {
+  return route.fullPath;
+});
+
+function onLogoutClicked() {
+  authStore.logout();
+}
+
+const emit = defineEmits(["close"]);
+
+const onCloseClicked = () => {
+  emit("close");
+};
+
+onMounted(() => {
+  if (isAuth.value) {
+    dashbordStore.fetchMyRequests();
+  }
+});
+</script>

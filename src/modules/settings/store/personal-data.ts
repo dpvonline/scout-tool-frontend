@@ -2,9 +2,6 @@ import { defineStore } from "pinia";
 
 import PersonalDataApi from "@/modules/settings/services/personal-data";
 
-import { useCommonStore } from "@/modules/common/store/index.ts";
-const commonStore = useCommonStore();
-
 export const usePersonalDataStore = defineStore("personal-data", {
   state: () => ({
     _personalData: {},
@@ -26,9 +23,7 @@ export const usePersonalDataStore = defineStore("personal-data", {
         return await PersonalDataApi.update(data);
       } catch (error) {
         if (error.response.status === 400) {
-          commonStore.showError(error.response.data);
         } else if (error.response.status === 500) {
-          commonStore.showError('Schwerer Server Fehler');
         }
       }
     },

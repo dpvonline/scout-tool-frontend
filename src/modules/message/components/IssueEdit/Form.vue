@@ -16,27 +16,20 @@
       :errors="errors.issueType?.$errors"
     />
     <BaseField
-      component="Text"
-      label="Betreff"
-      techName="messageSubject"
-      :disabled="true"
-      v-model="state.messageSubject"
-      :errors="errors.messageSubject?.$errors"
+      component="Select"
+      v-model="state.priority"
+      techName="priority"
+      label="priority"
+      :items="messagePrios"
+      :errors="errors.priority?.$errors"
     />
     <BaseField
-      component="TextArea"
-      label="Text"
-      techName="messageBody"
-      :disabled="true"
-      v-model="state.messageBody"
-      :errors="errors.messageBody?.$errors"
-    />
-    <BaseField
-      component="TextArea"
-      label="Interner Vermerk"
-      techName="internalComment"
-      v-model="state.internalComment"
-      :errors="errors.internalComment?.$errors"
+      component="Select"
+      v-model="state.status"
+      techName="status"
+      label="statuses"
+      :items="messageStatuses"
+      :errors="errors.status?.$errors"
     />
     <PrimaryButton @click="onSaveClicked" :isLoading="!!isLoading" label="Nachricht speichern" />
   </div>
@@ -59,31 +52,15 @@ const authStore = useAuthStore();
 
 const state = reactive({
   id: null,
-  createdByEmail: "",
-  createdBy: {},
-  supervisor: {},
-  internalComment: "",
-  isProcessed: false,
   issueType: null,
-  messageSubject: "",
-  messageBody: "",
+  status: null,
+  priority: null,
+
 });
 
 const rules = {
   createdByEmail: {
     email,
-  },
-  isProcessed: {
-    required,
-  },
-  issueType: {
-    required,
-  },
-  messageSubject: {
-    required,
-  },
-  messageBody: {
-    required,
   },
 };
 
@@ -106,6 +83,18 @@ const issueTypes = computed(() => {
   return messageStore.issueTypes;
 });
 
+const messagePrios = computed(() => {
+  return messageStore.messagePrios;
+});
+
+const messageStatuses = computed(() => {
+  return messageStore.messageStatuses;
+});
+
+const issue = computed(() => {
+  return messageStore.issue;
+});
+
 
 function onSaveClicked() {
   v$.value.$validate();
@@ -116,18 +105,12 @@ function onSaveClicked() {
   }
 
   isLoading.value = true;
-
   messageStore
-    .updateMessage({
+    .updateIssue({
       id: state.id,
-      createdByEmail: state.createdByEmail,
-      createdBy: state.createdBy?.id,
-      supervisor: null,
-      internalComment: state.internalComment,
-      isProcessed: state.isProcessed,
-      messageSubject: state.messageSubject,
-      messageBody: state.messageBody,
       issueType: state.issueType.id,
+      status: state.status.value,
+      priority: state.priority.value,
     })
     .then((response: any) => {
       goToRoute(response.data.id)
@@ -152,21 +135,27 @@ const route = useRoute();
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-onMounted(() => {
-  messageStore.fetchIssueTypes();
-  setTimeout(function () {
-    state.id = props.items?.id;
-    state.createdByEmail = props.items?.createdByEmail;
-    state.createdBy = props.items?.createdBy;
-    state.supervisor = props.items?.supervisor;
-    state.internalComment = props.items?.internalComment;
-    state.isProcessed = props.items?.isProcessed;
-    state.messageSubject = props.items?.messageSubject;
-    state.messageBody = props.items?.messageBody;
-    state.issueType = issueTypes.value.filter(
-      (item) => item?.id === props.items?.issueType?.id
-    )[0];
-    console.log(state);
-  }, 300);
+function fillData(items) {
+  state.id = items.id;
+
+  state.issueType = issueTypes.value.find(
+    (a) => a["id"] === items.issueType.id
+  );
+  state.priority = messagePrios.value.find(
+    (a) => a["value"] === items.priority
+  );
+  state.status = messageStatuses.value.find(
+    (a) => a["value"] === items?.status
+  );
+}
+
+onMounted(async () => {
+  await Promise.all([
+    messageStore.fetchMessagePrio(),
+    messageStore.fetchMessageStatuses(),
+    messageStore.fetchIssueTypes(),
+    ]);
+
+  fillData(props.items);
 });
 </script>

@@ -13,7 +13,7 @@
         <div class="flex-grow">
         <BaseField
           component="AutoComplete"
-          techName="scoutgroup"
+          techName="scoutGroup"
           v-model="state.group"
           :items="groups"
           hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."

@@ -83,7 +83,7 @@
                       <BaseField
                         component="AutoComplete"
                         :label="'Benutzer'"
-                        techName="scoutgroup"
+                        techName="scoutGroup"
                         v-model="state.user"
                         :errors="errors.user?.$errors"
                         :items="users"

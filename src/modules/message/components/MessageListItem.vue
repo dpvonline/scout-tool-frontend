@@ -3,23 +3,23 @@
     <div>
       <div class="text-sm">
         <div class="font-medium text-gray-600">
-          {{ item.createdByEmail ? `Extern: ${item.createdByEmail}` : `${item?.createdBy?.scoutName} (${item?.createdBy?.username})` }}
+          {{ props.item.issue?.createdByEmail ? `Extern: ${props.item.issue.createdByEmail}` : `${props.item?.createdBy?.scoutName} (${props.item?.createdBy?.username})` }}
         </div>
       </div>
       <div class="text-sm">
         <div class="pt-1 text-sm font-medium text-gray-900">
-          Betreff: {{ item.issue?.issueSubject }}
+          Betreff: {{ props.item.issue.issueSubject }}
         </div>
       </div>
       <div class="mt-1 text-sm text-gray-700">
-        <p>{{ item.messageBody }}</p>
+        <p>{{ props.item.messageBody }}</p>
       </div>
       <div class="mt-2 space-x-2 text-sm">
         <span class="font-medium text-gray-800"
-          >vor {{ -moment(item.createdAt).diff(moment(), "days") }} Tagen</span
+          >vor {{ -moment(props.item.createdAt).diff(moment(), "days") }} Tagen</span
         >
         <span class="font-medium text-gray-500">{{
-          moment(item.createdAt).format("llll")
+          moment(props.item.createdAt).format("llll")
         }}</span>
         <span class="font-medium text-gray-500">&middot;</span>
         <span class="font-medium text-gray-400">
@@ -39,6 +39,7 @@ import {
 } from "@heroicons/vue/20/solid";
 import { QuestionMarkCircleIcon } from "@heroicons/vue/24/outline";
 import moment from "moment";
+
 const props = defineProps({
   item: Object,
 });

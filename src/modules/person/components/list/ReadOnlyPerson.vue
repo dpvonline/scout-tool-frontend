@@ -71,9 +71,9 @@
       <div class="mt-6">
         <dl class="divide-y divide-gray-200">
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
-            <dt class="text-sm font-medium text-gray-500">Stamm (nicht änderbar)</dt>
+            <dt class="text-sm font-medium text-gray-500">Stamm</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow text-gray-400">{{
+              <span class="flex-grow">{{
                 props.personalData.scoutGroup?.name || ""
               }}</span>
             </dd>
@@ -143,20 +143,20 @@
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
             <dt class="text-sm font-medium text-gray-500">Telefonnummer</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ props.personalData.phoneNumber }}</span>
+              <span class="flex-grow">{{ props.personalData.phoneNumber || 'Noch keine Telefonnummer' }}</span>
             </dd>
           </div>
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
             <dt class="text-sm font-medium text-gray-500">Adresse</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ props.personalData.address }}</span>
+              <span class="flex-grow">{{ props.personalData.address || 'Noch keine Adresse' }}</span>
             </dd>
           </div>
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-            <dt class="text-sm font-medium text-gray-500">Adresszusatz</dt>
+            <dt class="text-sm font-medium text-gray-500">Adresszusatz </dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <span class="flex-grow">{{
-                props.personalData.addressSupplement
+                props.personalData.addressSupplement || 'Noch keine Adresszusatz'
               }}</span>
             </dd>
           </div>
