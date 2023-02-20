@@ -22,6 +22,7 @@ export default [
     meta: {
       requiresAuth: true,
     },
-    component: () => import(/* webpackChunkName: "NotificationDetail" */ "@/modules/notification/views/NotificationDetail.vue"),
+    component: () =>
+      import(/* webpackChunkName: "NotificationDetail" */ "@/modules/notification/views/tabs/AllNotification.vue"),
   },
 ];
