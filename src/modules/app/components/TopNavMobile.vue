@@ -110,6 +110,7 @@
                       <div class="mt-3 space-y-1 px-2">
                         <router-link
                           v-for="item in props.navigation"
+                          @click="onCloseClicked"
                           :key="item.name"
                           :to="{ name: item.linkName }"
                           class="
@@ -129,23 +130,27 @@
                     <div class="pt-4 pb-2">
                       <div class="flex items-center px-5">
                         <div class="flex-shrink-0">
-                      <span
-                  class="
-                    inline-flex
-                    h-8
-                    w-8
-                    items-center
-                    justify-center
-                    rounded-full
-                    bg-blue-100
-                  "
-                >
-                  <span class="text-lg font-medium leading-none text-black">{{
-                    personalData?.scoutName?.charAt(0)
-                  }}
-                  </span>
-                  
-                </span>
+                          <span
+                            class="
+                              inline-flex
+                              h-8
+                              w-8
+                              items-center
+                              justify-center
+                              rounded-full
+                              bg-blue-100
+                            "
+                          >
+                            <span
+                              class="
+                                text-lg
+                                font-medium
+                                leading-none
+                                text-black
+                              "
+                              >{{ personalData?.scoutName?.charAt(0) }}
+                            </span>
+                          </span>
                         </div>
                         <div class="ml-3 min-w-0 flex-1">
                           <div
@@ -161,6 +166,7 @@
                         </div>
                         <router-link
                           :to="{ name: 'AllNotification' }"
+                          @click="onCloseClicked"
                           type="button"
                           class="
                             ml-auto
@@ -211,6 +217,7 @@
                           v-for="item in props.secondaryNavigation"
                           :key="item.name"
                           :to="{ name: item.linkName }"
+                          @click="onCloseClicked"
                           class="
                             block
                             rounded-md

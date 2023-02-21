@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'GroupOverview', params: {id: props.item.id }}">
+  <router-link @click="onCloseClicked" :to="{ name: 'GroupOverview', params: {id: props.item.id }}">
     Gruppe: {{ props.item.name }}
   </router-link>
 </template>
@@ -8,4 +8,10 @@
 const props = defineProps({
   item: Object,
 });
+
+const emit = defineEmits(["close"]);
+
+const onCloseClicked = () => {
+  emit("close");
+};
 </script>

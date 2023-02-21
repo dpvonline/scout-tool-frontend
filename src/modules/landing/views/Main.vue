@@ -6,7 +6,6 @@
       <Header/>
       <FeatureSection/>
       <Support/>
-      <Footer/>
     </div>
   </div>
 </template>
@@ -17,5 +16,4 @@ import { ChevronRightIcon, LockClosedIcon, PlusIcon } from "@heroicons/vue/20/so
 import Header from "@/modules/landing/components/Header.vue" 
 import FeatureSection from "@/modules/landing/components/FeatureSection.vue"
 import Support from "@/modules/landing/components/Support.vue"
-import Footer from "@/modules/landing/components/Footer.vue"
 </script>

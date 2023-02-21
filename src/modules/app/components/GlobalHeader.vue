@@ -22,7 +22,10 @@
         </div>
 
         <!-- Right section on desktop -->
-        <div  v-if="isAuth" class="hidden lg:ml-4 lg:flex lg:items-center lg:py-5 lg:pr-0.5">
+        <div
+          v-if="isAuth"
+          class="hidden lg:ml-4 lg:flex lg:items-center lg:py-5 lg:pr-0.5"
+        >
           <router-link
             as="buttom"
             :to="{ name: 'AllHints' }"
@@ -38,7 +41,7 @@
             "
           >
             <span class="sr-only">View notifications</span>
-            <QuestionMarkCircleIcon class="h-6 w-6 text-gray-100" />
+            <QuestionMarkCircleIcon class="h-7 w-7 text-gray-100" />
           </router-link>
           <router-link
             as="buttom"
@@ -53,13 +56,12 @@
               focus:outline-none focus:ring-2 focus:ring-white
             "
           >
-          <span class="relative inline-block">
-            <BellAlertIcon class=" h-6 w-6 text-gray-100"/>
-            <span v-if="!!notificationCount.unreadCount" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+            <span class="relative inline-block">
+              <BellAlertIcon class="h-7 w-7 text-gray-100" />
+              <!-- <span v-if="!!notificationCount.unreadCount" class="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
               {{ notificationCount.unreadCount }}
+            </span> -->
             </span>
-          </span>
-            
           </router-link>
 
           <!-- Profile dropdown -->
@@ -87,11 +89,9 @@
                     bg-blue-100
                   "
                 >
-                  <span class="text-lg font-medium leading-none text-black">{{
-                    personalData?.scoutName?.charAt(0)
-                  }}
+                  <span class="text-lg font-medium leading-none text-black"
+                    >{{ personalData?.scoutName?.charAt(0) }}
                   </span>
-                  
                 </span>
               </MenuButton>
             </div>
@@ -147,7 +147,7 @@
         </div>
 
         <div
-        v-if="isAuth"
+          v-if="isAuth"
           class="w-full py-5 lg:border-t lg:border-white lg:border-opacity-20"
         >
           <div class="lg:grid lg:grid-cols-3 lg:items-center lg:gap-8">
@@ -162,7 +162,7 @@
             </div>
             <div class="px-12 lg:px-0">
               <!-- Search -->
-              <SearchModal v-if="isAuth" class="w-72"></SearchModal>
+              <SearchModal v-if="isAuth" @close="sidebarOpen=false" class="w-72"></SearchModal>
               <div v-else class="w-72 my-5"></div>
             </div>
           </div>
@@ -190,8 +190,29 @@
             <span class="sr-only">Open main menu</span>
             <!-- Menu open: "hidden", Menu closed: "block" -->
             <span class="relative inline-block">
-            <Bars3Icon class=" h-6 w-6 text-white"/>
-              <span v-if="!!notificationCount.unreadCount" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+              <Bars3Icon class="h-6 w-6 text-white" />
+              <span
+                v-if="!!notificationCount.unreadCount"
+                class="
+                  absolute
+                  top-0
+                  right-0
+                  inline-flex
+                  items-center
+                  justify-center
+                  px-2
+                  py-1
+                  text-xs
+                  font-bold
+                  leading-none
+                  text-red-100
+                  transform
+                  translate-x-1/2
+                  -translate-y-1/2
+                  bg-red-600
+                  rounded-full
+                "
+              >
                 {{ notificationCount.unreadCount }}
               </span>
             </span>
@@ -263,16 +284,16 @@ import {
   TransitionRoot,
 } from "@headlessui/vue";
 
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onUpdated } from "vue";
 import { useRoute } from "vue-router";
 
-import { useAuthStore } from "@/modules/auth/store/index.ts";
+import { useAuthStore } from "@/modules/auth/store/index";
 const authStore = useAuthStore();
 
-import { useAppStore } from "@/modules/app/store/index.ts";
+import { useAppStore } from "@/modules/app/store/index";
 const appStore = useAppStore();
 
-import { useDashboardStore } from "@/modules/dashboard/store/index.ts";
+import { useDashboardStore } from "@/modules/dashboard/store/index";
 const dashbordStore = useDashboardStore();
 
 import { useMessageStore } from "@/modules/message/store/index";
@@ -289,7 +310,7 @@ const personalData = computed(() => {
 });
 
 const notificationCount = computed(() => {
-  return notificationsStore.notificationCount
+  return notificationsStore.notificationCount;
 });
 
 const isAuth = computed(() => {

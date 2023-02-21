@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'MessageDetail', params: {id: props.item.id }}">
+  <router-link @click="onCloseClicked" :to="{ name: 'MessageDetail', params: {id: props.item.id }}">
     Anfrage: {{ props.item.issueSubject }}
   </router-link>
 </template>
@@ -8,4 +8,10 @@
 const props = defineProps({
   item: Object,
 });
+
+const emit = defineEmits(["close"]);
+
+const onCloseClicked = () => {
+  emit("close");
+};
 </script>

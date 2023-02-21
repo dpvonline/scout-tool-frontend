@@ -117,6 +117,7 @@
                       class="py-5"
                       v-for="notification in notifications"
                       :key="notification.id"
+                      v-if="notifications.length"
                     >
                       <div
                         class="
@@ -150,10 +151,15 @@
                           }}
                           Tagen
                         </p>
-                        <span class="font-medium text-gray-500">{{
+                        <p class="text-sm text-gray-500">{{
                           moment(notification.timestamp).format("llll")
-                        }}</span>
+                        }}</p>
                       </div>
+                    </li>
+                    <li v-else>
+                        <h3 class="text-sm font-semibold text-gray-800">
+                          Keine neue Benachrichtigungen
+                        </h3>
                     </li>
                   </ul>
                 </div>

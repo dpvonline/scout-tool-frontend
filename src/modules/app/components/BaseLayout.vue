@@ -18,6 +18,3 @@ import Footer from '@/modules/landing/components/Footer.vue'
 import Header from '@/modules/app/components/GlobalHeader.vue'
 
 </script>
-
-<style>
-</style>

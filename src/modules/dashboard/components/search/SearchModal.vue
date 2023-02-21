@@ -151,7 +151,7 @@
                     :key="index"
                     class="flex items-center px-4 py-2.5 relative"
                   >
-                    <component :is="getCompBySearchCategory(category_results)" :item="item">
+                    <component @close="isOpen = false" :is="getCompBySearchCategory(category_results)" :item="item">
                     </component>
                   </li>
                 </ul>

@@ -1,30 +1,53 @@
 <template>
-  <div class="flex space-x-3">
-    <div>
-      <div class="text-sm">
-        <div class="font-medium text-gray-600">
-          {{ props.item.target?.name  }}
-        </div>
-      </div>
-      <div class="text-sm">
-        <div class="pt-1 text-sm font-medium text-gray-900">
-          Level: {{ props.item.level }}
-        </div>
-      </div>
-      <div class="mt-1 text-sm text-gray-700">
-        <p>{{ props.item.unread ? 'Ungelesen' : 'Gelesen' }}</p>
-      </div>
-      <div class="mt-2 space-x-2 text-sm">
-        <span class="font-medium text-gray-800"
-          >vor {{ -moment(props.item.timestamp).diff(moment(), "days") }} Tagen</span
+  <div class="flex items-center px-4 py-4 sm:px-6">
+    <div class="flex min-w-0 flex-1 items-center">
+      <div class="flex-shrink-0">
+        <button
+          type="button"
+          v-if="props.item.unread"
+          class="rounded-full w-10 h-10 bg-green-600"
         >
-        <span class="font-medium text-gray-500">{{
-          moment(props.item.timestamp).format("llll")
-        }}</span>
-        <span class="font-medium text-gray-500">&middot;</span>
-        <span class="font-medium text-gray-400">
-          <!-- {{ item.issueType.name }} -->
-        </span>
+          <BellAlertIcon class="px-2 py-2 text-white" />
+        </button>
+        <button
+          v-else
+          type="button"
+          class="rounded-full w-10 h-10"
+        >
+          <BellSlashIcon class="px-2 py-2 text-black" />
+        </button>
+      </div>
+      <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+        <div>
+          <p class="truncate text-sm font-medium text-indigo-600">
+            {{ props.item.targetType }} - {{ props.item.target?.name }}
+          </p>
+          <p class="mt-2 flex items-center text-sm text-gray-500">
+            <UserIcon
+              class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
+              aria-hidden="true"
+            />
+            <span class="truncate"
+              >von {{ props.item.sender.scoutName }} ({{
+                props.item.sender.email
+              }})</span
+            >
+          </p>
+        </div>
+        <div class="hidden md:block">
+          <div>
+            <p class="text-sm text-gray-900 mt-2 space-x-2 text-sm">
+              <span class="font-medium text-gray-800"
+                >vor
+                {{ -moment(props.item.timestamp).diff(moment(), "days") }}
+                Tagen</span
+              >
+              <span class="font-medium text-gray-500">{{
+                moment(props.item.timestamp).format("llll")
+              }}</span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -36,6 +59,10 @@ import {
   BugAntIcon,
   ArrowTrendingUpIcon,
   CheckCircleIcon,
+  BellAlertIcon,
+  BellSlashIcon,
+  EnvelopeIcon,
+  UserIcon,
 } from "@heroicons/vue/20/solid";
 import { QuestionMarkCircleIcon } from "@heroicons/vue/24/outline";
 import moment from "moment";
@@ -44,47 +71,32 @@ const props = defineProps({
   item: Object,
 });
 
+import { useNotificationStore } from "@/modules/notification/store";
 
+const notificationStore = useNotificationStore();
 
-function getColorByProcessed(isProcessed) {
-  switch (isProcessed) {
-    case true: {
-      return "bg-green-500";
-      break;
-    }
-    case false: {
-      return "bg-red-500";
-      break;
-    }
-    default: {
-      return "bg-black-400";
-      break;
-    }
+function onItemClicked(item) {
+  if (item.unread) {
+    onUnreadClicked(item.id);
+  } else {
+    onReadedClicked(item.id);
   }
 }
 
-function getIconByissueType(id) {
-  switch (id) {
-    case 1: {
-      return BugAntIcon;
-      break;
-    }
-    case 2: {
-      return ArrowTrendingUpIcon;
-      break;
-    }
-    case 4: {
-      return QuestionMarkCircleIcon;
-      break;
-    }
-    case 5: {
-      return TagIcon;
-      break;
-    }
-    default: {
-      return QuestionMarkCircleIcon;
-      break;
-    }
-  }
+function onUnreadClicked(id: number) {
+  notificationStore.markAsRead(id).then(() => {
+    refresh();
+  });
+}
+
+function onReadedClicked(id) {
+  notificationStore.markAsUnread(id).then(() => {
+    refresh();
+  });
+}
+
+function refresh() {
+  notificationStore.fetchNotifications();
+  notificationStore.fetchNotificationCount();
 }
 </script>

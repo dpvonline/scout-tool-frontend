@@ -55,7 +55,7 @@
         </nav>
       </div>
     </div>
-    <SimpleList :items="notificationsFiltered" :isLoading="isLoading">
+    <SimpleList :items="notificationsFiltered" :isLoading="isLoading" detailPageLink="NotificationDetail">
       <template v-slot:notEmpty="slotProps">
         <NotificationListItem :item="slotProps.item" />
       </template>

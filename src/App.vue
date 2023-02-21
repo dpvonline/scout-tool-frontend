@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/modules/auth/store/index.ts";
-import { computed } from "vue";
+import { computed, onUpdated, ref } from "vue";
 
 import BaseLayout from "@/modules/app/components/BaseLayout.vue";
 import Success from "@/modules/common/components/Success.vue";
@@ -25,4 +25,23 @@ const authStore = useAuthStore();
 const isKeycloakInit = computed(() => {
   return authStore.isKeycloakInit;
 });
+
+import { useNotificationStore } from "@/modules/notification/store";
+const notificationsStore = useNotificationStore();
+
+import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
+const personalDataStore = usePersonalDataStore();
+
+
+function getNotifications() {
+  notificationsStore.fetchNotifications();
+  notificationsStore.fetchNotificationCount();
+  personalDataStore.fetchPersonalData();
+}
+
+onUpdated(() => {
+  getNotifications()
+  setInterval(() => getNotifications(), 10000);
+})
+
 </script>

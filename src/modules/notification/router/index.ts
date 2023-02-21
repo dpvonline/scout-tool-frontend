@@ -16,13 +16,13 @@ export default [
       },
     ],
   },
-  // {
-  //   path: "/notification-detail/:id",
-  //   name: "NotificationDetail",
-  //   meta: {
-  //     requiresAuth: true,
-  //   },
-  //   component: () =>
-  //     import(/* webpackChunkName: "NotificationDetail" */ "@/modules/notification/views/tabs/AllNotification.vue"),
-  // },
+  {
+    path: "/notification-detail/:id",
+    name: "NotificationDetail",
+    meta: {
+      requiresAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "NotificationDetail" */ "@/modules/notification/views/NotificationDetail.vue"),
+  },
 ];
