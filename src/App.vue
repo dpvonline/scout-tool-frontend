@@ -26,22 +26,26 @@ const isKeycloakInit = computed(() => {
   return authStore.isKeycloakInit;
 });
 
+const isAuth = computed(() => {
+  return authStore.isAuth;
+});
+
 import { useNotificationStore } from "@/modules/notification/store";
 const notificationsStore = useNotificationStore();
 
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
 const personalDataStore = usePersonalDataStore();
 
-
 function getNotifications() {
-  notificationsStore.fetchNotifications();
-  notificationsStore.fetchNotificationCount();
-  personalDataStore.fetchPersonalData();
+  if (isAuth.value & isKeycloakInit.value) {
+    notificationsStore.fetchNotifications();
+    notificationsStore.fetchNotificationCount();
+    personalDataStore.fetchPersonalData();
+  }
 }
 
 onUpdated(() => {
-  getNotifications()
+  getNotifications();
   setInterval(() => getNotifications(), 10000);
-})
-
+});
 </script>

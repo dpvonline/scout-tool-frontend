@@ -162,8 +162,8 @@
             </div>
             <div class="px-12 lg:px-0">
               <!-- Search -->
-              <SearchModal v-if="isAuth" @close="sidebarOpen=false" class="w-72"></SearchModal>
-              <div v-else class="w-72 my-5"></div>
+              <SearchModal v-if="isAuth" @close="sidebarOpen=false"></SearchModal>
+              <div v-else class="my-5"></div>
             </div>
           </div>
         </div>

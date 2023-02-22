@@ -5,6 +5,7 @@
       v-bind="$attrs"
       class="
         flex
+        w-full
         items-center
         space-x-2
         border border-gray-900/10
@@ -123,7 +124,7 @@
               </div>
             </form>
 
-            <div class="overflow-auto">
+            <div class="overflow-auto" v-if="searchText">
               <div
                 v-for="category_results in Object.keys(results)"
                 :key="category_results"
@@ -200,7 +201,9 @@ const isAppleOS = () => {
 };
 
 const keyboardShortcut = isAppleOS() ? "⌘K" : "Ctrl+K";
+
 const isOpen = ref(false);
+const searchText = ref('');
 
 const onKeyDown = (event) => {
   if (isOpen.value) return;
@@ -212,6 +215,8 @@ const onKeyDown = (event) => {
 
 const results = ref([]);
 const search = debounce(async (term) => {
+  console.log(term);
+  searchText.value = term;
   let { data } = await axios.get(`${BASE_URL}/basic/search/`, {
     params: { query: term },
   });
