@@ -18,7 +18,7 @@
       </div>
       <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
         <div>
-          <p class="truncate text-sm font-medium text-indigo-600">
+          <p class="text-sm font-medium line-clamp text-indigo-600">
             {{ props.item.targetType }} - {{ props.item.target?.name }}
           </p>
           <p class="mt-2 flex items-center text-sm text-gray-500">
@@ -26,7 +26,7 @@
               class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
               aria-hidden="true"
             />
-            <span class="truncate"
+            <span class="truncate line-clamp-1"
               >von {{ props.item.sender.scoutName }} ({{
                 props.item.sender.email
               }})</span

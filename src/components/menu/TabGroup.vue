@@ -1,7 +1,7 @@
 <template>
   <main class="flex-1">
     <div class="pt-1 sm:pt-3 pb-16">
-      <div class="px-1 sm:px-6 py-2">
+      <div class="px-1 sm:px-6 sm:py-2">
         <div class="py-1 md:py-3">
           <TabGroup as="div" class="mt-2">
             <!-- Tabs -->
@@ -14,7 +14,7 @@
                       tab.current
                         ? 'text-blue-600 border-blue-600'
                         : 'text-gray-900 border-transparent',
-                      'flex-1 whitespace-nowrap border-b-2 py-4 px-1 sm:text-base text-md font-medium text-center',
+                      'flex-1 whitespace-nowrap border-b-2 pb-2 sm:py-4 px-1 sm:text-base text-sm sm:text-md font-medium text-center',
                     ]"
                   >
                     {{ tab.name }}

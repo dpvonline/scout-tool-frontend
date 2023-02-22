@@ -12,7 +12,7 @@
     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
         <p class="truncate text-sm font-medium text-blue-600">
-          Name: {{ props.item.name }}
+          {{ props.item.name }}
         </p>
         <p  class="truncate text-sm font-medium text-gray-800">
           
