@@ -23,7 +23,7 @@
             },
           }"
         >
-          <div class="flex items-center mx-5 py-5 px-4 sm:py-6 sm:px-0">
+          <div class="flex items-center mx-2 py-3 px-4 sm:py-6 sm:px-0">
             <div class="flex min-w-0 flex-1 items-center">
               <div class="flex-1">
                 <slot name="notEmpty" :item="item"></slot>

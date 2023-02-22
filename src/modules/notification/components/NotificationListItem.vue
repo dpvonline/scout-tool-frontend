@@ -1,5 +1,4 @@
 <template>
-  <div class="flex items-center px-4 py-4 sm:px-6">
     <div class="flex min-w-0 flex-1 items-center">
       <div class="flex-shrink-0">
         <button
@@ -50,7 +49,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
