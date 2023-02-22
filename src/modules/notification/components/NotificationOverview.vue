@@ -50,6 +50,14 @@
       </div>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <PrimaryButton
+        color="green"
+        @click="jumpToItem(props.item)"
+        :icon="LinkIcon"
+        class="mx-0 my-3"
+      >
+        Link zum Prozess
+      </PrimaryButton>
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div v-if="props.item.sender" class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Pfadfindername</dt>
@@ -103,6 +111,7 @@ import {
   EnvelopeIcon,
   BellAlertIcon,
   BellSlashIcon,
+  LinkIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
@@ -113,8 +122,11 @@ const props = defineProps({
 import { useNotificationStore } from "@/modules/notification/store";
 
 import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
 const route = useRoute();
+
+const router = useRouter();
 
 const notificationStore = useNotificationStore();
 
@@ -136,6 +148,15 @@ function onUnreadClicked(id: number) {
 function onReadedClicked(id) {
   notificationStore.markAsUnread(id).then(() => {
     refresh();
+  });
+}
+
+function jumpToItem(item) {
+  router.push({
+    name: 'GroupRequests',
+    params: {
+      id: item.target.id
+    },
   });
 }
 

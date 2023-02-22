@@ -22,8 +22,8 @@
           sm:text-sm
         "
       >
-        <option v-for="tab in tabs" :key="tab.name" :selected="selectedValue">
-          {{ tab.name }}
+        <option v-for="tab in tabs" :key="tab.name" :value="tab.name" :selected="selectedValue">
+          {{ tab.name }} ({{tab.count}})
         </option>
       </select>
     </div>
@@ -56,14 +56,16 @@
         </nav>
       </div>
     </div>
-    <SimpleList :items="currentIssues" :isLoading="isLoading" detailPageLink="MessageDetail">
+    <SimpleList
+      :items="currentIssues"
+      :isLoading="isLoading"
+      detailPageLink="MessageDetail"
+    >
       <template v-slot:notEmpty="slotProps">
-        <IssueListItem :item="slotProps.item"/>
+        <IssueListItem :item="slotProps.item" />
       </template>
       <template v-slot:empty>
-        <MessageListItemEmpty>
-          Du hast keine Nachrichten
-        </MessageListItemEmpty>
+        <MessageListItemEmpty> Du hast keine Nachrichten </MessageListItemEmpty>
       </template>
     </SimpleList>
   </TabWrapper>
@@ -100,7 +102,7 @@ const query = { ...router.currentRoute.value.query };
 //   return messageStore.messages;
 // });
 
-const selectedValue = ref('unread');
+const selectedValue = ref('Neu');
 
 function onChange(event) {
   const linkName = tabs.value.find(item => item.name === selectedValue.value)['linkName']
@@ -157,5 +159,12 @@ const isLoading = computed(() => {
 
 onMounted(() => {
   messageStore.fetchIssues();
+  const query = { ...router.currentRoute.value.query };
+
+  if (query && !query.status) {
+    const linkName = tabs.value.find(item => item.name === 'Neu')['linkName']
+    router.push(linkName)
+  }
+
 });
 </script>

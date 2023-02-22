@@ -12,15 +12,15 @@
               <h2 class="sr-only" id="profile-overview-title">
                 Profile Overview
               </h2>
-              <div class="bg-white p-6">
+              <div class="bg-white p-3 sm:p-6">
                 <div class="sm:flex sm:items-center sm:justify-between">
                   <div class="sm:flex sm:space-x-5">
                     <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                       <span
                         class="
                           inline-flex
-                          h-12
-                          w-12
+                          h-16
+                          w-16
                           items-center
                           justify-center
                           rounded-full
@@ -28,7 +28,7 @@
                         "
                       >
                         <span
-                          class="text-lg font-medium leading-none text-black"
+                          class="text-xl font-medium leading-none text-black"
                           >{{ personalData?.scoutName?.charAt(0) }}
                         </span>
                       </span>
@@ -76,18 +76,18 @@
                 "
               >
                 <div class="px-6 py-5 text-center text-sm font-medium">
-                  <span class="text-gray-900 mr-1">0</span>
-                  <span class="text-gray-600">Offene Issues</span>
+                  <span class="text-blue-600 mr-1">{{ messageStore.unProcessedMessages }}</span>
+                  <router-link :to="{name: 'MessageMain'}" class="text-blue-600">Offene Issues</router-link>
                 </div>
 
                 <div class="px-6 py-5 text-center text-sm font-medium">
-                  <span class="text-gray-900 mr-1">3</span>
-                  <span class="text-gray-600">Aufgaben</span>
+                  <span class="text-blue-600 mr-1">{{ openTaskCount }}</span>
+                  <router-link :to="{ name: 'AllTasks' }" class="text-blue-600">Aufgaben</router-link >
                 </div>
 
                 <div class="px-6 py-5 text-center text-sm font-medium">
-                  <span class="text-gray-900 mr-1">4</span>
-                  <span class="text-gray-600">offene Veranstaltungen</span>
+                  <span class="text-blue-600 mr-1">0</span>
+                  <router-link :to="{ name: 'EventMain' }" class="text-blue-600">offene Veranstaltungen</router-link>
                 </div>
               </div>
             </div>
@@ -280,11 +280,13 @@ import {
   UserIcon,
   BellIcon,
   InboxIcon,
+  LinkIcon,
 } from "@heroicons/vue/24/outline";
 
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
 import { useDashboardStore } from "@/modules/dashboard/store/index.ts";
 import { useGroupStore } from "@/modules/group/store/index.ts";
+import { useTaskStore } from "@/modules/task/store/index";
 
 import NotifyList from "@/modules/dashboard/components/NotifyList.vue";
 import MyGroups from "@/modules/dashboard/components/MyGroups.vue";
@@ -327,6 +329,7 @@ import { useRoute } from "vue-router";
 const personalDataStore = usePersonalDataStore();
 const dashboardStore = useDashboardStore();
 const groupStore = useGroupStore();
+const taskStore = useTaskStore();
 
 import { useMessageStore } from "@/modules/message/store/index";
 const messageStore = useMessageStore();

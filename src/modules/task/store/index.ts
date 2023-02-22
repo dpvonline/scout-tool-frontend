@@ -42,6 +42,9 @@ export const useTaskStore = defineStore("task", {
     myRequests: (state) => {
       return state._myRequests;
     },
+    myRequestsCount: (state) => {
+      return state._myRequests.length;
+    },
     myOwnRequests: (state) => {
       return state._myOwnRequests;
     },
