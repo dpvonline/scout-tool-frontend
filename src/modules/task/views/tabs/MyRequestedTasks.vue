@@ -22,8 +22,8 @@
           sm:text-sm
         "
       >
-        <option v-for="tab in tabs" :key="tab.name" :selected="selectedValue">
-          {{ tab.name }}
+        <option :value="tab.name " v-for="tab in tabs" :key="tab.name" :selected="selectedValue">
+          {{ tab.name }} ({{ tab.count }})
         </option>
       </select>
     </div>

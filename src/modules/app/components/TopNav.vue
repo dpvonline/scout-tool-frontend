@@ -15,6 +15,14 @@
       "
     >
       {{ item.name }}
+      <span
+        v-if="item.count & item.count > 0"
+        :class="[
+          item.current ? 'bg-white' : 'bg-red-600 group-hover:bg-gray-200',
+          'ml-1 inline-block py-0.5 px-3 text-xs font-medium rounded-full',
+        ]"
+        >{{ item.count }}</span
+      >
     </router-link>
   </div>
 </template>

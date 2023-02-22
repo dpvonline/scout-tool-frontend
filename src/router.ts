@@ -56,7 +56,6 @@ router.beforeEach(async (to, from, next) => {
     await sleep(100);
   }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    console.log('requiresAuth')
     if (!authStore.isAuth) {
       console.log('!authStore.isAuth')
       authStore.login(true)

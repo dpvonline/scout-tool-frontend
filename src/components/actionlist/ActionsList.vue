@@ -81,7 +81,7 @@ import {
 } from "@heroicons/vue/24/outline";
 
 const props = defineProps({
-  actions: Boolean,
+  actions: Array,
 });
 
 </script>

@@ -123,7 +123,17 @@
                             text-gray-900
                             hover:bg-gray-100 hover:text-gray-800
                           "
-                          >{{ item.name }}</router-link
+                          >{{ item.name }}
+                          <span
+                            v-if="item.count & (item.count > 0)"
+                            :class="[
+                              item.current
+                                ? 'bg-white'
+                                : 'bg-red-500 group-hover:bg-gray-200',
+                              'ml-1 inline-block py-0.5 px-3 text-xs text-white font-medium rounded-full',
+                            ]"
+                            >{{ item.count }}</span
+                          ></router-link
                         >
                       </div>
                     </div>

@@ -14,7 +14,7 @@
         <div class="absolute left-0 flex-shrink-0 py-4 lg:static">
           <router-link :to="{ name: 'LandingMain' }">
             <img
-              class="h-9 lg:h-9 w-auto"
+              class="h-9 sm:h-14 w-auto hidden sm:block"
               src="./../assets/logo-white.png"
               alt="Pfadfinderlilie"
             />
@@ -313,6 +313,11 @@ const notificationCount = computed(() => {
   return notificationsStore.notificationCount;
 });
 
+const openTaskCount = computed(() => {
+  return dashbordStore.openTaskCount;
+});
+
+
 const isAuth = computed(() => {
   return authStore.isAuth;
 });
@@ -320,7 +325,7 @@ const isAuth = computed(() => {
 const navigation = computed(() => {
   return [
     {
-      name: "Home",
+      name: "Heim",
       linkName: "DashboardMain",
       icon: HomeIcon,
       route: "dashboard",
@@ -346,6 +351,7 @@ const navigation = computed(() => {
       icon: BellAlertIcon,
       route: "task",
       isAuth: true,
+      count: openTaskCount,
     },
     {
       name: "Veranstaltungen (Beta)",

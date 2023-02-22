@@ -175,7 +175,7 @@ export const useMessageStore = defineStore("message", {
       return state._messages;
     },
     unProcessedMessages: (state) => {
-      return state._messages.length
+      return state._issues.length
     },
     message: (state) => {
       return state._message;

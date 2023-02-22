@@ -25,7 +25,6 @@ function setStoreValues() {
     keycloak
       .loadUserInfo()
       .then((test) => {
-        console.log(`userInfo: ${keycloak.userInfo}`);
         authStore._user = keycloak.userInfo;
       })
       .catch((error) => {

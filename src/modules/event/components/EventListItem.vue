@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { ClipboardIcon, RocketLaunchIcon } from "@heroicons/vue/24/outline";
+import { ClipboardIcon, RocketLaunchIcon, CheckCircleIcon } from "@heroicons/vue/24/outline";
 import moment from "moment";
 const props = defineProps({
   item: Object,

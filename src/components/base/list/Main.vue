@@ -617,7 +617,6 @@ import {
   MagnifyingGlassCircleIcon,
   BarsArrowUpIcon,
   MapIcon,
-  CheckCircleIcon,
   MegaphoneIcon,
   SquaresPlusIcon,
   ChevronDownIcon,

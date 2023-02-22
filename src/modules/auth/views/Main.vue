@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper>
+  <PageWrapper class="mt-12 sm:mt-0">
     <div class="lg:border-t lg:border-b lg:border-gray-200">
       <nav
         class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 md:py-8"
@@ -26,7 +26,7 @@ const router = useRouter();
 
 const registerStore = useRegisterStore();
 
-const components = [StepperNavSmall, StepperNav];
+const components = [StepperNavSmall, StepperNavSmall];
 
 const compNo = computed(() => {
   console.log(window.innerWidth < 1200 ? 0 : 1);
@@ -38,7 +38,8 @@ const steps = computed(() => {
   return [
     {
       id: 1,
-      name: "Einwilligung",
+      name: "",
+      description: "",
       link: "RegisterStart",
       status: getStatus("RegisterStart", [
         "RegisterBasics",

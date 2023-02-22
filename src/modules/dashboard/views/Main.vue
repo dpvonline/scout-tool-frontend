@@ -77,7 +77,7 @@
               >
                 <div class="px-6 py-5 text-center text-sm font-medium">
                   <span class="text-blue-600 mr-1">{{ messageStore.unProcessedMessages }}</span>
-                  <router-link :to="{name: 'MessageMain'}" class="text-blue-600">Offene Issues</router-link>
+                  <router-link :to="{name: 'NewMessages'}" class="text-blue-600">Offene Issues</router-link>
                 </div>
 
                 <div class="px-6 py-5 text-center text-sm font-medium">
@@ -128,7 +128,7 @@
                         <h3 class="text-sm font-semibold text-gray-800">
                           <router-link
                             :to="{
-                              name: 'AllNotification',
+                              name: 'NotificationDetail',
                               params: { id: notification.id },
                             }"
                             class="hover:underline focus:outline-none"

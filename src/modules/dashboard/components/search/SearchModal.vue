@@ -215,7 +215,6 @@ const onKeyDown = (event) => {
 
 const results = ref([]);
 const search = debounce(async (term) => {
-  console.log(term);
   searchText.value = term;
   let { data } = await axios.get(`${BASE_URL}/basic/search/`, {
     params: { query: term },
