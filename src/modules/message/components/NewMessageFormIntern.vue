@@ -1,8 +1,6 @@
 <template>
 <PageWrapper>
-  <form class="space-y-8 divide-y px-3 py-4 divide-gray-200">
-    <div class="space-y-8 divide-y divide-gray-200">
-      <h2 class="text-h1 font-medium text-gray-900">Dein Anliegen</h2>
+  <form class="px-3 py-4">
       <div class="pt-8">
         <div>
           <h3 class="text-lg font-medium leading-6 text-gray-900">
@@ -50,7 +48,6 @@
           />
         </div>
       </div>
-    </div>
 
     <div class="pt-5 pb-12">
       <div class="flex justify-end">
@@ -58,6 +55,7 @@
           @click="onButtonClicked"
           label="Speichern"
           :isLoading="!!isLoading"
+          :icon="StarIcon"
         />
       </div>
     </div>
@@ -75,6 +73,10 @@ import Success from "@/modules/common/components/Success.vue";
 import { useMessageStore } from "@/modules/message/store";
 import PageWrapper from "@/components/base/PageWrapper.vue";
 import { useRoute } from "vue-router";
+
+import {
+  StarIcon
+} from "@heroicons/vue/24/outline";
 
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, maxLength } from "@vuelidate/validators";

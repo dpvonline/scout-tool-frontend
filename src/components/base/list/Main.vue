@@ -541,8 +541,7 @@
         >
           <ul role="list" v-if="items.length" class="divide-y divide-gray-200">
             <li v-for="item in items" :key="item.id">
-              <router-link
-                :is="props.detailPageLink ? 'span' : 'router-link'"
+              <component :is="detailPageLink ? 'router-link' : 'div'"
                 :to="{
                   name: props.detailPageLink,
                   params: {
@@ -566,7 +565,7 @@
                       />
                   </div>
                 </div>
-              </router-link>
+              </component>
             </li>
           </ul>
           <ul v-else>

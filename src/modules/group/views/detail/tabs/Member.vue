@@ -1,6 +1,6 @@
 <template>
   <TabWrapper>
-    <SimpleList :items="groupMembers" :isLoading="isLoading" detailPageLink="PersonDetail">
+    <SimpleList :items="groupMembers" :isLoading="isLoading">
       <template v-slot:notEmpty="slotProps">
         <PersonListItem :item="slotProps.item" />
       </template>

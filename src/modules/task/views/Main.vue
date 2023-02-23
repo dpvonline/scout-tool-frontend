@@ -27,7 +27,7 @@ const tabs = computed(() => {
     },
     {
       name: "Anfragen",
-      linkName: { name: "NewMessages"},
+      linkName: { name: "NewMessages" },
       current: route.name === "NewMessages",
     },
   ];

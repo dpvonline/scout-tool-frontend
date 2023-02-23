@@ -29,12 +29,12 @@
             {{ group.isMember ? "Ja" : "Nein" }}
           </dd>
         </div>
-        <div class="sm:col-span-2">
+        <!-- <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">Beschreibung</dt>
           <dd class="mt-1 text-sm text-gray-900">
             Noch keine Beschreibung hinterlegt
           </dd>
-        </div>
+        </div> -->
 
         <div
           class="sm:col-span-2"
@@ -193,6 +193,85 @@
             </ul>
           </dd>
         </div>
+
+        <div class="sm:col-span-2" v-if="adminsGroups.length">
+          <dt class="text-sm font-medium text-gray-500">Gruppen die diese Gruppe verwalten dürfen</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <ul
+              role="list"
+              class="divide-y divide-gray-200 rounded-md border border-gray-200"
+            >
+              <li
+                class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+                v-for="child in adminsGroups"
+                :key="child.id"
+              >
+                <div class="flex w-0 flex-1 items-center">
+                  <BuildingLibraryIcon
+                    class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <span> {{ group.name }} -> {{ child.name }}</span>
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                  <router-link
+                    v-if="child.id"
+                    :to="{
+                      name: 'GroupOverview',
+                      params: {
+                        id: child.id,
+                      },
+                    }"
+                    class="text-blue-600 hover:text-blue-900"
+                    >Admingruppe öffnen<span class="sr-only"
+                      >, {{ child.name }}</span
+                    ></router-link
+                  >
+                </div>
+              </li>
+            </ul>
+          </dd>
+        </div>
+
+        <div class="sm:col-span-2" v-if="adminUsers.length">
+          <dt class="text-sm font-medium text-gray-500">adminUsers</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <ul
+              role="list"
+              class="divide-y divide-gray-200 rounded-md border border-gray-200"
+            >
+              <li
+                class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+                v-for="child in adminUsers"
+                :key="child.id"
+              >
+                <div class="flex w-0 flex-1 items-center">
+                  <UserGroupIcon
+                    class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <span> {{ group.name }} -> {{ child.name }}</span>
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                  <router-link
+                    v-if="child.id"
+                    :to="{
+                      name: 'GroupOverview',
+                      params: {
+                        id: child.id,
+                      },
+                    }"
+                    class="text-blue-600 hover:text-blue-900"
+                    >Untergruppen öffnen<span class="sr-only"
+                      >, {{ child.name }}</span
+                    ></router-link
+                  >
+                </div>
+              </li>
+            </ul>
+          </dd>
+        </div>
+
       </dl>
     </div>
     <RequestModal
@@ -229,7 +308,8 @@ import {
   LinkIcon,
   UserPlusIcon,
   UserMinusIcon,
-} from "@heroicons/vue/20/solid";
+  BuildingLibraryIcon,
+} from "@heroicons/vue/24/outline";
 import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
 import RequestModal from "@/modules/group/components/RequestModal.vue";
@@ -246,6 +326,14 @@ const authStore = useAuthStore();
 
 const group = computed(() => {
   return groupStore.group;
+});
+
+const adminUsers = computed(() => {
+  return groupStore.groupUserAdmins;
+});
+
+const adminsGroups = computed(() => {
+  return groupStore.groupAdmins;
 });
 
 import { useRoute } from "vue-router";
@@ -331,4 +419,13 @@ function onLeaveGroupConfirmClicked() {
 function onLeaveGroupCancellicked() {
   openLeaveGroup.value = false;
 }
+
+onMounted(() => {
+  const id = route.params.id;
+  if (id) {
+  groupStore.fetchGroupAdmins(id);
+  groupStore.fetchGroupUserAdmins(id);
+  }
+
+});
 </script>

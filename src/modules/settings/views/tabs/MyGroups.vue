@@ -2,7 +2,9 @@
   <div class="px-4 sm:px-6 py-3 lg:px-8">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
-        <h1 class="text-xl font-semibold text-gray-900">In folgenden Gruppen bist du Mitglied</h1>
+        <h1 class="text-xl font-semibold text-gray-900">
+          In folgenden Gruppen bist du Mitglied
+        </h1>
         <p class="mt-2 text-sm text-gray-700">
           In dieser Liste sind alle deine Gruppen dargestellt.
         </p>
@@ -94,7 +96,11 @@
                       lg:pl-8
                     "
                   >
-                    {{ group.parent ? `${group.parent.name} - ${group.name} ` : group.name }}
+                    {{
+                      group.parent
+                        ? `${group.parent.name} - ${group.name} `
+                        : group.name
+                    }}
                   </td>
                   <td
                     class="
@@ -109,7 +115,7 @@
                       lg:pl-8
                     "
                   >
-                    {{ group.isMember ? 'Mitglied' : 'kein Mitglied' }}
+                    {{ group.isMember ? "Mitglied" : "kein Mitglied" }}
                   </td>
                   <td
                     class="
@@ -124,7 +130,9 @@
                       lg:pl-8
                     "
                   >
-                    {{ group.permission === 'none' ? 'Keine' :  group.permission}}
+                    {{
+                      group.permission === "none" ? "Keine" : group.permission
+                    }}
                   </td>
                   <td
                     class="
@@ -139,17 +147,17 @@
                       lg:pl-8
                     "
                   >
-                 <router-link
-                  v-if="group.id"
-                    :to="{
-                      name: 'GroupOverview',
-                      params: {
-                        id: group.id,
-                      },
-                    }"
-                    class="text-blue-600 hover:text-blue-900"
-                    >Gruppe öffnen
-                  </router-link>
+                    <router-link
+                      v-if="group.id"
+                      :to="{
+                        name: 'GroupOverview',
+                        params: {
+                          id: group.id,
+                        },
+                      }"
+                      class="text-blue-600 hover:text-blue-900"
+                      >Gruppe öffnen
+                    </router-link>
                   </td>
                 </tr>
               </tbody>
@@ -179,6 +187,6 @@ const myGroups = computed(() => {
 });
 
 onMounted(() => {
-  groupStore.fetchMyGroups()
+  groupStore.fetchMyGroups();
 });
 </script>

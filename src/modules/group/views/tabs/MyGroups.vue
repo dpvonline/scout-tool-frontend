@@ -14,7 +14,7 @@
         <GroupListItem :item="slotProps.item" />
       </template>
       <template v-slot:empty>
-          Glückwunsch. Du bist aktuell keine offenen Aufgaben
+          Du bist in keiner Gruppe
       </template>
     </SimpleList>
     </div>

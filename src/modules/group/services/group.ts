@@ -52,4 +52,10 @@ export default {
   fetchMyGroups() {
     return axios.get(`${BASE_URL}/auth/my-groups/`);
   },
+  fetchGroupUserAdmins(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/user-admins/`);
+  },
+  fetchGroupAdmins(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/group-admins/`);
+  },
 };

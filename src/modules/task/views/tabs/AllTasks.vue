@@ -22,7 +22,12 @@
           sm:text-sm
         "
       >
-        <option :value="tab.name " v-for="tab in tabs" :key="tab.name" :selected="selectedValue">
+        <option
+          :value="tab.name"
+          v-for="tab in tabs"
+          :key="tab.name"
+          :selected="selectedValue"
+        >
           {{ tab.name }} ({{ tab.count }})
         </option>
       </select>
@@ -56,7 +61,11 @@
         </nav>
       </div>
     </div>
-    <SimpleList :items="myRequestsFiltered" :isLoading="isLoading" detailPageLink="TaskDetail">
+    <SimpleList
+      :items="myRequestsFiltered"
+      :isLoading="isLoading"
+      detailPageLink="TaskDetail"
+    >
       <template v-slot:notEmpty="slotProps">
         <TaskListItem :item="slotProps.item" />
       </template>
@@ -90,51 +99,53 @@ const taskStore = useTaskStore();
 const dashboardStore = useDashboardStore();
 
 const myRequests = computed(() => {
-  return taskStore.myRequests
+  return taskStore.myRequests;
 });
 
 const isLoading = computed(() => {
-  return taskStore.isLoading
+  return taskStore.isLoading;
 });
 
 const myRequestsFiltered = computed(() => {
-const query = { ...router.currentRoute.value.query };
-  return taskStore.myRequests.filter(q => q.status === query.status)
+  const query = { ...router.currentRoute.value.query };
+  return taskStore.myRequests.filter((q) => q.status === query.status);
 });
 
-const selectedValue = ref('Offen');
+const selectedValue = ref("Offen");
 
 function onChange(event) {
-  const linkName = tabs.value.find(item => item.name === selectedValue.value)['linkName']
-  router.push(linkName)
+  const linkName = tabs.value.find((item) => item.name === selectedValue.value)[
+    "linkName"
+  ];
+  router.push(linkName);
 }
 
 const tabs = computed(() => {
-const query = { ...router.currentRoute.value.query };
+  const query = { ...router.currentRoute.value.query };
   return [
     {
       name: "Offen",
       linkName: { name: "AllTasks", query: { status: "offen" } },
-      count: myRequests.value.filter(q => q.status === 'offen').length,
-      current: query.status === 'offen',
+      count: myRequests.value.filter((q) => q.status === "offen").length,
+      current: query.status === "offen",
     },
     {
       name: "Genemigt",
       linkName: { name: "AllTasks", query: { status: "akzeptiert" } },
-      count: myRequests.value.filter(q => q.status === 'akzeptiert').length | 0,
-      current: query.status === 'akzeptiert',
+      count:
+        myRequests.value.filter((q) => q.status === "akzeptiert").length | 0,
+      current: query.status === "akzeptiert",
     },
     {
       name: "Abgeleht",
       linkName: { name: "AllTasks", query: { status: "abgelehnt" } },
-      count: myRequests.value.filter(q => q.status === 'abgelehnt').length,
-      current: query.status === 'abgelehnt',
+      count: myRequests.value.filter((q) => q.status === "abgelehnt").length,
+      current: query.status === "abgelehnt",
     },
   ];
 });
 
 import { useRouter } from "vue-router";
-
 
 const router = useRouter();
 

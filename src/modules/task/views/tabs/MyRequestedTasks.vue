@@ -22,7 +22,12 @@
           sm:text-sm
         "
       >
-        <option :value="tab.name " v-for="tab in tabs" :key="tab.name" :selected="selectedValue">
+        <option
+          :value="tab.name"
+          v-for="tab in tabs"
+          :key="tab.name"
+          :selected="selectedValue"
+        >
           {{ tab.name }} ({{ tab.count }})
         </option>
       </select>
@@ -56,13 +61,13 @@
         </nav>
       </div>
     </div>
-    <SimpleList :items="myRequestsFiltered" :isLoading="isLoading" detailPageLink="TaskDetail">
+    <SimpleList :items="myRequestsFiltered" :isLoading="isLoading">
       <template v-slot:notEmpty="slotProps">
         <MyOwnRequestsListItem :item="slotProps.item" />
       </template>
       <template v-slot:empty>
         <MyOwnRequestsListItemEmpty>
-          Glückwunsch. Du bist aktuell keine offenen Aufgaben
+          Du bist aktuell keine offenen Anfragen.
         </MyOwnRequestsListItemEmpty>
       </template>
     </SimpleList>
@@ -90,7 +95,7 @@ const taskStore = useTaskStore();
 const dashboardStore = useDashboardStore();
 
 const isLoading = computed(() => {
-  return taskStore.isLoading
+  return taskStore.isLoading;
 });
 
 const myRequests = computed(() => {

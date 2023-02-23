@@ -6,7 +6,7 @@
       </template>
       <template v-slot:empty>
         <EventListItemEmpty>
-          Glückwunsch. Du bist aktuell keine offenen Aufgaben
+          Du hast keine Benachrichtigungen
         </EventListItemEmpty>
       </template>
     </SimpleList>

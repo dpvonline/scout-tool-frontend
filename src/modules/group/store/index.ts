@@ -12,6 +12,8 @@ export const useGroupStore = defineStore("group", {
     _groupCount: 0,
     _requests: [],
     _myGroups: [],
+    _groupUserAdmins: [],
+    _groupAdmins: [],
   }),
 
   actions: {
@@ -135,6 +137,32 @@ export const useGroupStore = defineStore("group", {
         this._isLoading = false;
       }
     },
+    async fetchGroupAdmins(id) {
+      this._isLoading = true;
+      this._groupAdmins = [];
+      try {
+        const response = await GroupApi.fetchGroupAdmins(id);
+        this._groupAdmins = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchGroupUserAdmins(id) {
+      this._isLoading = true;
+      this._groupUserAdmins = [];
+      try {
+        const response = await GroupApi.fetchGroupUserAdmins(id);
+        this._groupUserAdmins = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
   },
   getters: {
     isLoading: (state) => {
@@ -160,6 +188,12 @@ export const useGroupStore = defineStore("group", {
     },
     myGroups: (state) => {
       return state._myGroups;
+    },
+    groupUserAdmins: (state) => {
+      return state._groupUserAdmins;
+    },
+    groupAdmins: (state) => {
+      return state._groupAdmins;
     },
   },
 });

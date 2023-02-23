@@ -15,7 +15,7 @@
         :key="item.id"
         v-if="props?.items?.length"
       >
-        <router-link
+        <component :is="detailPageLink ? 'router-link' : 'div'"
           :to="{
             name: props.detailPageLink,
             params: {
@@ -29,20 +29,20 @@
                 <slot name="notEmpty" :item="item"></slot>
               </div>
             </div>
-            <div>
+            <div v-if="detailPageLink">
               <ChevronRightIcon
                 class="h-5 w-5 text-gray-400 group-hover:text-gray-700"
                 aria-hidden="true"
               />
             </div>
           </div>
-        </router-link>
+        </component>
       </li>
       <li class="py-5 px-4" v-else>
         <slot name="empty"></slot>
       </li>
     </ul>
-    <LoadingItem v-else/>
+    <LoadingItem v-else />
   </div>
 </template>
 
@@ -50,11 +50,11 @@
 import { computed } from "vue";
 import { ChevronRightIcon } from "@heroicons/vue/20/solid";
 
-import LoadingItem from '@/components/list/LoadingItem.vue'
+import LoadingItem from "@/components/list/LoadingItem.vue";
 
 const props = defineProps({
   items: { type: Array, required: true },
   detailPageLink: { type: String, required: true },
-  isLoading: { type: Boolean, required: false, default: false},
+  isLoading: { type: Boolean, required: false, default: false },
 });
 </script>
