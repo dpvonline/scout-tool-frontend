@@ -118,11 +118,14 @@
                             rounded-md
                             px-3
                             py-2
-                            text-base
-                            font-medium
-                            text-gray-900
+                            text-base text-gray-900
                             hover:bg-gray-100 hover:text-gray-800
                           "
+                          :class="[
+                            currentRoute.includes(item.route)
+                              ? 'font-bold text-black bg-gray-200'
+                              : 'font-medium text-gray-900',
+                          ]"
                           >{{ item.name }}
                           <span
                             v-if="item.count & (item.count > 0)"
@@ -238,6 +241,11 @@
                             text-gray-900
                             hover:bg-gray-100 hover:text-gray-800
                           "
+                          :class="[
+                            currentRoute.includes(item.route)
+                              ? 'font-bold text-black bg-gray-200'
+                              : 'font-medium text-gray-900',
+                          ]"
                           >{{ item.name }}</router-link
                         >
 
