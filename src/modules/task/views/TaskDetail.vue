@@ -27,15 +27,4 @@ const task = computed(() => {
 });
 
 const pages = [{ name: "Alle Aufgaben", link: "AllTasks" }];
-
-function refreshData() {
-  const id = route.params.id;
-  if (id) {
-    // taskStore.fetchTaskById(id);
-  }
-}
-
-onMounted(() => {
-  refreshData();
-});
 </script>

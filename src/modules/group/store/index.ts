@@ -37,7 +37,6 @@ export const useGroupStore = defineStore("group", {
         const response = await GroupApi.fetchById(id);
         this._group = response.data;
       } catch (error) {
-        alert(error);
         console.log(error);
       }
     },

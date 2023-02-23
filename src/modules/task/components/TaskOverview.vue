@@ -109,8 +109,6 @@ const task = computed(() => {
   return {};
 });
 
-function onButtonClicked() {}
-
 onMounted(() => {
   taskStore.fetchMyRequests();
 });
