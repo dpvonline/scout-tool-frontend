@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-import { useAuthStore } from "@/modules/auth/store/index.ts";
+import { useAuthStore } from "@/modules/auth/store/index";
 
 
 export default {
   interceptorsSetup() {
     const authStore = useAuthStore();
-    console.log(authStore.accessToken)
+
     axios.interceptors.request.use(
       async (config) => {
         if (authStore.accessToken) {
@@ -16,5 +16,15 @@ export default {
       },
       (err) => Promise.reject(err),
     );
+
+    axios.interceptors.response.use(function (response) {
+      return response
+    }, function (error) {
+      console.log(error.response.data)
+      if (error.response.status === 401) {
+        authStore.login()
+      }
+      return Promise.reject(error)
+    })
   },
 };

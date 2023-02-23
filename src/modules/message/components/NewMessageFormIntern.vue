@@ -1,53 +1,49 @@
 <template>
-<PageWrapper>
-  <form class="px-3 py-4">
-      <div class="pt-8">
-        <div>
-          <h3 class="text-lg font-medium leading-6 text-gray-900">
-            Wir freuen uns auf deine Nachricht.
-          </h3>
-        </div>
-        <div class="mt-6 grid grid-cols-1">
-          <Base
-            component="Text"
-            :label="'Betreff*'"
-            techName="issueSubject"
-            v-model="state['issueSubject']"
-            hint="Fasse dein Anliegen kurz zusammen."
-            :errors="errors.issueSubject && errors.issueSubject.$errors"
-            :cols="12"
-          />
-          <Base
-            :cols="12"
-            component="Select"
-            techName="issueType"
-            v-model="state['issueType']"
-            label="Hauptkategorie"
-            :items="issueTypes"
-            hint="Wähle den Typ deines Anliegens."
-            :errors="errors.issueType && errors.issueType.$errors"
-          />
-          <Base
-            :cols="12"
-            component="Select"
-            techName="priority"
-            v-model="state['priority']"
-            label="Prioität"
-            :items="messagePrios"
-            hint="Wie drigend ist dein Anliegen?"
-            :errors="errors.priority && errors.priority.$errors"
-          />
-          <Base
-            component="TextArea"
-            :label="'Nachricht'"
-            techName="messageBody"
-            v-model="state['messageBody']"
-            :errors="errors.messageBody && errors.messageBody.$errors"
-            :cols="12"
-            hint="Erkläre dein Anliegen."
-          />
-        </div>
+    <div class="pt-8">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">
+          Wir freuen uns auf deine Nachricht.
+        </h3>
+      <div class="mt-6 grid grid-cols-1">
+        <Base
+          component="Text"
+          :label="'Betreff*'"
+          techName="issueSubject"
+          v-model="state['issueSubject']"
+          hint="Fasse dein Anliegen kurz zusammen."
+          :errors="errors.issueSubject && errors.issueSubject.$errors"
+          :cols="12"
+        />
+        <Base
+          :cols="12"
+          component="Select"
+          techName="issueType"
+          v-model="state['issueType']"
+          label="Hauptkategorie"
+          :items="issueTypes"
+          hint="Wähle den Typ deines Anliegens."
+          :errors="errors.issueType && errors.issueType.$errors"
+        />
+        <Base
+          :cols="12"
+          component="Select"
+          techName="priority"
+          v-model="state['priority']"
+          label="Prioität"
+          :items="messagePrios"
+          hint="Wie drigend ist dein Anliegen?"
+          :errors="errors.priority && errors.priority.$errors"
+        />
+        <Base
+          component="TextArea"
+          :label="'Nachricht'"
+          techName="messageBody"
+          v-model="state['messageBody']"
+          :errors="errors.messageBody && errors.messageBody.$errors"
+          :cols="12"
+          hint="Erkläre dein Anliegen."
+        />
       </div>
+    </div>
 
     <div class="pt-5 pb-12">
       <div class="flex justify-end">
@@ -59,8 +55,6 @@
         />
       </div>
     </div>
-  </form>
-  </PageWrapper>
 </template>
 
 
@@ -74,9 +68,7 @@ import { useMessageStore } from "@/modules/message/store";
 import PageWrapper from "@/components/base/PageWrapper.vue";
 import { useRoute } from "vue-router";
 
-import {
-  StarIcon
-} from "@heroicons/vue/24/outline";
+import { StarIcon } from "@heroicons/vue/24/outline";
 
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, maxLength } from "@vuelidate/validators";
