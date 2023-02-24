@@ -19,7 +19,7 @@ export const useTaskStore = defineStore("task", {
         this._myRequests = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -32,7 +32,7 @@ export const useTaskStore = defineStore("task", {
         this._myOwnRequests = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }

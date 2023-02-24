@@ -15,7 +15,7 @@ export const useEventStore = defineStore("event", {
         const response = await EventApi.fetchAll(params);
         this._events = response.data;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },
@@ -24,7 +24,7 @@ export const useEventStore = defineStore("event", {
         const response = await EventApi.fetchAllOverviews(params);
         this._eventOverviews = response.data;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },
@@ -33,7 +33,7 @@ export const useEventStore = defineStore("event", {
         const response = await EventApi.fetchById(id);
         this._event = response.data;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },

@@ -15,7 +15,7 @@ export const useInspiStore = defineStore("inspi", {
         const response = await ActivitiesOfTheWeek.fetchAll(params);
         this._activitiesOfTheWeek = response.data;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },

@@ -25,7 +25,7 @@ export const useGroupStore = defineStore("group", {
         this._groups = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -48,7 +48,7 @@ export const useGroupStore = defineStore("group", {
         this._groupMembers = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -61,7 +61,7 @@ export const useGroupStore = defineStore("group", {
         this._requests = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -70,7 +70,7 @@ export const useGroupStore = defineStore("group", {
       try {
         return await GroupApi.sendGroupRequest(id);
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
       }
     },
@@ -78,7 +78,7 @@ export const useGroupStore = defineStore("group", {
       try {
         return await GroupApi.sendGroupInvitation(groupId, userId);
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
       }
     },
@@ -86,7 +86,7 @@ export const useGroupStore = defineStore("group", {
       try {
         return await GroupApi.sendGroupKick(groupId, userId);
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
       }
     },
@@ -94,7 +94,7 @@ export const useGroupStore = defineStore("group", {
       try {
         return await GroupApi.sendGroupLeave(groupId, userId);
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
       }
     },
@@ -102,7 +102,7 @@ export const useGroupStore = defineStore("group", {
       try {
         return await GroupApi.sendAcceptRequest(groupId, requestId);
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
       }
     },
@@ -110,7 +110,7 @@ export const useGroupStore = defineStore("group", {
       try {
         return await GroupApi.sendDeclineRequest(groupId, requestId);
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
       }
     },
@@ -119,7 +119,7 @@ export const useGroupStore = defineStore("group", {
         const response = await GroupApi.fetchGroupCount();
         this._groupCount = response.data.count;
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
       }
     },
@@ -131,7 +131,7 @@ export const useGroupStore = defineStore("group", {
         this._myGroups = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -144,7 +144,7 @@ export const useGroupStore = defineStore("group", {
         this._groupAdmins = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -157,7 +157,7 @@ export const useGroupStore = defineStore("group", {
         this._groupUserAdmins = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // // alert(error);
         console.log(error);
         this._isLoading = false;
       }

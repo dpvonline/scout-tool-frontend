@@ -29,7 +29,7 @@ export const useMessageStore = defineStore("message", {
         this._messages = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -42,7 +42,7 @@ export const useMessageStore = defineStore("message", {
         this._message = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -56,7 +56,7 @@ export const useMessageStore = defineStore("message", {
         this._issues = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -69,7 +69,7 @@ export const useMessageStore = defineStore("message", {
         this._issue = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -80,7 +80,7 @@ export const useMessageStore = defineStore("message", {
         const response = await IssueTypeApi.fetchAll(params);
         this._issueTypes = response.data;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },
@@ -89,7 +89,7 @@ export const useMessageStore = defineStore("message", {
         const response = await IssueTypeApi.fetchAllShorts(params);
         this._issueTypes = response.data;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },
@@ -101,7 +101,7 @@ export const useMessageStore = defineStore("message", {
         this._issueType = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -112,7 +112,7 @@ export const useMessageStore = defineStore("message", {
         const response = await MessagePrioApi.fetchAll();
         this._messagePrios = response.data;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },
@@ -121,7 +121,7 @@ export const useMessageStore = defineStore("message", {
         const response = await MessageStatusesApi.fetchAll();
         this._messageStatuses = response.data;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },

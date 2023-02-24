@@ -21,7 +21,7 @@ export const usePersonStore = defineStore("person", {
         this._persons = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -34,7 +34,7 @@ export const usePersonStore = defineStore("person", {
         this._person = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -46,7 +46,7 @@ export const usePersonStore = defineStore("person", {
         this._users = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -58,7 +58,7 @@ export const usePersonStore = defineStore("person", {
         this._user = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }

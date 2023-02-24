@@ -18,7 +18,7 @@ export const useDashboardStore = defineStore("dashboard", {
         this._groupCount = response.data.count;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -30,7 +30,7 @@ export const useDashboardStore = defineStore("dashboard", {
         this._userCount = response.data.count;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -42,7 +42,7 @@ export const useDashboardStore = defineStore("dashboard", {
         this._openTaskCount = response.data.filter(task => task.status === 'nothing').length;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }

@@ -62,10 +62,10 @@
               sm:text-5xl
             "
           >
-            DPV Cloud
+            DPV Biber
           </h1>
           <p class="mt-6 text-lg leading-8 text-gray-600">
-            Alles was sich der digitale Pfadfinder wünscht.
+            Deine sichere und zentrale digitale Pfadfinder-Identität für unzählige Anwendungen.
           </p>
           <div class="mt-10 flex items-center gap-x-6">
             <router-link
@@ -141,7 +141,7 @@
         aria-hidden="true"
       />
       <img
-        class="w-80 mx-auto border-solid border-2 border-black-200"
+        class="w-100 absolut right-0 border-solid border-2 border-black-200"
         src="./../../../assets/screenshot.jpg"
         alt="Your Company"
       />

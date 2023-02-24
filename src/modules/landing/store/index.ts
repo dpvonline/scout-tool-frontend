@@ -15,7 +15,7 @@ export const useLandingStore = defineStore("landing", {
         const response = await FaqApi.fetchAll();
         this._faqs = response.data;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },
@@ -24,7 +24,7 @@ export const useLandingStore = defineStore("landing", {
         const response = await PrivacyApi.fetchAll();
         this._privacys = response.data;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },

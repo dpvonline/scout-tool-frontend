@@ -31,7 +31,7 @@ export const useNotificationStore = defineStore("notification", {
         this._notification = response.data;
         this._isLoading = false;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
         this._isLoading = false;
       }
@@ -52,7 +52,7 @@ export const useNotificationStore = defineStore("notification", {
       try {
         return await NotificationApi.markAsRead(id);
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },
@@ -60,7 +60,7 @@ export const useNotificationStore = defineStore("notification", {
       try {
         return await NotificationApi.markAsUnread(id);
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },

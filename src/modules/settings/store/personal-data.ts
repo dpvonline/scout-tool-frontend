@@ -13,7 +13,7 @@ export const usePersonalDataStore = defineStore("personal-data", {
         const response = await PersonalDataApi.fetchAll(params);
         this._personalData = response.data;
       } catch (error) {
-        alert(error);
+        // alert(error);
         console.log(error);
       }
     },
