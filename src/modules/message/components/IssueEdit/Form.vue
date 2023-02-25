@@ -104,7 +104,6 @@ function onSaveClicked() {
   }
 
   isLoading.value = true;
-  debugger;
   messageStore
     .updateIssue({
       id: state.id,

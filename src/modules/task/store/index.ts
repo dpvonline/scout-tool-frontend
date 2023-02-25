@@ -49,10 +49,10 @@ export const useTaskStore = defineStore("task", {
       return state._myOwnRequests;
     },
     task: (state) => {
-      state._task
+      return state._task
     },
     isLoading: (state) => {
-      state._isLoading
+      return state._isLoading
     }
   },
 });

@@ -151,6 +151,5 @@ const router = useRouter();
 
 onMounted(() => {
   taskStore.fetchMyRequests();
-  dashboardStore.fetchMyRequests();
 });
 </script>
