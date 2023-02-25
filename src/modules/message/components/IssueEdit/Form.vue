@@ -1,12 +1,5 @@
 <template>
   <div>
-    <!-- <BaseField
-      component="Toggle"
-      label="Erfolgreich Bearbeitet?"
-      techName="isProcessed"
-      v-model="state.isProcessed"
-      :errors="errors.isProcessed?.$errors"
-    /> -->
     <BaseField
       component="Select"
       v-model="state.issueType"
@@ -19,7 +12,7 @@
       component="Select"
       v-model="state.priority"
       techName="priority"
-      label="priority"
+      label="Prioität"
       :items="messagePrios"
       :errors="errors.priority?.$errors"
     />
@@ -27,7 +20,7 @@
       component="Select"
       v-model="state.status"
       techName="status"
-      label="statuses"
+      label="Aktueller Status"
       :items="messageStatuses"
       :errors="errors.status?.$errors"
     />
@@ -59,8 +52,14 @@ const state = reactive({
 });
 
 const rules = {
-  createdByEmail: {
-    email,
+  status: {
+    required,
+  },
+  priority: {
+    required,
+  },
+  issueType: {
+    required,
   },
 };
 
@@ -105,6 +104,7 @@ function onSaveClicked() {
   }
 
   isLoading.value = true;
+  debugger;
   messageStore
     .updateIssue({
       id: state.id,

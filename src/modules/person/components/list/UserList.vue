@@ -38,7 +38,6 @@ const users = computed(() => {
 });
 
 onMounted(() => {
-  personStore.fetchUsers(route.query);
 });
 
 watch(
@@ -50,7 +49,7 @@ watch(
 );
 
 function updateSearch(params) {
-  personStore.fetchPersons(params);
+  personStore.fetchUsers(params);
 }
 
 const sortOptions = [

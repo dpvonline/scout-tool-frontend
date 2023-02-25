@@ -38,7 +38,11 @@
 
         <div
           class="sm:col-span-2"
-          v-if="(!group.isMember) || group.isMember || group.permission === 'Administrator'"
+          v-if="
+            !group.isMember ||
+            group.isMember ||
+            group.permission === 'Administrator'
+          "
         >
           <dt class="text-sm font-medium text-gray-500">Aktionen</dt>
           <dd class="mt-1 text-sm text-gray-900">
@@ -94,7 +98,10 @@
                   >
                 </div>
                 <div class="ml-4 flex-shrink-0">
-                  <Secondary :label="'auswählen'" @click="onKickMemberClicked" />
+                  <Secondary
+                    :label="'auswählen'"
+                    @click="onKickMemberClicked"
+                  />
                 </div>
               </li>
               <li
@@ -155,47 +162,26 @@
           </dd>
         </div>
 
-        <div class="sm:col-span-2" v-if="group?.children?.length">
+        <div class="sm:col-span-3" v-if="group?.children?.length">
           <dt class="text-sm font-medium text-gray-500">Untergruppen</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            <ul
-              role="list"
-              class="divide-y divide-gray-200 rounded-md border border-gray-200"
+            <SimpleList
+              :items="group?.children"
+              detailPageLink="GroupOverview"
+              :isLoading="isLoading"
             >
-              <li
-                class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
-                v-for="child in group.children"
-                :key="child.id"
-              >
-                <div class="flex w-0 flex-1 items-center">
-                  <UserGroupIcon
-                    class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  <span> {{ group.name }} -> {{ child.name }}</span>
-                </div>
-                <div class="ml-4 flex-shrink-0">
-                  <router-link
-                    v-if="child.id"
-                    :to="{
-                      name: 'GroupOverview',
-                      params: {
-                        id: child.id,
-                      },
-                    }"
-                    class="text-blue-600 hover:text-blue-900"
-                    >Untergruppen öffnen<span class="sr-only"
-                      >, {{ child.name }}</span
-                    ></router-link
-                  >
-                </div>
-              </li>
-            </ul>
+              <template v-slot:notEmpty="slotProps">
+                <GroupListItem :item="slotProps.item" />
+              </template>
+              <template v-slot:empty> Du bist in keiner Gruppe </template>
+            </SimpleList>
           </dd>
         </div>
 
         <div class="sm:col-span-2" v-if="adminsGroups.length">
-          <dt class="text-sm font-medium text-gray-500">Gruppen die diese Gruppe verwalten dürfen</dt>
+          <dt class="text-sm font-medium text-gray-500">
+            Gruppen die diese Gruppe verwalten dürfen
+          </dt>
           <dd class="mt-1 text-sm text-gray-900">
             <ul
               role="list"
@@ -271,7 +257,6 @@
             </ul>
           </dd>
         </div>
-
       </dl>
     </div>
     <RequestModal
@@ -309,6 +294,9 @@ import {
   UserPlusIcon,
   UserMinusIcon,
   BuildingLibraryIcon,
+  ScaleIcon,
+  UserIcon,
+  BellIcon,
 } from "@heroicons/vue/24/outline";
 import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
@@ -317,6 +305,10 @@ import AddMemberModal from "@/modules/group/components/AddMemberModal.vue";
 import KickMemberModal from "@/modules/group/components/AddMemberModal.vue";
 import Secondary from "@/components/button/Secondary.vue";
 import { useAuthStore } from "@/modules/auth/store/index.ts";
+
+import SimpleList from "@/components/list/SimpleList.vue";
+import TabWrapper from "@/components/base/TabWrapper.vue";
+import GroupListItem from "@/modules/group/components/GroupListItem.vue";
 
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -413,8 +405,6 @@ function onLeaveGroupConfirmClicked() {
     commonStore.showSuccess("Du bist erfolgreich ausgetreten.");
     router.go(router.currentRoute.value);
   });
-
-
 }
 function onLeaveGroupCancellicked() {
   openLeaveGroup.value = false;
@@ -423,9 +413,8 @@ function onLeaveGroupCancellicked() {
 onMounted(() => {
   const id = route.params.id;
   if (id) {
-  groupStore.fetchGroupAdmins(id);
-  groupStore.fetchGroupUserAdmins(id);
+    groupStore.fetchGroupAdmins(id);
+    groupStore.fetchGroupUserAdmins(id);
   }
-
 });
 </script>

@@ -9,37 +9,39 @@
       </div>
     </div>
     <div class="mt-8 flex flex-col">
-    <SimpleList :items="myGroups" detailPageLink="GroupOverview" :isLoading="isLoading">
-      <template v-slot:notEmpty="slotProps">
-        <GroupListItem :item="slotProps.item" />
-      </template>
-      <template v-slot:empty>
-          Du bist in keiner Gruppe
-      </template>
-    </SimpleList>
+      <SimpleList
+        :items="myGroups"
+        detailPageLink="GroupOverview"
+        :isLoading="isLoading"
+      >
+        <template v-slot:notEmpty="slotProps">
+          <GroupListItem :item="slotProps.item" />
+        </template>
+        <template v-slot:empty> Du bist in keiner Gruppe </template>
+      </SimpleList>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
 import moment from "moment";
+import { computed, onMounted } from "vue";
+
 import {
   ScaleIcon,
   UserGroupIcon,
   UserIcon,
   BellIcon,
 } from "@heroicons/vue/24/outline";
-import { useGroupStore } from "@/modules/group/store/index";
-import RequestListButton from "@/modules/group/components/RequestListButton.vue";
+
 import SimpleList from "@/components/list/SimpleList.vue";
 import TabWrapper from "@/components/base/TabWrapper.vue";
-import GroupListItem from "@/modules/group/components/GroupListItem.vue"
+import GroupListItem from "@/modules/group/components/GroupListItem.vue";
 
 import { useRoute } from "vue-router";
-
 const route = useRoute();
 
+import { useGroupStore } from "@/modules/group/store";
 const groupStore = useGroupStore();
 
 const myGroups = computed(() => {

@@ -3,7 +3,7 @@
     <div class="flex-shrink-0">
       <span
         :class="[
-          'bg-blue-400 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white',
+          'bg-green-500 h-10 w-10 rounded-full flex items-center justify-center ring-8 ring-white',
         ]"
       >
         <UserIcon class="h-5 w-5 text-white" aria-hidden="true" />

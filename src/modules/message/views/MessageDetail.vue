@@ -1,11 +1,11 @@
 <template>
-  <div class="2xl:px-64 xl:px-30">
+  <PageWrapper>
     <Breadcrumbs :pages="pages" />
     <main class="relative flex-1 focus:outline-none">
       <MessageDetailList :message="issue" v-if="!isLoading"/>
       <LoadingItem v-else/>
     </main>
-  </div>
+  </PageWrapper>
 </template>
 
 <script setup lang="ts">
@@ -15,6 +15,7 @@ import { useRoute } from "vue-router";
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 import MessageDetailList from "@/modules/message/components/MessageDetailList.vue";
 import LoadingItem from "@/components/list/LoadingItem.vue";
+import PageWrapper from "@/components/base/PageWrapper.vue";
 
 import { useMessageStore } from "@/modules/message/store";
 

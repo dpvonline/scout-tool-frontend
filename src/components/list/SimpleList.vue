@@ -15,7 +15,8 @@
         :key="item.id"
         v-if="props?.items?.length"
       >
-        <component :is="detailPageLink ? 'router-link' : 'div'"
+        <component
+          :is="detailPageLink ? 'router-link' : 'div'"
           :to="{
             name: props.detailPageLink,
             params: {
@@ -23,7 +24,17 @@
             },
           }"
         >
-          <div class="flex items-center mx-2 py-3 px-4 sm:py-6 sm:px-0">
+          <div
+            class="
+              flex
+              items-center
+              mx-1
+              py-1
+              sm:mx-2 sm:py-3
+              md:px-4 md:py-6
+              sm:px-0
+            "
+          >
             <div class="flex min-w-0 flex-1 items-center">
               <div class="flex-1">
                 <slot name="notEmpty" :item="item"></slot>

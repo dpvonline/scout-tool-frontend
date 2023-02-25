@@ -3,7 +3,7 @@
     <div class="flex-shrink-0">
       <span
         :class="[
-          'bg-blue-400 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white',
+          'bg-green-500 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white',
         ]"
       >
         <UserIcon class="h-5 w-5 text-white" aria-hidden="true" />
@@ -11,16 +11,32 @@
     </div>
     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
-        <p class="truncate text-sm font-medium text-blue-600">
-          {{ props.item.person.scoutName }} - {{ props.item.person.firstName }}
+        <p class="truncate text-sm font-medium text-gray-600">
+          {{ props.item.person.scoutName }}
         </p>
         <p
-          v-if="props.item?.person?.scoutGroup"
+          v-if="
+            props.item.person &&
+            props.item.person.firstName &&
+            props.item.person.firstName !== props.item.person.scoutName &&
+            props.item.person.firstName !== '-'
+          "
+          class="truncate text-sm font-medium text-blue-600"
+        >
+          {{ props.item.person.firstName }}
+        </p>
+        <p
+          v-if="
+            props.item?.person?.scoutGroup && props.item?.person?.scoutGroup.id
+          "
           class="truncate text-sm font-medium text-gray-400"
         >
           Stamm: {{ props.item?.person?.scoutGroup?.name }} ({{
             props.item?.person?.scoutGroup?.bund
           }})
+        </p>
+        <p v-else class="truncate text-xs font-medium text-gray-400">
+          Noch kein Stamm aufgewählt
         </p>
       </div>
     </div>

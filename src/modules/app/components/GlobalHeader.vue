@@ -14,7 +14,7 @@
         <div class="absolute left-0 flex-shrink-0 py-4 lg:static">
           <router-link :to="{ name: 'LandingMain' }">
             <img
-              class="h-9 sm:h-14 w-auto hidden sm:block"
+              class="h-9 sm:h-14 w-auto"
               src="./../assets/logo-white.png"
               alt="Pfadfinderlilie"
             />

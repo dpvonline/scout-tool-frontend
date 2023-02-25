@@ -152,7 +152,11 @@
                     :key="index"
                     class="flex items-center px-4 py-2.5 relative"
                   >
-                    <component @close="isOpen = false" :is="getCompBySearchCategory(category_results)" :item="item">
+                    <component
+                      @close="isOpen = false"
+                      :is="getCompBySearchCategory(category_results)"
+                      :item="item"
+                    >
                     </component>
                   </li>
                 </ul>
@@ -191,8 +195,8 @@ import {
   PhoneIcon,
 } from "@heroicons/vue/20/solid";
 
-import IssueItem from '@/modules/dashboard/components/search/IssueItem.vue'
-import GroupItem from '@/modules/dashboard/components/search/GroupItem.vue'
+import IssueItem from "@/modules/dashboard/components/search/IssueItem.vue";
+import GroupItem from "@/modules/dashboard/components/search/GroupItem.vue";
 
 const isAppleOS = () => {
   const platform =
@@ -203,7 +207,7 @@ const isAppleOS = () => {
 const keyboardShortcut = isAppleOS() ? "⌘K" : "Ctrl+K";
 
 const isOpen = ref(false);
-const searchText = ref('');
+const searchText = ref("");
 
 const onKeyDown = (event) => {
   if (isOpen.value) return;
@@ -216,10 +220,12 @@ const onKeyDown = (event) => {
 const results = ref([]);
 const search = debounce(async (term) => {
   searchText.value = term;
-  let { data } = await axios.get(`${BASE_URL}/basic/search/`, {
-    params: { query: term },
-  });
-  results.value = data;
+  if (term) {
+    let { data } = await axios.get(`${BASE_URL}/basic/search/`, {
+      params: { query: term },
+    });
+    results.value = data;
+  }
 }, 250);
 
 function getTitleBySearchCategory(state) {

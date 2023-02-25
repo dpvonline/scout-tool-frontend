@@ -27,10 +27,10 @@
           </p>
           <p class="text-gray-400 mt-2 flex items-center text-sm">
             <CheckCircleIcon
-              class="mr-1.5 h-5 w-5 flex-shrink-0 text-green-400"
+              class="mr-1.5 h-5 w-5 flex-shrink-0"
+              :class="[getIconColorByStatus(props.item.status)]"
               aria-hidden="true"
             />
-            Status:
             {{ props.item.status }}
             <span class="px-1" v-if="props.item.checkedBy">
              von 
@@ -63,6 +63,26 @@ function getColorByStatus(status) {
     }
     default: {
       return "bg-gray-400";
+      break;
+    }
+  }
+}
+function getIconColorByStatus(status) {
+  switch (status) {
+    case 'abgelehnt': {
+      return "text-red-400";
+      break;
+    }
+    case 'akzeptiert': {
+      return "text-green-400";
+      break;
+    }
+    case 'offen': {
+      return "text-yellow-500";
+      break;
+    }
+    default: {
+      return "text-gray-400";
       break;
     }
   }

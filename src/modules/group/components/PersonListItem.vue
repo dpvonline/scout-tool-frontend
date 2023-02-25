@@ -3,7 +3,7 @@
     <div class="flex-shrink-0">
       <span
         :class="[
-          'bg-blue-400 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white',
+          'bg-green-500 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white',
         ]"
       >
         <UserIcon class="h-5 w-5 text-white" aria-hidden="true" />
@@ -11,19 +11,36 @@
     </div>
     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
-        <p class="truncate text-sm font-medium text-blue-600">
-          Name: {{ props.item.person.scoutName }} ({{ props.item.person.firstName }} {{ props.item.person.lastName }})
+        <p class="truncate text-sm font-medium text-gray-600">
+          {{ props.item.person.scoutName }}
         </p>
-        <p class="truncate text-sm font-medium text-gray-400">
-          Stamm: {{ props.item?.person?.scoutGroup?.name }} ({{ props.item?.person?.scoutGroup?.bund }})
+        <p v-if="props.item.person && props.item.person.firstName && props.item.person.firstName !== props.item.person.scoutName" class="truncate text-sm font-medium text-blue-600">
+          {{ props.item.person.firstName }}
         </p>
+        <p
+          v-if="props.item?.person?.scoutGroup && props.item?.person?.scoutGroup.id"
+          class="truncate text-sm font-medium text-gray-400"
+        >
+          Stamm: {{ props.item?.person?.scoutGroup?.name }} ({{
+            props.item?.person?.scoutGroup?.bund
+          }})
+        </p>
+        <p v-else class="truncate text-xs font-medium text-gray-400">
+          Noch kein Stamm aufgewählt
+          </p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ClipboardIcon, RocketLaunchIcon, UserIcon, Cog8ToothIcon, BuildingLibraryIcon } from "@heroicons/vue/24/outline";
+import {
+  ClipboardIcon,
+  RocketLaunchIcon,
+  UserIcon,
+  Cog8ToothIcon,
+  BuildingLibraryIcon,
+} from "@heroicons/vue/24/outline";
 import moment from "moment";
 const props = defineProps({
   item: Object,
