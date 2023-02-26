@@ -1,60 +1,60 @@
 <template>
-    <div class="pt-8">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">
-          Wir freuen uns auf deine Nachricht.
-        </h3>
-      <div class="mt-6 grid grid-cols-1">
-        <Base
-          component="Text"
-          :label="'Betreff*'"
-          techName="issueSubject"
-          v-model="state['issueSubject']"
-          hint="Fasse dein Anliegen kurz zusammen."
-          :errors="errors.issueSubject && errors.issueSubject.$errors"
-          :cols="12"
-        />
-        <Base
-          :cols="12"
-          component="Select"
-          techName="issueType"
-          v-model="state['issueType']"
-          label="Hauptkategorie"
-          :items="issueTypes"
-          hint="Wähle den Typ deines Anliegens."
-          :errors="errors.issueType && errors.issueType.$errors"
-        />
-        <Base
-          :cols="12"
-          component="Select"
-          techName="priority"
-          v-model="state['priority']"
-          label="Prioität"
-          :items="messagePrios"
-          hint="Wie drigend ist dein Anliegen?"
-          :errors="errors.priority && errors.priority.$errors"
-        />
-        <Base
-          component="TextArea"
-          :label="'Nachricht'"
-          techName="messageBody"
-          v-model="state['messageBody']"
-          :errors="errors.messageBody && errors.messageBody.$errors"
-          :cols="12"
-          hint="Erkläre dein Anliegen."
-        />
-      </div>
+  <div class="pt-8">
+    <h3 class="text-lg font-medium leading-6 text-gray-900">
+      Wir freuen uns auf deine Nachricht.6
+    </h3>
+    <div class="mt-6 grid grid-cols-1">
+      <Base
+        component="Text"
+        :label="'Betreff*'"
+        techName="issueSubject"
+        v-model="state['issueSubject']"
+        hint="Fasse dein Anliegen kurz zusammen."
+        :errors="errors.issueSubject && errors.issueSubject.$errors"
+        :cols="12"
+      />
+      <Base
+        :cols="12"
+        component="Select"
+        techName="issueType"
+        v-model="state['issueType']"
+        label="Hauptkategorie"
+        :items="issueTypes"
+        hint="Wähle den Typ deines Anliegens."
+        :errors="errors.issueType && errors.issueType.$errors"
+      />
+      <Base
+        :cols="12"
+        component="Select"
+        techName="priority"
+        v-model="state['priority']"
+        label="Prioität"
+        :items="messagePrios"
+        hint="Wie drigend ist dein Anliegen?"
+        :errors="errors.priority && errors.priority.$errors"
+      />
+      <Base
+        component="TextArea"
+        :label="'Nachricht'"
+        techName="messageBody"
+        v-model="state['messageBody']"
+        :errors="errors.messageBody && errors.messageBody.$errors"
+        :cols="12"
+        hint="Erkläre dein Anliegen."
+      />
     </div>
+  </div>
 
-    <div class="pt-5 pb-12">
-      <div class="flex justify-end">
-        <PrimaryButton
-          @click="onButtonClicked"
-          label="Speichern"
-          :isLoading="!!isLoading"
-          :icon="StarIcon"
-        />
-      </div>
+  <div class="pt-5 pb-12">
+    <div class="flex justify-end">
+      <PrimaryButton
+        @click="onButtonClicked"
+        label="Speichern"
+        :isLoading="!!isLoading"
+        :icon="StarIcon"
+      />
     </div>
+  </div>
 </template>
 
 
@@ -79,7 +79,7 @@ const pages = computed(() => {
   return [{ name: "Alle Nachrichten", link: "MessageMain", current: false }];
 });
 
-const state = ref({
+const state = reactive({
   priority: null,
   issueType: null,
   messageBody: null,
@@ -125,10 +125,10 @@ function onButtonClicked() {
   isLoading.value = true;
   messageStore
     .createIssue({
-      priority: state.value.priority.id,
-      issueType: state.value.issueType.id,
-      messageBody: state.value.messageBody,
-      issueSubject: state.value.issueSubject,
+      priority: state.priority.id,
+      issueType: state.issueType.id,
+      messageBody: state.messageBody,
+      issueSubject: state.issueSubject,
     })
     .then((response) => {
       if (response && response.status === 201) {
@@ -141,9 +141,6 @@ function onButtonClicked() {
       } else {
         console.log(response);
       }
-    })
-    .finally(() => {
-      // isLoading.value = false;
     });
 }
 
@@ -155,8 +152,19 @@ const messagePrios = computed(() => {
   return messageStore.messagePrios;
 });
 
-onMounted(() => {
-  messageStore.fetchMessagePrio();
-  messageStore.fetchIssueTypes();
+function fillData() {
+  state.priority = messagePrios.value[1];
+  state.issueType = issueTypes.value[0];
+}
+
+onMounted(async () => {
+  let requestList = [
+    messageStore.fetchMessagePrio(),
+    messageStore.fetchIssueTypesShort(),
+  ];
+
+  await Promise.all(requestList);
+
+  fillData();
 });
 </script>

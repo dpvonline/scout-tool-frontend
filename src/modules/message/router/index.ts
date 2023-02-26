@@ -50,7 +50,7 @@ export default [
     meta: {
       requiresAuth: false,
     },
-    component: () => import(/* webpackChunkName: "MessageNew2" */ "@/modules/message/components/NewMessageFormIntern.vue"),
+    component: () => import(/* webpackChunkName: "MessageNew2" */ "@/modules/message/views/NewMessageIntern.vue"),
   },
   {
     path: "/issueType/:id",

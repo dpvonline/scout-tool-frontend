@@ -15,6 +15,7 @@
             techName="createdByName"
             v-model="state['createdByName']"
             :errors="errors.createdByName && errors.createdByName.$errors"
+            hint="Dein Name"
             :cols="12"
           />
           <Base
@@ -23,6 +24,7 @@
             techName="createdByEmail"
             v-model="state['createdByEmail']"
             :errors="errors.createdByEmail && errors.createdByEmail.$errors"
+            hint="Geb eine E-Mail Adresse ein bei der wir dich erreichen können."
             :cols="12"
           />
           <Base
@@ -31,6 +33,7 @@
             techName="issueSubject"
             v-model="state['issueSubject']"
             :errors="errors.issueSubject && errors.issueSubject.$errors"
+            hint="Fasse dein Anliegen kurz zusammen."
             :cols="12"
           />
           <Base
@@ -40,7 +43,7 @@
             v-model="state['issueType']"
             label="Hauptkategorie"
             :items="issueTypes"
-            hint="Wählenklnkjlnkklnlkeine Zutat."
+            hint="An wen soll deine Nachricht gehen?"
             :errors="errors.issueType && errors.issueType.$errors"
           />
           <Base
@@ -50,7 +53,7 @@
             v-model="state['priority']"
             label="Prioität"
             :items="messagePrios"
-            hint="W"
+            hint="Wie wichtig ist deine Nachricht"
             :errors="errors.priority && errors.priority.$errors"
           />
           <Base
@@ -60,6 +63,7 @@
             v-model="state['messageBody']"
             :errors="errors.messageBody && errors.messageBody.$errors"
             :cols="12"
+            hint="Erkläre möglichst genau wie wir die helfen können?"
           />
         </div>
       </div>
@@ -97,7 +101,7 @@ const pages = computed(() => {
   return [{ name: "Alle Nachrichten", link: "MessageMain", current: false }];
 });
 
-const state = ref({
+const state = reactive({
   createdByEmail: null,
   createdByName: null,
   priority: null,
@@ -146,12 +150,12 @@ function onButtonClicked() {
   isLoading.value = true;
   messageStore
     .createIssue({
-      createdByName: state.value.createdByName,
-      createdByEmail: state.value.createdByEmail,
-      priority: state.value.priority.id,
-      issueType: state.value.issueType.id,
-      messageBody: state.value.messageBody,
-      issueSubject: state.value.issueSubject,
+      createdByName: state.createdByName,
+      createdByEmail: state.createdByEmail,
+      priority: state.priority.id,
+      issueType: state.issueType.id,
+      messageBody: state.messageBody,
+      issueSubject: state.issueSubject,
     })
     .then((response) => {
       if (response && response.status === 201) {
@@ -185,5 +189,23 @@ onMounted(() => {
   } else {
     messageStore.fetchIssueTypesShort()
   }
+});
+
+function fillData() {
+  state.priority = messagePrios.value[1];
+  state.issueType = issueTypes.value[0];
+}
+
+onMounted(async () => {
+  let requestList = [messageStore.fetchMessagePrio()];
+    if (authStore.isAuth) {
+    requestList.push(messageStore.fetchIssueTypes());
+  } else {
+    requestList.push(messageStore.fetchIssueTypesShort());
+  }
+
+  await Promise.all(requestList);
+
+  fillData();
 });
 </script>

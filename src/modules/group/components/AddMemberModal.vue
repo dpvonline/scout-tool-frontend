@@ -92,7 +92,7 @@
                           'scoutName',
                           '$ - ',
                           'firstName',
-                          '$ - ',
+                          '$ - Stamm: ',
                           'stamm_bund',
                         ]"
                         :searchField="['scoutName']"

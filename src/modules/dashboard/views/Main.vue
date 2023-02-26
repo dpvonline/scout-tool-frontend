@@ -138,7 +138,7 @@
                               class="absolute inset-0"
                               aria-hidden="true"
                             ></span>
-                            {{ notification.target.name }}
+                            {{ notification.verb }}
                           </router-link>
                         </h3>
                         <p class="mt-1 text-sm text-gray-600 line-clamp-2">
