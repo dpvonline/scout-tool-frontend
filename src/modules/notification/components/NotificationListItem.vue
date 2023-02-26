@@ -4,26 +4,29 @@
       <button
         type="button"
         class="rounded-full w-8 h-8"
-        :class="[props.item.unread ? 'bg-green-600' : 'bg-gray-600']"
+        :class="[props.item.unread ? 'bg-green-600' : 'bg-gray-400']"
       >
         <BellAlertIcon class="px-2 py-2 text-white" />
       </button>
     </div>
     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
-        <p class="text-sm font-medium line-clamp text-indigo-600">
-          {{ props.item.targetType }} - {{ props.item.target?.name }}
+        <p class="text-sm font-medium line-clamp text-blue-600">
+          {{ props.item.verb }}
         </p>
         <p class="mt-2 flex items-center text-sm text-gray-500">
           <UserIcon
             class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
             aria-hidden="true"
           />
-          <span class="truncate line-clamp-1"
+          <span v-if="props.item.sender.scoutName" class="truncate line-clamp-1"
             >von {{ props.item.sender.scoutName }} ({{
               props.item.sender.email
-            }})</span
-          >
+            }})</span>
+          <span v-else class="truncate line-clamp-1"
+            >von {{ props.item.target.createdByName }} ({{
+              props.item.target.createdByEmail
+            }})</span>
         </p>
       </div>
       <div class="hidden md:block">

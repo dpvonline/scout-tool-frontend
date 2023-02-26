@@ -31,7 +31,7 @@ const isLoading = computed(() => {
 
 import { ref, watch, onMounted, computed } from "vue";
 
-const pages = [{ name: "Alle", link: "AllNotification" }];
+const pages = [{ name: "Alle Benachrichtigungen", link: "AllNotification" }];
 
 function refreshData() {
   const id = route.params.id;

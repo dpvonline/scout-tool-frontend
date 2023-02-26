@@ -29,12 +29,8 @@
             </div>
             <div class="ml-4">
               <h3 class="text-lg font-medium leading-6 text-gray-900">
-                Ziel:
-                {{ props.item.target ? props.item.target.name : "" }}
+                {{ props.item.verb}}
               </h3>
-              <p class="text-sm text-gray-500">
-                Kategorie: {{ props.item.targetType }}
-              </p>
             </div>
           </div>
         </div>
@@ -60,13 +56,13 @@
       </PrimaryButton>
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div v-if="props.item.sender" class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Pfadfindername</dt>
+          <dt class="text-sm font-medium text-gray-500">Pfadfindername des Senders</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ props.item.sender.scoutName }} ({{ props.item.sender.username }})
           </dd>
         </div>
         <div v-if="props.item.sender" class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">E-Mail</dt>
+          <dt class="text-sm font-medium text-gray-500">E-Mail des Senders</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ props.item.sender.email }}
           </dd>
@@ -152,12 +148,28 @@ function onReadedClicked(id) {
 }
 
 function jumpToItem(item) {
-  router.push({
-    name: 'GroupRequests',
-    params: {
-      id: item.target.id
-    },
-  });
+  if (item.targetType === 'keycloakgroup') {
+    router.push({
+      name: 'GroupRequests',
+      params: {
+        id: item.target.id
+      },
+    });
+  } else if (item.targetType === 'issue') {
+    router.push({
+      name: 'MessageDetail',
+      params: {
+        id: item.target.id
+      },
+    });
+  } else if (item.targetType === 'requestgroupaccess') {
+    router.push({
+      name: 'GroupDetail',
+      params: {
+        id: item.target.group.id
+      },
+    });
+  }
 }
 
 onMounted(() => {

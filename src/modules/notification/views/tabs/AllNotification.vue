@@ -61,7 +61,7 @@ const tabs = computed(() => {
 const query = { ...router.currentRoute.value.query };
   return [
     {
-      name: "Alle",
+      name: "Alle Benachrichtigungen",
       linkName: { name: "AllNotification" },
       count: notifications.value.length,
       current: query.status === 'all',
