@@ -162,6 +162,7 @@
                 <TopNav
                   :navigation="navigation"
                   :secondaryNavigation="secondaryNavigation"
+                  :additionalNavigation="additionalNavigation"
                 />
               </nav>
             </div>
@@ -243,6 +244,7 @@
     <TopNavMobile
       :navigation="navigation"
       :secondaryNavigation="secondaryNavigation"
+      :additionalNavigation="additionalNavigation"
       @close="onCloseClicked"
       :sidebarOpen="sidebarOpen"
     />
@@ -327,6 +329,10 @@ const isAuth = computed(() => {
   return authStore.isAuth;
 });
 
+const user = computed(() => {
+  return authStore.user;
+});
+
 const navigation = computed(() => {
   return [
     {
@@ -371,13 +377,6 @@ const navigation = computed(() => {
 const secondaryNavigation = computed(() => {
   return [
     {
-      name: "Weitere Anwendungen",
-      linkName: "InspiMain",
-      route: "inspi",
-      icon: PuzzlePieceIcon,
-      isAuth: true,
-    },
-    {
       name: "Meine Daten",
       linkName: "Settings",
       route: "settings",
@@ -401,6 +400,39 @@ const secondaryNavigation = computed(() => {
     },
   ].filter(
     (item) => (!item.isAuth || isAuth.value) && (item.isAuth || !isAuth.value)
+  );
+});
+
+const additionalNavigation = computed(() => {
+  return [
+    {
+      name: "Inspi Verwaltung",
+      linkName: "InspiMain",
+      route: "inspi",
+      icon: PuzzlePieceIcon,
+      isAuth: true,
+      authGroup: 'dpv_ak_digitales',
+    },
+    {
+      name: "Biber Verwaltung",
+      linkName: "InspiMain",
+      route: "masterData",
+      icon: PuzzlePieceIcon,
+      isAuth: true,
+      authGroup: 'dpv_ak_digitales',
+    },
+    {
+      name: "Anmeldetool Verwaltung",
+      linkName: "InspiMain",
+      route: "events",
+      icon: PuzzlePieceIcon,
+      isAuth: true,
+      authGroup: 'dpv_ak_digitales',
+    },
+  ].filter(
+    (item) => {
+      return user.value?.roles?.includes(item.authGroup)
+    } 
   );
 });
 

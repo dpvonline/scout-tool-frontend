@@ -248,6 +248,34 @@
                           ]"
                           >{{ item.name }}</router-link
                         >
+                        <router-link
+                          v-for="item in props.additionalNavigation"
+                          :key="item.name"
+                          :to="{ name: item.linkName }"
+                          @click="onCloseClicked"
+                          class="
+                            rounded-md
+                            inline-flex items-center justify-center
+                            px-3
+                            py-2
+                            w-full
+                            text-base
+                            font-medium
+                            text-gray-900
+                            hover:bg-gray-100
+                            hover:text-gray-800
+                          "
+                          :class="[
+                            currentRoute.includes(item.route)
+                              ? 'font-bold text-black bg-gray-200'
+                              : 'font-medium text-gray-900',
+                          ]"
+                          > <span class="w-full">{{ item.name }}</span>
+                            <span class="pl-3">
+                            <ShieldExclamationIcon class="text-red-600 h-5 w-5"
+                          /></span>
+  
+                        </router-link>
 
                         <router-link
                           :to="{}"
@@ -284,6 +312,7 @@
 const props = defineProps({
   navigation: { type: Array, required: true },
   secondaryNavigation: { type: Array, required: true },
+  additionalNavigation: { type: Array, required: true },
   sidebarOpen: { type: Boolean, required: true },
 });
 import {
@@ -326,6 +355,7 @@ import {
   BugAntIcon,
   QuestionMarkCircleIcon,
   PuzzlePieceIcon,
+  ShieldExclamationIcon,
 } from "@heroicons/vue/24/outline";
 
 import { ref, computed, onMounted } from "vue";

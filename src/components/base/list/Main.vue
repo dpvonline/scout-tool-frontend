@@ -1,6 +1,6 @@
 <template>
   <main
-    class="relative h-screen z-40 flex-1 focus:outline-none overflow-y-auto"
+    class="relative h-screen flex-1 focus:outline-none overflow-y-auto"
   >
     <article class="flex-shrink-0 ma-12">
       <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
@@ -79,7 +79,7 @@
         <TransitionRoot as="template" :show="open">
           <Dialog
             as="div"
-            class="relative z-40 sm:hidden"
+            class="relative sm:hidden"
             @close="open = false"
           >
             <TransitionChild
@@ -94,7 +94,7 @@
               <div class="fixed inset-0 bg-black bg-opacity-25" />
             </TransitionChild>
 
-            <div class="fixed inset-0 z-40 flex">
+            <div class="fixed inset-0 flex">
               <TransitionChild
                 as="template"
                 enter="transition ease-in-out duration-300 transform"
@@ -276,7 +276,6 @@
                     class="
                       absolute
                       left-0
-                      z-10
                       mt-2
                       w-40
                       origin-top-left
@@ -389,7 +388,6 @@
                           class="
                             absolute
                             right-0
-                            z-10
                             mt-2
                             origin-top-right
                             rounded-md

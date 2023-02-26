@@ -115,7 +115,7 @@
                   <ul role="list" class="-my-5 divide-y divide-gray-200">
                     <li
                       class="py-5"
-                      v-for="notification in notifications"
+                      v-for="notification in notifications.slice(0, 5)"
                       :key="notification.id"
                       v-if="notifications.length"
                     >
