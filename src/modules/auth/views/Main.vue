@@ -29,8 +29,6 @@ const registerStore = useRegisterStore();
 const components = [StepperNavSmall, StepperNavSmall];
 
 const compNo = computed(() => {
-  console.log(window.innerWidth < 1200 ? 0 : 1);
-  console.log(window.innerWidth);
   return window.innerWidth < 1200 ? 0 : 1;
 });
 

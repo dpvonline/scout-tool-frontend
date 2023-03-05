@@ -1,8 +1,8 @@
 <template>
   <TabWrapper>
-    <!-- <PrimaryButton class="my-2" color="blue" :icon="PlusIcon">
+    <PrimaryButton @click="onNewEventButtonClicked" class="my-2" color="blue" :icon="PlusIcon">
       Neue Veranstaltungen erstellen
-    </PrimaryButton> -->
+    </PrimaryButton>
     <SimpleList :items="eventOverviews" detailPageLink="EventDetail">
       <template v-slot:notEmpty="slotProps">
         <EventListItem :item="slotProps.item" />
@@ -25,7 +25,7 @@ import PrimaryButton from "@/components/button/Primary.vue";
 import { PlusIcon } from "@heroicons/vue/20/solid";
 
 import { ref, watch, onMounted, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 
@@ -34,10 +34,17 @@ import { useEventStore } from "@/modules/event/store";
 const eventStore = useEventStore();
 
 const route = useRoute();
+const router = useRouter();
 
 const eventOverviews = computed(() => {
   return eventStore.eventOverviews;
 });
+
+function onNewEventButtonClicked() {
+    router.push({
+    name: 'EventNewStart',
+  });
+}
 
 onMounted(() => {
   eventStore.fetchEventOverviews();

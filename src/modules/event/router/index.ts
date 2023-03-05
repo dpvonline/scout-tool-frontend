@@ -36,10 +36,35 @@ export default [
   {
     path: "/event-new",
     name: "EventNew",
-    meta: {
-      requiresAuth: true,
-    },
+    redirect: { name: "EventNewStart" },
     component: () => import(/* webpackChunkName: "EventNew" */ "@/modules/event/views/EventNew.vue"),
+    children: [
+      {
+        path: "start",
+        name: "EventNewStart",
+        component: () => import(/* webpackChunkName: "EventNewStart" */ "@/modules/event/views/newEventStep/Start.vue"),
+      },
+      {
+        path: "names",
+        name: "EventNewNames",
+        component: () => import(/* webpackChunkName: "EventNewNames" */ "@/modules/event/views/newEventStep/Names.vue"),
+      },
+      {
+        path: "dates",
+        name: "EventNewDates",
+        component: () => import(/* webpackChunkName: "EventNewDates" */ "@/modules/event/views/newEventStep/Dates.vue"),
+      },
+      {
+        path: "auth",
+        name: "EventNewAuth",
+        component: () => import(/* webpackChunkName: "EventNewAuth" */ "@/modules/event/views/newEventStep/Auth.vue"),
+      },
+      {
+        path: "custom",
+        name: "EventNewCustom",
+        component: () => import(/* webpackChunkName: "EventNewCustom" */ "@/modules/event/views/newEventStep/Custom.vue"),
+      },
+    ],
   },
   {
     path: "/event-edit/:id",

@@ -23,6 +23,7 @@ import Radio from "@/components/field/Radio.vue";
 import Toggle from "@/components/field/Toggle.vue";
 import Select from "@/components/field/Select.vue";
 import Date from "@/components/field/Date.vue";
+import DateTime from "@/components/field/DateTime.vue";
 import PhoneNumber from "./PhoneNumber.vue";
 import ZIP from "./ZIP.vue";
 import EMail from "./EMail.vue";
@@ -39,6 +40,7 @@ const components = {
   Toggle,
   Select,
   Date,
+  DateTime,
   PhoneNumber,
   ZIP,
   EMail,
@@ -56,6 +58,7 @@ const componentTreeName = [
   "Toggle",
   "Select",
   "Date",
+  "DateTime",
   "PhoneNumber",
   "ZIP",
   "EMail",

@@ -5,12 +5,19 @@ export default {
   fetchGenderMappings: async () => {
     return axios.get(`${BASE_URL}/basic/gender/`);
   },
-
   fetchScoutGroupMapping: async () => {
     return axios.get(`${BASE_URL}/basic/scout-hierarchy-detail/?level=5`);
   },
-
+  fetchThemes: async () => {
+    return axios.get(`${BASE_URL}/basic/theme/`);
+  },
   fetchScoutLevelMappings: async () => {
     return axios.get(`${BASE_URL}/event/choices/scout-level-types/`);
+  },
+  fetchDjangoGroups: async () => {
+    return axios.get(`${BASE_URL}/auth/groups/`);
+  },
+  fetchScoutOrgaLevel() {
+    return axios.get(`${BASE_URL}/basic/scout-orga-level`);
   },
 };
