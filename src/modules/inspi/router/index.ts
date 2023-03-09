@@ -18,4 +18,9 @@ export default [
       },
     ]
   },
+  {
+    path: "/food-poll",
+    name: "food-poll",
+    component: () => import(/* webpackChunkName: "FoodPoll" */ "@/modules/inspi/views/FoodPoll.vue"),
+  }
 ];
