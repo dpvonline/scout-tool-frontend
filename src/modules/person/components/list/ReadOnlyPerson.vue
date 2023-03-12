@@ -135,9 +135,9 @@
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
             <dt class="text-sm font-medium text-gray-500">Geburtsdatum</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{
-                moment(props.personalData.birthday).format("DD.MM.YYYY")
-              }}</span>
+              <span class="flex-grow">
+                {{ props.personalData.birthday ? moment(props.personalData.birthday).format("DD.MM.YYYY") : 'Nicht angegeben' }}
+              </span>
             </dd>
           </div>
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
