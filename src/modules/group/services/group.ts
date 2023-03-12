@@ -33,6 +33,12 @@ export default {
   sendAcceptRequest(groupId: any, requestId: number) {
     return axios.post(`${BASE_URL}/${SERVICE}/${groupId}/requests/${requestId}/accept/`);
   },
+  fetchInevitableMembersById(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/inevitable-members/`);
+  },
+  fetchKickableMembersById(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/kickable-members/`);
+  },
   fetchMembersById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/members/`);
   },

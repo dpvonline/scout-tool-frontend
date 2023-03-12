@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import EventApi from "@/modules/event/services/event";
+import RegistrationApi from "@/modules/event/services/registration";
 import MappingApi from "@/modules/auth/services/mapping";
 import GroupApi from "@/modules/group/services/group";
 import moment from "moment";
@@ -25,6 +26,12 @@ export const useEventStore = defineStore("event", {
     _eventCustom: {},
     _isLoading: false,
 
+    _invitation: {},
+    _invitations: [],
+
+    _registration: {},
+    _registrations: [],
+
     _myGroups: [],
     _scoutOrgaLevels: [],
     _djangoGroups: [],
@@ -45,6 +52,15 @@ export const useEventStore = defineStore("event", {
       try {
         const response = await EventApi.fetchAllOverviews(params);
         this._eventOverviews = response.data;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchMyInvitations(params = {}) {
+      try {
+        const response = await EventApi.fetchMyInvitations(params);
+        this._invitations = response.data;
       } catch (error) {
         // alert(error);
         console.log(error);
@@ -75,7 +91,6 @@ export const useEventStore = defineStore("event", {
       await GroupApi.fetchMyGroups();
     },
     createDataRemote() {
-      debugger;
       const eventCreate = {
         name: this._eventNames?.name,
         technicalName: this._eventNames?.technicalName,
@@ -96,10 +111,36 @@ export const useEventStore = defineStore("event", {
 
         eventPlanerModules: ["KeycloakAuthorization", "BookingOptionComplex"],
         personalDataRequired: true,
-        single_registration: 'E',
+        single_registration: "E",
       };
-      debugger;
       return EventApi.create(eventCreate);
+    },
+    async fetchRegistrations(params = {}) {
+      try {
+        const response = await RegistrationApi.fetchAll(params);
+        this._registrations = response.data;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchMyRegistrations(params = {}) {
+      try {
+        const response = await RegistrationApi.fetchMyRegistrations(params);
+        this._registrations = response.data;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchRegistration(id: number) {
+      try {
+        const response = await RegistrationApi.fetchById(id);
+        this._registration = response.data;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
     },
     async fetchMyGroups() {
       this._isLoading = true;
@@ -154,15 +195,18 @@ export const useEventStore = defineStore("event", {
       this._eventStart = data;
       this.updateEventNames({
         name: data.name,
-        technicalName: data.name.replace(/[^A-Z0-9]/ig, "_").toLowerCase(),
+        technicalName: data.name.replace(/[^A-Z0-9]/gi, "_").toLowerCase(),
         shortDescription: data.name,
       });
       this.updateEventDates({
-        startDate: moment(data.startDate).set({"hour": 18, "minute": 0, "seconds": 0}).format(format1),
-        endDate: nextWeekday(moment(data.startDate), 7).set({"hour": 13, "minute": 0, "seconds": 0}).format(format1),
-        registrationStart: moment(data.startDate).subtract(3, 'month').startOf("day").format(format1),
-        registrationDeadline: moment(data.startDate).subtract(7, 'day').endOf("day").format(format1),
-        lastPossibleUpdate: moment(data.startDate).subtract(1, 'day').set({"hour": 18, "minute": 0, "seconds": 0}).format(format1),
+        startDate: moment(data.startDate).set({ hour: 18, minute: 0, seconds: 0 }).format(format1),
+        endDate: nextWeekday(moment(data.startDate), 7).set({ hour: 13, minute: 0, seconds: 0 }).format(format1),
+        registrationStart: moment(data.startDate).subtract(3, "month").startOf("day").format(format1),
+        registrationDeadline: moment(data.startDate).subtract(7, "day").endOf("day").format(format1),
+        lastPossibleUpdate: moment(data.startDate)
+          .subtract(1, "day")
+          .set({ hour: 18, minute: 0, seconds: 0 })
+          .format(format1),
       });
       this.updateEventAuth({
         keycloakAdminPath: data.invitedGroup,
@@ -210,6 +254,23 @@ export const useEventStore = defineStore("event", {
     },
     eventCustom: (state) => {
       return state._eventCustom;
+    },
+
+    // registrations
+    _invitation: (state) => {
+      return state._invitation;
+    },
+    invitations: (state) => {
+      return state._invitations;
+    },
+
+
+    // registrations
+    registration: (state) => {
+      return state._registration;
+    },
+    registrations: (state) => {
+      return state._registrations;
     },
 
     // mappings

@@ -1,6 +1,6 @@
 <template>
   <TransitionRoot as="template" :show="props.open">
-    <Dialog as="div" class="relative z-100" @close="close">
+    <Dialog as="div" class="relative z-10" @close="close">
       <TransitionChild
         as="template"
         enter="ease-out duration-300"
@@ -41,7 +41,6 @@
                 relative
                 transform
                 overflow-hidden
-                z-100
                 rounded-lg
                 bg-white
                 text-left
@@ -82,18 +81,15 @@
                         {{ props.text }}
                       </p>
                       <BaseField
-                      class="z-15"
                         component="AutoComplete"
                         :label="'Benutzer'"
                         techName="scoutGroup"
                         v-model="state.user"
                         :errors="errors.user?.$errors"
-                        :items="inevitableMembers"
+                        :items="kickableMembers"
                         hint="Wähle einen User ein."
                         :lookupListDisplay="[
                           'username',
-                          '$ - ',
-                          'email',
                           '$ - ',
                           'firstName',
                           '$ - Stamm: ',
@@ -242,14 +238,14 @@ const route = useRoute();
 const isLoading = computed(() => {
   return personStore.isLoading;
 });
-const inevitableMembers = computed(() => {
-  return groupStore.inevitableMembers;
+const kickableMembers = computed(() => {
+  return groupStore.kickableMembers;
 });
 
 onMounted(() => {
   const id = route.params.id;
   if (id) {
-    groupStore.fetchInevitableMembersById(id);
+    groupStore.fetchKickableMembersById(id);
   }
 });
 </script>

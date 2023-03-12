@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import EventDetailList from "@/modules/event/components/EventDetailList.vue";
+import EventDetailList from "@/modules/event/components/invitation/EventDetailList.vue";
 import PageWrapper from "@/components/base/PageWrapper.vue";
 import ListItem from "@/modules/task/components/TaskListItem.vue";
 import ListItemEmpty from "@/modules/group/components/PersonListItemEmpty.vue";
@@ -35,7 +35,7 @@ const event = computed(() => {
 const isLoading = computed(() => {
   return eventStore.isLoading;
 });
-const pages = [{ name: "Alle Veranstaltungen", link: "EventMain" }];
+const pages = [{ name: "Alle Einladungen", link: "EventMain" }];
 
 onMounted(() => {
   const id = route.params.id;

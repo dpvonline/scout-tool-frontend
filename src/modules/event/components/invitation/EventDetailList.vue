@@ -26,10 +26,10 @@
         <div class="ml-4 mt-4 flex flex-shrink-0">
           <PrimaryButton
             @click="onIssueEditClicked"
-            :icon="PencilIcon"
+            :icon="HandThumbUpIcon"
             class="mx-0 my-2"
           >
-            Veranstaltung Bearbeiten
+            Anmelden
           </PrimaryButton>
         </div>
       </div>
@@ -90,6 +90,7 @@ import {
   PhoneIcon,
   EnvelopeIcon,
   CalendarIcon,
+  HandThumbUpIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 

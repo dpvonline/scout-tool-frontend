@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div class="mx-auto max-w-3xl px-1 lg:px-4 lg:pt-6 lg:pt-0 sm:px-6 lg:max-w-7xl lg:px-8">
       <div
         class="
           relative

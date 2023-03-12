@@ -1,8 +1,8 @@
 <template>
   <TabWrapper>
-    <SimpleList :items="eventOverviews" detailPageLink="EventDetail">
+    <SimpleList :items="registrations" detailPageLink="EventDetail">
       <template v-slot:notEmpty="slotProps">
-        <EventListItem :item="slotProps.item" />
+        <RegistrationListItem :item="slotProps.item" />
       </template>
       <template v-slot:empty>
         <EventListItemEmpty>
@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import SimpleList from "@/components/list/SimpleList.vue";
 import TabWrapper from "@/components/base/TabWrapper.vue";
-import EventListItem from "@/modules/event/components/EventListItem.vue";
+import RegistrationListItem from "@/modules/event/components/RegistrationListItem.vue";
 import EventListItemEmpty from "@/modules/event/components/EventListItemEmpty.vue";
 
 import { ref, watch, onMounted, computed } from "vue";
@@ -30,11 +30,11 @@ const eventStore = useEventStore();
 
 const route = useRoute();
 
-const eventOverviews = computed(() => {
-  return [];
+const registrations = computed(() => {
+  return eventStore.registrations;
 });
 
 onMounted(() => {
-  eventStore.fetchEventOverviews();
+  eventStore.fetchMyRegistrations();
 });
 </script>

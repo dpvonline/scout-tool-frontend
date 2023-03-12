@@ -34,6 +34,14 @@ export default [
     component: () => import(/* webpackChunkName: "EventDetail" */ "@/modules/event/views/EventDetail.vue"),
   },
   {
+    path: "/invitation-details/:id",
+    name: "InvitationDetail",
+    meta: {
+      requiresAuth: true,
+    },
+    component: () => import(/* webpackChunkName: "InvitationDetail" */ "@/modules/event/views/InvitationDetail.vue"),
+  },
+  {
     path: "/event-new",
     name: "EventNew",
     redirect: { name: "EventNewStart" },

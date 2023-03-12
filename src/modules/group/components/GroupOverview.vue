@@ -302,7 +302,7 @@ import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
 import RequestModal from "@/modules/group/components/RequestModal.vue";
 import AddMemberModal from "@/modules/group/components/AddMemberModal.vue";
-import KickMemberModal from "@/modules/group/components/AddMemberModal.vue";
+import KickMemberModal from "@/modules/group/components/KickMemberModal.vue";
 import Secondary from "@/components/button/Secondary.vue";
 import { useAuthStore } from "@/modules/auth/store/index.ts";
 

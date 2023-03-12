@@ -1,6 +1,6 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_APP_API;
-const SERVICE = 'event/event'
+const SERVICE = 'event/registration'
 
 export default {
   fetchAll(params: any) {
@@ -8,18 +8,8 @@ export default {
       params: params,
     });
   },
-  fetchMyEvents(params: any) {
-    return axios.get(`${BASE_URL}/my-events/`, {
-      params: params,
-    });
-  },
-  fetchMyInvitations(params: any) {
-    return axios.get(`${BASE_URL}/event/my-invitations/`, {
-      params: params,
-    });
-  },
-  fetchAllOverviews(params: any) {
-    return axios.get(`${BASE_URL}/${SERVICE}-overview/`, {
+  fetchMyRegistrations(params: any) {
+    return axios.get(`${BASE_URL}/event/my-registrations/`, {
       params: params,
     });
   },

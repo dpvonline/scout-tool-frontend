@@ -14,6 +14,8 @@ export const useGroupStore = defineStore("group", {
     _myGroups: [],
     _groupUserAdmins: [],
     _groupAdmins: [],
+    _kickableMembers: [],
+    _inevitableMembers: [],
   }),
 
   actions: {
@@ -46,6 +48,32 @@ export const useGroupStore = defineStore("group", {
       try {
         const response = await GroupApi.fetchMembersById(id);
         this._groupMembers = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        // // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchKickableMembersById(id: number) {
+      this._isLoading = true;
+      this._groupMembers = [];
+      try {
+        const response = await GroupApi.fetchKickableMembersById(id);
+        this._kickableMembers = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        // // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchInevitableMembersById(id: number) {
+      this._isLoading = true;
+      this._groupMembers = [];
+      try {
+        const response = await GroupApi.fetchInevitableMembersById(id);
+        this._inevitableMembers = response.data;
         this._isLoading = false;
       } catch (error) {
         // // alert(error);
@@ -193,6 +221,12 @@ export const useGroupStore = defineStore("group", {
     },
     groupAdmins: (state) => {
       return state._groupAdmins;
+    },
+    kickableMembers: (state) => {
+      return state._kickableMembers;
+    },
+    inevitableMembers: (state) => {
+      return state._inevitableMembers;
     },
   },
 });
