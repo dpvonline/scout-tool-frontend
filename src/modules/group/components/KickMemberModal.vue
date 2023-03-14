@@ -90,10 +90,6 @@
                         hint="Wähle einen User ein."
                         :lookupListDisplay="[
                           'username',
-                          '$ - ',
-                          'firstName',
-                          '$ - Stamm: ',
-                          'stamm_bund',
                         ]"
                         :searchField="['username']"
                       />
