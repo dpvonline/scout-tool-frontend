@@ -265,6 +265,8 @@
       :callbackOnCancel="onCancellicked"
     />
     <AddMemberModal
+      :header="'User zur Gruppe hinzufügen'"
+      :text="'Welchen User möchtest du deiner Gruppe hinzufügen?'"
       :open="openAddMember"
       :callbackOnConfirm="onAddMemberConfirmClicked"
       :callbackOnCancel="onAddMemberCancellicked"
@@ -347,10 +349,10 @@ function onRequestAccess() {
   openRequestAccess.value = true;
 }
 function onConfirmClicked() {
-  openRequestAccess.value = false;
   const id = route.params.id;
   groupStore.sendGroupRequest(id).then((response) => {
     commonStore.showSuccess("Antrag erfolgreich eingereicht");
+    openRequestAccess.value = false;
   });
 }
 function onCancellicked() {
@@ -363,10 +365,10 @@ function onAddMemberClicked() {
   openAddMember.value = true;
 }
 function onAddMemberConfirmClicked(userId) {
-  openAddMember.value = false;
   const groupId = route.params.id;
   groupStore.sendGroupInvitation(groupId, userId).then((response) => {
     commonStore.showSuccess("Einladung erfolgreich eingereicht");
+    openAddMember.value = false;
     router.go(router.currentRoute.value);
   });
 }
@@ -380,11 +382,12 @@ function onKickMemberClicked() {
   openKickMember.value = true;
 }
 function onKickMemberConfirmClicked(userId) {
-  openKickMember.value = false;
   const groupId = route.params.id;
   groupStore.sendGroupKick(groupId, userId).then((response) => {
     commonStore.showSuccess("Kick erfolgreich eingereicht");
+    openKickMember.value = false;
     router.go(router.currentRoute.value);
+
   });
 }
 function onKickMemberCancellicked() {

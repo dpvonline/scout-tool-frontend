@@ -55,11 +55,11 @@ export const useGroupStore = defineStore("group", {
         this._isLoading = false;
       }
     },
-    async fetchKickableMembersById(id: number) {
+    async fetchKickableMembersById(id: number, params: string) {
       this._isLoading = true;
       this._groupMembers = [];
       try {
-        const response = await GroupApi.fetchKickableMembersById(id);
+        const response = await GroupApi.fetchKickableMembersById(id, params);
         this._kickableMembers = response.data;
         this._isLoading = false;
       } catch (error) {
@@ -68,17 +68,15 @@ export const useGroupStore = defineStore("group", {
         this._isLoading = false;
       }
     },
-    async fetchInevitableMembersById(id: number) {
-      this._isLoading = true;
-      this._groupMembers = [];
+    async fetchInevitableMembersById(id: number, params: string) {
+      this._inevitableMembers = [];
       try {
-        const response = await GroupApi.fetchInevitableMembersById(id);
+        const response = await GroupApi.fetchKickableMembersById(id, params);
         this._inevitableMembers = response.data;
-        this._isLoading = false;
+        return response;
       } catch (error) {
         // // alert(error);
         console.log(error);
-        this._isLoading = false;
       }
     },
     async fetchRequestById(id: number) {

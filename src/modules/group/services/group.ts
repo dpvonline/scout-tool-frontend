@@ -33,11 +33,19 @@ export default {
   sendAcceptRequest(groupId: any, requestId: number) {
     return axios.post(`${BASE_URL}/${SERVICE}/${groupId}/requests/${requestId}/accept/`);
   },
-  fetchInevitableMembersById(id: any) {
-    return axios.get(`${BASE_URL}/${SERVICE}/${id}/inevitable-members/`);
+  fetchInevitableMembersById(id: any, searchQuery: string) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/inevitable-members/`, {
+      params: {
+        search: searchQuery,
+      },
+    });
   },
-  fetchKickableMembersById(id: any) {
-    return axios.get(`${BASE_URL}/${SERVICE}/${id}/kickable-members/`);
+  fetchKickableMembersById(id: any, searchQuery: string) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/kickable-members/`, {
+      params: {
+        search: searchQuery,
+      },
+    });
   },
   fetchMembersById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/members/`);

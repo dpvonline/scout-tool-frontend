@@ -10,7 +10,7 @@
       border border-transparent
       py-2
       px-4
-      text-sm
+      text-xs
       font-medium
       text-white
       shadow-sm

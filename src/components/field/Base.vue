@@ -7,6 +7,7 @@
     :modelValue="modelValue"
     @input="updateValue"
     @update:modelValue="updateValueDirekt"
+    @updateSearch="updateSearch"
     :errors="props.errors"
     :cols="props.cols"
     :lookupListDisplay="props.lookupListDisplay"
@@ -17,6 +18,7 @@
 <script setup lang="ts">
 import Text from "@/components/field/Text.vue";
 import AutoComplete from "@/components/field/AutoComplete.vue";
+import AutoCompleteRemote from "@/components/field/AutoCompleteRemote.vue";
 import TextArea from "@/components/field/TextArea.vue";
 import Number from "@/components/field/Number.vue";
 import Radio from "@/components/field/Radio.vue";
@@ -33,6 +35,7 @@ import { ErrorObject } from "@vuelidate/core";
 
 const components = {
   AutoComplete,
+  AutoCompleteRemote,
   Text,
   TextArea,
   Number,
@@ -51,6 +54,7 @@ const components = {
 // I do NOT want to use [CompA, CompA] because my inputs are strings
 const componentTreeName = [
   "AutoComplete",
+  "AutoCompleteRemote",
   "Text",
   "TextArea",
   "Number",
@@ -72,6 +76,10 @@ const updateValue = (event: Event) => {
 
 const updateValueDirekt = (event: Event) => {
   emit("update:modelValue", event);
+};
+
+function updateSearch(newValue: string) {
+  emit('updateSearch', newValue);
 };
 
 const props = withDefaults(
