@@ -71,7 +71,7 @@ export const useGroupStore = defineStore("group", {
     async fetchInevitableMembersById(id: number, params: string) {
       this._inevitableMembers = [];
       try {
-        const response = await GroupApi.fetchKickableMembersById(id, params);
+        const response = await GroupApi.fetchInevitableMembersById(id, params);
         this._inevitableMembers = response.data;
         return response;
       } catch (error) {
