@@ -12,6 +12,9 @@ export default {
   fetchById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/`);
   },
+  fetchCreateGroupChoise() {
+    return axios.get(`${BASE_URL}/keycloak/create-group-choice/`);
+  },
   sendGroupInvitation(groupId: any, userId: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${groupId}/invite/`, { userId });
   },

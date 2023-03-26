@@ -16,6 +16,7 @@ export const useGroupStore = defineStore("group", {
     _groupAdmins: [],
     _kickableMembers: [],
     _inevitableMembers: [],
+    _createGroupChoise: [],
   }),
 
   actions: {
@@ -97,6 +98,20 @@ export const useGroupStore = defineStore("group", {
         return await GroupApi.sendGroupRequest(id);
       } catch (error) {
         // // alert(error);
+        console.log(error);
+      }
+    },
+    async createGroup(data: any) {
+      try {
+        return await GroupApi.create(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteGroup(id: any) {
+      try {
+        return await GroupApi.delete(id);
+      } catch (error) {
         console.log(error);
       }
     },
@@ -188,6 +203,16 @@ export const useGroupStore = defineStore("group", {
         this._isLoading = false;
       }
     },
+    async fetchCreateGroupChoise() {
+      this._createGroupChoise = [];
+      try {
+        const response = await GroupApi.fetchCreateGroupChoise();
+        this._createGroupChoise = response.data;
+      } catch (error) {
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
   },
   getters: {
     isLoading: (state) => {
@@ -225,6 +250,9 @@ export const useGroupStore = defineStore("group", {
     },
     inevitableMembers: (state) => {
       return state._inevitableMembers;
+    },
+    createGroupChoise: (state) => {
+      return state._createGroupChoise;
     },
   },
 });

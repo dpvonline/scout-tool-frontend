@@ -124,6 +124,46 @@
                   />
                 </div>
               </li>
+              <li
+                v-if="group.permission === 'Administrator'"
+                class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              >
+                <div class="flex w-0 flex-1 items-center">
+                  <PlusIcon
+                    class="h-5 w-5 flex-shrink-0 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <span class="ml-2 w-0 flex-1 truncate"
+                    >Untergruppe erstellen</span
+                  >
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                  <Secondary
+                    :label="'erstellen'"
+                    @click="onAddGroupClicked"
+                  />
+                </div>
+              </li>
+              <li
+                v-if="group.permission === 'Administrator'"
+                class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              >
+                <div class="flex w-0 flex-1 items-center">
+                  <PlusIcon
+                    class="h-5 w-5 flex-shrink-0 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  <span class="ml-2 w-0 flex-1 truncate"
+                    >Gruppe editieren/löschen</span
+                  >
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                  <Secondary
+                    :label="'öffnen'"
+                    @click="onEditGroupClicked"
+                  />
+                </div>
+              </li>
             </ul>
           </dd>
         </div>
@@ -285,6 +325,20 @@
       :callbackOnConfirm="onLeaveGroupConfirmClicked"
       :callbackOnCancel="onLeaveGroupCancellicked"
     />
+    <AddGroupOverlay
+      :header="'Gruppe erstellen'"
+      :text="'Trage alle Infos ein um eine neue Untergruppe zu erstellen.'"
+      :open="openAddGroup"
+      :callbackOnConfirm="onAddGroupConfirmClicked"
+      :callbackOnCancel="onAddGroupCancelClicked"
+    />
+    <EditGroupOverlay
+      :header="'Gruppe updaten'"
+      :text="'Trage alle Infos ein um eine neue Untergruppe zu erstellen.'"
+      :open="openEditGroup"
+      :callbackOnConfirm="onEditGroupConfirmClicked"
+      :callbackOnCancel="onEditGroupCancelClicked"
+    />
   </div>
 </template>
 
@@ -299,12 +353,17 @@ import {
   ScaleIcon,
   UserIcon,
   BellIcon,
+  PlusIcon,
 } from "@heroicons/vue/24/outline";
 import { ref, watch, onMounted, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
+
 import RequestModal from "@/modules/group/components/RequestModal.vue";
 import AddMemberModal from "@/modules/group/components/AddMemberModal.vue";
 import KickMemberModal from "@/modules/group/components/KickMemberModal.vue";
+import AddGroupOverlay from "@/modules/group/components/addGroup/Overlay.vue";
+import EditGroupOverlay from "@/modules/group/components/editGroup/Overlay.vue";
+
 import Secondary from "@/components/button/Secondary.vue";
 import { useAuthStore } from "@/modules/auth/store/index.ts";
 
@@ -336,11 +395,6 @@ import { useCommonStore } from "@/modules/common/store/index.ts";
 const commonStore = useCommonStore();
 
 const route = useRoute();
-
-const openAddGroup = ref(false);
-function onAddGroup() {
-  openAddGroup.value = true;
-}
 
 //  - - - - - Ask for Membership - - - - - - -
 
@@ -413,6 +467,41 @@ function onLeaveGroupCancellicked() {
   openLeaveGroup.value = false;
 }
 
+// - - - - - Add Group - - - - - - - - - - -
+
+const openAddGroup = ref(false);
+function onAddGroupClicked() {
+  openAddGroup.value = true;
+}
+function onAddGroupConfirmClicked(userId) {
+  const groupId = route.params.id;
+  groupStore.sendAddGroup(groupId).then((response) => {
+    commonStore.showSuccess("Gruppe erfolgreich erstellt.");
+    openAddGroup.value = false;
+    router.go(router.currentRoute.value);
+  });
+}
+function onAddGroupCancelClicked() {
+  openAddGroup.value = false;
+}
+// - - - - - Edit Group - - - - - - - - - - -
+
+const openEditGroup = ref(false);
+function onEditGroupClicked() {
+  openEditGroup.value = true;
+}
+function onEditGroupConfirmClicked(userId) {
+  const groupId = route.params.id;
+  groupStore.sendEditGroup(groupId).then((response) => {
+    commonStore.showSuccess("Gruppe erfolgreich erstellt.");
+    openAddGroup.value = false;
+    router.go(router.currentRoute.value);
+  });
+}
+function onEditGroupCancelClicked() {
+  openEditGroup.value = false;
+}
+// - - - - - - - - - - - - - - - -
 onMounted(() => {
   const id = route.params.id;
   if (id) {
