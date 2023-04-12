@@ -93,7 +93,6 @@ function onSaveClicked() {
         goToRoute(response.data.id)
         commonStore.showSuccess("Nachricht erfolgreich angelegt");
       } else if (response && response.status === 400) {
-        debugger;
         commonStore.showSuccess(`Die Anfrage ist Fehlerhaft.${response.data}`);
       } else {
         console.log(response);

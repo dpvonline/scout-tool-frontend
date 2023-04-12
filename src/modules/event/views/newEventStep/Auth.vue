@@ -1,5 +1,5 @@
 <template>
-  <StepFrame header="DNeue Veranstaltung anlegen" @click="onNextButtonClicked">
+  <StepFrame header="Neue Veranstaltung anlegen" @click="onNextButtonClicked">
     <fieldset class="mt-6">
       <legend class="contents text-base font-medium text-gray-900">
         Steuerung der Zugriffsrechte und Sichtbarkeit

@@ -3,7 +3,7 @@
     class="
       relative
       h-screen
-      z-40
+      z-10
       flex-1
       focus:outline-none
       overflow-y-auto

@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import App from "./App.vue";
 import router from "./router";
 import { createHead } from "@vueuse/head";
@@ -24,7 +25,9 @@ const app = createApp(App);
 //   alert(`Das System ist Fehlerhaft und muss neugestartet werden. Fehler:: ${event.reason}`)
 // });
 
-app.use(createPinia());
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+app.use(pinia);
 app.use(router);
 app.use(head);
 app.use(keycloak);

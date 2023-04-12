@@ -25,7 +25,7 @@
         </div>
         <div class="ml-4 mt-4 flex flex-shrink-0">
           <PrimaryButton
-            @click="onIssueEditClicked"
+            @click="onInvitationClicked(event.id)"
             :icon="HandThumbUpIcon"
             class="mx-0 my-2"
           >
@@ -63,18 +63,6 @@
         </div>
       </dl>
     </div>
-    <MessageEditOverlay
-      :open="openEventAddEdit"
-      :items="eventData"
-      @close="onEventClosedClicked"
-      header="Nachricht erstellen"
-    />
-    <IssueEditOverlay
-      :open="openIssueEdit"
-      :items="eventData"
-      @close="onIssueClosedClicked"
-      header="Issue bearbeiten"
-    />
   </div>
 </template>
 
@@ -97,32 +85,19 @@ import PrimaryButton from "@/components/button/Primary.vue";
 import MessageEditOverlay from "@/modules/message/components/MessageEdit/Overlay.vue";
 import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue";
 
-// messsage
-const openEventAddEdit = ref(false);
-const eventData = ref({});
+import { useRouter } from "vue-router"
+const router = useRouter()
 
-function onEventUpdateClicked() {
-  openEventAddEdit.value = true;
-  eventData.value = props.event;
+
+function onInvitationClicked(id) {
+  router.push({
+    name: "RegistrationNewStart",
+    params: {
+      id: id,
+    },
+  });
 }
 
-function onEventClosedClicked() {
-  openEventAddEdit.value = false;
-  eventData.value = {};
-}
-
-// issue
-const openIssueEdit = ref(false);
-
-function onIssueEditClicked() {
-  openIssueEdit.value = true;
-  eventData.value = props.event;
-}
-
-function onIssueClosedClicked() {
-  openIssueEdit.value = false;
-  eventData.value = {};
-}
 
 const props = defineProps({
   event: Object,

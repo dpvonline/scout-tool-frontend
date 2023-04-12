@@ -91,7 +91,7 @@
                   selected ? 'font-semibold' : 'font-normal',
                   'block truncate',
                 ]"
-                >{{ person?.name }}</span
+                >{{ getItemText(person) }}</span
               >
 
               <span
@@ -141,6 +141,7 @@ const props = defineProps({
   cols: { type: Number, required: false, default: 3 },
   items: { type: Array, required: true },
   disabled: { type: Boolean, required: false, default: false },
+  lookupListDisplay: { type: Array, required: false, default: ["name"] },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -165,4 +166,18 @@ const filteredPeople = computed(() => {
         return item?.name.toLowerCase().includes(query.value.toLowerCase());
       });
 });
+
+function getItemText(item) {
+  let template = "";
+  props.lookupListDisplay.forEach((field, i) => {
+    if (field.charAt(0) === "$") {
+      template += field.substring(1, field.length);
+    } else if (i === 0) {
+      template += item[field];
+    } else {
+      template = `${template} ${item[field]}`;
+    }
+  });
+  return template;
+}
 </script>

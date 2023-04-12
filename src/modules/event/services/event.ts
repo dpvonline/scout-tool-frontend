@@ -23,10 +23,12 @@ export default {
       params: params,
     });
   },
+  fetchBookingOptionsById(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/booking-options/`);
+  },
   fetchById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}-read/${id}/`);
   },
-
   create(data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/`, data );
   },

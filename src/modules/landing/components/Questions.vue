@@ -41,7 +41,7 @@ import {
 } from "@heroicons/vue/20/solid";
 import { useRoute } from "vue-router";
 
-import Questions from "@/modules/landing/components/faq/Questions.vue";
+import Questions from "@/modules/landing/components/Questions.vue";
 import Header from "@/components/breadcrumbs/Header.vue";
 
 const page = [{ name: "Hauptseite", link: "home" }];

@@ -538,12 +538,12 @@
           class="overflow-hidden bg-white shadow sm:rounded-md overflow-scroll"
         >
           <ul role="list" v-if="items.length" class="divide-y divide-gray-200">
-            <li v-for="item in items" :key="item.id">
+            <li v-for="item in items" :key="item">
               <component :is="detailPageLink ? 'router-link' : 'div'"
                 :to="{
                   name: props.detailPageLink,
                   params: {
-                    id: item.id || item.person.id,
+                    id: item.id,
                   },
                 }"
                 class="block hover:bg-gray-50"
