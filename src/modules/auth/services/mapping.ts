@@ -20,4 +20,7 @@ export default {
   fetchScoutOrgaLevel() {
     return axios.get(`${BASE_URL}/basic/scout-orga-level`);
   },
+  fetchEatHabit() {
+    return axios.get(`${BASE_URL}/basic/eat-habits`);
+  },
 };

@@ -2,14 +2,14 @@
   <PageWrapper>
     <Breadcrumbs :pages="pages" />
     <main class="relative flex-1 focus:outline-none">
-      <EventDetailList :event="event" v-if="!isLoading"/>
-      <LoadingItem v-else/>
+      <InvitationDetailList :event="event" v-if="!isLoading" />
+      <LoadingItem v-else />
     </main>
   </PageWrapper>
 </template>
 
 <script setup lang="ts">
-import EventDetailList from "@/modules/event/components/invitation/EventDetailList.vue";
+import InvitationDetailList from "@/modules/event/components/invitation/DetailList.vue";
 import PageWrapper from "@/components/base/PageWrapper.vue";
 import ListItem from "@/modules/task/components/TaskListItem.vue";
 import ListItemEmpty from "@/modules/group/components/PersonListItemEmpty.vue";

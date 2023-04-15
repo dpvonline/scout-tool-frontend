@@ -1,6 +1,6 @@
 <template>
   <div :class="`sm:col-span-${cols}`">
-    <label class="text-base font-medium text-gray-900">{{ props.label }}</label>
+    <label class="text-sm font-medium text-gray-900">{{ props.label }}</label>
     <p class="text-sm leading-5 text-gray-500">{{ props.hint }}</p>
     <fieldset @change="test" class="mt-4">
       <div class="space-y-4">

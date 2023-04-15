@@ -36,6 +36,7 @@ export const useEventStore = defineStore("event", {
     _scoutOrgaLevels: [],
     _djangoGroups: [],
     _themes: [],
+    _bookingOptions: [],
   }),
 
   actions: {
@@ -119,6 +120,15 @@ export const useEventStore = defineStore("event", {
       try {
         const response = await RegistrationApi.fetchAll(params);
         this._registrations = response.data;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchBookingOptionsById(id: Number) {
+      try {
+        const response = await EventApi.fetchBookingOptionsById(id);
+        this._bookingOptions = response.data;
       } catch (error) {
         // alert(error);
         console.log(error);
@@ -288,6 +298,9 @@ export const useEventStore = defineStore("event", {
     },
     themes: (state) => {
       return state._themes;
+    },
+    bookingOptions: (state) => {
+      return state._bookingOptions;
     },
   },
 });

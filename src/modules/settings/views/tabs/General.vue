@@ -20,6 +20,6 @@ const personalData = computed(() => {
 });
 
 onMounted(() => {
-  personalDataStore.fetchPersonalData(route.query);
+  personalDataStore.fetchPersonalData();
 });
 </script>

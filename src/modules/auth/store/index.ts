@@ -67,6 +67,7 @@ export const useRegisterStore = defineStore("registerStore", {
       gender: [],
       scoutGroup: [],
       scoutLevel: [],
+      eatHabit: [],
     }),
 
     _userdata: {
@@ -143,6 +144,13 @@ export const useRegisterStore = defineStore("registerStore", {
       try {
         const scoutLevel = await mappingServices.fetchScoutLevelMappings()
         this._mappings.scoutLevel = scoutLevel.data
+      } catch (e) {
+        alert(e)
+        console.error(e)
+      }
+      try {
+        const eatHabit = await mappingServices.fetchEatHabit()
+        this._mappings.eatHabit = eatHabit.data
       } catch (e) {
         alert(e)
         console.error(e)
@@ -265,6 +273,9 @@ export const useRegisterStore = defineStore("registerStore", {
     },
     scoutLevelMappings: (state) => {
       return state._mappings.scoutLevel
+    },
+    eatHabitMappings: (state) => {
+      return state._mappings.eatHabit
     },
   },
 })
