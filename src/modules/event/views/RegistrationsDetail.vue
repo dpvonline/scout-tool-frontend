@@ -1,13 +1,22 @@
 <template>
-  <div class="2xl:px-64 xl:px-30">
+  <PageWrapper>
     <Breadcrumbs :pages="pages" />
     <main class="relative flex-1 focus:outline-none">
-
+      <RegistrationDetailList :registration="registration" v-if="!isLoading" />
+      <LoadingItem v-else />
     </main>
-  </div>
+  </PageWrapper>
 </template>
 
 <script setup lang="ts">
+import RegistrationDetailList from "@/modules/event/components/registration/DetailList.vue";
+import PageWrapper from "@/components/base/PageWrapper.vue";
+import ListItem from "@/modules/task/components/TaskListItem.vue";
+import ListItemEmpty from "@/modules/group/components/PersonListItemEmpty.vue";
+import PrimaryButton from "@/components/button/Primary.vue";
+
+import { PlusIcon } from "@heroicons/vue/20/solid";
+
 import { ref, watch, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 
@@ -19,16 +28,19 @@ const eventStore = useEventStore();
 
 const route = useRoute();
 
-const event = computed(() => {
-  return eventStore.event;
+const registration = computed(() => {
+  return eventStore.registration;
 });
 
-const pages = [{ name: "Alle Events", link: "EventMain" }];
+const isLoading = computed(() => {
+  return eventStore.isLoading;
+});
+const pages = [{ name: "Alle Registrations", link: "EventRegistrations" }];
 
 onMounted(() => {
   const id = route.params.id;
   if (id) {
-    eventStore.fetchEvent(id);
+    eventStore.fetchRegistration(id);
   }
 });
 </script>

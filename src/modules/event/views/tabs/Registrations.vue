@@ -1,6 +1,6 @@
 <template>
   <TabWrapper>
-    <SimpleList :items="registrations" detailPageLink="EventDetail">
+    <SimpleList :items="registrations" detailPageLink="RegistrationsDetail">
       <template v-slot:notEmpty="slotProps">
         <RegistrationListItem :item="slotProps.item" />
       </template>

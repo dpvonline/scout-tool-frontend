@@ -44,7 +44,9 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         scoutOrganisation: 339,
         eventCode: 'AAAA',
       };
-      return RegistrationApi.create(registerCreate);
+      const register = RegistrationApi.create(registerCreate);
+      
+      return 
     },
     async fetchRegistration(id: number) {
       try {
