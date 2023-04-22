@@ -17,7 +17,7 @@ const tabs = computed(() => {
   return [
     {
       name: "Einladungen",
-      linkName: { name: "EventInvitations" },
+      linkName: { name: "EventInvitations", query: { status: 'pending' } },
       current: route.name === "EventInvitations",
     },
     {

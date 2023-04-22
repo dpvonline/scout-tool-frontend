@@ -75,7 +75,13 @@ async function onNextButtonClicked() {
 
   try {
     const result = await eventStore.createDataRemote();
-    console.log(result);
+    
+    router.push({
+      name: "EventDetail",
+      params: {
+        id: result.data.id
+      }
+    });
   } catch (e) {
     console.log(e);
     // alert("Fehler: " + JSON.stringify(e.response.data))
