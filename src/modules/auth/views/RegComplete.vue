@@ -1,6 +1,6 @@
 <template>
   <PageWrapper class="">
-  <main class="my-6">
+  <main class="my-6 mx-4">
     <div class="relative mx-auto max-w-4xl md:px-8 xl:px-0">
       <div class="px-4 sm:px-6 md:px-0">
         <h2 class="text-lg font-medium text-gray-900">

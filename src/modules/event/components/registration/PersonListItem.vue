@@ -6,10 +6,10 @@
           'bg-green-500 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white',
         ]"
       >
-        <EnvelopeIcon class="h-5 w-5 text-white" aria-hidden="true" />
+        <UserIcon class="h-5 w-5 text-white" aria-hidden="true" />
       </span>
     </div>
-    <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+    <div class="min-w-0 grow px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
         <p class="truncate text-sm font-medium text-blue-600">
           {{ props.item.firstName }} {{ props.item.lastName }}
@@ -20,7 +20,7 @@
       </div>
       <div class="hidden md:block"></div>
     </div>
-    <div class="flex-1">
+    <div class="flex-none w-14">
       <PrimaryButton @click="onDeletePersonClicked(props?.item)" color="red"
         >löschen</PrimaryButton
       >
@@ -39,6 +39,7 @@ import {
   RocketLaunchIcon,
   CheckCircleIcon,
   EnvelopeIcon,
+  UserIcon,
 } from "@heroicons/vue/24/outline";
 import moment from "moment";
 const props = defineProps({

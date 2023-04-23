@@ -1,5 +1,5 @@
 <template>
-  <StepFrame header="" @click="onNextButtonClicked" :isFinalStep="true">
+  <StepFrame header="" @click="onNextButtonClicked" :isFinalStep="true" :isLoading="isLoading">
     <fieldset class="mt-6">
       <legend class="contents text-base font-medium text-gray-900">
         Adresse
@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import BaseField from "@/components/field/Base.vue";
 import StepFrame from "@/components/stepper/StepFrame.vue";
 import { useVuelidate } from "@vuelidate/core";
@@ -97,16 +97,19 @@ const router = useRouter();
 
 const v$ = useVuelidate(rules, state);
 const errors = ref(v$);
+const isLoading = ref(false);
 
 const commonStore = useCommonStore();
 
 async function onNextButtonClicked() {
+  
   errors.value.$validate()
   console.log(errors.value)
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen")
     return
   }
+  isLoading.value = true;
 
   registerStore.updateAdvancedPersonal(state)
 
@@ -117,9 +120,11 @@ async function onNextButtonClicked() {
     registerStore.setRegistered()
 
     router.push({ name: "RegComplete" })
+    isLoading.value = false;
   } catch (e) {
     console.log(e)
-    // alert("Fehler: " + JSON.stringify(e.response.data))
+    isLoading.value = false;
+    alert("Fehler: " + JSON.stringify(e.response.data))
   }
 }
 </script>

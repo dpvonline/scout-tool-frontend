@@ -71,7 +71,6 @@ function onNextButtonClicked() {
   }
 
   eventRegisterStore.create(state).then((response) => {
-    debugger;
     router.push({
       name: "RegistrationFinish",
     });

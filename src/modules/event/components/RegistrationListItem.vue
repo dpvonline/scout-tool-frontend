@@ -12,14 +12,14 @@
     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
         <p class="truncate text-sm font-medium text-blue-600">
-          {{ props.item }}
+          {{ props.item.event.name }}
         </p>
         <p class="mt-2 flex items-center text-sm text-gray-500">
           <ClipboardIcon
             class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
             aria-hidden="true"
           />
-          <span class="truncate">{{ props.item }}</span>
+          <span class="truncate">{{ props.item.scoutOrganisation.name }}</span>
         </p>
       </div>
       <div class="hidden md:block">
