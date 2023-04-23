@@ -25,7 +25,7 @@
         </div>
         <div class="ml-4 mt-4 flex flex-shrink-0">
           <PrimaryButton
-            @click="onIssueEditClicked"
+            @click="onEventEditClicked"
             :icon="PencilIcon"
             class="mx-0 my-2"
           >
@@ -63,63 +63,40 @@
         </div>
       </dl>
     </div>
-    <MessageEditOverlay
-      :open="openEventAddEdit"
+    <EventEditOverlay
+      :open="openEventEdit"
       :items="eventData"
       @close="onEventClosedClicked"
-      header="Nachricht erstellen"
-    />
-    <IssueEditOverlay
-      :open="openIssueEdit"
-      :items="eventData"
-      @close="onIssueClosedClicked"
-      header="Issue bearbeiten"
+      header="Event bearbeiten"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from "vue";
+import { ref } from "vue";
 
 import moment from "moment";
 import {
-  PaperClipIcon,
   PencilIcon,
-  ChatBubbleLeftIcon,
-  InboxIcon,
-  PhoneIcon,
-  EnvelopeIcon,
   CalendarIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
-import MessageEditOverlay from "@/modules/message/components/MessageEdit/Overlay.vue";
-import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue";
+import EventEditOverlay from "@/modules/event/components/EventEdit/Overlay.vue"
 
 // messsage
-const openEventAddEdit = ref(false);
 const eventData = ref({});
 
-function onEventUpdateClicked() {
-  openEventAddEdit.value = true;
+// issue
+const openEventEdit = ref(false);
+
+function onEventEditClicked() {
+  openEventEdit.value = true;
   eventData.value = props.event;
 }
 
 function onEventClosedClicked() {
-  openEventAddEdit.value = false;
-  eventData.value = {};
-}
-
-// issue
-const openIssueEdit = ref(false);
-
-function onIssueEditClicked() {
-  openIssueEdit.value = true;
-  eventData.value = props.event;
-}
-
-function onIssueClosedClicked() {
-  openIssueEdit.value = false;
+  openEventEdit.value = false;
   eventData.value = {};
 }
 

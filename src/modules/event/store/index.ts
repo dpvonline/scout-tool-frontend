@@ -267,7 +267,7 @@ export const useEventStore = defineStore("event", {
     },
 
     // registrations
-    _invitation: (state) => {
+    invitation: (state) => {
       return state._invitation;
     },
     invitations: (state) => {
