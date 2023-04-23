@@ -1,6 +1,6 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_APP_API;
-const SERVICE = 'event/registration'
+const SERVICE = "event/registration";
 
 export default {
   fetchAll(params: any) {
@@ -18,7 +18,7 @@ export default {
   },
 
   create(data: any) {
-    return axios.post(`${BASE_URL}/${SERVICE}/`, data );
+    return axios.post(`${BASE_URL}/${SERVICE}/`, data);
   },
 
   update(data: any) {
@@ -26,6 +26,9 @@ export default {
   },
 
   delete(id: any) {
-    return axios.delete(`${BASE_URL}/${SERVICE}/${id}/`)
+    return axios.delete(`${BASE_URL}/${SERVICE}/${id}/`);
+  },
+  createParticipant(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/single-participant/`, data);
   },
 };

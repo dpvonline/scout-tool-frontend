@@ -51,6 +51,14 @@
               <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
               <div class="mt-4 space-y-4">
                 <BaseField
+                  component="Toggle"
+                  :label="'Person dauerhaft speichern'"
+                  techName="allowPermanently"
+                  v-model="state.allowPermanently"
+                  :errors="errors.allowPermanently?.$errors"
+                  :cols="6"
+                />
+                <BaseField
                   component="Text"
                   :label="'Vorname'"
                   techName="firstName"
@@ -107,7 +115,7 @@
                 />
                 <BaseField
                   component="Text"
-                  :label="'Postleitzahl/Ort'"
+                  :label="'Postleitzahl'"
                   techName="zipCode"
                   v-model="state.zipCode"
                   :errors="errors.zipCode?.$errors"
@@ -222,6 +230,9 @@ import { useEventStore } from "@/modules/event/store";
 const eventStore = useEventStore();
 
 const rules = {
+  allowPermanently: {
+    required,
+  },
   firstName: {
     required,
   },
@@ -250,6 +261,7 @@ const rules = {
 }
 
 const state = reactive({
+  allowPermanently: true,
   firstName: null,
   lastName: null,
   scoutName: null,
@@ -297,7 +309,7 @@ function onButtonSaveClicked() {
 
 onUpdated(() => {
   if (props.open && props.person && props.person != {} && props.person.id) {
-    state.id = 1;
+    state.id = props?.person.id;
     state.firstName = props?.person.firstName;
     state.lastName = props?.person.lastName;
     state.scoutName = props?.person.scoutName;

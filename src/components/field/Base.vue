@@ -12,6 +12,7 @@
     :cols="props.cols"
     :lookupListDisplay="props.lookupListDisplay"
     :searchField="props.searchField"
+    :options="{ currency: 'EUR' }"
   ></component>
 </template>
 
@@ -26,6 +27,7 @@ import Toggle from "@/components/field/Toggle.vue";
 import Select from "@/components/field/Select.vue";
 import Date from "@/components/field/Date.vue";
 import DateTime from "@/components/field/DateTime.vue";
+import Currency from "@/components/field/Currency.vue";
 import PhoneNumber from "./PhoneNumber.vue";
 import ZIP from "./ZIP.vue";
 import EMail from "./EMail.vue";
@@ -44,6 +46,7 @@ const components = {
   Select,
   Date,
   DateTime,
+  Currency,
   PhoneNumber,
   ZIP,
   EMail,
@@ -63,6 +66,7 @@ const componentTreeName = [
   "Select",
   "Date",
   "DateTime",
+  "Currency",
   "PhoneNumber",
   "ZIP",
   "EMail",

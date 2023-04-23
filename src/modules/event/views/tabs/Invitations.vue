@@ -93,7 +93,7 @@ import { useDashboardStore } from "@/modules/dashboard/store/index";
 import RequestListButton from "@/modules/group/components/RequestListButton.vue";
 import SimpleList from "@/components/list/SimpleList.vue";
 import TabWrapper from "@/components/base/TabWrapper.vue";
-import InvitationListItem from '@/modules/event/components/InvitationListItem.vue'
+import InvitationListItem from '@/modules/event/components/invitation/InvitationListItem.vue'
 import EventListItemEmpty from '@/modules/event/components/EventListItemEmpty.vue'
 import { useEventStore } from "@/modules/event/store";
 

@@ -82,7 +82,7 @@ const state = reactive({
   keycloakAdminPath: null,
   limitedRegistrationHierarchy: null,
   groupRegistrationLevel: null,
-  isPublic: null,
+  isPublic: false,
 });
 
 const rules = {
@@ -118,7 +118,7 @@ function onNextButtonClicked() {
     return;
   }
 
-  eventStore.updateEventCustom(state);
+  eventStore.updateEventAuth(state);
 
   router.push({
     name: "EventNewCustom",

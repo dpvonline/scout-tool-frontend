@@ -70,7 +70,7 @@ function onNextButtonClicked() {
     return;
   }
 
-  eventRegisterStore.create(state).then((response) => {
+  eventRegisterStore.create().then((response) => {
     router.push({
       name: "RegistrationFinish",
     });

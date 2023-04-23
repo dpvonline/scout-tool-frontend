@@ -135,9 +135,10 @@ onMounted(async () => {
     eventStore.fetchScoutOrgaLevel(),
     eventStore.fetchDjangoGroups(),
     eventStore.fetchThemes(),
+    eventStore.fetchEmailSets(),
+    eventStore.fetchEventLocations(),
   ]);
 
   setInitData();
-
 });
 </script>

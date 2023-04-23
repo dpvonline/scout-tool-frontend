@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { v4 as uuidv4 } from "uuid";
 
 import EventApi from "@/modules/event/services/event";
 import RegistrationApi from "@/modules/event/services/registration";
@@ -41,12 +42,16 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       const registerCreate = {
         event: this._event?.id,
         single: true,
-        scoutOrganisation: 339,
-        eventCode: 'AAAA',
+        scoutOrganisation: this._registerStart?.scoutGroup?.id,
+        eventCode: "AAAA",
       };
-      const register = RegistrationApi.create(registerCreate);
-      
-      return 
+      const register = await RegistrationApi.create(registerCreate);
+
+      const promises = [];
+      this._registerPerson.forEach((person) => {
+        promises.push(RegistrationApi.createParticipant(register.data.id, person));
+      });
+      const responses = await Promise.all(promises);
     },
     async fetchRegistration(id: number) {
       try {
@@ -70,7 +75,17 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       }
     },
     addPerson(data: any) {
-      this._registerPerson.push(data);
+      this._registerPerson.push({
+        id: uuidv4(),
+        firstName: data.firstName,
+        lastName: data.lastName,
+        scoutName: data.scoutName,
+        gender: data.gender,
+        street: data.street,
+        zipCode: data.zipCode,
+        eatHabit: [data.eatHabit?.name],
+        bookingOption: data.bookingOption?.id,
+      });
     },
     removePerson(doc: any) {
       this._registerPerson.forEach((item, index) => {
@@ -96,7 +111,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     registerPerson: (state) => {
       return state._registerPerson;
     },
-    _registerStart: (state) => {
+    registerStart: (state) => {
       return state._registerStart;
     },
     registerTravel: (state) => {

@@ -72,7 +72,7 @@ const props = defineProps({
   label: { type: String, required: true },
   hint: { type: String, required: false, default: null },
   cols: { type: Number, required: false, default: 3},
-  options: { type:Object, required: true},
+  options: { type: Object, required: true},
 });
 
 const { inputRef } = useCurrencyInput(props.options);

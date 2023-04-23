@@ -36,7 +36,9 @@ export const useEventStore = defineStore("event", {
     _scoutOrgaLevels: [],
     _djangoGroups: [],
     _themes: [],
+    _emailSets: [],
     _bookingOptions: [],
+    _eventLocations: [],
   }),
 
   actions: {
@@ -109,6 +111,9 @@ export const useEventStore = defineStore("event", {
         isPublic: this._eventAuth.isPublic,
 
         emailSet: this._eventCustom.emailSet.id,
+        theme: this._eventCustom.theme.id,
+        price: this._eventCustom.price,
+        location: this._eventCustom.location.id,
 
         eventPlanerModules: ["KeycloakAuthorization", "BookingOptionComplex"],
         personalDataRequired: true,
@@ -201,6 +206,30 @@ export const useEventStore = defineStore("event", {
         this._isLoading = false;
       }
     },
+    async fetchEmailSets() {
+      this._isLoading = true;
+      try {
+        const response = await MappingApi.fetchEmailSets();
+        this._emailSets = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        // // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchEventLocations() {
+      this._isLoading = true;
+      try {
+        const response = await MappingApi.fetchEventLocations();
+        this._eventLocations = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        // // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
     updateEventStart(data: any) {
       this._eventStart = data;
       this.updateEventNames({
@@ -274,7 +303,6 @@ export const useEventStore = defineStore("event", {
       return state._invitations;
     },
 
-
     // registrations
     registration: (state) => {
       return state._registration;
@@ -299,8 +327,14 @@ export const useEventStore = defineStore("event", {
     themes: (state) => {
       return state._themes;
     },
+    emailSets: (state) => {
+      return state._emailSets;
+    },
     bookingOptions: (state) => {
       return state._bookingOptions;
+    },
+    eventLocations: (state) => {
+      return state._eventLocations;
     },
   },
 });

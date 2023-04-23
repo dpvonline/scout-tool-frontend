@@ -3545,6 +3545,11 @@ uuid@^8.3.2:
   resolved "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
+uuid@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.0.tgz#592f550650024a38ceb0c562f2f6aa435761efb5"
+  integrity sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==
+
 v8-compile-cache@^2.0.3:
   version "2.3.0"
   resolved "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz"
@@ -3583,6 +3588,11 @@ vitest@~0.9.0:
     tinypool "^0.1.2"
     tinyspy "^0.3.2"
     vite "^2.9.5"
+
+vue-currency-input@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/vue-currency-input/-/vue-currency-input-3.0.4.tgz#b9e01855157160549c19f98c1350fb05097dee54"
+  integrity sha512-t6rPAGR60aLf4s24cROwh2pDKZ/38rqUVcvt7xiZVZfPKGwZaZccEX7DPEFH6autrL+me0n7RrwiQYinyj4ZMg==
 
 vue-demi@*:
   version "0.12.1"
