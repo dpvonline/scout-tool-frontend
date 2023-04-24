@@ -12,6 +12,7 @@ export const useGroupStore = defineStore("group", {
     _groupCount: 0,
     _requests: [],
     _myGroups: [],
+    _shortGroups: [],
     _groupUserAdmins: [],
     _groupAdmins: [],
     _kickableMembers: [],
@@ -177,6 +178,19 @@ export const useGroupStore = defineStore("group", {
         this._isLoading = false;
       }
     },
+    async fetchGroupsShort() {
+      this._isLoading = true;
+      this._shortGroups = [];
+      try {
+        const response = await GroupApi.fetchGroupsShort();
+        this._shortGroups = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        // // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
     async fetchGroupAdmins(id) {
       this._isLoading = true;
       this._groupAdmins = [];
@@ -238,6 +252,9 @@ export const useGroupStore = defineStore("group", {
     },
     myGroups: (state) => {
       return state._myGroups;
+    },
+    shortGroups: (state) => {
+      return state._shortGroups;
     },
     groupUserAdmins: (state) => {
       return state._groupUserAdmins;

@@ -9,10 +9,10 @@
         <BaseField
           component="Select"
           :label="'Zugriff auf Persönliche Anmeldedaten'"
-          techName="keycloakAdminPath"
-          v-model="state.keycloakAdminPath"
-          :errors="errors.keycloakAdminPath?.$errors"
-          :items="djangoGroups"
+          techName="adminGroup"
+          v-model="state.adminGroup"
+          :errors="errors.adminGroup?.$errors"
+          :items="shortGroupsshortGroups"
           hint="Diese Gruppe darf alle  persönlichen Daten der Anmeldenden sehen."
           :lookupListDisplay="['name']"
           :cols="12"
@@ -20,31 +20,31 @@
         <BaseField
           component="Select"
           :label="'Zugriff auf aggrigierte Anmeldedaten'"
-          techName="keycloakPath"
-          v-model="state.keycloakPath"
-          :errors="errors.keycloakPath?.$errors"
+          techName="viewGroup"
+          v-model="state.viewGroup"
+          :errors="errors.viewGroup?.$errors"
           :cols="12"
-          :items="djangoGroups"
+          :items="shortGroups"
           hint="Diese Gruppe darf alle nicht persönlichen Daten der Anmeldenden sehen."
           :lookupListDisplay="['name']"
         />
-        <!-- <BaseField
+        <BaseField
           component="Select"
-          :label="'limitedRegistrationHierarchy'"
-          techName="limitedRegistrationHierarchy"
-          v-model="state.limitedRegistrationHierarchy"
-          :errors="errors.limitedRegistrationHierarchy?.$errors"
+          :label="'invitedGroups'"
+          techName="invitedGroups"
+          v-model="state.invitedGroups"
+          :errors="errors.invitedGroups?.$errors"
           :cols="12"
-          :items="djangoGroups"
+          :items="shortGroups"
           hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."
           :lookupListDisplay="['name']"
-        /> -->
+        />
         <BaseField
           component="Select"
           :label="'Anmeldeebene'"
-          techName="groupRegistrationLevel"
-          v-model="state.groupRegistrationLevel"
-          :errors="errors.groupRegistrationLevel?.$errors"
+          techName="registrationLevel"
+          v-model="state.registrationLevel"
+          :errors="errors.registrationLevel?.$errors"
           :items="scoutOrgaLevels"
           hint="Die Ebene legt fest welche Ebene deine Anmeldung hat."
           :lookupListDisplay="['name']"
@@ -78,24 +78,25 @@ import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
 
 const state = reactive({
-  keycloakPath: null,
-  keycloakAdminPath: null,
-  limitedRegistrationHierarchy: null,
-  groupRegistrationLevel: null,
+  viewGroup: null,
+  adminGroup: null,
+  invitedGroups: null,
+  invitingGroup: null,
+  registrationLevel: null,
   isPublic: false,
 });
 
 const rules = {
-  keycloakPath: {
+  viewGroup: {
     required,
   },
-  keycloakAdminPath: {
+  adminGroup: {
     required,
   },
-  limitedRegistrationHierarchy: {
+  invitedGroups: {
     required,
   },
-  groupRegistrationLevel: {
+  registrationLevel: {
     required,
   },
   isPublic: {
@@ -133,17 +134,22 @@ const scoutOrgaLevels = computed(() => {
   return eventStore.scoutOrgaLevels;
 });
 
+const shortGroups = computed(() => {
+  return eventStore.shortGroups;
+});
+
 
 function setInitData() {
   isLoading.value = true;
-  state.keycloakPath = eventStore.eventAuth.keycloakPath
-  state.keycloakAdminPath = eventStore.eventAuth.keycloakAdminPath
-  state.limitedRegistrationHierarchy = eventStore.eventAuth.limitedRegistrationHierarchy
-  state.groupRegistrationLevel = eventStore.eventAuth.groupRegistrationLevel
+  state.viewGroup = eventStore.eventAuth.viewGroup
+  state.adminGroup = eventStore.eventAuth.adminGroup
+  state.invitedGroups = eventStore.eventAuth.invitedGroups
+  state.invitingGroup = eventStore.eventAuth.invitingGroup
+  state.registrationLevel = eventStore.eventAuth.registrationLevel
   state.isPublic = eventStore.eventAuth.isPublic
 
-  if (!state.groupRegistrationLevel) {
-    state.groupRegistrationLevel = scoutOrgaLevels.value[0]
+  if (!state.registrationLevel) {
+    state.registrationLevel = scoutOrgaLevels.value[0]
   }
 
   if (!state.isPublic) {

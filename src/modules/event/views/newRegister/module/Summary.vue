@@ -72,7 +72,10 @@ function onNextButtonClicked() {
 
   eventRegisterStore.create().then((response) => {
     router.push({
-      name: "RegistrationFinish",
+      name: "RegistrationsDetail",
+      params: {
+        id: response.data.id
+      }
     });
   });
 }

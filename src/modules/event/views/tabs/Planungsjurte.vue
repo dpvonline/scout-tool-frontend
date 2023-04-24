@@ -140,21 +140,21 @@ const tabs = computed(() => {
   return [
     {
       name: "Anmeldephase",
-      linkName: { name: "EventPlanungsjurte", query: { status: "pending" } },
-      count: eventOverviews.value.filter((q) => q.status === "pending").length,
-      current: query.status === "pending",
+      linkName: { name: "EventPlanungsjurte", query: { status: "open" } },
+      count: eventOverviews.value.filter((q) => q.status === "open").length,
+      current: query.status === "open",
     },
     {
       name: "Planung",
-      linkName: { name: "EventPlanungsjurte", query: { status: "future" } },
-      count: eventOverviews.value.filter((q) => q.status === "future").length,
-      current: query.status === "future",
+      linkName: { name: "EventPlanungsjurte", query: { status: "wip" } },
+      count: eventOverviews.value.filter((q) => q.status === "wip").length,
+      current: query.status === "wip",
     },
     {
       name: "Vergangenheit",
-      linkName: { name: "EventPlanungsjurte", query: { status: "expired" } },
-      count: eventOverviews.value.filter((q) => q.status === "expired").length,
-      current: query.status === "expired",
+      linkName: { name: "EventPlanungsjurte", query: { status: "closed" } },
+      count: eventOverviews.value.filter((q) => q.status === "closed").length,
+      current: query.status === "closed",
     },
   ];
 });

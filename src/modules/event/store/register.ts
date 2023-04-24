@@ -41,9 +41,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     async create() {
       const registerCreate = {
         event: this._event?.id,
-        single: true,
         scoutOrganisation: this._registerStart?.scoutGroup?.id,
-        eventCode: "AAAA",
       };
       const register = await RegistrationApi.create(registerCreate);
 
@@ -52,6 +50,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         promises.push(RegistrationApi.createParticipant(register.data.id, person));
       });
       const responses = await Promise.all(promises);
+      return register;
     },
     async fetchRegistration(id: number) {
       try {

@@ -15,7 +15,7 @@
             </div>
             <div class="ml-4">
               <h3 class="text-lg font-medium leading-6 text-gray-900">
-                {{ registration?.event?.name }}
+                Deine Anmeldung zu {{ registration?.event?.name }}
               </h3>
               <p class="text-sm text-gray-500">
                 {{ registration?.responsablePerson?.name }}
@@ -25,7 +25,6 @@
         </div>
         <div class="ml-4 mt-4 flex flex-shrink-0">
           <PrimaryButton
-            @click="onRegistrationClicked(registration.id)"
             :icon="HandThumbUpIcon"
             class="mx-0 my-2"
           >
@@ -37,28 +36,29 @@
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Einladungstext</dt>
-          <dd
-            class="mt-1 text-sm text-gray-900"
-            v-html="registration.event?.name"
-          ></dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Start</dt>
+          <dt class="text-sm font-medium text-gray-500">Deine Anmeldezahl</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{  }}
+            {{ registration?.participantCount }}
           </dd>
         </div>
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Ende</dt>
+          <dt class="text-sm font-medium text-gray-500">Dein Stamm</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{  }}
+            {{ registration.scoutOrganisation?.name }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Verantwortlich</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ registration?.responsiblePersons?.map((a) => `${a.email}`).join(", ") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Anmeldeschluss</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{  }}
+            {{
+              moment(registration?.event?.registrationDeadline).format("llll")
+            }}
           </dd>
         </div>
       </dl>
@@ -85,9 +85,8 @@ import PrimaryButton from "@/components/button/Primary.vue";
 import MessageEditOverlay from "@/modules/message/components/MessageEdit/Overlay.vue";
 import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue";
 
-import { useRouter } from "vue-router"
-const router = useRouter()
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 function onRegistrationClicked(id) {
   router.push({
@@ -97,7 +96,6 @@ function onRegistrationClicked(id) {
     },
   });
 }
-
 
 const props = defineProps({
   registration: Object,

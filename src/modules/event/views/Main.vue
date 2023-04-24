@@ -29,7 +29,7 @@ const tabs = computed(() => {
     },
     {
       name: "Planungsjurte",
-      linkName: { name: "EventPlanungsjurte", query: { status: "pending" } },
+      linkName: { name: "EventPlanungsjurte", query: { status: "open" } },
       current: route.name === "EventPlanungsjurte",
     },
   ];

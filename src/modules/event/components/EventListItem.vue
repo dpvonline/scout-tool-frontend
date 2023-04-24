@@ -30,7 +30,7 @@
             bis
             {{ moment(props.item.endDate).format("DD.MM.YYYY") }}
           </p>
-          <p class="mt-2 flex items-center text-sm text-gray-500">
+          <!-- <p class="mt-2 flex items-center text-sm text-gray-500">
             <CheckCircleIcon
               class="mr-1.5 h-5 w-5 flex-shrink-0 text-green-400"
               aria-hidden="true"
@@ -39,7 +39,7 @@
             {{
               props.item.registrationOptions.allowEditSingleReg ? "Ja" : "Nein"
             }}
-          </p>
+          </p> -->
         </div>
       </div>
     </div>

@@ -32,7 +32,7 @@
           techName="invitedGroup"
           v-model="state.invitedGroup"
           :errors="errors.invitedGroup?.$errors"
-          :items="djangoGroups"
+          :items="shortGroups"
           hint="Lege eine Standardgruppe fest, die zu dieser Veranstaltung einlädt. Die Zugriffsrechte können später genauer konfigurtiert werden."
           :lookupListDisplay="['name']"
         />
@@ -102,8 +102,8 @@ function onNextButtonClicked() {
   });
 }
 
-const myGroups = computed(() => {
-  return eventStore.myGroups;
+const shortGroups = computed(() => {
+  return eventStore.shortGroups;
 });
 
 const djangoGroups = computed(() => {

@@ -22,90 +22,187 @@
               </p>
             </div>
           </div>
-        </div>
-        <div class="ml-4 mt-4 flex flex-shrink-0">
-          <PrimaryButton
-            @click="onInvitationClicked(event.id)"
-            :icon="PaperAirplaneIcon"
-            class="mx-0 my-2"
-          >
-            Anmelden
-          </PrimaryButton>
+            <div class="ml-4 mt-4 flex flex-shrink-0">
+              <PrimaryButton
+                @click="onInvitationClicked(event.id)"
+                :icon="PaperAirplaneIcon"
+                class="mx-0 my-2"
+              >
+                Anmelden starten
+              </PrimaryButton>
+            </div>
         </div>
       </div>
     </div>
-    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Termin
+          </h3>
+          <button
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PencilSquareIcon
+              class="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Personal details and application.
+        </p>
+      </div>
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-        <div class="sm:col-span-2">
-          <dt class="text-sm font-medium text-gray-500">Einladungstext</dt>
-          <dd
-            class="mt-1 text-sm text-gray-900"
-            v-html="event.longDescription"
-          ></dd>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Veranstaltung Start</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ moment(event.startDate).format("llll") }}
+          </dd>
         </div>
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Veranstaltungsdatum</dt>
+          <dt class="text-sm font-medium text-gray-500">Veranstaltung Ende</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.startDate).format("llll") }} -
             {{ moment(event.endDate).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Anmeldezeitraum</dt>
+          <dt class="text-sm font-medium text-gray-500">Anmeldestart</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.registrationStart).format("llll") }} -
+            {{ moment(event.registrationStart).format("llll") }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Anmeldeschluss</dt>
+          <dd class="mt-1 text-sm text-gray-900">
             {{ moment(event.registrationDeadline).format("llll") }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Anmeldung Änderbar bis
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ moment(event.lastPossibleUpdate).format("llll") }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Ort
+          </h3>
+          <button
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PencilSquareIcon
+              class="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          An welchem Ort findet das Lager statt?
+        </p>
+      </div>
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Name</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.location?.name }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Entfernung</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ (event?.location?.distance || 0).toFixed(0) }} Km
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Ort</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event?.location?.zipCode?.city }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Rechte und Zugriffe
+          </h3>
+          <button
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PencilSquareIcon
+              class="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Wer kann die Daten sehen und ändern?
+        </p>
+      </div>
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Wer darf deine Anmeldungen sehen?
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.viewGroup?.name }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Wer darf die persönlichen Daten deiner Anmeldungen sehen?
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.adminGroup?.name }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Welche Organisation läd ein?
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.invitingGroup?.name }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Veranwortliche Personen
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.responsiblePersons?.map((a) => `${a}`).join(", ") }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Ebene der Anmeldung</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.registrationLevel?.name }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Wer ist eingeladen?</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ event.limitedRegistrationHierarchy?.name }}
-          </dd>
-        </div>
-  
-        <div class="sm:col-span-2" v-if="event.eventmodulemapperSet?.length">
-          <dt class="text-sm font-medium text-gray-500">
-            Welchen Daten brauchst du?
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            <ul
-              role="list"
-              class="divide-y divide-gray-200 rounded-md border border-gray-200"
-            >
-              <li
-                class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
-                v-for="child in event?.eventmodulemapperSet"
-                :key="child.ordering"
-              >
-                <div class="flex w-0 flex-1 items-center">
-                  <QueueListIcon
-                    class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  <span> {{ child.module.header }}</span>
-                </div>
-                <div class="ml-4 flex-shrink-0">
-                  <router-link
-                    v-if="child.ordering"
-                    :to="{
-                      name: 'GroupOverview',
-                      params: {
-                        id: 1,
-                      },
-                    }"
-                    class="text-blue-600 hover:text-blue-900"
-                    >Admingruppe öffnen<span class="sr-only"
-                      >, {{ child.ordering }}</span
-                    ></router-link
-                  >
-                </div>
-              </li>
-            </ul>
+            {{ event.invitedGroups?.map((a) => `${a.name}`).join(", ") }}
           </dd>
         </div>
       </dl>
     </div>
+    <!-- <EventEditOverlay
+      :open="openEventEdit"
+      :items="eventData"
+      @close="onEventClosedClicked"
+      header="Event bearbeiten"
+    /> -->
   </div>
 </template>
 
@@ -123,6 +220,7 @@ import {
   CalendarIcon,
   PaperAirplaneIcon,
   QueueListIcon,
+  PencilSquareIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 

@@ -33,7 +33,7 @@
             />
             {{
               props.item.participantCount
-            }} angemeldet ({{ props.item.price || 0 }} €)
+            }} angemeldet ({{ (props.item.price || 0).toFixed(2) }} €)
           </p>
         </div>
       </div>

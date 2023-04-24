@@ -106,9 +106,11 @@ export const useEventStore = defineStore("event", {
         registrationDeadline: this._eventDates.registrationDeadline,
         lastPossibleUpdate: this._eventDates.lastPossibleUpdate,
 
-        keycloakAdminPath: this._eventAuth.keycloakAdminPath.id,
-        keycloakPath: this._eventAuth.keycloakPath.id,
+        adminGroup: this._eventAuth.adminGroup.id,
+        viewGroup: this._eventAuth.viewGroup.id,
         isPublic: this._eventAuth.isPublic,
+        invitedGroups: [this._eventAuth.invitedGroups.id],
+        invitingGroup: this._eventAuth.invitingGroup.id,
 
         emailSet: this._eventCustom.emailSet.id,
         theme: this._eventCustom.theme.id,
@@ -117,7 +119,7 @@ export const useEventStore = defineStore("event", {
 
         eventPlanerModules: ["KeycloakAuthorization", "BookingOptionComplex"],
         personalDataRequired: true,
-        single_registration: "E",
+        singleRegistration: "E",
       };
       return EventApi.create(eventCreate);
     },
@@ -248,9 +250,10 @@ export const useEventStore = defineStore("event", {
           .format(format1),
       });
       this.updateEventAuth({
-        keycloakAdminPath: data.invitedGroup,
-        keycloakPath: data.invitedGroup,
-        limitedRegistrationHierarchy: data.invitedGroup,
+        adminGroup: data.invitedGroup,
+        viewGroup: data.invitedGroup,
+        invitedGroups: data.invitedGroup,
+        invitingGroup: data.invitedGroup,
         isPublic: false,
       });
     },
