@@ -29,6 +29,9 @@ export default {
   fetchById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}-read/${id}/`);
   },
+  fetchTechById(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/`);
+  },
   create(data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/`, data );
   },

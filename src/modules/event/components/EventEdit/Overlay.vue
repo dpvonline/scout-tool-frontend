@@ -1,19 +1,22 @@
 <template>
-<OverlayBasic :open="open" :header="header" @close="onCloseClicked">
-  <Form :items="items"></Form>
-</OverlayBasic>
+  <OverlayBasic :open="open" :header="header" @close="onCloseClicked">
+    <component :is="formArray[props.formNo]" :items="items"></component>
+  </OverlayBasic>
 </template>
 
 <script setup lang="ts">
-
-import Form from "./Form.vue"
-import OverlayBasic from '@/components/overlay/Basic.vue'
+import FormNames from "./FormNames.vue";
+import FormDates from "./FormDates.vue";
+import OverlayBasic from "@/components/overlay/Basic.vue";
 
 const props = defineProps({
   open: Boolean,
   header: String,
   items: Object,
+  formNo: Number,
 });
+
+const formArray = [FormNames, FormDates]
 
 const emit = defineEmits(["close"]);
 

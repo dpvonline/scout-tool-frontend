@@ -32,6 +32,7 @@
             Namen und Texte
           </h3>
           <button
+            @click="onEventEditClicked(0)"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -80,6 +81,7 @@
             Termine
           </h3>
           <button
+            @click="onEventEditClicked(1)"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -135,6 +137,7 @@
             Ort
           </h3>
           <button
+            @click="onEventEditClicked"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -176,6 +179,7 @@
             Rechte und Zugriffe
           </h3>
           <button
+            @click="onEventEditClicked"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -251,6 +255,7 @@
             Layout und Design
           </h3>
           <button
+            @click="onEventEditClicked"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -284,6 +289,7 @@
       :items="eventData"
       @close="onEventClosedClicked"
       header="Event bearbeiten"
+      :formNo="eventEditForm"
     />
   </div>
 </template>
@@ -292,6 +298,10 @@
 import { ref } from "vue";
 
 import moment from "moment";
+import localization from 'moment/locale/de';
+
+moment.updateLocale('de', localization);
+
 import {
   PencilIcon,
   CalendarIcon,
@@ -306,10 +316,12 @@ const eventData = ref({});
 
 // issue
 const openEventEdit = ref(false);
+const eventEditForm = ref(0);
 
-function onEventEditClicked() {
+function onEventEditClicked(formNo) {
   openEventEdit.value = true;
   eventData.value = props.event;
+  eventEditForm.value = formNo
 }
 
 function onEventClosedClicked() {
