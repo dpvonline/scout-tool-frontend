@@ -22,15 +22,15 @@
               </p>
             </div>
           </div>
-            <div class="ml-4 mt-4 flex flex-shrink-0">
-              <PrimaryButton
-                @click="onInvitationClicked(event.id)"
-                :icon="PaperAirplaneIcon"
-                class="mx-0 my-2"
-              >
-                Anmelden starten
-              </PrimaryButton>
-            </div>
+          <div class="ml-4 mt-4 flex flex-shrink-0">
+            <PrimaryButton
+              @click="onInvitationClicked(event.id)"
+              :icon="PaperAirplaneIcon"
+              class="mx-0 my-2"
+            >
+              Anmelden starten
+            </PrimaryButton>
+          </div>
         </div>
       </div>
     </div>
@@ -40,15 +40,6 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Termin
           </h3>
-          <button
-            type="button"
-            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            <PencilSquareIcon
-              class="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
-          </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           Personal details and application.
@@ -95,15 +86,6 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Ort
           </h3>
-          <button
-            type="button"
-            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            <PencilSquareIcon
-              class="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
-          </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           An welchem Ort findet das Lager statt?
@@ -136,15 +118,6 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Rechte und Zugriffe
           </h3>
-          <button
-            type="button"
-            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            <PencilSquareIcon
-              class="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
-          </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           Wer kann die Daten sehen und ändern?
@@ -196,6 +169,55 @@
           </dd>
         </div>
       </dl>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Datenabfrage
+          </h3>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Welche Daten brauchst du für die Anmeldung?
+        </p>
+      </div>
+      <div class="sm:col-span-2" v-if="event.eventmodulemapperSet?.length">
+        <dd class="mt-1 text-sm text-gray-900">
+          <ul
+            role="list"
+            class="divide-y divide-gray-200 rounded-md border border-gray-200"
+          >
+            <li
+              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              v-for="child in event?.eventmodulemapperSet"
+              :key="child.ordering"
+            >
+              <div class="flex w-0 flex-1 items-center">
+                <QueueListIcon
+                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                  aria-hidden="true"
+                />
+                <span> {{ child.module.header }}</span>
+              </div>
+              <div class="ml-4 flex-shrink-0">
+                <!-- <router-link
+                  v-if="child.ordering"
+                  :to="{
+                    name: 'GroupOverview',
+                    params: {
+                      id: 1,
+                    },
+                  }"
+                  class="text-blue-600 hover:text-blue-900"
+                  >Admingruppe öffnen<span class="sr-only"
+                    >, {{ child.ordering }}</span
+                  ></router-link
+                > -->
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </div>
     </div>
     <!-- <EventEditOverlay
       :open="openEventEdit"
