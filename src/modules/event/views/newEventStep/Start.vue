@@ -60,6 +60,9 @@ const eventStore = useEventStore();
 import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
 
+import { useGroupStore } from "@/modules/group/store/index";
+const groupStore = useGroupStore();
+
 const format1 = "YYYY-MM-DD"
 
 const state = reactive({
@@ -103,7 +106,7 @@ function onNextButtonClicked() {
 }
 
 const shortGroups = computed(() => {
-  return eventStore.shortGroups;
+  return groupStore.shortGroups;
 });
 
 const djangoGroups = computed(() => {
@@ -123,7 +126,7 @@ function setInitData() {
     state.startDate = moment(new Date()).subtract(-2, 'month').format(format1)
   }
   if (!state.invitedGroup) {
-    state.invitedGroup = djangoGroups.value[0]
+    state.invitedGroup = shortGroups.value[0]
   }
   isLoading.value = false;
 }
@@ -137,6 +140,7 @@ onMounted(async () => {
     eventStore.fetchThemes(),
     eventStore.fetchEmailSets(),
     eventStore.fetchEventLocations(),
+    groupStore.fetchGroupsShort(),
   ]);
 
   setInitData();

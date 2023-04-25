@@ -12,7 +12,7 @@
           techName="adminGroup"
           v-model="state.adminGroup"
           :errors="errors.adminGroup?.$errors"
-          :items="shortGroupsshortGroups"
+          :items="shortGroups"
           hint="Diese Gruppe darf alle  persönlichen Daten der Anmeldenden sehen."
           :lookupListDisplay="['name']"
           :cols="12"
@@ -30,7 +30,7 @@
         />
         <BaseField
           component="Select"
-          :label="'invitedGroups'"
+          :label="'Eingeladene Gruppen'"
           techName="invitedGroups"
           v-model="state.invitedGroups"
           :errors="errors.invitedGroups?.$errors"
@@ -76,6 +76,9 @@ const eventStore = useEventStore();
 
 import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
+
+import { useGroupStore } from "@/modules/group/store/index";
+const groupStore = useGroupStore();
 
 const state = reactive({
   viewGroup: null,
@@ -135,7 +138,7 @@ const scoutOrgaLevels = computed(() => {
 });
 
 const shortGroups = computed(() => {
-  return eventStore.shortGroups;
+  return groupStore.shortGroups;
 });
 
 
