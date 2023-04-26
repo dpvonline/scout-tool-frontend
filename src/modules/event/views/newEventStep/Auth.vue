@@ -29,14 +29,26 @@
           :lookupListDisplay="['name']"
         />
         <BaseField
-          component="Select"
+          component="AutoCompleteMulti"
           :label="'Eingeladene Gruppen'"
           techName="invitedGroups"
           v-model="state.invitedGroups"
           :errors="errors.invitedGroups?.$errors"
           :cols="12"
-          :items="shortGroups"
+          :items="shortGroups2"
           hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."
+          :lookupListDisplay="['name']"
+          valueField="value"
+        />
+        <BaseField
+          component="Select"
+          :label="'Einladene Gruppe'"
+          techName="invitingGroup"
+          v-model="state.invitingGroup"
+          :errors="errors.invitingGroup?.$errors"
+          :cols="12"
+          :items="shortGroups"
+          hint="Welche Gruppe lädt ein?"
           :lookupListDisplay="['name']"
         />
         <BaseField
@@ -83,7 +95,7 @@ const groupStore = useGroupStore();
 const state = reactive({
   viewGroup: null,
   adminGroup: null,
-  invitedGroups: null,
+  invitedGroups: [],
   invitingGroup: null,
   registrationLevel: null,
   isPublic: false,
@@ -97,6 +109,9 @@ const rules = {
     required,
   },
   invitedGroups: {
+    required,
+  },
+  invitingGroup: {
     required,
   },
   registrationLevel: {
@@ -139,6 +154,22 @@ const scoutOrgaLevels = computed(() => {
 
 const shortGroups = computed(() => {
   return groupStore.shortGroups;
+});
+
+const shortGroups2 = computed(() => {
+  if (groupStore.shortGroups && groupStore.shortGroups.length) {
+    console.log(groupStore.shortGroups);
+    let arr = JSON.parse(JSON.stringify(groupStore.shortGroups));
+    arr.forEach(function (data) {
+      data["value"] = data["id"];
+      data["label"] = data["name"];
+      delete data["id"];
+      delete data["name"];
+    });
+    return arr;
+  } else {
+    return [];
+  }
 });
 
 

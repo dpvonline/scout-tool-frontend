@@ -37,7 +37,7 @@
           :cols="12"
         />
         <BaseField
-          component="TextArea"
+          component="Html"
           :label="'Einladungstext'"
           techName="longDescription"
           v-model="state.longDescription"

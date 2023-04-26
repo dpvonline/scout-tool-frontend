@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import FormNames from "./FormNames.vue";
 import FormDates from "./FormDates.vue";
+import FormAuth from "./FormAuth.vue";
 import OverlayBasic from "@/components/overlay/Basic.vue";
 
 const props = defineProps({
@@ -16,7 +17,7 @@ const props = defineProps({
   formNo: Number,
 });
 
-const formArray = [FormNames, FormDates]
+const formArray = [FormNames, FormDates, FormAuth]
 
 const emit = defineEmits(["close"]);
 

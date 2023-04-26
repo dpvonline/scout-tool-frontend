@@ -82,7 +82,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         gender: data.gender,
         street: data.street,
         zipCode: data.zipCode,
-        eatHabit: [data.eatHabit?.name],
+        eatHabit: data.eatHabit,
         bookingOption: data.bookingOption?.id,
       });
     },

@@ -109,7 +109,7 @@ export const useEventStore = defineStore("event", {
         adminGroup: this._eventAuth.adminGroup.id,
         viewGroup: this._eventAuth.viewGroup.id,
         isPublic: this._eventAuth.isPublic,
-        invitedGroups: [this._eventAuth.invitedGroups.id],
+        invitedGroups: this._eventAuth.invitedGroups,
         invitingGroup: this._eventAuth.invitingGroup.id,
 
         emailSet: this._eventCustom.emailSet.id,
@@ -252,7 +252,7 @@ export const useEventStore = defineStore("event", {
       this.updateEventAuth({
         adminGroup: data.invitedGroup,
         viewGroup: data.invitedGroup,
-        invitedGroups: data.invitedGroup,
+        invitedGroups: [data.invitedGroup],
         invitingGroup: data.invitedGroup,
         isPublic: false,
       });

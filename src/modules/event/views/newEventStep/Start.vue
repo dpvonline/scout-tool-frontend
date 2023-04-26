@@ -141,6 +141,7 @@ onMounted(async () => {
     eventStore.fetchEmailSets(),
     eventStore.fetchEventLocations(),
     groupStore.fetchGroupsShort(),
+    registerStore.fetchAllMappings(),
   ]);
 
   setInitData();

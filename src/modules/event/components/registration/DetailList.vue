@@ -23,11 +23,11 @@
             </div>
           </div>
         </div>
-        <div class="ml-4 mt-4 flex flex-shrink-0">
+        <!-- <div class="ml-4 mt-4 flex flex-shrink-0">
           <PrimaryButton :icon="HandThumbUpIcon" class="mx-0 my-2">
             bearbeiten
           </PrimaryButton>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">

@@ -136,7 +136,7 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Ort
           </h3>
-          <button
+          <!-- <button
             @click="onEventEditClicked"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -145,7 +145,7 @@
               class="h-5 w-5 text-gray-400"
               aria-hidden="true"
             />
-          </button>
+          </button> -->
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           An welchem Ort findet das Lager statt?
@@ -179,7 +179,7 @@
             Rechte und Zugriffe
           </h3>
           <button
-            @click="onEventEditClicked"
+            @click="onEventEditClicked(2)"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -254,7 +254,7 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Layout und Design
           </h3>
-          <button
+          <!-- <button
             @click="onEventEditClicked"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -263,7 +263,7 @@
               class="h-5 w-5 text-gray-400"
               aria-hidden="true"
             />
-          </button>
+          </button> -->
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           Besondere Anpassungen
@@ -298,9 +298,7 @@
 import { ref } from "vue";
 
 import moment from "moment";
-import localization from 'moment/locale/de';
 
-moment.updateLocale('de', localization);
 
 import {
   PencilIcon,

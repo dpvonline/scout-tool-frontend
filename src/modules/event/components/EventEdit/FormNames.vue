@@ -7,14 +7,14 @@
       label="Kurze Beschreibung"
     />
     <BaseField
-      component="TextArea"
+      component="Html"
       v-model="state.longDescription"
       label="Einladungstext"
     />
     <BaseField
       component="TextArea"
       v-model="state.technicalName"
-      label="Einladungstext"
+      label="Technischer Name"
     />
 
     <PrimaryButton
@@ -69,7 +69,6 @@ function onSaveClicked() {
   v$.value.$validate();
   errors.value = v$.value;
   if (errors.value.$error) {
-    debugger;
     commonStore.showError("Bitte Felder überprüfen");
     return;
   }
@@ -82,15 +81,12 @@ function onSaveClicked() {
   returnObj.longDescription = state.longDescription;
   returnObj.technicalName = state.technicalName;
 
-  debugger;
-
   eventEditStore
     .updateEvent(returnObj)
     .then((response) => goToRoute(response.data.id));
 }
 
 function goToRoute(id: number) {
-  debugger;
   router.push({
     name: "EventDetail",
     params: {

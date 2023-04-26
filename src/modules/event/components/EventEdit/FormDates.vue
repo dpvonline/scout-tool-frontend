@@ -104,7 +104,6 @@ function onSaveClicked() {
   v$.value.$validate();
   errors.value = v$.value;
   if (errors.value.$error) {
-    debugger;
     commonStore.showError("Bitte Felder überprüfen");
     return;
   }
@@ -118,15 +117,12 @@ function onSaveClicked() {
   returnObj.registrationDeadline = state.registrationDeadline;
   returnObj.lastPossibleUpdate = state.lastPossibleUpdate;
 
-  debugger;
-
   eventEditStore
     .updateEvent(returnObj)
     .then((response) => goToRoute(response.data.id));
 }
 
 function goToRoute(id: number) {
-  debugger;
   router.push({
     name: "EventDetail",
     params: {
