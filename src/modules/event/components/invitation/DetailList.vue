@@ -28,7 +28,7 @@
               :icon="PaperAirplaneIcon"
               class="mx-0 my-2"
             >
-              Anmelden starten
+              Anmeldung starten
             </PrimaryButton>
           </div>
         </div>
@@ -42,7 +42,7 @@
           </h3>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Personal details and application.
+          Alles rund um die Termine
         </p>
       </div>
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
@@ -279,6 +279,9 @@ import {
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
+import { useEventRegisterStore } from "@/modules/event/store/register.ts";
+const eventRegisterStore = useEventRegisterStore();
+
 import MessageEditOverlay from "@/modules/message/components/MessageEdit/Overlay.vue";
 import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
@@ -287,6 +290,8 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 function onInvitationClicked(id) {
+  eventRegisterStore.$reset();
+
   router.push({
     name: "RegistrationNewStart",
     params: {

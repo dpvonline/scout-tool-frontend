@@ -1,6 +1,10 @@
 <template>
   <TabWrapper>
-    <SimpleList :items="notificationsFiltered" :isLoading="isLoading" detailPageLink="NotificationDetail">
+    <SimpleList
+      :items="notificationsFiltered"
+      :isLoading="isLoading"
+      detailPageLink="NotificationDetail"
+    >
       <template v-slot:notEmpty="slotProps">
         <NotificationListItem :item="slotProps.item" />
       </template>
@@ -34,43 +38,46 @@ import EventListItemEmpty from "@/modules/event/components/EventListItemEmpty.vu
 const notificationsStore = useNotificationStore();
 
 const notifications = computed(() => {
-  return notificationsStore.notifications
+  return notificationsStore.notifications;
 });
 
 const notificationCount = computed(() => {
-  return notificationsStore.notificationCount
+  return notificationsStore.notificationCount;
 });
 
 const isLoading = computed(() => {
-  return notificationsStore.isLoading
+  return notificationsStore.isLoading;
 });
 
 const notificationsFiltered = computed(() => {
-const query = { ...router.currentRoute.value.query };
-  return notificationsStore.notifications.filter(q => q.status === query.status)
+  const query = { ...router.currentRoute.value.query };
+  return notificationsStore.notifications.filter(
+    (q) => q.status === query.status
+  );
 });
 
-const selectedValue = ref('all');
+const selectedValue = ref("Alle Benachrichtigungen");
 
 function onChange(event) {
-  const linkName = tabs.value.find(item => item.name === selectedValue.value)['linkName']
-  router.push(linkName)
+  const linkName = tabs.value.find((item) => item.name === selectedValue.value)[
+    "linkName"
+  ];
+  router.push(linkName);
 }
 
 const tabs = computed(() => {
-const query = { ...router.currentRoute.value.query };
+  const query = { ...router.currentRoute.value.query };
   return [
     {
       name: "Alle Benachrichtigungen",
       linkName: { name: "AllNotification" },
       count: notifications.value.length,
-      current: query.status === 'all',
+      current: query.status === "all",
     },
   ];
 });
 
 import { useRouter } from "vue-router";
-
 
 const router = useRouter();
 

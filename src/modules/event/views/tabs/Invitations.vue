@@ -8,19 +8,7 @@
         name="tabs"
         @change="onChange($event)"
         v-model="selectedValue"
-        class="
-          mt-4
-          block
-          w-full
-          rounded-md
-          border-gray-300
-          py-2
-          pl-3
-          pr-10
-          text-base
-          focus:border-blue-500 focus:outline-none focus:ring-blue-500
-          sm:text-sm
-        "
+        class="mt-4 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
       >
         <option
           :value="tab.name"
@@ -67,11 +55,11 @@
       detailPageLink="InvitationDetail"
     >
       <template v-slot:notEmpty="slotProps">
-      <InvitationListItem :item="slotProps.item" />
+        <InvitationListItem :item="slotProps.item" />
       </template>
       <template v-slot:empty>
         <EventListItemEmpty>
-        Du bist aktuell bei keiner Veranstaltungen eingeladen
+          Du bist aktuell zu keiner Veranstaltungen eingeladen
         </EventListItemEmpty>
       </template>
     </SimpleList>
@@ -93,8 +81,8 @@ import { useDashboardStore } from "@/modules/dashboard/store/index";
 import RequestListButton from "@/modules/group/components/RequestListButton.vue";
 import SimpleList from "@/components/list/SimpleList.vue";
 import TabWrapper from "@/components/base/TabWrapper.vue";
-import InvitationListItem from '@/modules/event/components/invitation/InvitationListItem.vue'
-import EventListItemEmpty from '@/modules/event/components/EventListItemEmpty.vue'
+import InvitationListItem from "@/modules/event/components/invitation/InvitationListItem.vue";
+import EventListItemEmpty from "@/modules/event/components/EventListItemEmpty.vue";
 import { useEventStore } from "@/modules/event/store";
 
 const eventStore = useEventStore();
@@ -112,7 +100,7 @@ const invitationsFiltered = computed(() => {
   return invitations.value.filter((q) => q.status === query.status);
 });
 
-const selectedValue = ref("Offen");
+const selectedValue = ref("Ausstend");
 
 function onChange(event) {
   const linkName = tabs.value.find((item) => item.name === selectedValue.value)[
@@ -123,6 +111,7 @@ function onChange(event) {
 
 const tabs = computed(() => {
   const query = { ...router.currentRoute.value.query };
+
   return [
     {
       name: "Ausstend",
@@ -133,8 +122,7 @@ const tabs = computed(() => {
     {
       name: "Angemeldet",
       linkName: { name: "EventInvitations", query: { status: "already" } },
-      count:
-        invitations.value.filter((q) => q.status === "already").length | 0,
+      count: invitations.value.filter((q) => q.status === "already").length | 0,
       current: query.status === "already",
     },
     {
@@ -159,5 +147,4 @@ const router = useRouter();
 onMounted(() => {
   eventStore.fetchMyInvitations();
 });
-
 </script>

@@ -238,6 +238,7 @@ export const useEventStore = defineStore("event", {
         name: data.name,
         technicalName: data.name.replace(/[^A-Z0-9]/gi, "_").toLowerCase(),
         shortDescription: data.name,
+        longDescription: `Einladungtext für ${data.name}`,
       });
       this.updateEventDates({
         startDate: moment(data.startDate).set({ hour: 18, minute: 0, seconds: 0 }).format(format1),

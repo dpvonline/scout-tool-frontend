@@ -2,8 +2,8 @@
   <PageWrapper>
     <Breadcrumbs :pages="pages" />
     <main class="relative flex-1 focus:outline-none">
-      <EventDetailList :event="event" v-if="!isLoading"/>
-      <LoadingItem v-else/>
+      <EventDetailList :event="event" v-if="!isLoading" />
+      <LoadingItem v-else />
     </main>
   </PageWrapper>
 </template>
@@ -35,7 +35,7 @@ const event = computed(() => {
 const isLoading = computed(() => {
   return eventStore.isLoading;
 });
-const pages = [{ name: "Alle Veranstaltungen", link: "EventMain" }];
+const pages = [{ name: "Alle Veranstaltungen", link: "EventPlanungsjurte" }];
 
 onMounted(() => {
   const id = route.params.id;

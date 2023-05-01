@@ -365,7 +365,7 @@ const navigation = computed(() => {
       count: openTaskCount,
     },
     {
-      name: "Veranstaltungen (Beta)",
+      name: "Veranstaltungen",
       linkName: "EventMain",
       icon: CalendarDaysIcon,
       route: "event",

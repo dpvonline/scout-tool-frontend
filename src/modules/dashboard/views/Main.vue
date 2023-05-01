@@ -17,15 +17,7 @@
                   <div class="sm:flex sm:space-x-5">
                     <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                       <span
-                        class="
-                          inline-flex
-                          h-16
-                          w-16
-                          items-center
-                          justify-center
-                          rounded-full
-                          bg-blue-100
-                        "
+                        class="inline-flex h-16 w-16 items-center justify-center rounded-full bg-blue-100"
                       >
                         <span
                           class="text-xl font-medium leading-none text-black"
@@ -46,48 +38,43 @@
                   <div class="mt-5 flex justify-center sm:mt-0">
                     <router-link
                       :to="{ name: 'SettingsGeneral' }"
-                      class="
-                        flex
-                        items-center
-                        justify-center
-                        rounded-md
-                        border border-gray-300
-                        bg-white
-                        px-4
-                        py-2
-                        text-sm
-                        font-medium
-                        text-gray-700
-                        shadow-sm
-                        hover:bg-gray-50
-                      "
+                      class="flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
                       >Profil</router-link
                     >
                   </div>
                 </div>
               </div>
               <div
-                class="
-                  grid grid-cols-1
-                  divide-y divide-gray-200
-                  border-t border-gray-200
-                  bg-gray-50
-                  sm:grid-cols-3 sm:divide-y-0 sm:divide-x
-                "
+                class="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x"
               >
                 <div class="px-6 py-5 text-center text-sm font-medium">
-                  <span class="text-blue-600 mr-1">{{ messageStore.unProcessedMessages }}</span>
-                  <router-link :to="{name: 'NewMessages'}" class="text-blue-600">Offene Issues</router-link>
+                  <span class="text-blue-600 mr-1">{{
+                    messageStore.unProcessedMessages
+                  }}</span>
+                  <router-link
+                    :to="{ name: 'NewMessages' }"
+                    class="text-blue-600"
+                    >Offene Issues</router-link
+                  >
                 </div>
 
                 <div class="px-6 py-5 text-center text-sm font-medium">
                   <span class="text-blue-600 mr-1">{{ openTaskCount }}</span>
-                  <router-link :to="{ name: 'AllTasks' }" class="text-blue-600">Aufgaben</router-link >
+                  <router-link :to="{ name: 'AllTasks' }" class="text-blue-600"
+                    >Aufgaben</router-link
+                  >
                 </div>
 
                 <div class="px-6 py-5 text-center text-sm font-medium">
                   <span class="text-blue-600 mr-1">0</span>
-                  <router-link :to="{ name: 'EventMain' }" class="text-blue-600">offene Veranstaltungen</router-link>
+                  <router-link
+                    :to="{
+                      name: 'EventInvitations',
+                      query: { status: 'pending' },
+                    }"
+                    class="text-blue-600"
+                    >offene Einladungen</router-link
+                  >
                 </div>
               </div>
             </div>
@@ -120,10 +107,7 @@
                       v-if="notifications.length"
                     >
                       <div
-                        class="
-                          relative
-                          focus-within:ring-2 focus-within:ring-blue-500
-                        "
+                        class="relative focus-within:ring-2 focus-within:ring-blue-500"
                       >
                         <h3 class="text-sm font-semibold text-gray-800">
                           <router-link
@@ -151,37 +135,22 @@
                           }}
                           Tagen
                         </p>
-                        <p class="text-sm text-gray-500">{{
-                          moment(notification.timestamp).format("llll")
-                        }}</p>
+                        <p class="text-sm text-gray-500">
+                          {{ moment(notification.timestamp).format("llll") }}
+                        </p>
                       </div>
                     </li>
                     <li v-else>
-                        <h3 class="text-sm font-semibold text-gray-800">
-                          Keine neue Benachrichtigungen
-                        </h3>
+                      <h3 class="text-sm font-semibold text-gray-800">
+                        Keine neue Benachrichtigungen
+                      </h3>
                     </li>
                   </ul>
                 </div>
                 <div class="mt-6">
                   <router-link
                     :to="{ name: 'AllNotification' }"
-                    class="
-                      flex
-                      w-full
-                      items-center
-                      justify-center
-                      rounded-md
-                      border border-gray-300
-                      bg-white
-                      px-4
-                      py-2
-                      text-sm
-                      font-medium
-                      text-gray-700
-                      shadow-sm
-                      hover:bg-gray-50
-                    "
+                    class="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
                     >Alle Benachrichtigungen</router-link
                   >
                 </div>
@@ -218,21 +187,7 @@
                         <div>
                           <router-link
                             :to="{ name: 'EventPlanungsjurte' }"
-                            class="
-                              inline-flex
-                              items-center
-                              rounded-full
-                              border border-gray-300
-                              bg-white
-                              px-2.5
-                              py-0.5
-                              text-sm
-                              font-medium
-                              leading-5
-                              text-gray-700
-                              shadow-sm
-                              hover:bg-gray-50
-                            "
+                            class="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50"
                             >Öffnen</router-link
                           >
                         </div>
@@ -243,22 +198,7 @@
                 <div class="mt-6">
                   <a
                     href="#"
-                    class="
-                      flex
-                      w-full
-                      items-center
-                      justify-center
-                      rounded-md
-                      border border-gray-300
-                      bg-white
-                      px-4
-                      py-2
-                      text-sm
-                      font-medium
-                      text-gray-700
-                      shadow-sm
-                      hover:bg-gray-50
-                    "
+                    class="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
                     >Alle Veranstaltungen</a
                   >
                 </div>

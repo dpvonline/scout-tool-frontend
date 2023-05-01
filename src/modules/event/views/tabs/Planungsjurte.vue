@@ -1,6 +1,11 @@
 <template>
   <TabWrapper>
-    <PrimaryButton @click="onNewEventButtonClicked" class="my-2" color="blue" :icon="PlusIcon">
+    <PrimaryButton
+      @click="onNewEventButtonClicked"
+      class="my-2"
+      color="blue"
+      :icon="PlusIcon"
+    >
       Neue Veranstaltungen erstellen
     </PrimaryButton>
     <!-- Tabs -->
@@ -11,19 +16,7 @@
         name="tabs"
         @change="onChange($event)"
         v-model="selectedValue"
-        class="
-          mt-4
-          block
-          w-full
-          rounded-md
-          border-gray-300
-          py-2
-          pl-3
-          pr-10
-          text-base
-          focus:border-blue-500 focus:outline-none focus:ring-blue-500
-          sm:text-sm
-        "
+        class="mt-4 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
       >
         <option
           :value="tab.name"
@@ -70,11 +63,11 @@
       detailPageLink="EventDetail"
     >
       <template v-slot:notEmpty="slotProps">
-      <EventListItem :item="slotProps.item" />
+        <EventListItem :item="slotProps.item" />
       </template>
       <template v-slot:empty>
         <EventListItemEmpty>
-          Du bist aktuell bei keiner Veranstaltungen angemeldet
+          Du hast bisher auf keine Veranstaltung Zugriff.
         </EventListItemEmpty>
       </template>
     </SimpleList>
@@ -98,7 +91,7 @@ import RequestListButton from "@/modules/group/components/RequestListButton.vue"
 import SimpleList from "@/components/list/SimpleList.vue";
 import TabWrapper from "@/components/base/TabWrapper.vue";
 import EventListItem from "@/modules/event/components/EventListItem.vue";
-import EventListItemEmpty from '@/modules/event/components/EventListItemEmpty.vue'
+import EventListItemEmpty from "@/modules/event/components/EventListItemEmpty.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import { useEventStore } from "@/modules/event/store";
 
@@ -112,8 +105,8 @@ const eventOverviews = computed(() => {
 });
 
 function onNewEventButtonClicked() {
-    router.push({
-    name: 'EventNewStart',
+  router.push({
+    name: "EventNewStart",
   });
 }
 
@@ -126,7 +119,7 @@ const eventOverviewFiltered = computed(() => {
   return eventOverviews.value.filter((q) => q.status === query.status);
 });
 
-const selectedValue = ref("Offen");
+const selectedValue = ref("Anmeldephase");
 
 function onChange(event) {
   const linkName = tabs.value.find((item) => item.name === selectedValue.value)[
