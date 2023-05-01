@@ -153,7 +153,7 @@
       </div>
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500"> Name</dt>
+          <dt class="text-sm font-medium text-gray-500">Name</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ event.location?.name }}
           </dd>
@@ -199,7 +199,7 @@
             Wer darf die Anmeldungen sehen?
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ event.viewGroup?.name }}
+            {{ event.viewGroup?.displayName }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -207,7 +207,7 @@
             Wer darf die persönliche Daten der Anmeldungen sehen?
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ event.adminGroup?.name }}
+            {{ event.adminGroup?.displayName }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -215,7 +215,7 @@
             Welche Organisation läd ein?
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ event.invitingGroup?.name }}
+            {{ event.invitingGroup?.displayName }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -235,7 +235,7 @@
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Wer ist eingeladen?</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ event.invitedGroups?.map((a) => `${a.name}`).join(", ") }}
+            {{ event.invitedGroups?.map((a) => `${a.displayName}`).join(", ") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -252,10 +252,121 @@
       <div class="pb-3">
         <div class="flex w-0 items-center">
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
-            Layout und Design
+            Buchungs Optionen
+          </h3>
+          <button
+            @click="onEventEditClicked(3, {})"
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PlusCircleIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </button>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"></p>
+      </div>
+      <div class="sm:col-span-2" v-if="event?.bookingOptions?.length">
+        <dd class="mt-1 text-sm text-gray-900">
+          <ul
+            role="list"
+            class="divide-y divide-gray-200 rounded-md border border-gray-200"
+          >
+            <li
+              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              v-for="child in event?.bookingOptions"
+              :key="child.id"
+            >
+              <div class="flex w-0 flex-1 items-center">
+                <AdjustmentsVerticalIcon
+                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                  aria-hidden="true"
+                />
+                <span> {{ `${child.name} - ${child.price} €` }}</span>
+                <button
+                  @click="onEventEditClicked(3, child)"
+                  type="button"
+                  class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  <PencilSquareIcon
+                    class="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
+              <div class="ml-4 flex-shrink-0"></div>
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Module
           </h3>
           <!-- <button
-            @click="onEventEditClicked"
+            @click="onEventEditClicked(3)"
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PlusCircleIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </button> -->
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"></p>
+      </div>
+      <div class="sm:col-span-2" v-if="event?.eventmoduleSet?.length">
+        <dd class="mt-1 text-sm text-gray-900">
+          <ul
+            role="list"
+            class="divide-y divide-gray-200 rounded-md border border-gray-200"
+          >
+            <li
+              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              v-for="child in event?.eventmoduleSet"
+              :key="child.id"
+            >
+              <div class="flex w-0 flex-1 items-center">
+                <CpuChipIcon
+                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                  aria-hidden="true"
+                />
+                <span> {{ `${child.header}` }}</span>
+                <!-- <button
+                  @click="onEventEditClicked(3, child)"
+                  type="button"
+                  class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  <PencilSquareIcon
+                    class="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </button>
+                <div  class="px-2"/>
+                <button
+                  @click="onEventEditClicked(3)"
+                  type="button"
+                  class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  <ArrowSmallUpIcon
+                    class="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </button> -->
+              </div>
+              <div class="ml-4 flex-shrink-0"></div>
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Layout und Design
+          </h3>
+          <button
+            @click="onEventEditClicked(4)"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -263,7 +374,7 @@
               class="h-5 w-5 text-gray-400"
               aria-hidden="true"
             />
-          </button> -->
+          </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           Besondere Anpassungen
@@ -299,11 +410,15 @@ import { ref } from "vue";
 
 import moment from "moment";
 
-
 import {
   PencilIcon,
   CalendarIcon,
   PencilSquareIcon,
+  QueueListIcon,
+  AdjustmentsVerticalIcon,
+  PlusCircleIcon,
+  CpuChipIcon,
+  ArrowSmallUpIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
@@ -316,10 +431,14 @@ const eventData = ref({});
 const openEventEdit = ref(false);
 const eventEditForm = ref(0);
 
-function onEventEditClicked(formNo) {
+function onEventEditClicked(formNo, child = null) {
   openEventEdit.value = true;
-  eventData.value = props.event;
-  eventEditForm.value = formNo
+  eventEditForm.value = formNo;
+  if (child === null) {
+    eventData.value = props.event;
+  } else {
+    eventData.value = child;
+  }
 }
 
 function onEventClosedClicked() {

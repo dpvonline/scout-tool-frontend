@@ -31,11 +31,14 @@
       </div>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
-      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+      <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+        Zusammenfassung
+      </h3>
+      <dl class="grid grid-cols-1 mt-2 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Deine Anmeldezahl</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ registration?.participantCount }}
+            {{ registration?.participantCount }} ({{ registration?.price }} €)
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -68,7 +71,7 @@
       <div class="pb-3">
         <div class="flex w-0 items-center">
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
-            Datenabfrage
+            Personen
           </h3>
           <button
             type="button"
@@ -81,45 +84,46 @@
           </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Welche Daten brauchst du für die Anmeldung?
+          Folgende Personen hast du angemeldet
         </p>
       </div>
-      <div class="sm:col-span-2" v-if="event?.eventmodulemapperSet?.length">
-        <dd class="mt-1 text-sm text-gray-900">
-          <ul
-            role="list"
-            class="divide-y divide-gray-200 rounded-md border border-gray-200"
+      <div
+        class="sm:col-span-2"
+        v-if="registration?.registrationparticipantSet?.length"
+      >
+        <dl class="mt-2 space-y-6 divide-y divide-gray-900/10">
+          <Disclosure
+            as="div"
+            v-for="person in registration?.registrationparticipantSet"
+            :key="person.id"
+            class="pt-6"
+            v-slot="{ open }"
           >
-            <li
-              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
-              v-for="child in event?.eventmodulemapperSet"
-              :key="child.ordering"
-            >
-              <div class="flex w-0 flex-1 items-center">
-                <QueueListIcon
-                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
-                  aria-hidden="true"
-                />
-                <span> {{ child.module.header }}</span>
-              </div>
-              <div class="ml-4 flex-shrink-0">
-                <!-- <router-link
-                  v-if="child.ordering"
-                  :to="{
-                    name: 'GroupOverview',
-                    params: {
-                      id: 1,
-                    },
-                  }"
-                  class="text-blue-600 hover:text-blue-900"
-                  >Admingruppe öffnen<span class="sr-only"
-                    >, {{ child.ordering }}</span
-                  ></router-link
-                > -->
-              </div>
-            </li>
-          </ul>
-        </dd>
+            <dt>
+              <DisclosureButton
+                class="flex w-full items-start justify-between text-left text-gray-900"
+              >
+                <span class="text-base font-semibold leading-7">{{
+                  person.firstName
+                }}</span>
+                <span class="ml-6 flex h-7 items-center">
+                  <PlusSmallIcon
+                    v-if="!open"
+                    class="h-6 w-6"
+                    aria-hidden="true"
+                  />
+                  <MinusSmallIcon v-else class="h-6 w-6" aria-hidden="true" />
+                </span>
+              </DisclosureButton>
+            </dt>
+            <DisclosurePanel as="dd" class="mt-2 pr-12">
+              <p class="text-base leading-7 text-gray-600">{{ person }}</p>
+            </DisclosurePanel>
+          </Disclosure>
+        </dl>
+      </div>
+      <div v-else>
+        <p class="text-sm text-gray-400">Noch niemanden angemeldet</p>
       </div>
     </div>
   </div>
@@ -138,11 +142,15 @@ import {
   EnvelopeIcon,
   CalendarIcon,
   HandThumbUpIcon,
+  MinusSmallIcon,
+  PlusSmallIcon,
+  AdjustmentsVerticalIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
 import MessageEditOverlay from "@/modules/message/components/MessageEdit/Overlay.vue";
 import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
 import { useRouter } from "vue-router";
 const router = useRouter();

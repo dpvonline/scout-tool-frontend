@@ -34,7 +34,7 @@
           :errors="errors.invitedGroup?.$errors"
           :items="shortGroups"
           hint="Lege eine Standardgruppe fest, die zu dieser Veranstaltung einlädt. Die Zugriffsrechte können später genauer konfigurtiert werden."
-          :lookupListDisplay="['name']"
+          :lookupListDisplay="['displayName']"
         />
       </div>
     </fieldset>

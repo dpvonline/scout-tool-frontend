@@ -137,7 +137,7 @@
             Wer darf die persönlichen Daten deiner Anmeldungen sehen?
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ event.adminGroup?.name }}
+            {{ event.adminGroup?.displayName }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -145,7 +145,7 @@
             Welche Organisation läd ein?
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ event.invitingGroup?.name }}
+            {{ event.invitingGroup?.displayName }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -165,7 +165,7 @@
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Wer ist eingeladen?</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ event.invitedGroups?.map((a) => `${a.name}`).join(", ") }}
+            {{ event.invitedGroups?.map((a) => `${a.displayName}`).join(", ") }}
           </dd>
         </div>
       </dl>
@@ -181,39 +181,69 @@
           Welche Daten brauchst du für die Anmeldung?
         </p>
       </div>
-      <div class="sm:col-span-2" v-if="event.eventmodulemapperSet?.length">
-        <dd class="mt-1 text-sm text-gray-900">
+      <div class="sm:col-span-2" v-if="event.eventmoduleSet?.length">
+        <dl class="space-y-6 divide-y divide-gray-900/10">
+          <Disclosure
+            as="div"
+            v-for="child in event.eventmoduleSet"
+            :key="child.id"
+            class="pt-2"
+            v-slot="{ open }"
+          >
+            <dt>
+              <DisclosureButton
+                class="flex w-full items-start justify-between text-left text-gray-900"
+              >
+                <span class="text-base font-normal leading-7">{{
+                  child.header
+                }}</span>
+                <span class="ml-6 flex h-7 items-center">
+                  <PlusSmallIcon
+                    v-if="!open"
+                    class="h-6 w-6"
+                    aria-hidden="true"
+                  />
+                  <MinusSmallIcon v-else class="h-6 w-6" aria-hidden="true" />
+                </span>
+              </DisclosureButton>
+            </dt>
+            <DisclosurePanel as="dd" class="mt-2 pr-12">
+              <p class="text-base leading-7 text-gray-600">{{ child }}</p>
+            </DisclosurePanel>
+          </Disclosure>
+        </dl>
+      </div>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Preise und Anmeldeoptionen
+          </h3>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Mit diesen Optionen kannst du dich und andere Teilnehmende anmelden.
+        </p>
+      </div>
+      <div class="sm:col-span-2" v-if="event?.bookingOptions?.length">
+        <dd class="text-sm text-gray-900">
           <ul
             role="list"
             class="divide-y divide-gray-200 rounded-md border border-gray-200"
           >
             <li
               class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
-              v-for="child in event?.eventmodulemapperSet"
-              :key="child.ordering"
+              v-for="child in event?.bookingOptions"
+              :key="child.id"
             >
               <div class="flex w-0 flex-1 items-center">
-                <QueueListIcon
+                <AdjustmentsVerticalIcon
                   class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
                   aria-hidden="true"
                 />
-                <span> {{ child.module.header }}</span>
+                <span> {{ `${child.name} - ${child.price} €` }}</span>
               </div>
-              <div class="ml-4 flex-shrink-0">
-                <!-- <router-link
-                  v-if="child.ordering"
-                  :to="{
-                    name: 'GroupOverview',
-                    params: {
-                      id: 1,
-                    },
-                  }"
-                  class="text-blue-600 hover:text-blue-900"
-                  >Admingruppe öffnen<span class="sr-only"
-                    >, {{ child.ordering }}</span
-                  ></router-link
-                > -->
-              </div>
+              <div class="ml-4 flex-shrink-0"></div>
             </li>
           </ul>
         </dd>
@@ -243,11 +273,15 @@ import {
   PaperAirplaneIcon,
   QueueListIcon,
   PencilSquareIcon,
+  MinusSmallIcon,
+  PlusSmallIcon,
+  AdjustmentsVerticalIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
 import MessageEditOverlay from "@/modules/message/components/MessageEdit/Overlay.vue";
 import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
 import { useRouter } from "vue-router";
 const router = useRouter();

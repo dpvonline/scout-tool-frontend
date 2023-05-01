@@ -8,6 +8,8 @@
 import FormNames from "./FormNames.vue";
 import FormDates from "./FormDates.vue";
 import FormAuth from "./FormAuth.vue";
+import FormCustom from "./FormCustom.vue";
+import FormBookings from "./FormBookings.vue";
 import OverlayBasic from "@/components/overlay/Basic.vue";
 
 const props = defineProps({
@@ -17,7 +19,7 @@ const props = defineProps({
   formNo: Number,
 });
 
-const formArray = [FormNames, FormDates, FormAuth]
+const formArray = [FormNames, FormDates, FormAuth, FormBookings, FormCustom]
 
 const emit = defineEmits(["close"]);
 

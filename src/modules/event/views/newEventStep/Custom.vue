@@ -160,7 +160,11 @@ function setInitData() {
   isLoading.value = false;
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await Promise.all([
+    eventStore.fetchThemes(),
+    eventStore.fetchEmailSets(),
+  ]);
   setInitData();
 });
 </script>

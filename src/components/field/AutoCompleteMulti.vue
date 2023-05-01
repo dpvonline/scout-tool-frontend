@@ -6,8 +6,8 @@
         @update:modelValue="onSelectChanged"
         mode="tags"
         :close-on-select="false"
-        :searchable="true"
-        :create-option="true"
+        :searchable="false"
+        :create-option="false"
         :options="props.items"
       />
     </div>

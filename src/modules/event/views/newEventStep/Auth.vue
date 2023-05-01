@@ -14,7 +14,7 @@
           :errors="errors.adminGroup?.$errors"
           :items="shortGroups"
           hint="Diese Gruppe darf alle  persönlichen Daten der Anmeldenden sehen."
-          :lookupListDisplay="['name']"
+          :lookupListDisplay="['displayName']"
           :cols="12"
         />
         <BaseField
@@ -26,7 +26,7 @@
           :cols="12"
           :items="shortGroups"
           hint="Diese Gruppe darf alle nicht persönlichen Daten der Anmeldenden sehen."
-          :lookupListDisplay="['name']"
+          :lookupListDisplay="['displayName']"
         />
         <BaseField
           component="AutoCompleteMulti"
@@ -37,7 +37,7 @@
           :cols="12"
           :items="shortGroups2"
           hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."
-          :lookupListDisplay="['name']"
+          :lookupListDisplay="['displayName']"
           valueField="value"
         />
         <BaseField
@@ -49,7 +49,7 @@
           :cols="12"
           :items="shortGroups"
           hint="Welche Gruppe lädt ein?"
-          :lookupListDisplay="['name']"
+          :lookupListDisplay="['displayName']"
         />
         <BaseField
           component="Select"
@@ -162,9 +162,9 @@ const shortGroups2 = computed(() => {
     let arr = JSON.parse(JSON.stringify(groupStore.shortGroups));
     arr.forEach(function (data) {
       data["value"] = data["id"];
-      data["label"] = data["name"];
+      data["label"] = data["displayName"];
       delete data["id"];
-      delete data["name"];
+      delete data["displayName"];
     });
     return arr;
   } else {

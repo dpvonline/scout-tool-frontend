@@ -219,7 +219,6 @@ const genderMappings = computed(() => {
 });
 
 const eatHabitMappings = computed(() => {
-  debugger;
   return registerStore.eatHabitMappings.filter(item => item.public === true);
 });
 
