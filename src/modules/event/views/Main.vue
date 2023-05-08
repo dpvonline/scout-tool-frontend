@@ -16,16 +16,16 @@ const route = useRoute();
 const tabs = computed(() => {
   return [
     {
+      name: "Einladungen",
+      linkName: { name: "EventInvitations", query: { status: "pending" } },
+      current: route.name === "EventInvitations",
+    },
+    {
       name: "Anmeldungen",
       linkName: { name: "EventRegistrations", query: { status: "pending" } },
       current:
         route.name === "EventRegistrations" ||
         route.name === "EventRegistrations",
-    },
-    {
-      name: "Einladungen",
-      linkName: { name: "EventInvitations", query: { status: "pending" } },
-      current: route.name === "EventInvitations",
     },
     {
       name: "Planungsjurte",

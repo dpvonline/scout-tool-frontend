@@ -60,6 +60,7 @@
       <template v-slot:empty>
         <EventListItemEmpty>
           Du bist bisher bei keiner Veranstaltungen angemeldet.
+          Prüfe ob du dich bei einer Veranstaltung anmelden kannst, indem du Einladungen auswählst.
         </EventListItemEmpty>
       </template>
     </SimpleList>
