@@ -49,7 +49,7 @@ import StepFrame from "@/components/stepper/StepFrame.vue";
 
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 import { useRegisterStore } from "@/modules/auth/store/index";
 const registerStore = useRegisterStore();
@@ -84,6 +84,7 @@ const rules = {
 };
 
 const router = useRouter();
+const route = useRoute();
 
 const v$ = useVuelidate(rules, state);
 const errors = reactive(v$);
@@ -133,6 +134,8 @@ function setInitData() {
 
 onMounted(async () => {
   isLoading.value = true;
+  const eventId = route.params.id;
+
   await Promise.all([
     eventStore.fetchMyGroups(),
     eventStore.fetchScoutOrgaLevel(),
@@ -141,8 +144,8 @@ onMounted(async () => {
     eventStore.fetchEmailSets(),
     eventStore.fetchEventLocations(),
     groupStore.fetchGroupsShort(),
-    registerStore.fetchAllMappings(),
-  ]);
+    registerStore.fetchAllMappings(eventId)
+  ]); 
 
   setInitData();
 });

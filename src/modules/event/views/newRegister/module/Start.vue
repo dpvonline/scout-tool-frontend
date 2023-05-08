@@ -132,7 +132,7 @@ onMounted(async () => {
   await Promise.all([
     personalDataStore.fetchPersonalData(),
     eventRegisterStore.fetchEvent(id),
-    registerStore.fetchAllMappings(),
+    registerStore.fetchAllMappings(id)
   ]);
 
   setInitData();

@@ -9,21 +9,28 @@
         <EnvelopeIcon class="h-5 w-5 text-white" aria-hidden="true" />
       </span>
     </div>
-    <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+    <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-1 md:gap-4">
       <div>
-        <p class="truncate text-sm font-medium text-blue-600">
-          {{ props.item.firstName }} {{ props.item.lastName }}
+        <p class="text-sm font-medium text-black-600">
+          {{ props.item.numberPersons }} Person/en mit {{ props.item.typeField[0].name }} um {{ moment(props.item.dateTimeField).format('llll') }}
         </p>
         <p class="mt-2 flex items-center text-sm text-gray-500">
-          {{ props.item.scoutGroup.name }}
+          {{ props.item.description }}
         </p>
       </div>
       <div class="hidden md:block"></div>
+    </div>
+    <div class="flex-none w-20 mx-2 my-2">
+      <PrimaryButton @click="onDeleteTravelClicked(props?.item)" color="red"
+        >löschen</PrimaryButton
+      >
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import PrimaryButton from "@/components/button/Primary.vue";
+
 import {
   ClipboardIcon,
   RocketLaunchIcon,
@@ -31,7 +38,15 @@ import {
   EnvelopeIcon,
 } from "@heroicons/vue/24/outline";
 import moment from "moment";
+
+import { useEventRegisterStore } from "@/modules/event/store/register.ts";
+const eventRegisterStore = useEventRegisterStore();
+
 const props = defineProps({
   item: Object,
 });
+
+function onDeleteTravelClicked(item) {
+  eventRegisterStore.removeTravel(item);
+}
 </script>

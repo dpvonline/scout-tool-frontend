@@ -31,4 +31,25 @@ export default {
   createParticipant(id: any, data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/single-participant/`, data);
   },
+  createBooleanAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/boolean-attribute/`, data);
+  },
+  createStringAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/string-attribute/`, data);
+  },
+  createTravelAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/travel-attribute/`, data);
+  },
+  createFloatAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/float-attribute/`, data);
+  },
+  createTimeAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/time-attribute/`, data);
+  },
+  createIntegerAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/integer-attribute/`, data);
+  },
+  sendConfirmMail(id: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/send-confirmation-mail/`);
+  },
 };

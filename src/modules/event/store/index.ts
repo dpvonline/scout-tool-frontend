@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import EventApi from "@/modules/event/services/event";
 import RegistrationApi from "@/modules/event/services/registration";
 import MappingApi from "@/modules/auth/services/mapping";
+import EventMappingApi from "@/modules/event/services/mapping";
 import GroupApi from "@/modules/group/services/group";
 import moment from "moment";
 
@@ -39,6 +40,8 @@ export const useEventStore = defineStore("event", {
     _emailSets: [],
     _bookingOptions: [],
     _eventLocations: [],
+    _travelTypeChoices: [],
+    _eatHabitTypes: [],
   }),
 
   actions: {
@@ -92,6 +95,7 @@ export const useEventStore = defineStore("event", {
     },
     async fetchAllMappings(params = {}) {
       await GroupApi.fetchMyGroups();
+      await this.fetchTravelTypeChoices();
     },
     createDataRemote() {
       const eventCreate = {
@@ -232,6 +236,27 @@ export const useEventStore = defineStore("event", {
         this._isLoading = false;
       }
     },
+    async fetchTravelTypeChoices() {
+      this._isLoading = true;
+      try {
+        const response = await EventMappingApi.fetchTravelTypeChoices();
+        this._travelTypeChoices = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        // // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchEatHabitTypes() {
+      try {
+        const response = await MappingApi.fetchEatHabit()
+        this._eatHabitTypes = response.data
+      } catch (e) {
+        alert(e)
+        console.error(e)
+      }
+    },
     updateEventStart(data: any) {
       this._eventStart = data;
       this.updateEventNames({
@@ -339,6 +364,12 @@ export const useEventStore = defineStore("event", {
     },
     eventLocations: (state) => {
       return state._eventLocations;
+    },
+    travelTypeChoices: (state) => {
+      return state._travelTypeChoices;
+    },
+    eatHabitTypes: (state) => {
+      return state._eatHabitTypes
     },
   },
 });

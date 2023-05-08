@@ -1,6 +1,14 @@
 <template>
   <div :class="`sm:col-span-${cols}`">
+
     <div>
+    <div class="space-y-1">
+      <label
+        for="add-team-members"
+        class="block text-sm font-medium text-gray-700"
+        >{{ props.label }}</label
+      >
+    </div>
       <Multiselect
         :modelValue="modelValue"
         @update:modelValue="onSelectChanged"
@@ -45,9 +53,9 @@ const props = defineProps({
   cols: { type: Number, required: false, default: 3 },
   items: { type: Array, required: true },
   disabled: { type: Boolean, required: false, default: false },
-  lookupListDisplay: { type: Array, required: false, default: ["name"] },
-  searchField: { type: Array, required: false, default: ["name"] },
-  valueField: { type: String, required: false, default: "label" },
+  lookupListDisplay: { type: Array, required: false, default: ["label"] },
+  searchField: { type: Array, required: false, default: ["label"] },
+  valueField: { type: String, required: false, default: "value" },
 });
 
 const emit = defineEmits(["update:modelValue"]);

@@ -19,7 +19,7 @@
           <label
             :for="choice.id"
             class="ml-3 block text-sm font-medium text-gray-700"
-            >{{ choice.title }}</label
+            >{{ choice.name }}</label
           >
         </div>
       </div>

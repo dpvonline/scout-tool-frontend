@@ -180,7 +180,6 @@ const shortGroups2 = computed(() => {
       delete data["displayName"];
       delete data["name"];
       delete data["keycloakId"];
-      debugger;
     });
     return arr;
   } else {

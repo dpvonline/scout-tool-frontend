@@ -208,7 +208,16 @@
               </DisclosureButton>
             </dt>
             <DisclosurePanel as="dd" class="mt-2 pr-12">
-              <p class="text-base leading-7 text-gray-600">{{ child }}</p>
+              <p class="text-base leading-7 text-gray-600">
+                <div v-for="attribute in child.attributeModules" :key="attribute.id" class="mb-3">
+                  <p class="text-base leading-7 text-gray-800">
+                    {{ attribute.title }}
+                  </p>
+                  <p class="text-base leading-7 text-gray-500">
+                    {{ attribute.text }}
+                  </p>
+                </div>
+              </p>
             </DisclosurePanel>
           </Disclosure>
         </dl>

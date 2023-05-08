@@ -442,7 +442,8 @@ const personalData = computed(() => {
 });
 
 async function fetchAllMappings() {
-  await registerStore.fetchAllMappings();
+  const id = route.params.id;
+  await registerStore.fetchAllMappings(id)
 }
 
 async function fetchPersonalData() {

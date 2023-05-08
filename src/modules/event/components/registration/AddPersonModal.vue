@@ -34,6 +34,7 @@
               <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="mt-4 space-y-4">
                   <BaseField
+                    v-if="!state.id"
                     component="Toggle"
                     :label="'Person dauerhaft speichern'"
                     techName="allowPermanently"
@@ -43,7 +44,7 @@
                   />
                   <BaseField
                     component="Text"
-                    :label="'Vorname'"
+                    :label="'Vorname*'"
                     techName="firstName"
                     v-model="state.firstName"
                     :errors="errors.firstName?.$errors"
@@ -51,7 +52,7 @@
                   />
                   <BaseField
                     component="Text"
-                    :label="'Nachname'"
+                    :label="'Nachname*'"
                     techName="lastName"
                     v-model="state.lastName"
                     :errors="errors.lastName?.$errors"
@@ -67,7 +68,7 @@
                   />
                   <BaseField
                     component="Date"
-                    :label="'Geburtstag'"
+                    :label="'Geburtstag*'"
                     techName="birthday"
                     v-model="state.birthday"
                     :errors="errors.birthday?.$errors"
@@ -75,15 +76,15 @@
                   />
                   <BaseField
                     component="Radio"
-                    :label="'Geschlecht'"
+                    :label="'Geschlecht*'"
                     techName="gender"
                     v-model="state.gender"
                     :errors="errors.gender?.$errors"
                     :choices="[
-                      { id: 'F', title: 'weiblich' },
-                      { id: 'M', title: 'männlich' },
-                      { id: 'D', title: 'divers' },
-                      { id: 'N', title: 'keine Angabe' },
+                      { id: 'F', name: 'weiblich' },
+                      { id: 'M', name: 'männlich' },
+                      { id: 'D', name: 'divers' },
+                      { id: 'N', name: 'keine Angabe' },
                     ]"
                     hint="Wir brauchen dein Geschlecht für Anmeldungen bei Veranstaltungen."
                     :cols="6"
@@ -91,14 +92,14 @@
                   <BaseField
                     component="Text"
                     :label="'Straße und Hausnummer*'"
-                    techName="street"
-                    v-model="state.street"
-                    :errors="errors.street?.$errors"
+                    techName="address"
+                    v-model="state.address"
+                    :errors="errors.address?.$errors"
                     :cols="6"
                   />
                   <BaseField
                     component="Text"
-                    :label="'Postleitzahl'"
+                    :label="'Postleitzahl*'"
                     techName="zipCode"
                     v-model="state.zipCode"
                     :errors="errors.zipCode?.$errors"
@@ -154,6 +155,7 @@
 
 <script setup>
 import { reactive, computed, onMounted, ref } from "vue";
+import moment from "moment";
 import {
   Dialog,
   DialogPanel,
@@ -190,7 +192,7 @@ const rules = {
   gender: {
     required,
   },
-  street: {
+  address: {
     required,
   },
   zipCode: {
@@ -208,9 +210,9 @@ const state = reactive({
   lastName: null,
   scoutName: null,
   gender: "N",
-  street: null,
+  address: null,
   zipCode: null,
-  eatHabit: [],
+  eatHabit: null,
   bookingOption: null,
 });
 
@@ -219,7 +221,7 @@ const genderMappings = computed(() => {
 });
 
 const eatHabitMappings = computed(() => {
-  return registerStore.eatHabitMappings.filter(item => item.public === true);
+  return registerStore.eatHabitMappings.filter((item) => item.public === true);
 });
 
 const eatHabitMappings2 = computed(() => {
@@ -264,19 +266,63 @@ function onButtonSaveClicked() {
   props.callbackOnConfirm(state);
 }
 
+function getGenderValue(genderString) {
+  let genderValue = "";
+  let genderName = "";
+  if (!genderString) {
+    return null;
+  }
+  genderValue = genderMappings.value.find((a) => a["value"] === genderString);
+
+  if (genderValue && genderValue.value) {
+    return genderValue.value;
+  }
+  genderName = genderMappings.value.find((a) => a["name"] === genderString);
+  if (genderName && genderName.value) {
+    return genderName.value;
+  }
+  return null;
+}
+
+import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
+const personalDataStore = usePersonalDataStore();
+
+const personalData = computed(() => {
+  return personalDataStore.personalData;
+});
+
+function getZipCodeString(zipCodeData) {
+  if (!zipCodeData) {
+    return null;
+  }
+
+  if (zipCodeData && zipCodeData.zipCode) {
+    return zipCodeData.zipCode;
+  }
+
+  return zipCodeData;
+}
+
+function getBookingObj(bookingOptionId) {
+  return bookingOptions.value.find((a) => a["id"] === bookingOptionId);
+}
+
 onUpdated(() => {
   if (props.open && props.person && props.person != {} && props.person.id) {
     state.id = props?.person.id;
     state.firstName = props?.person.firstName;
     state.lastName = props?.person.lastName;
     state.scoutName = props?.person.scoutName;
-    state.street = props?.person.address;
+    state.address = props?.person.address;
     state.birthday = props?.person.birthday;
-    state.zipCode = props?.person.zipCode?.zipCode;
-    state.eatHabit = props?.person.eatHabit;
-    state.gender = genderMappings.value.find(
-      (a) => a["name"] === props?.person.gender
-    ).value;
+    state.bookingOption = getBookingObj(props?.person.bookingOption);
+    state.zipCode = getZipCodeString(props?.person.zipCode);
+    state.eatHabit = props?.person?.eatHabit;
+    state.gender = getGenderValue(props?.person?.gender);
+  } else {
+    state.zipCode = personalDataStore?.personalData?.scoutGroup?.zipCode?.zipCode
+    state.birthday = moment().add(-10, 'y').format('YYYY-MM-DD')
   }
+  state.bookingOption = bookingOptions.value[0];
 });
 </script>

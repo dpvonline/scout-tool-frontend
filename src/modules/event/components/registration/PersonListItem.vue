@@ -20,7 +20,12 @@
       </div>
       <div class="hidden md:block"></div>
     </div>
-    <div class="flex-none w-14">
+    <div class="flex-none w-20">
+      <PrimaryButton @click="onPersonEditClicked(props?.item)" color="blue"
+        >editieren</PrimaryButton
+      >
+    </div>
+    <div class="flex-none w-20 mx-2 my-2">
       <PrimaryButton @click="onDeletePersonClicked(props?.item)" color="red"
         >löschen</PrimaryButton
       >
@@ -47,7 +52,12 @@ const props = defineProps({
 });
 
 function onDeletePersonClicked(item) {
-    eventRegisterStore.removePerson(item);
+  eventRegisterStore.removePerson(item);
 }
 
+const emit = defineEmits(["onPersonEditClicked"]);
+
+const onPersonEditClicked = (data) => {
+  emit("onPersonEditClicked", data);
+};
 </script>
