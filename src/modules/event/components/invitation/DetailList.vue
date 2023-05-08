@@ -22,90 +22,248 @@
               </p>
             </div>
           </div>
-        </div>
-        <div class="ml-4 mt-4 flex flex-shrink-0">
-          <PrimaryButton
-            @click="onInvitationClicked(event.id)"
-            :icon="PaperAirplaneIcon"
-            class="mx-0 my-2"
-          >
-            Anmelden
-          </PrimaryButton>
+          <div class="ml-4 mt-4 flex flex-shrink-0">
+            <PrimaryButton
+              @click="onInvitationClicked(event.id)"
+              :icon="PaperAirplaneIcon"
+              class="mx-0 my-2"
+            >
+              Anmeldung starten
+            </PrimaryButton>
+          </div>
         </div>
       </div>
     </div>
-    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Termin
+          </h3>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Alles rund um die Termine
+        </p>
+      </div>
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-        <div class="sm:col-span-2">
-          <dt class="text-sm font-medium text-gray-500">Einladungstext</dt>
-          <dd
-            class="mt-1 text-sm text-gray-900"
-            v-html="event.longDescription"
-          ></dd>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Veranstaltung Start</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ moment(event.startDate).format("llll") }}
+          </dd>
         </div>
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Veranstaltungsdatum</dt>
+          <dt class="text-sm font-medium text-gray-500">Veranstaltung Ende</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.startDate).format("llll") }} -
             {{ moment(event.endDate).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Anmeldezeitraum</dt>
+          <dt class="text-sm font-medium text-gray-500">Anmeldestart</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.registrationStart).format("llll") }} -
+            {{ moment(event.registrationStart).format("llll") }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Anmeldeschluss</dt>
+          <dd class="mt-1 text-sm text-gray-900">
             {{ moment(event.registrationDeadline).format("llll") }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Anmeldung Änderbar bis
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ moment(event.lastPossibleUpdate).format("llll") }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Ort
+          </h3>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          An welchem Ort findet das Lager statt?
+        </p>
+      </div>
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Name</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.location?.name }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Entfernung</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ (event?.location?.distance || 0).toFixed(0) }} Km
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Ort</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event?.location?.zipCode?.city }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Rechte und Zugriffe
+          </h3>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Wer kann die Daten sehen und ändern?
+        </p>
+      </div>
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Wer darf deine Anmeldungen sehen?
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.viewGroup?.name }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Wer darf die persönlichen Daten deiner Anmeldungen sehen?
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.adminGroup?.displayName }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Welche Organisation läd ein?
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.invitingGroup?.displayName }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Veranwortliche Personen
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.responsiblePersons?.map((a) => `${a}`).join(", ") }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Ebene der Anmeldung</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.registrationLevel?.name }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Wer ist eingeladen?</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ event.limitedRegistrationHierarchy?.name }}
-          </dd>
-        </div>
-  
-        <div class="sm:col-span-2" v-if="event.eventmodulemapperSet?.length">
-          <dt class="text-sm font-medium text-gray-500">
-            Welchen Daten brauchst du?
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            <ul
-              role="list"
-              class="divide-y divide-gray-200 rounded-md border border-gray-200"
-            >
-              <li
-                class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
-                v-for="child in event?.eventmodulemapperSet"
-                :key="child.ordering"
-              >
-                <div class="flex w-0 flex-1 items-center">
-                  <QueueListIcon
-                    class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  <span> {{ child.module.header }}</span>
-                </div>
-                <div class="ml-4 flex-shrink-0">
-                  <router-link
-                    v-if="child.ordering"
-                    :to="{
-                      name: 'GroupOverview',
-                      params: {
-                        id: 1,
-                      },
-                    }"
-                    class="text-blue-600 hover:text-blue-900"
-                    >Admingruppe öffnen<span class="sr-only"
-                      >, {{ child.ordering }}</span
-                    ></router-link
-                  >
-                </div>
-              </li>
-            </ul>
+            {{ event.invitedGroups?.map((a) => `${a.displayName}`).join(", ") }}
           </dd>
         </div>
       </dl>
     </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Datenabfrage
+          </h3>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Welche Daten brauchst du für die Anmeldung?
+        </p>
+      </div>
+      <div class="sm:col-span-2" v-if="event.eventmoduleSet?.length">
+        <dl class="space-y-6 divide-y divide-gray-900/10">
+          <Disclosure
+            as="div"
+            v-for="child in event.eventmoduleSet"
+            :key="child.id"
+            class="pt-2"
+            v-slot="{ open }"
+          >
+            <dt>
+              <DisclosureButton
+                class="flex w-full items-start justify-between text-left text-gray-900"
+              >
+                <span class="text-base font-normal leading-7">{{
+                  child.header
+                }}</span>
+                <span class="ml-6 flex h-7 items-center">
+                  <PlusSmallIcon
+                    v-if="!open"
+                    class="h-6 w-6"
+                    aria-hidden="true"
+                  />
+                  <MinusSmallIcon v-else class="h-6 w-6" aria-hidden="true" />
+                </span>
+              </DisclosureButton>
+            </dt>
+            <DisclosurePanel as="dd" class="mt-2 pr-12">
+              <p class="text-base leading-7 text-gray-600">
+                <div v-for="attribute in child.attributeModules" :key="attribute.id" class="mb-3">
+                  <p class="text-base leading-7 text-gray-800">
+                    {{ attribute.title }}
+                  </p>
+                  <p class="text-base leading-7 text-gray-500">
+                    {{ attribute.text }}
+                  </p>
+                </div>
+              </p>
+            </DisclosurePanel>
+          </Disclosure>
+        </dl>
+      </div>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Preise und Anmeldeoptionen
+          </h3>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Mit diesen Optionen kannst du dich und andere Teilnehmende anmelden.
+        </p>
+      </div>
+      <div class="sm:col-span-2" v-if="event?.bookingOptions?.length">
+        <dd class="text-sm text-gray-900">
+          <ul
+            role="list"
+            class="divide-y divide-gray-200 rounded-md border border-gray-200"
+          >
+            <li
+              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              v-for="child in event?.bookingOptions"
+              :key="child.id"
+            >
+              <div class="flex w-0 flex-1 items-center">
+                <AdjustmentsVerticalIcon
+                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                  aria-hidden="true"
+                />
+                <span> {{ `${child.name} - ${child.price} €` }}</span>
+              </div>
+              <div class="ml-4 flex-shrink-0"></div>
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </div>
+    <!-- <EventEditOverlay
+      :open="openEventEdit"
+      :items="eventData"
+      @close="onEventClosedClicked"
+      header="Event bearbeiten"
+    /> -->
   </div>
 </template>
 
@@ -123,16 +281,26 @@ import {
   CalendarIcon,
   PaperAirplaneIcon,
   QueueListIcon,
+  PencilSquareIcon,
+  MinusSmallIcon,
+  PlusSmallIcon,
+  AdjustmentsVerticalIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
+import { useEventRegisterStore } from "@/modules/event/store/register.ts";
+const eventRegisterStore = useEventRegisterStore();
+
 import MessageEditOverlay from "@/modules/message/components/MessageEdit/Overlay.vue";
 import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
 import { useRouter } from "vue-router";
 const router = useRouter();
 
 function onInvitationClicked(id) {
+  eventRegisterStore.$reset();
+
   router.push({
     name: "RegistrationNewStart",
     params: {

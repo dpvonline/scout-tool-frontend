@@ -1,6 +1,6 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_APP_API;
-const SERVICE = 'event/registration'
+const SERVICE = "event/registration";
 
 export default {
   fetchAll(params: any) {
@@ -18,7 +18,7 @@ export default {
   },
 
   create(data: any) {
-    return axios.post(`${BASE_URL}/${SERVICE}/`, data );
+    return axios.post(`${BASE_URL}/${SERVICE}/`, data);
   },
 
   update(data: any) {
@@ -26,6 +26,30 @@ export default {
   },
 
   delete(id: any) {
-    return axios.delete(`${BASE_URL}/${SERVICE}/${id}/`)
+    return axios.delete(`${BASE_URL}/${SERVICE}/${id}/`);
+  },
+  createParticipant(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/single-participant/`, data);
+  },
+  createBooleanAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/boolean-attribute/`, data);
+  },
+  createStringAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/string-attribute/`, data);
+  },
+  createTravelAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/travel-attribute/`, data);
+  },
+  createFloatAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/float-attribute/`, data);
+  },
+  createTimeAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/time-attribute/`, data);
+  },
+  createIntegerAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/integer-attribute/`, data);
+  },
+  sendConfirmMail(id: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/send-confirmation-mail/`);
   },
 };

@@ -70,9 +70,13 @@ function onNextButtonClicked() {
     return;
   }
 
-  eventRegisterStore.create(state).then((response) => {
+  eventRegisterStore.create().then((response) => {
+    eventRegisterStore.$reset();
     router.push({
-      name: "RegistrationFinish",
+      name: "RegistrationsDetail",
+      params: {
+        id: response.data.id,
+      },
     });
   });
 }

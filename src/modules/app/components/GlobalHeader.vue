@@ -364,8 +364,15 @@ const navigation = computed(() => {
       isAuth: true,
       count: openTaskCount,
     },
+    // {
+    //   name: "Anliegen",
+    //   linkName: "MessageMain",
+    //   icon: InboxIcon,
+    //   route: "message",
+    //   isAuth: true,
+    // },
     {
-      name: "Veranstaltungen (Beta)",
+      name: "Veranstaltungen",
       linkName: "EventMain",
       icon: CalendarDaysIcon,
       route: "event",

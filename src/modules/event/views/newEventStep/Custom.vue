@@ -19,8 +19,43 @@
           v-model="state.emailSet"
           :errors="errors.emailSet?.$errors"
           :cols="12"
-          :items="themes"
+          :items="emailSets"
           hint="Legt fest wie die E-Mails aussehen werden."
+          :lookupListDisplay="['name']"
+        />
+      </div>
+      <div class="mt-4 space-y-4">
+        <BaseField
+          component="Select"
+          :label="'Layout'"
+          techName="theme"
+          v-model="state.theme"
+          :errors="errors.theme?.$errors"
+          :cols="12"
+          :items="themes"
+          hint="Legt fest in welchem Layout die Anmeldungen erscheinen sollen."
+          :lookupListDisplay="['name']"
+        />
+      </div>
+        <BaseField
+          component="Currency"
+          :label="'Lagerbeitrag'"
+          techName="price"
+          v-model="state.price"
+          :errors="errors.price?.$errors"
+          :cols="12"
+          hint="Der Standardpreis für das Lager. Weitere Preisoptionen können später hinzugefügt werden."
+        />
+      <div class="mt-4 space-y-4">
+        <BaseField
+          component="Select"
+          :label="'Ort'"
+          techName="location"
+          v-model="state.location"
+          :errors="errors.location?.$errors"
+          :cols="12"
+          :items="eventLocations"
+          hint="Legt fest in welchem Layout die Anmeldungen erscheinen sollen."
           :lookupListDisplay="['name']"
         />
       </div>
@@ -46,12 +81,24 @@ const isLoading = ref(false);
 
 const state = reactive({
   emailSet: null,
+  theme: null,
+  price: 17.0,
+  location: null,
 });
 
 const rules = {
     emailSet: {
       required,
-    }
+    },
+    theme: {
+      required,
+    },
+    price: {
+      required,
+    },
+    location: {
+      required,
+    },
 };
 
 const router = useRouter();
@@ -61,6 +108,14 @@ const errors = reactive(v$);
 
 const themes = computed(() => {
   return eventStore.themes;
+});
+
+const emailSets = computed(() => {
+  return eventStore.emailSets;
+});
+
+const eventLocations = computed(() => {
+  return eventStore.eventLocations;
 });
 
 async function onNextButtonClicked() {
@@ -92,14 +147,24 @@ function setInitData() {
   isLoading.value = true;
   state.emailSet = eventStore.eventNames.emailSet
 
+  if (!state.theme) {
+    state.theme = eventStore.themes[0]
+  }
   if (!state.emailSet) {
-    state.emailSet = eventStore.themes[0]
+    state.emailSet = eventStore.emailSets[0]
+  }
+  if (!state.price) {
+    state.price = 18.00;
   }
 
   isLoading.value = false;
 }
 
-onMounted(() => {
+onMounted(async () => {
+  await Promise.all([
+    eventStore.fetchThemes(),
+    eventStore.fetchEmailSets(),
+  ]);
   setInitData();
 });
 </script>

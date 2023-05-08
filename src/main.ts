@@ -6,6 +6,8 @@ import router from "./router";
 import { createHead } from "@vueuse/head";
 import "./assets/index.postcss";
 import keycloak from "@/modules/auth/keycloak";
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 import auth from "./plugin/auth"
 
@@ -31,6 +33,7 @@ app.use(pinia);
 app.use(router);
 app.use(head);
 app.use(keycloak);
+app.component('QuillEditor', QuillEditor)
 
 auth.interceptorsSetup();
 

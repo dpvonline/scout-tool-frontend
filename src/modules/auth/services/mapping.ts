@@ -23,4 +23,10 @@ export default {
   fetchEatHabit() {
     return axios.get(`${BASE_URL}/basic/eat-habits`);
   },
+  fetchEmailSets() {
+    return axios.get(`${BASE_URL}/event/email-sets`);
+  },
+  fetchEventLocations() {
+    return axios.get(`${BASE_URL}/event/event-location`);
+  },
 };

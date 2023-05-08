@@ -23,36 +23,95 @@
             </div>
           </div>
         </div>
-        <div class="ml-4 mt-4 flex flex-shrink-0">
-          <PrimaryButton
-            @click="onIssueEditClicked"
-            :icon="PencilIcon"
-            class="mx-0 my-2"
-          >
-            Veranstaltung Bearbeiten
-          </PrimaryButton>
-        </div>
       </div>
     </div>
-    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+    <div class="border-t-8 border-gray-100 px-4 py-6 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Namen und Texte
+          </h3>
+          <button
+            @click="onEventEditClicked(0)"
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PencilSquareIcon
+              class="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Alle arten von Texten, die für die Veranstaltung wichtig ist.
+        </p>
+      </div>
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Einladungstext</dt>
+          <dt class="text-sm font-medium text-gray-500">
+            Titel der Veranstaltung
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.name }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Kurze Beschreibung</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.shortDescription }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Technischer Name</dt>
+          <dd class="mt-1 text-sm text-gray-900">{{ event.technicalName }}</dd>
+        </div>
+        <div class="sm:col-span-2">
+          <dt class="text-sm font-medium text-gray-500">Einladungtext</dt>
           <dd
             class="mt-1 text-sm text-gray-900"
             v-html="event.longDescription"
           ></dd>
         </div>
+      </dl>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Termine
+          </h3>
+          <button
+            @click="onEventEditClicked(1)"
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PencilSquareIcon
+              class="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Personal details and application.
+        </p>
+      </div>
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Start</dt>
+          <dt class="text-sm font-medium text-gray-500">Veranstaltung Start</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ moment(event.startDate).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Ende</dt>
+          <dt class="text-sm font-medium text-gray-500">Veranstaltung Ende</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ moment(event.endDate).format("llll") }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Anmeldestart</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ moment(event.registrationStart).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -61,65 +120,329 @@
             {{ moment(event.registrationDeadline).format("llll") }}
           </dd>
         </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Anmeldung Änderbar bis
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ moment(event.lastPossibleUpdate).format("llll") }}
+          </dd>
+        </div>
       </dl>
     </div>
-    <MessageEditOverlay
-      :open="openEventAddEdit"
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Ort
+          </h3>
+          <!-- <button
+            @click="onEventEditClicked"
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PencilSquareIcon
+              class="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </button> -->
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          An welchem Ort findet das Lager statt?
+        </p>
+      </div>
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Name</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.location?.name }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Entfernung</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ (event?.location?.distance || 0).toFixed(0) }} Km
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Ort</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event?.location?.zipCode?.city }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Rechte und Zugriffe
+          </h3>
+          <button
+            @click="onEventEditClicked(2)"
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PencilSquareIcon
+              class="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Wer kann die Daten sehen und ändern?
+        </p>
+      </div>
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Wer darf die Anmeldungen sehen?
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.viewGroup?.displayName }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Wer darf die persönliche Daten der Anmeldungen sehen?
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.adminGroup?.displayName }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Welche Organisation läd ein?
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.invitingGroup?.displayName }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Veranwortliche Personen
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.responsiblePersons?.map((a) => `${a}`).join(", ") }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Ebene der Anmeldung</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.registrationLevel?.name }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Wer ist eingeladen?</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.invitedGroups?.map((a) => `${a.displayName}`).join(", ") }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Öffentlich einsehbar?
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.isPublic ? "Ja" : "Nein" }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Buchungs Optionen
+          </h3>
+          <button
+            @click="onEventEditClicked(3, {})"
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PlusCircleIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </button>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"></p>
+      </div>
+      <div class="sm:col-span-2" v-if="event?.bookingOptions?.length">
+        <dd class="mt-1 text-sm text-gray-900">
+          <ul
+            role="list"
+            class="divide-y divide-gray-200 rounded-md border border-gray-200"
+          >
+            <li
+              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              v-for="child in event?.bookingOptions"
+              :key="child.id"
+            >
+              <div class="flex w-0 flex-1 items-center">
+                <AdjustmentsVerticalIcon
+                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                  aria-hidden="true"
+                />
+                <span> {{ `${child.name} - ${child.price} €` }}</span>
+                <button
+                  @click="onEventEditClicked(3, child)"
+                  type="button"
+                  class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  <PencilSquareIcon
+                    class="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
+              <div class="ml-4 flex-shrink-0"></div>
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Module
+          </h3>
+          <!-- <button
+            @click="onEventEditClicked(3)"
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PlusCircleIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </button> -->
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"></p>
+      </div>
+      <div class="sm:col-span-2" v-if="event?.eventmoduleSet?.length">
+        <dd class="mt-1 text-sm text-gray-900">
+          <ul
+            role="list"
+            class="divide-y divide-gray-200 rounded-md border border-gray-200"
+          >
+            <li
+              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              v-for="child in event?.eventmoduleSet"
+              :key="child.id"
+            >
+              <div class="flex w-0 flex-1 items-center">
+                <CpuChipIcon
+                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                  aria-hidden="true"
+                />
+                <span> {{ `${child.header}` }}</span>
+                <!-- <button
+                  @click="onEventEditClicked(3, child)"
+                  type="button"
+                  class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  <PencilSquareIcon
+                    class="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </button>
+                <div  class="px-2"/>
+                <button
+                  @click="onEventEditClicked(3)"
+                  type="button"
+                  class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  <ArrowSmallUpIcon
+                    class="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </button> -->
+              </div>
+              <div class="ml-4 flex-shrink-0"></div>
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Layout und Design
+          </h3>
+          <button
+            @click="onEventEditClicked(4)"
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PencilSquareIcon
+              class="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Besondere Anpassungen
+        </p>
+      </div>
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">E-Mail Template?</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.emailSet?.name }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Theme</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event.theme?.name }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <EventEditOverlay
+      :open="openEventEdit"
       :items="eventData"
       @close="onEventClosedClicked"
-      header="Nachricht erstellen"
-    />
-    <IssueEditOverlay
-      :open="openIssueEdit"
-      :items="eventData"
-      @close="onIssueClosedClicked"
-      header="Issue bearbeiten"
+      header="Event bearbeiten"
+      :formNo="eventEditForm"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from "vue";
+import { ref } from "vue";
 
 import moment from "moment";
+
 import {
-  PaperClipIcon,
   PencilIcon,
-  ChatBubbleLeftIcon,
-  InboxIcon,
-  PhoneIcon,
-  EnvelopeIcon,
   CalendarIcon,
+  PencilSquareIcon,
+  QueueListIcon,
+  AdjustmentsVerticalIcon,
+  PlusCircleIcon,
+  CpuChipIcon,
+  ArrowSmallUpIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
-import MessageEditOverlay from "@/modules/message/components/MessageEdit/Overlay.vue";
-import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue";
+import EventEditOverlay from "@/modules/event/components/EventEdit/Overlay.vue";
 
 // messsage
-const openEventAddEdit = ref(false);
 const eventData = ref({});
 
-function onEventUpdateClicked() {
-  openEventAddEdit.value = true;
-  eventData.value = props.event;
+// issue
+const openEventEdit = ref(false);
+const eventEditForm = ref(0);
+
+function onEventEditClicked(formNo, child = null) {
+  openEventEdit.value = true;
+  eventEditForm.value = formNo;
+  if (child === null) {
+    eventData.value = props.event;
+  } else {
+    eventData.value = child;
+  }
 }
 
 function onEventClosedClicked() {
-  openEventAddEdit.value = false;
-  eventData.value = {};
-}
-
-// issue
-const openIssueEdit = ref(false);
-
-function onIssueEditClicked() {
-  openIssueEdit.value = true;
-  eventData.value = props.event;
-}
-
-function onIssueClosedClicked() {
-  openIssueEdit.value = false;
+  openEventEdit.value = false;
   eventData.value = {};
 }
 

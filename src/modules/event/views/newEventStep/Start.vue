@@ -32,9 +32,9 @@
           techName="invitedGroup"
           v-model="state.invitedGroup"
           :errors="errors.invitedGroup?.$errors"
-          :items="djangoGroups"
+          :items="shortGroups"
           hint="Lege eine Standardgruppe fest, die zu dieser Veranstaltung einlädt. Die Zugriffsrechte können später genauer konfigurtiert werden."
-          :lookupListDisplay="['name']"
+          :lookupListDisplay="['displayName']"
         />
       </div>
     </fieldset>
@@ -49,7 +49,7 @@ import StepFrame from "@/components/stepper/StepFrame.vue";
 
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 import { useRegisterStore } from "@/modules/auth/store/index";
 const registerStore = useRegisterStore();
@@ -59,6 +59,9 @@ const eventStore = useEventStore();
 
 import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
+
+import { useGroupStore } from "@/modules/group/store/index";
+const groupStore = useGroupStore();
 
 const format1 = "YYYY-MM-DD"
 
@@ -81,6 +84,7 @@ const rules = {
 };
 
 const router = useRouter();
+const route = useRoute();
 
 const v$ = useVuelidate(rules, state);
 const errors = reactive(v$);
@@ -102,8 +106,8 @@ function onNextButtonClicked() {
   });
 }
 
-const myGroups = computed(() => {
-  return eventStore.myGroups;
+const shortGroups = computed(() => {
+  return groupStore.shortGroups;
 });
 
 const djangoGroups = computed(() => {
@@ -123,21 +127,26 @@ function setInitData() {
     state.startDate = moment(new Date()).subtract(-2, 'month').format(format1)
   }
   if (!state.invitedGroup) {
-    state.invitedGroup = djangoGroups.value[0]
+    state.invitedGroup = shortGroups.value[0]
   }
   isLoading.value = false;
 }
 
 onMounted(async () => {
   isLoading.value = true;
+  const eventId = route.params.id;
+
   await Promise.all([
     eventStore.fetchMyGroups(),
     eventStore.fetchScoutOrgaLevel(),
     eventStore.fetchDjangoGroups(),
     eventStore.fetchThemes(),
-  ]);
+    eventStore.fetchEmailSets(),
+    eventStore.fetchEventLocations(),
+    groupStore.fetchGroupsShort(),
+    registerStore.fetchAllMappings(eventId)
+  ]); 
 
   setInitData();
-
 });
 </script>

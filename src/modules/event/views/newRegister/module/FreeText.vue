@@ -42,10 +42,13 @@ const eventStore = useEventStore();
 import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
 
+import { useEventRegisterStore } from "@/modules/event/store/register.ts";
+const eventRegisterStore = useEventRegisterStore();
+
 const format1 = "YYYY-MM-DD";
 
 const state = reactive({
-  freeText: "",
+  freeText: null,
 });
 
 const rules = {
@@ -67,6 +70,8 @@ function onNextButtonClicked() {
     return;
   }
 
+  eventRegisterStore.updateRegisterFreeText(state)
+
   router.push({
     name: "RegistrationNewSummary",
   });
@@ -74,9 +79,15 @@ function onNextButtonClicked() {
 
 function setInitData() {
   isLoading.value = true;
-  state.hasConfirmed = false;
+  if (registerFreeText?.value?.freeText) {
+    state.freeText = registerFreeText.value?.freeText;
+  }
   isLoading.value = false;
 }
+
+const registerFreeText = computed(() => {
+  return eventRegisterStore.registerFreeText;
+});
 
 onMounted(async () => {
   isLoading.value = true;

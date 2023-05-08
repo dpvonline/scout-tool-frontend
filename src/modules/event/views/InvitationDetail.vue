@@ -35,7 +35,7 @@ const event = computed(() => {
 const isLoading = computed(() => {
   return eventStore.isLoading;
 });
-const pages = [{ name: "Alle Einladungen", link: "EventMain" }];
+const pages = [{ name: "Alle Einladungen", link: "EventInvitations" }];
 
 onMounted(() => {
   const id = route.params.id;

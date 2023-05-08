@@ -26,8 +26,20 @@ export default {
   fetchBookingOptionsById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/booking-options/`);
   },
+  fetchBookingOptionsByBookingId(eventId: any, bookingId: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${eventId}/booking-options/${bookingId}/`);
+  },
+  createBookingOption(eventId: any, data: Object) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${eventId}/booking-options/`, data);
+  },
+  updateBookingOptionById(eventId: any, bookingId: any, data: Object) {
+    return axios.put(`${BASE_URL}/${SERVICE}/${eventId}/booking-options/${bookingId}/`, data);
+  },
   fetchById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}-read/${id}/`);
+  },
+  fetchTechById(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/`);
   },
   create(data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/`, data );

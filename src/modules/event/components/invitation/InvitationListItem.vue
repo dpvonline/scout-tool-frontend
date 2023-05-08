@@ -11,8 +11,14 @@
     </div>
     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
-        <p class="truncate text-sm font-medium text-blue-600">
+        <p class="truncate text-md font-medium text-blue-600">
           {{ props.item.name }}
+        </p>
+        <p class="font-sm text-sm text-gray-400" v-if="getDateDiffInDays(props.item.registrationDeadline) >= 0"
+          >noch {{ getDateDiffInDays(props.item.registrationDeadline) }} Tagen</p
+        >
+        <p class="font-sm text-sm text-gray-400" v-else>
+          Anmeldefrist vorbei.
         </p>
         <p class="mt-2 flex items-center text-sm text-gray-500">
           <ClipboardIcon
@@ -42,4 +48,8 @@ import moment from "moment";
 const props = defineProps({
   item: Object,
 });
+
+function getDateDiffInDays(date) {
+  return moment(date).diff(moment(), "days")
+}
 </script>

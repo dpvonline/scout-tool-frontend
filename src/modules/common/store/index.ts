@@ -4,8 +4,13 @@ export const useCommonStore = defineStore("common", {
   state: () => ({
     _successMessage: 'Döner sind mega mega lecker',
     _successStatus: false,
+
     _errorMessage: 'Döner sind mega mega lecker',
     _errorStatus: false,
+
+    _bannerStatus: true,
+    _bannerHeader: 'Hypercare-Phase vom Anmelde-Tool',
+    _bannerMesasge: 'Fragen zur Anmeldung jederzeit per WhatsApp / Signal oder Telegram an 0176 5676 2746 oder robertbagdahn@gmail.com'
   }),
 
   actions: {
@@ -31,6 +36,9 @@ export const useCommonStore = defineStore("common", {
     async hideError(errorMessage: string) {
       this._errorStatus = false
     },
+    async hideBanner() {
+      this._bannerStatus = false
+    },
   },
   getters: {
     successMessage: (state) => {
@@ -38,6 +46,15 @@ export const useCommonStore = defineStore("common", {
     },
     successStatus: (state) => {
       return state._successStatus;
+    },
+    bannerStatus: (state) => {
+      return state._bannerStatus;
+    },
+    bannerMesasge: (state) => {
+      return state._bannerMesasge;
+    },
+    bannerHeader: (state) => {
+      return state._bannerHeader;
     },
     errorMessage: (state) => {
       return state._errorMessage;

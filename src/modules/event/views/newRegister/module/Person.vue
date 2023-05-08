@@ -23,7 +23,7 @@
           </PrimaryButton>
           <SimpleList :items="registerPerson" :isLoading="isLoading">
             <template v-slot:notEmpty="slotProps">
-              <PersonListItem :item="slotProps.item" />
+              <PersonListItem @onPersonEditClicked="onPersonEditClicked2" :item="slotProps.item" />
             </template>
             <template v-slot:empty> </template>
           </SimpleList>
@@ -87,6 +87,11 @@ function onMyselfClicked() {
   person.value = personalData.value;
 }
 
+function onPersonEditClicked2(data) {
+  openNewPersonModal.value = true;
+  person.value = data;
+}
+
 function onNewPersonCancelClicked() {
   openNewPersonModal.value = false;
 }
@@ -103,7 +108,7 @@ function onNextButtonClicked() {
   }
 
   router.push({
-    name: "RegistrationNewFreeText",
+    name: "RegistrationNewTravel",
   });
 }
 

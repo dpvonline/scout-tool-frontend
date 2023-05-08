@@ -22,10 +22,10 @@
       techName="gender"
       v-model="state.gender"
       :choices="[
-        { id: 'F', title: 'weiblich' },
-        { id: 'M', title: 'männlich' },
-        { id: 'D', title: 'divers' },
-        { id: 'N', title: 'keine Angabe' },
+        { id: 'F', name: 'weiblich' },
+        { id: 'M', name: 'männlich' },
+        { id: 'D', name: 'divers' },
+        { id: 'N', name: 'keine Angabe' },
       ]"
       hint="Wir brauchen dein Geschlecht für Anmeldungen bei Veranstaltungen."
       :errors="errors.gender?.$errors"
