@@ -201,7 +201,7 @@ import AddPersonModal from "@/modules/event/components/registration/AddPersonMod
 
 import booleanAttribute from "@/modules/event/components/registration/attribute/booleanAttribute.vue";
 import stringAttribute from "@/modules/event/components/registration/attribute/stringAttribute.vue";
-import travelAttribute from "@/modules/event/components/registration/attribute/TravelAttribute.vue";
+import travelAttribute from "@/modules/event/components/registration/attribute/travelAttribute.vue";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
 import { useRoute, useRouter } from "vue-router";
