@@ -153,7 +153,6 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         firstName: data.firstName,
         lastName: data.lastName,
         scoutName: data.scoutName,
-        gender: data.gender,
         address: data.address,
         birthday: data.birthday,
         zipCode: data.zipCode,

@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="px-6 py-5 text-center text-sm font-medium">
-                  <span class="text-blue-600 mr-1">0</span>
+                  <span class="text-blue-600 mr-1">{{ openInvitationCount }}</span>
                   <router-link
                     :to="{
                       name: 'EventInvitations',
@@ -290,6 +290,9 @@ const userCount = computed(() => {
 });
 const openTaskCount = computed(() => {
   return dashboardStore.openTaskCount;
+});
+const openInvitationCount = computed(() => {
+  return dashboardStore.openInvitationCount;
 });
 const myGroups = computed(() => {
   return groupStore.myGroups;

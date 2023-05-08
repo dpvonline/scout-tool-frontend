@@ -8,6 +8,7 @@ export const useDashboardStore = defineStore("dashboard", {
     _userCount: 0,
     _openTaskCount: 0,
     _isLoading: true,
+    _openInvitationCount: 1,
   }),
 
   actions: {
@@ -57,6 +58,9 @@ export const useDashboardStore = defineStore("dashboard", {
     },
     openTaskCount: (state) => {
       return state._openTaskCount;
+    },
+    openInvitationCount: (state) => {
+      return state._openInvitationCount;
     },
     isLoading: (state) => {
       return state._isLoading;
