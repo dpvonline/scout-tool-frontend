@@ -34,6 +34,7 @@ const props = defineProps({
   label: { type: String, required: true },
   hint: { type: String, required: false, default: null },
   choices: { type: Array, required: true },
+  cols: { type: Number, required: false, default: 3 },
 });
 
 const isSelected = (item) => {

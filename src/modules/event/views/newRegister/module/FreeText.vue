@@ -12,7 +12,7 @@
       <div class="mt-4 space-y-4">
         <BaseField
           component="TextArea"
-          :label="'Zusätziche Nachricht'"
+          :label="'Zusätzliche Nachricht'"
           techName="freeText"
           v-model="state.freeText"
           :errors="errors.freeText?.$errors"

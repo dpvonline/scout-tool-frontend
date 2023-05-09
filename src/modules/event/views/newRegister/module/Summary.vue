@@ -70,6 +70,7 @@ function onNextButtonClicked() {
     return;
   }
 
+  isLoading.value = true;
   eventRegisterStore.create().then((response) => {
     eventRegisterStore.$reset();
     router.push({

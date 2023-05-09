@@ -251,6 +251,6 @@ function onNewPersonConfirmClicked(newPerson) {
 
 function onConfirmMailClicked() {
   const regId = route.params.id;
-  eventRegisterStore.sendConfirmMail(regId)
+  eventRegisterStore.sendConfirmMail(regId).them
 }
 </script>

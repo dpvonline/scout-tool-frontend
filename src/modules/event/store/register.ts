@@ -124,6 +124,8 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       );
 
       const responses = await Promise.all(promises);
+      const mailResponse = await this.sendConfirmMail(regId);
+
       return register;
     },
     async fetchRegistration(id: number) {
