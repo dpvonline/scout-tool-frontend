@@ -56,15 +56,15 @@ const steps = computed(() => {
         "RegistrationNewSummary",
       ]),
     },
-    // {
-    //   id: 3,
-    //   name: "",
-    //   link: "RegistrationNewTravel",
-    //   status: getStatus("RegistrationNewTravel", [
-    //     "RegistrationNewFreeText",
-    //     "RegistrationNewSummary",
-    //   ]),
-    // },
+    {
+      id: 3,
+      name: "",
+      link: "RegistrationNewTravel",
+      status: getStatus("RegistrationNewTravel", [
+        "RegistrationNewFreeText",
+        "RegistrationNewSummary",
+      ]),
+    },
     {
       id: 4,
       name: "",

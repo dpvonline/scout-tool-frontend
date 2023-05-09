@@ -6,6 +6,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ActionsList: typeof import('./src/components/actionlist/ActionsList.vue')['default']
     AutoComplete: typeof import('./src/components/field/AutoComplete.vue')['default']
+    AutoCompleteMulti: typeof import('./src/components/field/AutoCompleteMulti.vue')['default']
     AutoCompleteRemote: typeof import('./src/components/field/AutoCompleteRemote.vue')['default']
     Base: typeof import('./src/components/field/Base.vue')['default']
     BaseItem: typeof import('./src/components/list/BaseItem.vue')['default']
@@ -16,6 +17,7 @@ declare module '@vue/runtime-core' {
     Delete: typeof import('./src/components/modal/Delete.vue')['default']
     EMail: typeof import('./src/components/field/EMail.vue')['default']
     Header: typeof import('./src/components/breadcrumbs/Header.vue')['default']
+    Html: typeof import('./src/components/field/Html.vue')['default']
     LoadingItem: typeof import('./src/components/list/LoadingItem.vue')['default']
     Main: typeof import('./src/components/base/list/Main.vue')['default']
     MultiSelect: typeof import('./src/components/field/MultiSelect.vue')['default']

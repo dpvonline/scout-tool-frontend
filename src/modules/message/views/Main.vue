@@ -16,7 +16,7 @@ const route = useRoute();
 const tabs = computed(() => {
   return [
     {
-      name: "Issues",
+      name: "Anliegen",
       linkName: { name: "NewMessages", query: { status: 'unread' } },
       current: route.name === "NewMessages",
     },

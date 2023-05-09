@@ -37,7 +37,7 @@
           :cols="12"
         />
         <BaseField
-          component="TextArea"
+          component="Html"
           :label="'Einladungstext'"
           techName="longDescription"
           v-model="state.longDescription"
@@ -55,7 +55,7 @@ import BaseField from "@/components/field/Base.vue";
 import StepFrame from "@/components/stepper/StepFrame.vue";
 
 import { useVuelidate } from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
+import { required, maxLength } from "@vuelidate/validators";
 import { useRouter } from "vue-router";
 import { useEventStore } from "@/modules/event/store/index";
 const eventStore = useEventStore();
@@ -76,6 +76,7 @@ const rules = {
   },
   technicalName: {
     required,
+    maxLength: maxLength(15)
   },
   shortDescription: {
     required,

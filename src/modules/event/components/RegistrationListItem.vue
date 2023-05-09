@@ -15,14 +15,10 @@
           {{ props.item.event.name }}
         </p>
         <p class="mt-2 flex items-center text-sm text-gray-500">
-          <ClipboardIcon
-            class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-            aria-hidden="true"
-          />
-          <span class="truncate">{{ props.item.scoutOrganisation.name }}</span>
+          <span class="truncate">Gruppe: {{ props.item.scoutOrganisation.name }}</span>
         </p>
       </div>
-      <div class="hidden md:block">
+      <div>
         <div>
           <!-- <p class="text-sm text-gray-900">
             von
@@ -31,14 +27,13 @@
             {{ moment(props.item.endDate).format("DD.MM.YYYY") }}
           </p> -->
           <p class="mt-2 flex items-center text-sm text-gray-500">
-            <CheckCircleIcon
+            <UserGroupIcon
               class="mr-1.5 h-5 w-5 flex-shrink-0 text-green-400"
               aria-hidden="true"
             />
-            Anmeldung möglich:
-            <!-- {{
-              props.item.registrationOptions.allowEditSingleReg ? "Ja" : "Nein"
-            }} -->
+            {{
+              props.item.participantCount
+            }} angemeldet ({{ (props.item.price || 0).toFixed(2) }} €)
           </p>
         </div>
       </div>
@@ -47,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { ClipboardIcon, RocketLaunchIcon, CheckCircleIcon, CalendarDaysIcon } from "@heroicons/vue/24/outline";
+import { ClipboardIcon, RocketLaunchIcon, CheckCircleIcon, CalendarDaysIcon, UserGroupIcon } from "@heroicons/vue/24/outline";
 import moment from "moment";
 const props = defineProps({
   item: Object,

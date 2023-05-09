@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import EventApi from "@/modules/event/services/event";
 import RegistrationApi from "@/modules/event/services/registration";
 import MappingApi from "@/modules/auth/services/mapping";
+import EventMappingApi from "@/modules/event/services/mapping";
 import GroupApi from "@/modules/group/services/group";
 import moment from "moment";
 
@@ -36,7 +37,11 @@ export const useEventStore = defineStore("event", {
     _scoutOrgaLevels: [],
     _djangoGroups: [],
     _themes: [],
+    _emailSets: [],
     _bookingOptions: [],
+    _eventLocations: [],
+    _travelTypeChoices: [],
+    _eatHabitTypes: [],
   }),
 
   actions: {
@@ -90,6 +95,7 @@ export const useEventStore = defineStore("event", {
     },
     async fetchAllMappings(params = {}) {
       await GroupApi.fetchMyGroups();
+      await this.fetchTravelTypeChoices();
     },
     createDataRemote() {
       const eventCreate = {
@@ -104,15 +110,20 @@ export const useEventStore = defineStore("event", {
         registrationDeadline: this._eventDates.registrationDeadline,
         lastPossibleUpdate: this._eventDates.lastPossibleUpdate,
 
-        keycloakAdminPath: this._eventAuth.keycloakAdminPath.id,
-        keycloakPath: this._eventAuth.keycloakPath.id,
+        adminGroup: this._eventAuth.adminGroup.id,
+        viewGroup: this._eventAuth.viewGroup.id,
         isPublic: this._eventAuth.isPublic,
+        invitedGroups: this._eventAuth.invitedGroups,
+        invitingGroup: this._eventAuth.invitingGroup.id,
 
         emailSet: this._eventCustom.emailSet.id,
+        theme: this._eventCustom.theme.id,
+        price: this._eventCustom.price,
+        location: this._eventCustom.location.id,
 
         eventPlanerModules: ["KeycloakAuthorization", "BookingOptionComplex"],
         personalDataRequired: true,
-        single_registration: "E",
+        singleRegistration: "E",
       };
       return EventApi.create(eventCreate);
     },
@@ -201,12 +212,58 @@ export const useEventStore = defineStore("event", {
         this._isLoading = false;
       }
     },
+    async fetchEmailSets() {
+      this._isLoading = true;
+      try {
+        const response = await MappingApi.fetchEmailSets();
+        this._emailSets = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        // // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchEventLocations() {
+      this._isLoading = true;
+      try {
+        const response = await MappingApi.fetchEventLocations();
+        this._eventLocations = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        // // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchTravelTypeChoices() {
+      this._isLoading = true;
+      try {
+        const response = await EventMappingApi.fetchTravelTypeChoices();
+        this._travelTypeChoices = response.data;
+        this._isLoading = false;
+      } catch (error) {
+        // // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchEatHabitTypes() {
+      try {
+        const response = await MappingApi.fetchEatHabit()
+        this._eatHabitTypes = response.data
+      } catch (e) {
+        alert(e)
+        console.error(e)
+      }
+    },
     updateEventStart(data: any) {
       this._eventStart = data;
       this.updateEventNames({
         name: data.name,
         technicalName: data.name.replace(/[^A-Z0-9]/gi, "_").toLowerCase(),
         shortDescription: data.name,
+        longDescription: `Einladungtext für ${data.name}`,
       });
       this.updateEventDates({
         startDate: moment(data.startDate).set({ hour: 18, minute: 0, seconds: 0 }).format(format1),
@@ -219,9 +276,10 @@ export const useEventStore = defineStore("event", {
           .format(format1),
       });
       this.updateEventAuth({
-        keycloakAdminPath: data.invitedGroup,
-        keycloakPath: data.invitedGroup,
-        limitedRegistrationHierarchy: data.invitedGroup,
+        adminGroup: data.invitedGroup,
+        viewGroup: data.invitedGroup,
+        invitedGroups: [data.invitedGroup],
+        invitingGroup: data.invitedGroup,
         isPublic: false,
       });
     },
@@ -267,13 +325,12 @@ export const useEventStore = defineStore("event", {
     },
 
     // registrations
-    _invitation: (state) => {
+    invitation: (state) => {
       return state._invitation;
     },
     invitations: (state) => {
       return state._invitations;
     },
-
 
     // registrations
     registration: (state) => {
@@ -299,8 +356,20 @@ export const useEventStore = defineStore("event", {
     themes: (state) => {
       return state._themes;
     },
+    emailSets: (state) => {
+      return state._emailSets;
+    },
     bookingOptions: (state) => {
       return state._bookingOptions;
+    },
+    eventLocations: (state) => {
+      return state._eventLocations;
+    },
+    travelTypeChoices: (state) => {
+      return state._travelTypeChoices;
+    },
+    eatHabitTypes: (state) => {
+      return state._eatHabitTypes
     },
   },
 });

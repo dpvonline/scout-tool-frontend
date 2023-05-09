@@ -2,7 +2,7 @@ export default [
   {
     path: "/event",
     name: "EventMain",
-    redirect: { name: "EventInvitations" },
+    redirect: { name: "EventInvitations", query: { status: "pending" } },
     meta: {
       requiresAuth: true
     },

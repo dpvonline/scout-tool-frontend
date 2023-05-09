@@ -69,6 +69,9 @@ export default {
   fetchMyGroups() {
     return axios.get(`${BASE_URL}/auth/my-groups/`);
   },
+  fetchGroupsShort() {
+    return axios.get(`${BASE_URL}/keycloak/groups-short/`);
+  },
   fetchGroupUserAdmins(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/user-admins/`);
   },

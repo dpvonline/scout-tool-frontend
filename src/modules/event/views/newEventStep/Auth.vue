@@ -9,42 +9,54 @@
         <BaseField
           component="Select"
           :label="'Zugriff auf Persönliche Anmeldedaten'"
-          techName="keycloakAdminPath"
-          v-model="state.keycloakAdminPath"
-          :errors="errors.keycloakAdminPath?.$errors"
-          :items="djangoGroups"
+          techName="adminGroup"
+          v-model="state.adminGroup"
+          :errors="errors.adminGroup?.$errors"
+          :items="shortGroups"
           hint="Diese Gruppe darf alle  persönlichen Daten der Anmeldenden sehen."
-          :lookupListDisplay="['name']"
+          :lookupListDisplay="['displayName']"
           :cols="12"
         />
         <BaseField
           component="Select"
           :label="'Zugriff auf aggrigierte Anmeldedaten'"
-          techName="keycloakPath"
-          v-model="state.keycloakPath"
-          :errors="errors.keycloakPath?.$errors"
+          techName="viewGroup"
+          v-model="state.viewGroup"
+          :errors="errors.viewGroup?.$errors"
           :cols="12"
-          :items="djangoGroups"
+          :items="shortGroups"
           hint="Diese Gruppe darf alle nicht persönlichen Daten der Anmeldenden sehen."
-          :lookupListDisplay="['name']"
+          :lookupListDisplay="['displayName']"
         />
-        <!-- <BaseField
-          component="Select"
-          :label="'limitedRegistrationHierarchy'"
-          techName="limitedRegistrationHierarchy"
-          v-model="state.limitedRegistrationHierarchy"
-          :errors="errors.limitedRegistrationHierarchy?.$errors"
+        <BaseField
+          component="AutoCompleteMulti"
+          :label="'Eingeladene Gruppen'"
+          techName="invitedGroups"
+          v-model="state.invitedGroups"
+          :errors="errors.invitedGroups?.$errors"
           :cols="12"
-          :items="djangoGroups"
+          :items="shortGroups2"
           hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."
-          :lookupListDisplay="['name']"
-        /> -->
+          :lookupListDisplay="['displayName']"
+          valueField="value"
+        />
+        <BaseField
+          component="Select"
+          :label="'Einladene Gruppe'"
+          techName="invitingGroup"
+          v-model="state.invitingGroup"
+          :errors="errors.invitingGroup?.$errors"
+          :cols="12"
+          :items="shortGroups"
+          hint="Welche Gruppe lädt ein?"
+          :lookupListDisplay="['displayName']"
+        />
         <BaseField
           component="Select"
           :label="'Anmeldeebene'"
-          techName="groupRegistrationLevel"
-          v-model="state.groupRegistrationLevel"
-          :errors="errors.groupRegistrationLevel?.$errors"
+          techName="registrationLevel"
+          v-model="state.registrationLevel"
+          :errors="errors.registrationLevel?.$errors"
           :items="scoutOrgaLevels"
           hint="Die Ebene legt fest welche Ebene deine Anmeldung hat."
           :lookupListDisplay="['name']"
@@ -77,25 +89,32 @@ const eventStore = useEventStore();
 import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
 
+import { useGroupStore } from "@/modules/group/store/index";
+const groupStore = useGroupStore();
+
 const state = reactive({
-  keycloakPath: null,
-  keycloakAdminPath: null,
-  limitedRegistrationHierarchy: null,
-  groupRegistrationLevel: null,
-  isPublic: null,
+  viewGroup: null,
+  adminGroup: null,
+  invitedGroups: [],
+  invitingGroup: null,
+  registrationLevel: null,
+  isPublic: false,
 });
 
 const rules = {
-  keycloakPath: {
+  viewGroup: {
     required,
   },
-  keycloakAdminPath: {
+  adminGroup: {
     required,
   },
-  limitedRegistrationHierarchy: {
+  invitedGroups: {
     required,
   },
-  groupRegistrationLevel: {
+  invitingGroup: {
+    required,
+  },
+  registrationLevel: {
     required,
   },
   isPublic: {
@@ -118,7 +137,7 @@ function onNextButtonClicked() {
     return;
   }
 
-  eventStore.updateEventCustom(state);
+  eventStore.updateEventAuth(state);
 
   router.push({
     name: "EventNewCustom",
@@ -133,17 +152,38 @@ const scoutOrgaLevels = computed(() => {
   return eventStore.scoutOrgaLevels;
 });
 
+const shortGroups = computed(() => {
+  return groupStore.shortGroups;
+});
+
+const shortGroups2 = computed(() => {
+  if (groupStore.shortGroups && groupStore.shortGroups.length) {
+    console.log(groupStore.shortGroups);
+    let arr = JSON.parse(JSON.stringify(groupStore.shortGroups));
+    arr.forEach(function (data) {
+      data["value"] = data["id"];
+      data["label"] = data["displayName"];
+      delete data["id"];
+      delete data["displayName"];
+    });
+    return arr;
+  } else {
+    return [];
+  }
+});
+
 
 function setInitData() {
   isLoading.value = true;
-  state.keycloakPath = eventStore.eventAuth.keycloakPath
-  state.keycloakAdminPath = eventStore.eventAuth.keycloakAdminPath
-  state.limitedRegistrationHierarchy = eventStore.eventAuth.limitedRegistrationHierarchy
-  state.groupRegistrationLevel = eventStore.eventAuth.groupRegistrationLevel
+  state.viewGroup = eventStore.eventAuth.viewGroup
+  state.adminGroup = eventStore.eventAuth.adminGroup
+  state.invitedGroups = eventStore.eventAuth.invitedGroups
+  state.invitingGroup = eventStore.eventAuth.invitingGroup
+  state.registrationLevel = eventStore.eventAuth.registrationLevel
   state.isPublic = eventStore.eventAuth.isPublic
 
-  if (!state.groupRegistrationLevel) {
-    state.groupRegistrationLevel = scoutOrgaLevels.value[0]
+  if (!state.registrationLevel) {
+    state.registrationLevel = scoutOrgaLevels.value[0]
   }
 
   if (!state.isPublic) {

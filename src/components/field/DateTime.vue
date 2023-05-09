@@ -50,7 +50,21 @@ const hasError = computed(() => {
   return props.errors[0] && props.errors.length;
 });
 
+// das hier wandelt eine ISO Zeit in eine ISO Zeit von der jew. Zeitzone um
+// const modelValue = computed(() => {
+//     if (!props.modelValue) {
+//         return '';
+//     }
+//
+//     const date = new Date(props.modelValue)
+//     //date.setSeconds(0,0)
+//     const tzoffset = (date).getTimezoneOffset() * 60000; //offset in milliseconds
+//     const localISOTime = (new Date(date.getTime() - tzoffset)).toISOString().slice(0, -1);
+//
+//     return localISOTime;
+// });
 const updateValue = (event) => {
+    //hier muesste das Datum wieder zurueck umgewandelt werden in die Form, die das Backend mag
   emit("update:modelValue", event.target.value);
 };
 </script>

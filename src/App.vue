@@ -1,5 +1,6 @@
 <template>
   <div class="flex h-full">
+    <Banner />
     <BaseLayout v-if="isKeycloakInit">
       <router-view />
     </BaseLayout>
@@ -18,6 +19,7 @@ import { computed, onUpdated, ref } from "vue";
 import BaseLayout from "@/modules/app/components/BaseLayout.vue";
 import Success from "@/modules/common/components/Success.vue";
 import Error from "@/modules/common/components/Error.vue";
+import Banner from "@/modules/common/components/Banner.vue";
 import LoadingItem from "@/components/list/LoadingItem.vue";
 
 const authStore = useAuthStore();

@@ -97,9 +97,7 @@
                     "
                   >
                     {{
-                      group.parent
-                        ? `${group.parent.name} - ${group.name} `
-                        : group.name
+                      `${group.displayName}`
                     }}
                   </td>
                   <td
