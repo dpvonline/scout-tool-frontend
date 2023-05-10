@@ -112,17 +112,18 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       // freetext
       const attributeModuleIdLetter = this._event?.eventmoduleSet.filter((item) => item.name === "Letter")[0]
         .attributeModules[0].id;
-      promises.push(
-        this.createAttribute(
-          regId,
-          {
-            stringField: this._registerFreeText?.freeText,
-            attributeModule: attributeModuleIdLetter,
-          },
-          "string"
-        )
-      );
-
+      if (this._registerFreeText?.freeText) {
+        promises.push(
+          this.createAttribute(
+            regId,
+            {
+              stringField: this._registerFreeText?.freeText,
+              attributeModule: attributeModuleIdLetter,
+            },
+            "string"
+          )
+        );
+      }
       const responses = await Promise.all(promises);
       const mailResponse = await this.sendConfirmMail(regId);
 
