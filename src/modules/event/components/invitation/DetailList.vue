@@ -22,7 +22,7 @@
               </p>
             </div>
           </div>
-          <div class="ml-4 mt-4 flex flex-shrink-0">
+          <div v-if="event.status !== 'expired'" class="ml-4 mt-4 flex flex-shrink-0">
             <PrimaryButton
               @click="onInvitationClicked(event.id)"
               :icon="PaperAirplaneIcon"
@@ -164,8 +164,11 @@
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Wer ist eingeladen?</dt>
-          <dd class="mt-1 text-sm text-gray-900">
+          <dd v-if="event.invitedGroups && event.invitedGroups.length > 0" class="mt-1 text-sm text-gray-900">
             {{ event.invitedGroups?.map((a) => `${a.displayName}`).join(", ") }}
+          </dd>
+          <dd v-else class="mt-1 text-sm text-gray-900">
+            Jeder
           </dd>
         </div>
       </dl>

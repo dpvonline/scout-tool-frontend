@@ -44,7 +44,7 @@ const props = defineProps({
   label: { type: String, required: false },
   isLoading: { type: Boolean, required: false },
   color: { type: String, required: false, default: "blue" },
-  icon: { type: Object, required: false, default: null },
+  icon: { type: Function, required: false, default: null },
 });
 
 const emit = defineEmits(["click"]);

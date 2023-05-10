@@ -34,6 +34,16 @@
               <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="mt-4 space-y-4">
                   <BaseField
+                    component="Select"
+                    :label="'Buchungsoption'"
+                    techName="bookingOption"
+                    v-model="state.bookingOption"
+                    :errors="errors.bookingOption?.$errors"
+                    :cols="6"
+                    :lookupListDisplay="['name', 'price', '$ €']"
+                    :items="bookingOptions"
+                  />
+                  <BaseField
                     v-if="!state.id"
                     component="Toggle"
                     :label="'Person dauerhaft speichern'"
@@ -90,6 +100,15 @@
                     :cols="6"
                   />
                   <BaseField
+                    component="AutoCompleteMulti"
+                    :label="'Essenbesonderheiten'"
+                    techName="eatHabit"
+                    v-model="state.eatHabit"
+                    :errors="errors.eatHabit?.$errors"
+                    :items="eatHabitMappings2"
+                    :cols="6"
+                  />
+                  <BaseField
                     component="Text"
                     :label="'Straße und Hausnummer*'"
                     techName="address"
@@ -104,25 +123,6 @@
                     v-model="state.zipCode"
                     :errors="errors.zipCode?.$errors"
                     :cols="6"
-                  />
-                  <BaseField
-                    component="AutoCompleteMulti"
-                    :label="'Essenbesonderheiten'"
-                    techName="eatHabit"
-                    v-model="state.eatHabit"
-                    :errors="errors.eatHabit?.$errors"
-                    :items="eatHabitMappings2"
-                    :cols="6"
-                  />
-                  <BaseField
-                    component="Select"
-                    :label="'Buchungsoption'"
-                    techName="bookingOption"
-                    v-model="state.bookingOption"
-                    :errors="errors.bookingOption?.$errors"
-                    :cols="6"
-                    :lookupListDisplay="['name', 'price', '$ €']"
-                    :items="bookingOptions"
                   />
                 </div>
               </div>
@@ -320,8 +320,17 @@ onUpdated(() => {
     state.eatHabit = props?.person?.eatHabit;
     state.gender = getGenderValue(props?.person?.gender);
   } else {
-    state.zipCode = personalDataStore?.personalData?.scoutGroup?.zipCode?.zipCode
-    state.birthday = moment().add(-10, 'y').format('YYYY-MM-DD')
+    state.allowPermanently = true;
+    state.firstName = null;
+    state.lastName = null;
+    state.scoutName = null;
+    state.gender = "N";
+    state.address = null;
+    state.eatHabit = null;
+    state.bookingOption = null;
+    state.zipCode =
+      personalDataStore?.personalData?.scoutGroup?.zipCode?.zipCode;
+    state.birthday = moment().add(-10, "y").format("YYYY-MM-DD");
   }
   state.bookingOption = bookingOptions.value[0];
 });

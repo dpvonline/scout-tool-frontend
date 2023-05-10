@@ -100,7 +100,7 @@ const invitationsFiltered = computed(() => {
   return invitations.value.filter((q) => q.status === query.status);
 });
 
-const selectedValue = ref("Ausstend");
+const selectedValue = ref("Offen");
 
 function onChange(event) {
   const linkName = tabs.value.find((item) => item.name === selectedValue.value)[
@@ -114,7 +114,7 @@ const tabs = computed(() => {
 
   return [
     {
-      name: "Ausstend",
+      name: "Offen",
       linkName: { name: "EventInvitations", query: { status: "pending" } },
       count: invitations.value.filter((q) => q.status === "pending").length,
       current: query.status === "pending",

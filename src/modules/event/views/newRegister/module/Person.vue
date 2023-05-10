@@ -25,7 +25,9 @@
             <template v-slot:notEmpty="slotProps">
               <PersonListItem @onPersonEditClicked="onPersonEditClicked2" :item="slotProps.item" />
             </template>
-            <template v-slot:empty> </template>
+            <template v-slot:empty>
+              <p>Noch keine Person</p>
+            </template>
           </SimpleList>
         </div>
       </div>
@@ -80,6 +82,7 @@ const openNewPersonModal = ref(false);
 
 function onNewPersonClicked(item) {
   openNewPersonModal.value = true;
+  person.value = {};
 }
 
 function onMyselfClicked() {
