@@ -18,7 +18,7 @@
                 {{ event.name }}
               </h3>
               <p class="text-sm text-gray-500">
-                {{ event.shortDescription }} jooij
+                {{ event.shortDescription }}
               </p>
             </div>
           </div>
