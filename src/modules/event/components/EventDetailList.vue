@@ -23,6 +23,11 @@
             </div>
           </div>
         </div>
+        <div class="ml-4 mt-4 flex flex-shrink-0">
+          <PrimaryButton :icon="DocumentChartBarIcon" @click="onStatisticsClicked" class="mx-0 my-2">
+            Statistiken anzeigen
+          </PrimaryButton>
+        </div>
       </div>
     </div>
     <div class="border-t-8 border-gray-100 px-4 py-6 sm:px-6">
@@ -409,7 +414,11 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
+
+const router = useRouter();
+const route = useRoute();
 
 import moment from "moment";
 
@@ -422,6 +431,7 @@ import {
   PlusCircleIcon,
   CpuChipIcon,
   ArrowSmallUpIcon,
+  DocumentChartBarIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
@@ -447,6 +457,16 @@ function onEventEditClicked(formNo, child = null) {
 function onEventClosedClicked() {
   openEventEdit.value = false;
   eventData.value = {};
+}
+
+function onStatisticsClicked() {
+  const id = route.params.id;
+  router.push({
+    name: 'EventStatisticSummary',
+    params: {
+      id,
+    },
+  });
 }
 
 const props = defineProps({
