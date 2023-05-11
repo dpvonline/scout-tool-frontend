@@ -42,6 +42,11 @@ export const useEventStore = defineStore("event", {
     _eventLocations: [],
     _travelTypeChoices: [],
     _eatHabitTypes: [],
+
+    _eventSummary: [],
+    _eventSummaryTotalParticipants: [],
+    _eventSummaryTotalRegistrations: [],
+    _eventSummaryBookingOptions: [],
   }),
 
   actions: {
@@ -49,6 +54,42 @@ export const useEventStore = defineStore("event", {
       try {
         const response = await EventApi.fetchAll(params);
         this._events = response.data;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchEventSummary(id: any, params = {}) {
+      try {
+        const response = await EventApi.fetchEventSummary(id, params);
+        this._eventSummary = response.data;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchEventSummaryTotalParticipants(id: any) {
+      try {
+        const response = await EventApi.fetchEventSummaryTotalParticipants(id);
+        this._eventSummaryTotalParticipants = response.data;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchEventSummaryTotalRegistrations(id: any) {
+      try {
+        const response = await EventApi.fetchEventSummaryTotalRegistrations(id);
+        this._eventSummaryTotalRegistrations = response.data;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchEventSummaryBookingOptions(id: any) {
+      try {
+        const response = await EventApi.fetchEventSummaryBookingOptions(id);
+        this._eventSummaryBookingOptions = response.data;
       } catch (error) {
         // alert(error);
         console.log(error);
@@ -370,6 +411,19 @@ export const useEventStore = defineStore("event", {
     },
     eatHabitTypes: (state) => {
       return state._eatHabitTypes
+    },
+
+    eventSummary: (state) => {
+      return state._eventSummary
+    },
+    eventSummaryTotalParticipants: (state) => {
+      return state._eventSummaryTotalParticipants
+    },
+    eventSummaryTotalRegistrations: (state) => {
+      return state._eventSummaryTotalRegistrations
+    },
+    eventSummaryBookingOptions: (state) => {
+      return state._eventSummaryBookingOptions
     },
   },
 });

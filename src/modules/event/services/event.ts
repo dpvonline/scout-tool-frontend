@@ -1,6 +1,6 @@
 import axios from "axios";
 const BASE_URL = import.meta.env.VITE_APP_API;
-const SERVICE = 'event/event'
+const SERVICE = "event/event";
 
 export default {
   fetchAll(params: any) {
@@ -42,7 +42,7 @@ export default {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/`);
   },
   create(data: any) {
-    return axios.post(`${BASE_URL}/${SERVICE}/`, data );
+    return axios.post(`${BASE_URL}/${SERVICE}/`, data);
   },
 
   update(data: any) {
@@ -50,6 +50,20 @@ export default {
   },
 
   delete(id: any) {
-    return axios.delete(`${BASE_URL}/${SERVICE}/${id}/`)
+    return axios.delete(`${BASE_URL}/${SERVICE}/${id}/`);
+  },
+  fetchEventSummary(id: any, params: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/`, {
+      params: params,
+    });
+  },
+  fetchEventSummaryTotalParticipants(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/kpi/total-participants/`);
+  },
+  fetchEventSummaryTotalRegistrations(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/kpi/total-registrations/`);
+  },
+  fetchEventSummaryBookingOptions(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/kpi/booking-options/`);
   },
 };

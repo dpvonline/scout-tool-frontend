@@ -133,4 +133,25 @@ export default [
     },
     component: () => import(/* webpackChunkName: "RegistrationFinish" */ "@/modules/event/views/newRegister/Finish.vue"),
   },
+  {
+    path: "/event-statistic/:id",
+    name: "EventStatistic",
+    meta: {
+      requiresAuth: true,
+    },
+    redirect: { name: "EventStatisticSummary" },
+    component: () => import(/* webpackChunkName: "NewRegistration" */ "@/modules/event/views/statistic/Main.vue"),
+    children: [
+      {
+        path: "summary",
+        name: "EventStatisticSummary",
+        component: () => import(/* webpackChunkName: "EventStatisticSummary" */ "@/modules/event/views/statistic/module/Summary.vue"),
+      },
+      {
+        path: "registration",
+        name: "EventStatisticRegistration",
+        component: () => import(/* webpackChunkName: "EventStatisticRegistration" */ "@/modules/event/views/statistic/module/Registration.vue"),
+      },
+    ],
+  },
 ];
