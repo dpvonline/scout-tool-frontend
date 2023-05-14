@@ -73,16 +73,16 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Personen
           </h3>
-          <button
+          <!-- <button
             @click="onNewPersonClicked"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             <UserPlusIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
-          </button>
+          </button> -->
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Folgende Personen hast du angemeldet
+          Folgende Personen hast du angemeldet (Wenn sind aktuell nicht editierbar, werden das aber morgen sein. Wenn du so einen Fall hast schicke eine E-Mail mit den Daten an robertbagdahn@gmail.com)
         </p>
       </div>
       <div
