@@ -40,7 +40,7 @@ const router = createRouter({
   },
 });
 
-function sleep(ms) {
+function sleep(ms : number) {
   // eslint-disable-next-line no-promise-executor-return
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -57,7 +57,6 @@ router.beforeEach(async (to, from, next) => {
   }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!authStore.isAuth) {
-      console.log('!authStore.isAuth')
       authStore.login(true)
     } else {
       next();

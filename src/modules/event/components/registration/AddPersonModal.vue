@@ -257,7 +257,6 @@ function close() {
 }
 function onButtonSaveClicked() {
   errors.value.$validate();
-  console.log(errors.value);
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen");
     return;

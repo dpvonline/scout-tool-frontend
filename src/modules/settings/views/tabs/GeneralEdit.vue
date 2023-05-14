@@ -506,13 +506,9 @@ function onButtonClicked() {
 
 onMounted(async () => {
   await Promise.all([fetchAllMappings()]);
-  console.log(registerStore.genderMappings);
-  console.log(registerStore.scoutGroupMappings);
 
   await fetchPersonalData();
-  console.log(personalData);
   fillpersonalDataStore();
-  console.log(emailNotificationChoices);
   state.gender = registerStore.genderMappings.find(
     (a) => a["name"] === state.gender
   );

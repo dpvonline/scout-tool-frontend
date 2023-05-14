@@ -120,7 +120,6 @@ const eventLocations = computed(() => {
 
 async function onNextButtonClicked() {
   errors.value.$validate();
-  console.log(errors.value);
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen");
     return;
@@ -130,7 +129,7 @@ async function onNextButtonClicked() {
 
   try {
     const result = await eventStore.createDataRemote();
-    
+
     router.push({
       name: "EventDetail",
       params: {

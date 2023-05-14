@@ -16,18 +16,12 @@ export const useAuthStore = defineStore("authStore", {
   }),
 
   actions: {
-    login(init: Boolean = false) {
-      console.log('login');
-      console.log(`init: ${init}`);
+    login(init : boolean = false) {
       const APP_URL = import.meta.env.VITE_APP_URL;
       const loginOptions = { redirectUri: `${APP_URL}/dashboard` };
       if (init) {
-        console.log('keycloak.login(loginOptions)')
-        console.log(`init: ${init}`);
         keycloak.login(loginOptions)
-        console.log(`init: ${init}`);
       } else {
-        console.log('keycloak.login()')
         keycloak.login()
       }
     },

@@ -87,7 +87,6 @@ const commonStore = useCommonStore();
 
 function onNextButtonClicked() {
   errors.value.$validate();
-  console.log(errors);
 
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen");
