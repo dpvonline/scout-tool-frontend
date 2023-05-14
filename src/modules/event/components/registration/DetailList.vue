@@ -38,7 +38,7 @@
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Deine Anmeldezahl</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ registration?.participantCount }} ({{ registration?.price }} €)
+            {{ registration?.participantCount }} ({{ registration?.price?.toFixed(2) }} €)
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -118,7 +118,7 @@
               </DisclosureButton>
             </dt>
             <DisclosurePanel as="dd" class="mt-2 pr-12">
-              <button
+              <!-- <button
                 @click="onEditPersonClicked(person)"
                 type="button"
                 class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -133,7 +133,7 @@
                 class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 <XMarkIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
-              </button>
+              </button> -->
               <p class="text-base leading-7 text-gray-600">
                 Geschlecht: {{ person.getGenderDisplay }}
               </p>
@@ -235,6 +235,7 @@ const openNewPersonModal = ref(false);
 
 function onNewPersonClicked() {
   openNewPersonModal.value = true;
+  person.value = {};
 }
 function onEditPersonClicked(item) {
   openNewPersonModal.value = true;

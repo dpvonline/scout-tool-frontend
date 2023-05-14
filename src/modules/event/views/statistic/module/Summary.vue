@@ -1,6 +1,6 @@
 <template>
   <div class="px-3 py-3">
-    <h3 class="text-base font-semibold leading-6 text-gray-900">Übersicht</h3>
+    <h3 class="text-base font-semibold leading-6 text-gray-900">Anmeldezahlen</h3>
     <dl class="my-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
       <div
         v-for="item in stats"
@@ -53,7 +53,6 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 
 const eventSummaryBookingOptions = computed(() => {
-  console.log(eventStore.eventSummaryBookingOptions);
   return eventStore.eventSummaryBookingOptions;
 });
 
