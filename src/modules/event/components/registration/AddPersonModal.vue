@@ -118,6 +118,14 @@
                   />
                   <BaseField
                     component="Text"
+                    :label="'Stadt'"
+                    techName="city"
+                    v-model="state.city"
+                    :errors="errors.city?.$errors"
+                    :cols="6"
+                  />
+                  <BaseField
+                    component="Text"
                     :label="'Postleitzahl*'"
                     techName="zipCode"
                     v-model="state.zipCode"
@@ -195,8 +203,12 @@ const rules = {
   address: {
     required,
   },
+  city: {},
   zipCode: {
-    required,
+    validPLZ: helpers.withMessage("Bitte gib eine gültige Postleitzahl an.", function(value) {
+      return /^[0-9]{5}$/.test(value)
+    }),
+    required: helpers.withMessage("Du musst eine gültige Postleitzahl angeben.", required)
   },
   eatHabit: {},
   bookingOption: {
@@ -214,6 +226,7 @@ const state = reactive({
   zipCode: null,
   eatHabit: null,
   bookingOption: null,
+  city: null,
 });
 
 const genderMappings = computed(() => {
