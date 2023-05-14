@@ -20,7 +20,6 @@ function setStoreValues() {
   authStore._accessToken = keycloak.token;
   authStore._isKeycloakInit = true;
 
-  console.log(`authenticated: ${keycloak.authenticated}`);
   if (keycloak.authenticated) {
     keycloak
       .loadUserInfo()
@@ -37,51 +36,41 @@ function setStoreValues() {
 
 function onReady(authenticated: boolean) {
   setStoreValues();
-  console.log(`onReady authenticated: ${authenticated}`);
 }
 
 function onAuthError(error: KeycloakError) {
   setStoreValues();
-  console.log(`onAuthError error: ${error}`);
 }
 
 function onAuthLogout() {
   setStoreValues();
-  console.log(`onAuthLogout`);
 }
 
 function onTokenExpired() {
-  console.log("token expired");
   keycloak
     .updateToken(30)
     .then(() => {
-      console.log("successfully got a new token", keycloak.token);
       setStoreValues();
     })
     .catch((error) => {
-      console.log(`token refresh error: ${error}`);
       setStoreValues();
     });
 }
 
 function onActionUpdate(status: "success" | "cancelled" | "error") {
   setStoreValues();
-  console.log(`onActionUpdate status: ${status}`);
 }
 
 function onAuthRefreshError() {
   setStoreValues();
-  console.log(`onAuthRefreshError`);
 }
 
 function onAuthRefreshSuccess() {
   setStoreValues();
-  console.log(`onAuthRefreshSuccess`);
 }
 
 function onAuthSuccess() {
   setStoreValues();
-  console.log(`onAuthSuccess`);
 }
 
 export default function () {

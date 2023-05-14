@@ -171,7 +171,6 @@ const shortGroups = computed(() => {
 
 const shortGroups2 = computed(() => {
   if (groupStore.shortGroups && groupStore.shortGroups.length) {
-    console.log(groupStore.shortGroups);
     let arr = JSON.parse(JSON.stringify(groupStore.shortGroups));
     arr.forEach(function (data) {
       data["value"] = data["id"];

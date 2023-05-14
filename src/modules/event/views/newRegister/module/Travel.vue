@@ -97,7 +97,6 @@ function onNewTravelCancelClicked() {
 }
 
 function onNewTravelConfirmClicked(newTravel) {
-  console.log(newTravel);
   eventRegisterStore.addTravel({
     id: newTravel.id,
     numberPersons: newTravel.numberPersons,

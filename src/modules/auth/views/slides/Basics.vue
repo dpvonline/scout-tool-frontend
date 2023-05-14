@@ -9,11 +9,11 @@
       </p>
       <div>
         <BaseField
+          v-model="state.username"
           component="Text"
           hint="Das ist dein zukünftiger Name bei allen Digitalen Anwendungen im DPV. Der Name kann nicht mehr geändert werden. Der Username darf keine Leer oder Sonderzeichen enthaten."
           :label="'Benutzername*'"
           techName="username"
-          v-model="state.username"
           :errors="errors.username?.$errors"
           :cols="1"
         />
@@ -21,18 +21,18 @@
     </fieldset>
     <fieldset class="mt-6 pb-2 border-b border-gray-200" >
       <legend class="contents text-base font-medium text-gray-900">
-        Deine Pfadfinder E-Mail 
+        Deine Pfadfinder E-Mail
       </legend>
       <p class="text-sm text-gray-500">
         Gebe eine bestehende E-Mail Adresse an, an die wir deine Pfadfinder E-Mail senden sollen.
       </p>
       <div class="mt-4 space-y-4">
         <BaseField
+          v-model="state.email"
           component="EMail"
           hint="Deine Pfadfinder E-Mail Adresse"
           :label="'E-Mail-Adresse*'"
           techName="email"
-          v-model="state.email"
           :errors="errors.email?.$errors"
         />
       </div>
@@ -46,19 +46,19 @@
       </p>
       <div class="mt-4 space-y-4">
         <BaseField
+          v-model="state.password"
           component="Password"
           hint="Passwort muss mindestens 8 Zeichen haben. Leerzeichen sind verboten. Mindestens eine Zahl. Mindestens ein Groß- und ein Kleinbustaben."
           :label="'Password*'"
           techName="password"
-          v-model="state.password"
           :errors="errors.password?.$errors"
         />
         <BaseField
+          v-model="state.repeatPassword"
           component="Password"
           hint="Wiederhole dein Passwort."
           :label="'Password wiederholen*'"
           techName="repeatPassword"
-          v-model="state.repeatPassword"
           :errors="errors.repeatPassword?.$errors"
         />
       </div>
@@ -197,7 +197,7 @@ const commonStore = useCommonStore();
 
 function onNextButtonClicked() {
   errors.value.$validate();
-  console.log(errors);
+
 
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen");

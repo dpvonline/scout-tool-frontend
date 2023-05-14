@@ -2,7 +2,7 @@
   <StepFrame header="Neue Veranstaltung anlegen" :isLoading="isLoading" @click="onNextButtonClicked">
     <fieldset class="mt-6">
       <legend class="contents text-base font-medium text-gray-900">
-        Geb die Basis Daten deiner Veranstaltung 
+        Geb die Basis Daten deiner Veranstaltung
       </legend>
       <p class="text-sm text-gray-500">
 
@@ -92,7 +92,6 @@ const isLoading = ref(false);
 
 function onNextButtonClicked() {
   errors.value.$validate();
-  console.log(errors);
 
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen");
@@ -145,7 +144,7 @@ onMounted(async () => {
     eventStore.fetchEventLocations(),
     groupStore.fetchGroupsShort(),
     registerStore.fetchAllMappings(eventId)
-  ]); 
+  ]);
 
   setInitData();
 });

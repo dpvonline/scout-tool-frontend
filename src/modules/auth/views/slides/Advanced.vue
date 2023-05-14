@@ -102,9 +102,8 @@ const isLoading = ref(false);
 const commonStore = useCommonStore();
 
 async function onNextButtonClicked() {
-  
+
   errors.value.$validate()
-  console.log(errors.value)
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen")
     return
@@ -115,7 +114,6 @@ async function onNextButtonClicked() {
 
   try {
     const result = await registerStore.register()
-    console.log(result)
 
     registerStore.setRegistered()
 
