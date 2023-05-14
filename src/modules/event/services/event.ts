@@ -18,7 +18,7 @@ export default {
       params: params,
     });
   },
-  fetchAllOverviews(params: any) {
+  fetchAllOverviews(params: any = {}) {
     return axios.get(`${BASE_URL}/${SERVICE}-overview/`, {
       params: params,
     });

@@ -326,6 +326,7 @@ onMounted(() => {
   dashboardStore.fetchGroupCount();
   dashboardStore.fetchUserCount();
   dashboardStore.fetchMyRequests();
+  dashboardStore.fetchOpenInvatations();
   groupStore.fetchMyGroups();
   messageStore.fetchMessages();
   notificationsStore.fetchNotifications();

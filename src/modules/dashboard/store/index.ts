@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import DashboardApi from "@/modules/dashboard/services";
+import EventApi from "@/modules/event/services/event";
 
 export const useDashboardStore = defineStore("dashboard", {
   state: () => ({
@@ -42,6 +43,17 @@ export const useDashboardStore = defineStore("dashboard", {
         const response = await DashboardApi.fetchMyRequests();
         this._openTaskCount = response.data.filter(task => task.status === 'nothing').length;
         this._isLoading = false;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchOpenInvatations() {
+      this._isLoading = true;
+      try {
+        const response = await EventApi.fetchMyInvitations({});
+        this._openInvitationCount = response.data.filter((item: any) => item.status === 'pending').length;
       } catch (error) {
         // alert(error);
         console.log(error);

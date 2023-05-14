@@ -1,7 +1,7 @@
 <template>
   <div>
     <List
-      :name="'eventSummary'"
+      :name="'Alle Anmeldungen'"
       :items="eventSummary"
       :searchValue="searchValue"
       :sortOptions="sortOptions"
@@ -67,7 +67,9 @@ watch(
 
 function updateSearch(params) {
   const id = route.params.id;
-  eventStore.fetchEventSummary(id, params);
+  if (id) {
+    eventStore.fetchEventSummary(id, params);
+  }
 }
 
 const sortOptions = [];
