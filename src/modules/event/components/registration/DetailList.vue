@@ -82,7 +82,7 @@
           </button> -->
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Folgende Personen hast du angemeldet (Wenn sind aktuell nicht editierbar, werden das aber morgen sein. Wenn du so einen Fall hast schicke eine E-Mail mit den Daten an robertbagdahn@gmail.com)
+          Folgende Personen hast du angemeldet (Personen sind aktuell leider nicht editierter. Wir arbeiten mit Hochdruck dran und sollten es bis morgen wieder gerade biegen. Bei dringenden Fällen, kannst du dich auch an robertbagdahn@gmail.com wenden)
         </p>
       </div>
       <div
