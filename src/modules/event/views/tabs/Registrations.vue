@@ -121,10 +121,10 @@ const tabs = computed(() => {
     },
     {
       name: "Vergangenheit",
-      linkName: { name: "EventRegistrations", query: { status: "already" } },
+      linkName: { name: "EventRegistrations", query: { status: "expired" } },
       count:
-        registrations.value.filter((q) => q.status === "already").length | 0,
-      current: query.status === "already",
+        registrations.value.filter((q) => q.status === "expired").length | 0,
+      current: query.status === "expired",
     },
   ];
 });
