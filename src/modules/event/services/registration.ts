@@ -31,6 +31,12 @@ export default {
   createParticipant(id: any, data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/single-participant/`, data);
   },
+  updateParticipant(regId: any, personId: any, data: any) {
+    return axios.put(`${BASE_URL}/${SERVICE}/${regId}/single-participant/${personId}/`, data);
+  },
+  deleteParticipant(regId: any, id: any) {
+    return axios.delete(`${BASE_URL}/${SERVICE}/${regId}/single-participant/${id}`);
+  },
   createBooleanAttribute(id: any, data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/boolean-attribute/`, data);
   },

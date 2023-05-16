@@ -24,8 +24,22 @@
           </div>
         </div>
         <div class="ml-4 mt-4 flex flex-shrink-0">
-          <PrimaryButton :icon="EnvelopeIcon"  @click="onConfirmMailClicked" class="mx-0 my-2">
+          <PrimaryButton
+            :icon="EnvelopeIcon"
+            @click="onConfirmMailClicked"
+            class="mx-0 my-2"
+          >
             Bestätigung senden
+          </PrimaryButton>
+        </div>
+        <div class="ml-4 mt-4 flex flex-shrink-0">
+          <PrimaryButton
+            :icon="TrashIcon"
+            @click="onRegDeleteClicked"
+            color="red"
+            class="mx-0 my-2"
+          >
+            Löschen
           </PrimaryButton>
         </div>
       </div>
@@ -38,7 +52,10 @@
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Deine Anmeldezahl</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ registration?.participantCount }} ({{ registration?.price?.toFixed(2) }} €)
+            {{ registration?.participantCount }} ({{
+              registration?.price?.toFixed(2)
+            }}
+            €)
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -73,16 +90,19 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Personen
           </h3>
-          <!-- <button
+          <button
             @click="onNewPersonClicked"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             <UserPlusIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
-          </button> -->
+          </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Folgende Personen hast du angemeldet (Personen sind aktuell leider nicht editierter. Wir arbeiten mit Hochdruck dran und sollten es bis morgen wieder gerade biegen. Bei dringenden Fällen, kannst du dich auch an robertbagdahn@gmail.com wenden)
+          Folgende Personen hast du angemeldet (Personen sind aktuell leider
+          nicht editierter. Wir arbeiten mit Hochdruck dran und sollten es bis
+          morgen wieder gerade biegen. Bei dringenden Fällen, kannst du dich
+          auch an robertbagdahn@gmail.com wenden)
         </p>
       </div>
       <div
@@ -118,7 +138,7 @@
               </DisclosureButton>
             </dt>
             <DisclosurePanel as="dd" class="mt-2 pr-12">
-              <!-- <button
+              <button
                 @click="onEditPersonClicked(person)"
                 type="button"
                 class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -129,11 +149,12 @@
                 />
               </button>
               <button
+                @click="onDeletePersonClicked(person)"
                 type="button"
                 class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 <XMarkIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
-              </button> -->
+              </button>
               <p class="text-base leading-7 text-gray-600">
                 Geschlecht: {{ person.getGenderDisplay }}
               </p>
@@ -141,7 +162,8 @@
                 Geburtsdatum: {{ moment(person.birthday).format("ll") }}
               </p>
               <p class="text-base leading-7 text-gray-600">
-                Essenbesonderheiten: {{ person?.eatHabit?.map((a) => `${a}`).join(", ") }}
+                Essenbesonderheiten:
+                {{ person?.eatHabit?.map((a) => `${a}`).join(", ") }}
               </p>
             </DisclosurePanel>
           </Disclosure>
@@ -164,6 +186,18 @@
         </component>
       </dl>
     </div>
+    <DeleteModal
+      :open="openDeleteModal"
+      :callbackOnConfirm="deleteReg"
+      :callbackOnCancel="cancelModal"
+    >
+    </DeleteModal>
+    <DeleteModalPerson
+      :open="openDeletePersonModal"
+      :callbackOnConfirm="deletePerson"
+      :callbackOnCancel="cancelModalPerson"
+    >
+    </DeleteModalPerson>
     <AddPersonModal
       :open="openNewPersonModal"
       :person="person"
@@ -192,6 +226,7 @@ import {
   PencilSquareIcon,
   XMarkIcon,
   UserPlusIcon,
+  TrashIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
@@ -202,6 +237,9 @@ import AddPersonModal from "@/modules/event/components/registration/AddPersonMod
 import booleanAttribute from "@/modules/event/components/registration/attribute/booleanAttribute.vue";
 import stringAttribute from "@/modules/event/components/registration/attribute/stringAttribute.vue";
 import travelAttribute from "@/modules/event/components/registration/attribute/travelAttribute.vue";
+
+import DeleteModal from "@/components/modal/Delete.vue";
+import DeleteModalPerson from "@/components/modal/Delete.vue";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
 import { useRoute, useRouter } from "vue-router";
@@ -210,6 +248,15 @@ const route = useRoute();
 
 import { useEventRegisterStore } from "@/modules/event/store/register.ts";
 const eventRegisterStore = useEventRegisterStore();
+
+import { useCommonStore } from "@/modules/common/store";
+const commonStore = useCommonStore();
+
+import { useEventStore } from "@/modules/event/store";
+const eventStore = useEventStore();
+
+const openDeleteModal = ref(false);
+const openDeletePersonModal = ref(false);
 
 const components = {
   booleanAttribute,
@@ -242,16 +289,93 @@ function onEditPersonClicked(item) {
   person.value = item;
 }
 
+function onDeletePersonClicked(item) {
+  openDeletePersonModal.value = true;
+  person.value = item;
+}
+
 function onNewPersonCancelClicked() {
   openNewPersonModal.value = false;
 }
 
-function onNewPersonConfirmClicked(newPerson) {
+async function onNewPersonConfirmClicked(newPerson) {
   openNewPersonModal.value = false;
+  const regId = route.params.id;
+  let response = null;
+
+  if (!newPerson.id) {
+    response = await eventRegisterStore.addPersonToReg(regId, newPerson);
+  } else if (newPerson.id) {
+    response = await eventRegisterStore.updatePersonToReg(regId, newPerson);
+  }
+  if (response && response.status === 201) {
+    const response = await eventStore.fetchRegistration(regId);
+    commonStore.showSuccess("Person erfolgreich angelegt");
+  } else if (response && response.status === 400) {
+    commonStore.showSuccess(`Die Anfrage ist Fehlerhaft.${response.data}`);
+  } else {
+    console.log(response);
+  }
+
+  if (response && response.status === 200) {
+    const response = await eventStore.fetchRegistration(regId);
+    commonStore.showSuccess("Person erfolgreich aktuallisiert");
+  } else if (response && response.status === 400) {
+    commonStore.showSuccess(`Die Anfrage ist Fehlerhaft.${response.data}`);
+  } else {
+    console.log(response);
+  }
+}
+
+async function onRegDeleteClicked() {
+  openDeleteModal.value = true;
+}
+
+function deleteReg() {
+  const regId = route.params.id;
+  eventStore.deleteRegistration(regId).then((response) => {
+    console.log(response);
+    if (response?.status === 204) {
+      router.push({
+        name: "EventRegistrations",
+        query: { status: "pending" },
+      });
+      commonStore.showSuccess("Anmeldung erfolgreich gelöscht");
+      openDeleteModal.value = false;
+    } else {
+      commonStore.showError(response?.response?.data?.detail);
+    }
+  });
+}
+
+function cancelModalPerson() {
+  openDeletePersonModal.value = false;
+}
+
+async function deletePerson() {
+  const regId = route.params.id;
+  const response = await eventRegisterStore.deletePersonToReg(
+    regId,
+    person.value
+  );
+  console.log(response.status);
+  if (response && response.status === 204) {
+    const response = await eventStore.fetchRegistration(regId);
+    commonStore.showSuccess("Person erfolgreich aktuallisiert");
+    openDeletePersonModal.value = false;
+  } else if (response && response.status === 400) {
+    commonStore.showSuccess(`Die Anfrage ist Fehlerhaft.${response.data}`);
+  } else {
+    console.log(response);
+  }
+}
+
+function cancelModal() {
+  openDeletePersonModal.value = false;
 }
 
 function onConfirmMailClicked() {
   const regId = route.params.id;
-  eventRegisterStore.sendConfirmMail(regId).them
+  eventRegisterStore.sendConfirmMail(regId).them;
 }
 </script>

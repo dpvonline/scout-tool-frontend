@@ -71,11 +71,28 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     transformEatHabits(person: object) {
       if (person.eatHabit && person.eatHabit.length > 0) {
         person.eatHabit = person.eatHabit.map((item) => {
+          if (typeof item === 'string') {
+            return item;
+          }
           return this._eatHabitTypes.find((eatHabitType) => eatHabitType.id === item).name;
         });
       }
+      if (person?.bookingOption && person?.bookingOption?.id) {
+        person.bookingOption = person?.bookingOption?.id;
+      }
       return person;
     },
+
+    async addPersonToReg(regId: any, person: object) {
+      return await RegistrationApi.createParticipant(regId, this.transformEatHabits(person))
+    },
+    async updatePersonToReg(regId: any, person: object) {
+      return await RegistrationApi.updateParticipant(regId, person?.id, this.transformEatHabits(person))
+    },
+    async deletePersonToReg(regId: any, person: object) {
+      return await RegistrationApi.deleteParticipant(regId, person?.id)
+    },
+
     async create() {
       const registerCreate = {
         event: this._event?.id,
@@ -152,7 +169,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     },
     addPerson(data: any) {
       this._registerPerson.push({
-        id: uuidv4(),
+        storeId: uuidv4(),
         firstName: data.firstName,
         lastName: data.lastName,
         scoutName: data.scoutName,
@@ -164,9 +181,13 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         bookingOption: data.bookingOption?.id,
       });
     },
+    editPerson(data: any) {
+      this.addPerson(data);
+      this._registerPerson = this._registerPerson.filter(item => item.storeId !== data.storeId)
+    },
     addTravel(data: any) {
       this._registerTravel.push({
-        id: uuidv4(),
+        storeId: uuidv4(),
         numberPersons: data.numberPersons,
         typeField: data.typeField,
         dateTimeField: data.dateTimeField,

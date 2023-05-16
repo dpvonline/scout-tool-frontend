@@ -117,6 +117,7 @@ export const useEventStore = defineStore("event", {
       try {
         const response = await EventApi.fetchById(id);
         this._event = response.data;
+        return response;
       } catch (error) {
         // alert(error);
         console.log(error);
@@ -172,6 +173,7 @@ export const useEventStore = defineStore("event", {
       try {
         const response = await RegistrationApi.fetchAll(params);
         this._registrations = response.data;
+        return response;
       } catch (error) {
         // alert(error);
         console.log(error);
@@ -199,8 +201,19 @@ export const useEventStore = defineStore("event", {
       try {
         const response = await RegistrationApi.fetchById(id);
         this._registration = response.data;
+        return response;
       } catch (error) {
         // alert(error);
+        console.log(error);
+      }
+    },
+    async deleteRegistration(id: number) {
+      try {
+        const response = await RegistrationApi.delete(id);
+        this._registration = [];
+        return response;
+      } catch (error) {
+        return error;
         console.log(error);
       }
     },

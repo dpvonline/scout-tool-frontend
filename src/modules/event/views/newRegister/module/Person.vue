@@ -100,7 +100,11 @@ function onNewPersonCancelClicked() {
 }
 
 function onNewPersonConfirmClicked(newPerson) {
-  eventRegisterStore.addPerson(newPerson);
+  if (newPerson.storeId) {
+    eventRegisterStore.editPerson(newPerson);
+  } else {
+    eventRegisterStore.addPerson(newPerson);
+  }
   openNewPersonModal.value = false;
 }
 
