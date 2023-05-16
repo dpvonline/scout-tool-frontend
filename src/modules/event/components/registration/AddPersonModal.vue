@@ -118,14 +118,6 @@
                   />
                   <BaseField
                     component="Text"
-                    :label="'Stadt'"
-                    techName="city"
-                    v-model="state.city"
-                    :errors="errors.city?.$errors"
-                    :cols="6"
-                  />
-                  <BaseField
-                    component="Text"
                     :label="'Postleitzahl*'"
                     techName="zipCode"
                     v-model="state.zipCode"
@@ -205,10 +197,16 @@ const rules = {
   },
   city: {},
   zipCode: {
-    validPLZ: helpers.withMessage("Bitte gib eine gültige Postleitzahl an.", function(value) {
-      return /^[0-9]{5}$/.test(value)
-    }),
-    required: helpers.withMessage("Du musst eine gültige Postleitzahl angeben.", required)
+    validPLZ: helpers.withMessage(
+      "Bitte gib eine gültige Postleitzahl an.",
+      function (value) {
+        return /^[0-9]{5}$/.test(value);
+      }
+    ),
+    required: helpers.withMessage(
+      "Du musst eine gültige Postleitzahl angeben.",
+      required
+    ),
   },
   eatHabit: {},
   bookingOption: {
@@ -316,20 +314,57 @@ function getZipCodeString(zipCodeData) {
 }
 
 function getBookingObj(bookingOptionId) {
-  return bookingOptions.value.find((a) => a["id"] === bookingOptionId);
+  let tempId = bookingOptionId;
+  if (bookingOptionId?.id) {
+    tempId = bookingOptionId.id;
+  }
+  console.log(bookingOptions.value.find((a) => a["id"] === tempId));
+  return bookingOptions.value.find((a) => a["id"] === tempId);
+}
+
+function getEatHabits(eatHabits) {
+  if (eatHabits) {
+  let arr = JSON.parse(JSON.stringify(eatHabits));
+  const newArr = arr.map((a) => eatHabitMappings2.value.find(item => item.label == a)['value'])
+  return newArr;
+  }
+  return [];
+
 }
 
 onUpdated(() => {
-  if (props.open && props.person && props.person != {} && props.person.id) {
+  state.id = null;
+  if (
+    props.open &&
+    props.person &&
+    props.person != {} &&
+    props.person.storeId
+  ) {
+    state.storeId = props?.person.storeId;
+    state.firstName = props?.person.firstName;
+    state.lastName = props?.person.lastName;
+    state.scoutName = props?.person.scoutName;
+    state.address = props?.person.address;
+    state.birthday = moment(props?.person.birthday).format("YYYY-MM-DD");
+    state.bookingOption = getBookingObj(props?.person.bookingOption);
+    state.zipCode = getZipCodeString(props?.person.zipCode);
+    state.eatHabit = props?.person?.eatHabit;
+    state.gender = getGenderValue(props?.person?.gender);
+  } else if (
+    props.open &&
+    props.person &&
+    props.person != {} &&
+    props.person.id
+  ) {
     state.id = props?.person.id;
     state.firstName = props?.person.firstName;
     state.lastName = props?.person.lastName;
     state.scoutName = props?.person.scoutName;
     state.address = props?.person.address;
-    state.birthday = props?.person.birthday;
+    state.birthday = moment(props?.person.birthday).format("YYYY-MM-DD");
     state.bookingOption = getBookingObj(props?.person.bookingOption);
     state.zipCode = getZipCodeString(props?.person.zipCode);
-    state.eatHabit = props?.person?.eatHabit;
+    state.eatHabit = getEatHabits(props?.person?.eatHabit);
     state.gender = getGenderValue(props?.person?.gender);
   } else {
     state.allowPermanently = true;
@@ -339,11 +374,10 @@ onUpdated(() => {
     state.gender = "N";
     state.address = null;
     state.eatHabit = null;
-    state.bookingOption = null;
+    state.bookingOption = bookingOptions.value[0];
     state.zipCode =
       personalDataStore?.personalData?.scoutGroup?.zipCode?.zipCode;
     state.birthday = moment().add(-10, "y").format("YYYY-MM-DD");
   }
-  state.bookingOption = bookingOptions.value[0];
 });
 </script>

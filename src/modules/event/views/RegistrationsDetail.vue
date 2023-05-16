@@ -24,6 +24,12 @@ import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 
 import { useEventStore } from "@/modules/event/store";
 
+import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
+const personalDataStore = usePersonalDataStore();
+
+import { useEventRegisterStore } from "@/modules/event/store/register";
+const eventRegisterStore = useEventRegisterStore();
+
 const eventStore = useEventStore();
 
 const route = useRoute();
@@ -37,10 +43,14 @@ const isLoading = computed(() => {
 });
 const pages = [{ name: "Alle Anmeldungen", link: "EventMain" }];
 
-onMounted(() => {
+
+onMounted(async () => {
   const id = route.params.id;
-  if (id) {
-    eventStore.fetchRegistration(id);
-  }
+  const response = await eventStore.fetchRegistration(id);
+  await Promise.all([
+    personalDataStore.fetchPersonalData(),
+    eventRegisterStore.fetchAllMappings(response?.data?.event?.id),
+    eventStore.fetchBookingOptionsById(response?.data?.event?.id),
+  ]);
 });
 </script>
