@@ -205,8 +205,24 @@ function getTravelTypeObj(value) {
   return travelTypeChoices.value.find((a) => a["value"] === value);
 }
 
+watch(
+  () => props.open,
+  (newValue) => {
+    if (newValue) {
+      resetData();
+      initData();
+    }
+  }
+);
 
-onUpdated(() => {
+function resetData() {
+    state.numberPersons = eventRegisterStore.registerPersonCount;
+    state.typeField = travelTypeChoices.value[0]
+    state.dateTimeField = moment(eventRegisterStore.event.startDate).format('YYYY-MM-DDThh:mm');
+    state.description = '';
+}
+
+function initData(eatHabits) {
   state.id = null;
   if (
     props.open &&
@@ -231,10 +247,7 @@ onUpdated(() => {
     state.dateTimeField = moment(props?.travel?.dateTimeField).format('YYYY-MM-DDThh:mm');
     state.description = props?.travel?.description;
   } else {
-    state.numberPersons = eventRegisterStore.registerPersonCount;
-    state.typeField = travelTypeChoices.value[0]
-    state.dateTimeField = moment(eventRegisterStore.event.startDate).format('YYYY-MM-DDThh:mm');
-    state.description = '';
+    resetData();
   }
-});
+};
 </script>

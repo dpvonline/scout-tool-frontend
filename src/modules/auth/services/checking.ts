@@ -11,4 +11,7 @@ export default {
   async passwordCheck(password: string) {
     return axios.post(`${BASE_URL}/auth/check-password/`, { password })
   },
+  async zipCodeCheck(zipCode: string) {
+    return axios.post(`${BASE_URL}/basic/check-zip-code/`, { zipCode })
+  },
 }
