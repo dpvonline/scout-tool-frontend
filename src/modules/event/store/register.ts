@@ -37,12 +37,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       }
     },
     async sendConfirmMail(regId: number) {
-      try {
-        return await RegistrationApi.sendConfirmMail(regId);
-      } catch (error) {
-        // alert(error);
-        console.log(error);
-      }
+      return await RegistrationApi.sendConfirmMail(regId);
     },
     async fetchEatHabitTypes() {
       try {
@@ -60,18 +55,27 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     },
     async createAttribute(regId: any, data: any, type: any) {
       if (type === "boolean") {
-        await RegistrationApi.createBooleanAttribute(regId, data);
+        return await RegistrationApi.createBooleanAttribute(regId, data);
       } else if (type === "string") {
-        await RegistrationApi.createStringAttribute(regId, data);
+        return await RegistrationApi.createStringAttribute(regId, data);
       } else if (type === "travel") {
-        await RegistrationApi.createTravelAttribute(regId, data);
+        return await RegistrationApi.createTravelAttribute(regId, data);
+      }
+    },
+    async updateAttribute(id: any, data: any, type: any) {
+      if (type === "boolean") {
+        return await RegistrationApi.updateBooleanAttribute(id, data);
+      } else if (type === "string") {
+        return await RegistrationApi.updateStringAttribute(id, data);
+      } else if (type === "travel") {
+        return await RegistrationApi.updateTravelAttribute(id, data);
       }
     },
 
     transformEatHabits(person: object) {
       if (person.eatHabit && person.eatHabit.length > 0) {
         person.eatHabit = person.eatHabit.map((item) => {
-          if (typeof item === 'string') {
+          if (typeof item === "string") {
             return item;
           }
           return this._eatHabitTypes.find((eatHabitType) => eatHabitType.id === item).name;
@@ -84,13 +88,16 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     },
 
     async addPersonToReg(regId: any, person: object) {
-      return await RegistrationApi.createParticipant(regId, this.transformEatHabits(person))
+      return await RegistrationApi.createParticipant(regId, this.transformEatHabits(person));
     },
     async updatePersonToReg(regId: any, person: object) {
-      return await RegistrationApi.updateParticipant(regId, person?.id, this.transformEatHabits(person))
+      return await RegistrationApi.updateParticipant(regId, person?.id, this.transformEatHabits(person));
     },
     async deletePersonToReg(regId: any, person: object) {
-      return await RegistrationApi.deleteParticipant(regId, person?.id)
+      return await RegistrationApi.deleteParticipant(regId, person?.id);
+    },
+    async addResponsablePerson(data: object) {
+      return await RegistrationApi.update(data);
     },
 
     async create() {
@@ -98,7 +105,16 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         event: this._event?.id,
         scoutOrganisation: this._registerStart?.scoutGroup?.id,
       };
-      const register = await RegistrationApi.create(registerCreate);
+      let register = null;
+      let responses = null;
+      let mailResponse = null;
+      try {
+        register = await RegistrationApi.create(registerCreate);
+      } catch (e: any) {
+        const statusCode = e.response.status; // 400
+        const statusText = e.response.statusText; // Bad Request
+        return false;
+      }
 
       const regId = register.data.id;
 
@@ -116,7 +132,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
             regId,
             {
               numberPersons: parseInt(travelItem.numberPersons, 10),
-              typeField: travelItem.typeField[0].value,
+              typeField: travelItem.typeField.value,
               dateTimeField: travelItem.dateTimeField,
               description: travelItem.description,
               attributeModule: attributeModuleIdTravel?.id,
@@ -141,10 +157,26 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
           )
         );
       }
-      const responses = await Promise.all(promises);
-      const mailResponse = await this.sendConfirmMail(regId);
+      try {
+        responses = await Promise.all(promises);
+      } catch (e: any) {
+        const statusCode = e.response.status; // 400
+        const statusText = e.response.statusText; // Bad Request
+        return false;
+      }
+      try {
+        mailResponse = await this.sendConfirmMail(regId);
+      } catch (e: any) {
+        const statusCode = e.response.status; // 400
+        const statusText = e.response.statusText; // Bad Request
+        mailResponse = e;
+      }
+      return {
+        regId,
+        attributes: responses,
+        mailResponse,
 
-      return register;
+      };
     },
     async fetchRegistration(id: number) {
       try {
@@ -183,7 +215,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     },
     editPerson(data: any) {
       this.addPerson(data);
-      this._registerPerson = this._registerPerson.filter(item => item.storeId !== data.storeId)
+      this._registerPerson = this._registerPerson.filter((item) => item.storeId !== data.storeId);
     },
     addTravel(data: any) {
       this._registerTravel.push({
@@ -193,6 +225,10 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         dateTimeField: data.dateTimeField,
         description: data.description,
       });
+    },
+    editTravel(data: any) {
+      this.addTravel(data);
+      this._registerTravel = this._registerTravel.filter((item) => item.storeId !== data.storeId);
     },
     removePerson(doc: any) {
       this._registerPerson.forEach((item, index) => {

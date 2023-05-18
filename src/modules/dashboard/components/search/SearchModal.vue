@@ -226,7 +226,7 @@ const search = debounce(async (term) => {
     });
     results.value = data;
   }
-}, 250);
+}, 1000);
 
 function getTitleBySearchCategory(state) {
   const nameTemplates = {

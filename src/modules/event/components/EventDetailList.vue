@@ -408,7 +408,7 @@
       :items="eventData"
       @close="onEventClosedClicked"
       header="Event bearbeiten"
-      :formNo="eventEditForm"
+      :formNo="0"
     />
   </div>
 </template>
@@ -446,7 +446,7 @@ const eventEditForm = ref(0);
 
 function onEventEditClicked(formNo, child = null) {
   openEventEdit.value = true;
-  eventEditForm.value = formNo;
+  eventEditForm.value = 0;
   if (child === null) {
     eventData.value = props.event;
   } else {

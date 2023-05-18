@@ -185,7 +185,7 @@ const errors = ref(v$);
 
 const props = defineProps({
   open: { type: Boolean, required: true },
-  person: { type: Object, required: false, default: {} },
+  travel: { type: Object, required: false, default: {} },
   callbackOnConfirm: { type: Function, required: true },
   callbackOnCancel: { type: Function, required: true },
 });
@@ -201,29 +201,40 @@ function onButtonSaveClicked() {
   props.callbackOnConfirm(state);
 }
 
-function getGenderValue(genderString) {
-  let genderValue = ''
-  let genderName = ''
-  if (!genderString) {
-    return null;
-  }
-  genderValue = genderMappings.value.find((a) => a["value"] === genderString);
-
-  if (genderValue && genderValue.value) {
-    return genderValue.value;
-  }
-  genderName = genderMappings.value.find((a) => a["name"] === genderString);
-  if (genderName && genderName.value) {
-    return genderName.value;
-  }
-  return null;
+function getTravelTypeObj(value) {
+  return travelTypeChoices.value.find((a) => a["value"] === value);
 }
 
 
 onUpdated(() => {
+  state.id = null;
+  if (
+    props.open &&
+    props.travel &&
+    props.travel != {} &&
+    props.travel.storeId
+  ) {
+    state.storeId = props?.travel?.storeId;
+    state.numberPersons = props?.travel?.numberPersons;
+    state.typeField = props?.travel?.typeField;
+    state.dateTimeField = moment(props?.travel?.dateTimeField).format('YYYY-MM-DDThh:mm');
+    state.description = props?.travel?.description;
+  } else if (
+    props.open &&
+    props.travel &&
+    props.travel != {} &&
+    props.travel.id
+  ) {
+    state.id = props?.travel.id;
+    state.numberPersons = props?.travel?.numberPersons;
+    state.typeField = getTravelTypeObj(props?.travel?.typeField)
+    state.dateTimeField = moment(props?.travel?.dateTimeField).format('YYYY-MM-DDThh:mm');
+    state.description = props?.travel?.description;
+  } else {
     state.numberPersons = eventRegisterStore.registerPersonCount;
     state.typeField = travelTypeChoices.value[0]
     state.dateTimeField = moment(eventRegisterStore.event.startDate).format('YYYY-MM-DDThh:mm');
     state.description = '';
+  }
 });
 </script>

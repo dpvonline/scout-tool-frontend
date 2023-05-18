@@ -1,7 +1,7 @@
 <template>
   <div class="pt-8">
     <h3 class="text-lg font-medium leading-6 text-gray-900">
-      Wir freuen uns auf deine Nachricht.6
+      Wir freuen uns auf deine Nachricht.
     </h3>
     <div class="mt-6 grid grid-cols-1">
       <Base

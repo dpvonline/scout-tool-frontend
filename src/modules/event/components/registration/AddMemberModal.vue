@@ -1,6 +1,6 @@
 <template>
   <TransitionRoot as="template" :show="props.open">
-    <Dialog as="div" class="relative z-10" @close="close">
+    <Dialog as="div" class="relative z-100" @close="close">
       <TransitionChild
         as="template"
         enter="ease-out duration-300"
@@ -29,15 +29,15 @@
             leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <DialogPanel
-              class="relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
+              class="relative transform z-100 rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
             >
               <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="sm:flex sm:items-start">
                   <div
-                    class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
+                    class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10"
                   >
-                    <UserMinusIcon
-                      class="h-6 w-6 text-red-600"
+                    <UserPlusIcon
+                      class="h-6 w-6 text-green-600"
                       aria-hidden="true"
                     />
                   </div>
@@ -52,14 +52,15 @@
                         {{ props.text }}
                       </p>
                       <BaseField
+                        class="z-15"
                         component="AutoCompleteRemote"
                         :label="'Benutzer'"
                         techName="scoutGroup"
                         v-model="state.user"
                         :errors="errors.user?.$errors"
-                        :items="kickableMembers"
-                        @updateSearch="fetchKickableMembersById"
-                        hint="Wähle einen User ein, den du entfernen willst."
+                        :items="users"
+                        @updateSearch="userUpdateSearch"
+                        hint="Wähle einen User ein, den du hinzufügen willst."
                         :lookupListDisplay="['displayName']"
                       />
                     </div>
@@ -71,15 +72,17 @@
               >
                 <PrimaryButton
                   @click="onButtonClicked"
-                  label="Kicken"
+                  label="Hinzufügen"
                   :isLoading="isLoading"
-                />
+                >
+                </PrimaryButton>
                 <SecondaryButton
                   class="mx-2"
                   :isLoading="isLoading"
                   label="Abbrechen"
                   @click="close"
-                />
+                >
+                </SecondaryButton>
               </div>
             </DialogPanel>
           </TransitionChild>
@@ -90,7 +93,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { debounce } from "lodash";
 import {
   Dialog,
@@ -99,7 +102,10 @@ import {
   TransitionChild,
   TransitionRoot,
 } from "@headlessui/vue";
-import { UserMinusIcon } from "@heroicons/vue/24/outline";
+import {
+  ExclamationTriangleIcon,
+  UserPlusIcon,
+} from "@heroicons/vue/24/outline";
 import BaseField from "@/components/field/Base.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import SecondaryButton from "@/components/button/Secondary.vue";
@@ -126,21 +132,22 @@ const props = defineProps({
   callbackOnCancel: { type: Function, required: true },
 });
 function close() {
+  isLoading.value = true;
   props.callbackOnCancel();
 }
 function onButtonClicked() {
   errors.value.$validate();
-  console.log(errors);
 
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen");
     return;
   }
-  props.callbackOnConfirm(state.user.id);
+  isLoading.value = true;
+  props.callbackOnConfirm(state.user.djangoId);
 }
 
 const state = reactive({
-  user: null,
+  user: 0,
 });
 
 const rules = {
@@ -160,8 +167,8 @@ const errors = reactive(v$);
 
 const route = useRoute();
 
-const kickableMembers = computed(() => {
-  return groupStore.kickableMembers;
+const users = computed(() => {
+  return personStore.users;
 });
 
 function updateData(searchQuery) {
@@ -183,11 +190,11 @@ watch(
 const results = ref([]);
 const search = debounce(async (id, searchQuery) => {
   isLoading.value = true;
-  let { data } = groupStore.fetchKickableMembersById(id, searchQuery);
+  let { data } = personStore.fetchUsers({search: searchQuery});
   isLoading.value = false;
 }, 1000);
 
-function fetchKickableMembersById(searchQuery) {
+function userUpdateSearch(searchQuery) {
   updateData(searchQuery);
 }
 

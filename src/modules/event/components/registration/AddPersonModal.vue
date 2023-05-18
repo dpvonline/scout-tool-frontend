@@ -318,8 +318,10 @@ function getBookingObj(bookingOptionId) {
   if (bookingOptionId?.id) {
     tempId = bookingOptionId.id;
   }
-  console.log(bookingOptions.value.find((a) => a["id"] === tempId));
-  return bookingOptions.value.find((a) => a["id"] === tempId);
+  if (tempId) {
+    return bookingOptions.value.find((a) => a["id"] === tempId);
+  }
+  return bookingOptions.value[0];
 }
 
 function getEatHabits(eatHabits) {

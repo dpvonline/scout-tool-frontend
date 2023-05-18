@@ -55,6 +55,24 @@ export default {
   createIntegerAttribute(id: any, data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/integer-attribute/`, data);
   },
+  updateBooleanAttribute(id: any, data: any) {
+    return axios.put(`${BASE_URL}/event/${id}/boolean-attribute/`, data);
+  },
+  updateStringAttribute(id: any, data: any) {
+    return axios.put(`${BASE_URL}/event/string-attribute/${id}/`, data);
+  },
+  updateTravelAttribute(id: any, data: any) {
+    return axios.put(`${BASE_URL}/event/travel-attribute/${id}/`, data);
+  },
+  updateFloatAttribute(id: any, data: any) {
+    return axios.put(`${BASE_URL}/event/${id}/float-attribute/`, data);
+  },
+  updateTimeAttribute(id: any, data: any) {
+    return axios.put(`${BASE_URL}/event/${id}/time-attribute/`, data);
+  },
+  updateIntegerAttribute(id: any, data: any) {
+    return axios.put(`${BASE_URL}/event/${id}/integer-attribute/`, data);
+  },
   sendConfirmMail(id: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/send-confirmation-mail/`);
   },

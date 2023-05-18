@@ -192,7 +192,7 @@ const search = debounce(async (id, searchQuery) => {
   isLoading.value = true;
   let { data } = groupStore.fetchInevitableMembersById(id, searchQuery);
   isLoading.value = false;
-}, 250);
+}, 1000);
 
 function inevitableMembersUpdateSearch(searchQuery) {
   updateData(searchQuery);

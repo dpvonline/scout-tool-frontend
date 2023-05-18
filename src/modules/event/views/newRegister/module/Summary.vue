@@ -71,13 +71,18 @@ function onNextButtonClicked() {
 
   isLoading.value = true;
   eventRegisterStore.create().then((response) => {
-    eventRegisterStore.$reset();
-    router.push({
-      name: "RegistrationsDetail",
-      params: {
-        id: response.data.id,
-      },
-    });
+    if (response) {
+      eventRegisterStore.$reset();
+      router.push({
+        name: "RegistrationFinish",
+        params: {
+          id: response.regId,
+        },
+      });
+    } else {
+      isLoading.value = false;
+      commonStore.showError("Bitte alle Tabs nochmal überprüfen");
+    }
   });
 }
 

@@ -126,7 +126,7 @@ export default [
     ],
   },
   {
-    path: "/registrations-finished",
+    path: "/registration-finished/:id",
     name: "RegistrationFinish",
     meta: {
       requiresAuth: true,

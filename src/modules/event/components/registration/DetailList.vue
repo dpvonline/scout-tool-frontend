@@ -99,10 +99,7 @@
           </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Folgende Personen hast du angemeldet (Personen sind aktuell leider
-          nicht editierter. Wir arbeiten mit Hochdruck dran und sollten es bis
-          morgen wieder gerade biegen. Bei dringenden Fällen, kannst du dich
-          auch an robertbagdahn@gmail.com wenden)
+          Folgende Personen hast du angemeldet:
         </p>
       </div>
       <div
@@ -163,7 +160,11 @@
               </p>
               <p class="text-base leading-7 text-gray-600">
                 Essenbesonderheiten:
-                {{ person?.eatHabit?.map((a) => `${a}`).join(", ") }}
+                {{
+                  person?.eatHabit?.length
+                    ? person?.eatHabit?.map((a) => `${a}`).join(", ")
+                    : "Keine"
+                }}
               </p>
             </DisclosurePanel>
           </Disclosure>
@@ -186,8 +187,18 @@
         </component>
       </dl>
     </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+        Weitere Aktionen
+      </h3>
+      <PrimaryButton @click="onAddResponsablePersonClicked">
+        Verantwortliche Person hinzufügen
+      </PrimaryButton>
+    </div>
     <DeleteModal
       :open="openDeleteModal"
+      :header="'Anmeldung löschen?'"
+      :text="'Bist du dir sicher, dass du die Anmeldung unwiderruflich löschen möchtest?'"
       :callbackOnConfirm="deleteReg"
       :callbackOnCancel="cancelModal"
     >
@@ -203,6 +214,13 @@
       :person="person"
       :callbackOnConfirm="onNewPersonConfirmClicked"
       :callbackOnCancel="onNewPersonCancelClicked"
+    />
+    <AddMemberModal
+      :header="'User zur Fahrtenleitung hinzufügen'"
+      :text="'Welchen User möchtest du zu dieser Anmeldung hinzufügen?'"
+      :open="openAddMember"
+      :callbackOnConfirm="onAddMemberConfirmClicked"
+      :callbackOnCancel="onAddMemberCancellicked"
     />
   </div>
 </template>
@@ -237,6 +255,8 @@ import AddPersonModal from "@/modules/event/components/registration/AddPersonMod
 import booleanAttribute from "@/modules/event/components/registration/attribute/booleanAttribute.vue";
 import stringAttribute from "@/modules/event/components/registration/attribute/stringAttribute.vue";
 import travelAttribute from "@/modules/event/components/registration/attribute/travelAttribute.vue";
+
+import AddMemberModal from "@/modules/event/components/registration/AddMemberModal.vue";
 
 import DeleteModal from "@/components/modal/Delete.vue";
 import DeleteModalPerson from "@/components/modal/Delete.vue";
@@ -358,7 +378,6 @@ async function deletePerson() {
     regId,
     person.value
   );
-  console.log(response.status);
   if (response && response.status === 204) {
     const response = await eventStore.fetchRegistration(regId);
     commonStore.showSuccess("Person erfolgreich aktuallisiert");
@@ -371,11 +390,37 @@ async function deletePerson() {
 }
 
 function cancelModal() {
-  openDeletePersonModal.value = false;
+  openDeleteModal.value = false;
 }
 
 function onConfirmMailClicked() {
   const regId = route.params.id;
   eventRegisterStore.sendConfirmMail(regId).them;
 }
+
+// - - - - - Add User - - - - - - - - - - -
+function onAddResponsablePersonClicked() {
+  openAddMember.value = true;
+}
+
+const openAddMember = ref(false);
+function onAddMemberClicked() {
+  openAddMember.value = true;
+}
+async function onAddMemberConfirmClicked(userId) {
+  const regId = route.params.id;
+  eventRegisterStore.addResponsablePerson({
+    id: regId,
+    responsiblePersons: props.registration?.responsiblePersons.map(a => a.id).concat([
+      userId,
+    ]),
+  });
+  const response = await eventStore.fetchRegistration(regId);
+  commonStore.showSuccess("User zur Fahrtenleitung hinzugefügt");
+  openAddMember.value = false;
+}
+function onAddMemberCancellicked() {
+  openAddMember.value = false;
+}
+
 </script>
