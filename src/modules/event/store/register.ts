@@ -99,7 +99,9 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     async addResponsablePerson(data: object) {
       return await RegistrationApi.update(data);
     },
-
+    async cleanUpRegCreate(regId: any) {
+      return await RegistrationApi.delete(regId);
+    },
     async create() {
       const registerCreate = {
         event: this._event?.id,
@@ -162,6 +164,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       } catch (e: any) {
         const statusCode = e.response.status; // 400
         const statusText = e.response.statusText; // Bad Request
+        await this.cleanUpRegCreate(regId)
         return false;
       }
       try {

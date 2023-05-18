@@ -78,7 +78,8 @@ const hasError = computed(() => {
 });
 
 const updateValue = (event) => {
-  emit("update:modelValue", event.target.value);
+  const value = event.target.value;
+  emit("update:modelValue", value.replace(',', '.').trim())
 };
 
 </script>
