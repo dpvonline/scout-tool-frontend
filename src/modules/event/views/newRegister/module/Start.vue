@@ -1,12 +1,13 @@
 <template>
   <StepFrame
-    :header="`Anmeldung zu ${event.name}?`"
+    :header="`Anmeldung ${event.name}`"
     :isLoading="isLoading"
     @click="onNextButtonClicked"
   >
     <fieldset class="mt-6">
       <legend class="contents text-base font-medium text-gray-900">
-        Du musst die Registrierung bis zum {{ moment(event.registrationDeadline).format(format1) }} absenden.
+        Du musst die Registrierung bis zum
+        {{ moment(event.registrationDeadline).format(format1) }} absenden.
       </legend>
       <p class="text-sm text-gray-500"></p>
       <div class="mt-4 space-y-4">
@@ -33,6 +34,15 @@
         />
       </div>
     </fieldset>
+    <div class="px-4 py-6 sm:px-6 md:px-0">
+      <h2 class="text-lg font-medium text-red-600">
+        Wichtig
+      </h2>
+      <p class="mt-1 text-sm text-gray-500">
+       Am Ende bekommst du eine Bestätigungs-Email. Nur mit dieser E-Mail ist deine Anmeldung erfolgreich abgeschlossen.
+       Du kannst deine Anmeldung nach dem Absenden nochmal angucken und editieren.
+      </p>
+    </div>
   </StepFrame>
 </template>
 
@@ -90,7 +100,7 @@ function onNextButtonClicked() {
     return;
   }
 
-  eventRegisterStore.updateRegisterStart(state)
+  eventRegisterStore.updateRegisterStart(state);
 
   router.push({
     name: "RegistrationNewPerson",
@@ -101,8 +111,8 @@ function setInitData() {
   isLoading.value = true;
   state.hasConfirmed = false;
 
-  console.log(personalData.value)
-  console.log(personalData?.value?.scoutGroup)
+  console.log(personalData.value);
+  console.log(personalData?.value?.scoutGroup);
 
   if (personalData?.value?.scoutGroup?.id) {
     state.scoutGroup = registerStore.scoutGroupMappings.find(
@@ -131,7 +141,7 @@ onMounted(async () => {
   await Promise.all([
     personalDataStore.fetchPersonalData(),
     eventRegisterStore.fetchEvent(id),
-    registerStore.fetchAllMappings(id)
+    registerStore.fetchAllMappings(id),
   ]);
 
   setInitData();

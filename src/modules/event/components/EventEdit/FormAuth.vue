@@ -109,9 +109,6 @@ const rules = {
   viewGroup: {
     required,
   },
-  invitedGroups: {
-    required,
-  },
   invitingGroup: {
     required,
   },

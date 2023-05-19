@@ -108,9 +108,6 @@ const rules = {
   adminGroup: {
     required,
   },
-  invitedGroups: {
-    required,
-  },
   invitingGroup: {
     required,
   },

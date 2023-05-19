@@ -167,13 +167,33 @@ import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
 import BaseField from "@/components/field/Base.vue";
 
 import { useVuelidate } from "@vuelidate/core";
-import { required, sameAs, helpers } from "@vuelidate/validators";
+import {
+  required,
+  minLength,
+  sameAs,
+  email,
+  helpers,
+} from "@vuelidate/validators";
 
 import { useRegisterStore } from "@/modules/auth/store/index";
 const registerStore = useRegisterStore();
 
 import { useEventStore } from "@/modules/event/store";
 const eventStore = useEventStore();
+
+import { useCommonStore } from "@/modules/common/store/index.ts";
+const commonStore = useCommonStore();
+
+import { useEventRegisterStore } from "@/modules/event/store/register.ts";
+const eventRegisterStore = useEventRegisterStore();
+
+const zipCheck = async (value) => {
+  if (!value || value == "") {
+    return false;
+  }
+  console.log(value);
+  return !(await registerStore.zipCheck(value));
+};
 
 const rules = {
   allowPermanently: {
@@ -206,6 +226,10 @@ const rules = {
     required: helpers.withMessage(
       "Du musst eine gültige Postleitzahl angeben.",
       required
+    ),
+    metBackendRules1: helpers.withMessage(
+      "Diese Postleitzahl ist nicht gültig.",
+      helpers.withAsync(zipCheck)
     ),
   },
   eatHabit: {},
@@ -318,21 +342,47 @@ function getBookingObj(bookingOptionId) {
   if (bookingOptionId?.id) {
     tempId = bookingOptionId.id;
   }
-  console.log(bookingOptions.value.find((a) => a["id"] === tempId));
-  return bookingOptions.value.find((a) => a["id"] === tempId);
+  if (tempId) {
+    return bookingOptions.value.find((a) => a["id"] === tempId);
+  }
+  return bookingOptions.value[0];
 }
 
 function getEatHabits(eatHabits) {
   if (eatHabits) {
-  let arr = JSON.parse(JSON.stringify(eatHabits));
-  const newArr = arr.map((a) => eatHabitMappings2.value.find(item => item.label == a)['value'])
-  return newArr;
+    let arr = JSON.parse(JSON.stringify(eatHabits));
+    const newArr = arr.map(
+      (a) => eatHabitMappings2.value.find((item) => item.label == a)["value"]
+    );
+    return newArr;
   }
   return [];
-
 }
 
-onUpdated(() => {
+watch(
+  () => props.open,
+  (newValue) => {
+    if (newValue) {
+      resetData();
+      initData();
+    }
+  }
+);
+
+function resetData() {
+    state.allowPermanently = true;
+    state.firstName = null;
+    state.lastName = null;
+    state.scoutName = null;
+    state.gender = "N";
+    state.address = null;
+    state.eatHabit = null;
+    state.bookingOption = bookingOptions.value[0];
+    state.zipCode = personalDataStore?.personalData?.scoutGroup?.zipCode?.zipCode;
+    state.birthday = moment().add(-10, "y").format("YYYY-MM-DD");
+}
+
+function initData(eatHabits) {
   state.id = null;
   if (
     props.open &&
@@ -367,17 +417,7 @@ onUpdated(() => {
     state.eatHabit = getEatHabits(props?.person?.eatHabit);
     state.gender = getGenderValue(props?.person?.gender);
   } else {
-    state.allowPermanently = true;
-    state.firstName = null;
-    state.lastName = null;
-    state.scoutName = null;
-    state.gender = "N";
-    state.address = null;
-    state.eatHabit = null;
-    state.bookingOption = bookingOptions.value[0];
-    state.zipCode =
-      personalDataStore?.personalData?.scoutGroup?.zipCode?.zipCode;
-    state.birthday = moment().add(-10, "y").format("YYYY-MM-DD");
+    resetData();
   }
-});
+}
 </script>

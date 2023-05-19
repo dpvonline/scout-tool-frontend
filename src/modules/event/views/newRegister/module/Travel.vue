@@ -21,7 +21,7 @@
           <SimpleList :items="registerTravel" :isLoading="isLoading">
             <template v-slot:notEmpty="slotProps">
               <TravelListItem
-                @onTravelEditClicked="onTravelEditClicked2"
+                @onTravelEditClicked="onTravelEdit"
                 :item="slotProps.item"
               />
             </template>
@@ -80,6 +80,7 @@ const openNewTravelModal = ref(false);
 
 function onNewTravelClicked(item) {
   openNewTravelModal.value = true;
+  travel.value = item;
 }
 
 function onMyselfClicked() {
@@ -87,7 +88,7 @@ function onMyselfClicked() {
   travel.value = personalData.value;
 }
 
-function onTravelEditClicked2(data) {
+function onTravelEdit(data) {
   openNewTravelModal.value = true;
   travel.value = data;
 }
@@ -96,14 +97,24 @@ function onNewTravelCancelClicked() {
   openNewTravelModal.value = false;
 }
 
-function onNewTravelConfirmClicked(newTravel) {
-  eventRegisterStore.addTravel({
-    id: newTravel.id,
-    numberPersons: newTravel.numberPersons,
-    typeField: travelTypeChoices,
-    dateTimeField: newTravel.dateTimeField,
-    description: newTravel.description,
+function onNewTravelConfirmClicked(travel) {
+  if (travel.storeId) {
+    eventRegisterStore.editTravel({
+    storeId: travel.storeId,
+    numberPersons: travel.numberPersons,
+    typeField: travel.typeField,
+    dateTimeField: travel.dateTimeField,
+    description: travel.description,
   });
+  } else {
+    eventRegisterStore.addTravel({
+    storeId: travel.storeId,
+    numberPersons: travel.numberPersons,
+    typeField: travel.typeField,
+    dateTimeField: travel.dateTimeField,
+    description: travel.description,
+  });
+  }
   openNewTravelModal.value = false;
 }
 

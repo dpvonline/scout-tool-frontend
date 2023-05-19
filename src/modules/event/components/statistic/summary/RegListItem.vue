@@ -35,8 +35,12 @@
               class="mr-1.5 h-5 w-5 flex-shrink-0 text-green-400"
               aria-hidden="true"
             />
-            Verantwortlich
-            {{ props.item.responsiblePersons }}
+            Verantwortlich:
+            {{
+              props.item?.responsiblePersons
+                ?.map((a) => `${a}`)
+                .join(", ")
+            }}
           </p>
         </div>
       </div>

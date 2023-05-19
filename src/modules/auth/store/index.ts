@@ -223,6 +223,23 @@ export const useRegisterStore = defineStore("registerStore", {
         return false
       }
     },
+    async zipCheck(zipCode: string): Promise<boolean> {
+      //todo for some reason every request with error status is printed to console
+      try {
+        await checkingServices.zipCodeCheck(zipCode)
+        return false
+      } catch (e) {
+        if (e.request.status === 400) {
+          return true
+        }
+        if (e.request.status === 409) {
+          return true
+        }
+        console.error("e" + e)
+        //todo what do here? (user should know something about the situation)
+        return false
+      }
+    },
     async passwordCheck(password: string): Promise<boolean> {
       //todo for some reason every request with error status is printed to console
       try {
