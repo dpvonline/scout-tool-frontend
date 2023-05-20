@@ -2,17 +2,16 @@
   <div>
     <List
       :name="'Alle Anmeldungen'"
-      :items="eventSummary"
+      :items="eventCashSummary"
       :searchValue="searchValue"
       :sortOptions="sortOptions"
       :filters="filters"
       :buttonList="buttonList"
-      mainPageLink="EventStatisticRegistration"
-      detailPageLink="RegistrationsDetail"
+      mainPageLink="EventStatisticPayments"
       :isLoading="isLoading"
     >
       <template #listitem="{ item }">
-        <RegListItem :item="item" />
+        <CashListItem :item="item" />
       </template>
     </List>
   </div>
@@ -22,7 +21,7 @@
 import { ref, watch, onMounted, computed } from "vue";
 import { TagIcon, ChevronRightIcon, HomeIcon } from "@heroicons/vue/20/solid";
 import List from "@/components/base/list/Main.vue";
-import RegListItem from "@/modules/event/components/statistic/summary/RegListItem.vue";
+import CashListItem from "@/modules/event/components/statistic/summary/CashListItem.vue";
 import { useRoute } from "vue-router";
 
 import { useEventStore } from "@/modules/event/store/index";
@@ -34,14 +33,17 @@ const eventStore = useEventStore();
 
 const route = useRoute();
 
-const eventSummary = computed(() => {
-  return eventStore.eventSummary.results;
+const eventCashSummary = computed(() => {
+  if (eventStore.eventCashSummary && eventStore.eventCashSummary.length) {
+    return eventStore.eventCashSummary[0].registrationSet;
+  }
+  return [];
 });
 
 const searchValue = ref();
 
-const eventCashSummary = computed(() => {
-  return eventStore.eventCashSummary;
+const groups = computed(() => {
+  return eventStore.groups;
 });
 
 const isAuth = computed(() => {
@@ -49,7 +51,7 @@ const isAuth = computed(() => {
 });
 
 const isLoading = computed(() => {
-  return eventStore.isLoading;
+  return false;
 });
 
 onMounted(() => {
@@ -67,7 +69,7 @@ watch(
 function updateSearch(params) {
   const id = route.params.id;
   if (id) {
-    eventStore.fetchEventSummary(id, params);
+    eventStore.fetchCashSummary(id, params);
   }
 }
 

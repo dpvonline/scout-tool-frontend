@@ -35,7 +35,13 @@ const event = computed(() => {
 const isLoading = computed(() => {
   return eventStore.isLoading;
 });
-const pages = [{ name: "Alle Veranstaltungen", link: "EventPlanungsjurte" }];
+
+const pages = [
+  {
+    name: "Alle Veranstaltungen",
+    link: { name: "EventPlanungsjurte", query: { status: "open" } },
+  },
+];
 
 onMounted(() => {
   const id = route.params.id;

@@ -22,11 +22,13 @@
           <span v-if="props.item.sender.scoutName" class="truncate line-clamp-1"
             >von {{ props.item.sender.scoutName }} ({{
               props.item.sender.email
-            }})</span>
+            }})</span
+          >
           <span v-else class="truncate line-clamp-1"
             >von {{ props.item.target.createdByName }} ({{
               props.item.target.createdByEmail
-            }})</span>
+            }})</span
+          >
         </p>
       </div>
       <div class="hidden md:block">
@@ -38,7 +40,7 @@
               Tagen</span
             >
             <span class="font-medium text-gray-500">{{
-              moment(props.item.timestamp).format("llll")
+              this.$dayjs(props.item.timestamp).format("llll")
             }}</span>
           </p>
         </div>

@@ -22,7 +22,10 @@
               </p>
             </div>
           </div>
-          <div v-if="event.status !== 'expired'" class="ml-4 mt-4 flex flex-shrink-0">
+          <div
+            v-if="event.status !== 'expired'"
+            class="ml-4 mt-4 flex flex-shrink-0"
+          >
             <PrimaryButton
               @click="onInvitationClicked(event.id)"
               :icon="PaperAirplaneIcon"
@@ -49,25 +52,25 @@
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Veranstaltung Start</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.startDate).format("llll") }}
+            {{ this.$dayjs(event.startDate).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Veranstaltung Ende</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.endDate).format("llll") }}
+            {{ this.$dayjs(event.endDate).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Anmeldestart</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.registrationStart).format("llll") }}
+            {{ this.$dayjs(event.registrationStart).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Anmeldeschluss</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.registrationDeadline).format("llll") }}
+            {{ this.$dayjs(event.registrationDeadline).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -75,7 +78,7 @@
             Anmeldung Änderbar bis
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.lastPossibleUpdate).format("llll") }}
+            {{ this.$dayjs(event.lastPossibleUpdate).format("llll") }}
           </dd>
         </div>
       </dl>
@@ -164,12 +167,13 @@
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Wer ist eingeladen?</dt>
-          <dd v-if="event.invitedGroups && event.invitedGroups.length > 0" class="mt-1 text-sm text-gray-900">
+          <dd
+            v-if="event.invitedGroups && event.invitedGroups.length > 0"
+            class="mt-1 text-sm text-gray-900"
+          >
             {{ event.invitedGroups?.map((a) => `${a.displayName}`).join(", ") }}
           </dd>
-          <dd v-else class="mt-1 text-sm text-gray-900">
-            Jeder
-          </dd>
+          <dd v-else class="mt-1 text-sm text-gray-900">Jeder</dd>
         </div>
       </dl>
     </div>
@@ -212,15 +216,20 @@
             </dt>
             <DisclosurePanel as="dd" class="mt-2 pr-12">
               <p class="text-base leading-7 text-gray-600">
-                <div v-for="attribute in child.attributeModules" :key="attribute.id" class="mb-3">
-                  <p class="text-base leading-7 text-gray-800">
-                    {{ attribute.title }}
-                  </p>
-                  <p class="text-base leading-7 text-gray-500">
-                    {{ attribute.text }}
-                  </p>
-                </div>
+                {{ child.description || "" }}
               </p>
+              <div
+                v-for="attribute in child.attributeModules"
+                :key="attribute.id"
+                class="mb-3"
+              >
+                <p class="text-sm leading-7 text-gray-800">
+                  {{ attribute.title }}
+                </p>
+                <p class="text-sm leading-7 text-gray-500">
+                  {{ attribute.text }}
+                </p>
+              </div>
             </DisclosurePanel>
           </Disclosure>
         </dl>

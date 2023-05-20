@@ -4,26 +4,29 @@ export default [
     name: "EventMain",
     redirect: { name: "EventInvitations", query: { status: "pending" } },
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
     },
     component: () => import(/* webpackChunkName: "EventMain" */ "@/modules/event/views/Main.vue"),
     children: [
       {
         path: "invitations",
         name: "EventInvitations",
-        component: () => import(/* webpackChunkName: "EventInvitations" */ "@/modules/event/views/tabs/Invitations.vue"),
+        component: () =>
+          import(/* webpackChunkName: "EventInvitations" */ "@/modules/event/views/tabs/Invitations.vue"),
       },
       {
         path: "registrations",
         name: "EventRegistrations",
-        component: () => import(/* webpackChunkName: "EventRegistrations" */ "@/modules/event/views/tabs/Registrations.vue"),
+        component: () =>
+          import(/* webpackChunkName: "EventRegistrations" */ "@/modules/event/views/tabs/Registrations.vue"),
       },
       {
         path: "planungsjurte",
         name: "EventPlanungsjurte",
-        component: () => import(/* webpackChunkName: "EventPlanungsjurte" */ "@/modules/event/views/tabs/Planungsjurte.vue"),
+        component: () =>
+          import(/* webpackChunkName: "EventPlanungsjurte" */ "@/modules/event/views/tabs/Planungsjurte.vue"),
       },
-    ]
+    ],
   },
   {
     path: "/event-details/:id",
@@ -70,7 +73,8 @@ export default [
       {
         path: "custom",
         name: "EventNewCustom",
-        component: () => import(/* webpackChunkName: "EventNewCustom" */ "@/modules/event/views/newEventStep/Custom.vue"),
+        component: () =>
+          import(/* webpackChunkName: "EventNewCustom" */ "@/modules/event/views/newEventStep/Custom.vue"),
       },
     ],
   },
@@ -88,7 +92,19 @@ export default [
     meta: {
       requiresAuth: true,
     },
-    component: () => import(/* webpackChunkName: "RegistrationsDetail" */ "@/modules/event/views/RegistrationsDetail.vue"),
+    component: () =>
+      import(/* webpackChunkName: "RegistrationsDetail" */ "@/modules/event/views/RegistrationsDetail.vue"),
+  },
+  {
+    path: "/registrations-details-statistic/:id",
+    name: "RegistrationsDetailStatistic",
+    meta: {
+      requiresAuth: true,
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "RegistrationsDetailStatistic" */ "@/modules/event/views/RegistrationsDetailStatistic.vue"
+      ),
   },
   {
     path: "/registration-new/:id",
@@ -96,32 +112,42 @@ export default [
     meta: {
       requiresAuth: true,
     },
-    component: () => import(/* webpackChunkName: "NewRegistration" */ "@/modules/event/views/newRegister/Container.vue"),
+    component: () =>
+      import(/* webpackChunkName: "NewRegistration" */ "@/modules/event/views/newRegister/Container.vue"),
     children: [
       {
         path: "start",
         name: "RegistrationNewStart",
-        component: () => import(/* webpackChunkName: "RegistrationNewStart" */ "@/modules/event/views/newRegister/module/Start.vue"),
+        component: () =>
+          import(/* webpackChunkName: "RegistrationNewStart" */ "@/modules/event/views/newRegister/module/Start.vue"),
       },
       {
         path: "person",
         name: "RegistrationNewPerson",
-        component: () => import(/* webpackChunkName: "RegistrationNewPerson" */ "@/modules/event/views/newRegister/module/Person.vue"),
+        component: () =>
+          import(/* webpackChunkName: "RegistrationNewPerson" */ "@/modules/event/views/newRegister/module/Person.vue"),
       },
       {
         path: "travel",
         name: "RegistrationNewTravel",
-        component: () => import(/* webpackChunkName: "RegistrationNewTravel" */ "@/modules/event/views/newRegister/module/Travel.vue"),
+        component: () =>
+          import(/* webpackChunkName: "RegistrationNewTravel" */ "@/modules/event/views/newRegister/module/Travel.vue"),
       },
       {
         path: "free-text",
         name: "RegistrationNewFreeText",
-        component: () => import(/* webpackChunkName: "RegistrationNewFreeText" */ "@/modules/event/views/newRegister/module/FreeText.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "RegistrationNewFreeText" */ "@/modules/event/views/newRegister/module/FreeText.vue"
+          ),
       },
       {
         path: "summary",
         name: "RegistrationNewSummary",
-        component: () => import(/* webpackChunkName: "RegistrationNewSummary" */ "@/modules/event/views/newRegister/module/Summary.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "RegistrationNewSummary" */ "@/modules/event/views/newRegister/module/Summary.vue"
+          ),
       },
     ],
   },
@@ -131,7 +157,8 @@ export default [
     meta: {
       requiresAuth: true,
     },
-    component: () => import(/* webpackChunkName: "RegistrationFinish" */ "@/modules/event/views/newRegister/Finish.vue"),
+    component: () =>
+      import(/* webpackChunkName: "RegistrationFinish" */ "@/modules/event/views/newRegister/Finish.vue"),
   },
   {
     path: "/event-statistic/:id",
@@ -145,12 +172,52 @@ export default [
       {
         path: "summary",
         name: "EventStatisticSummary",
-        component: () => import(/* webpackChunkName: "EventStatisticSummary" */ "@/modules/event/views/statistic/module/Summary.vue"),
+        component: () =>
+          import(/* webpackChunkName: "EventStatisticSummary" */ "@/modules/event/views/statistic/module/Summary.vue"),
       },
       {
         path: "registration",
         name: "EventStatisticRegistration",
-        component: () => import(/* webpackChunkName: "EventStatisticRegistration" */ "@/modules/event/views/statistic/module/Registration.vue"),
+        component: () =>
+          import(
+            /* webpackChunkName: "EventStatisticRegistration" */ "@/modules/event/views/statistic/module/Registration.vue"
+          ),
+      },
+      {
+        path: "results",
+        name: "EventStatisticResults",
+        component: () =>
+          import(/* webpackChunkName: "EventStatisticResults" */ "@/modules/event/views/statistic/module/Results.vue"),
+      },
+      {
+        path: "attributes",
+        name: "EventStatisticAttributes",
+        component: () =>
+          import(
+            /* webpackChunkName: "EventStatisticAttributes" */ "@/modules/event/views/statistic/module/Attributes.vue"
+          ),
+      },
+      {
+        path: "actions",
+        name: "EventStatisticDownloads",
+        component: () =>
+          import(
+            /* webpackChunkName: "EventStatisticDownloads" */ "@/modules/event/views/statistic/module/Downloads.vue"
+          ),
+      },
+      {
+        path: "payments",
+        name: "EventStatisticPayments",
+        component: () =>
+          import(
+            /* webpackChunkName: "EventStatisticPayments" */ "@/modules/event/views/statistic/module/Payments.vue"
+          ),
+      },
+      {
+        path: "persons",
+        name: "EventStatisticPersons",
+        component: () =>
+          import(/* webpackChunkName: "EventStatisticPersons" */ "@/modules/event/views/statistic/module/Persons.vue"),
       },
     ],
   },

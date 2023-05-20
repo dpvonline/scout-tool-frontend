@@ -36,18 +36,22 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    return { x: 0, y: 0 };
+    return { top: 0 };
   },
 });
 
-function sleep(ms : number) {
+function sleep(ms: number) {
   // eslint-disable-next-line no-promise-executor-return
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
-  if (to.matched.some((record) => { record.path.includes('landing')})) {
+  if (
+    to.matched.some((record) => {
+      record.path.includes("landing");
+    })
+  ) {
     next();
   }
 
@@ -57,7 +61,7 @@ router.beforeEach(async (to, from, next) => {
   }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!authStore.isAuth) {
-      authStore.login(true)
+      authStore.login(true);
     } else {
       next();
     }
@@ -72,7 +76,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (!to.matched.some((record) => record.meta.hideForAuth) && !to.matched.some((record) => record.meta.requiresAuth)) {
-    next()
+    next();
   }
 });
 

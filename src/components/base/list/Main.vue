@@ -348,7 +348,7 @@
           v-if="!isLoading"
           class="overflow-hidden bg-white shadow sm:rounded-md overflow-scroll"
         >
-          <ul role="list" v-if="items?.length" class="divide-y divide-gray-200">
+          <ul role="list" v-if="items?.length || isLoading" class="divide-y divide-gray-200">
             <li v-for="item in items" :key="item">
               <component
                 :is="detailPageLink ? 'router-link' : 'div'"

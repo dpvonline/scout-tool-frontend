@@ -24,7 +24,7 @@
     </dt>
     <dd class="mt-1 text-sm text-gray-900">
       {{ props.data.numberPersons }} Personen um
-      {{ moment(props.data.dateTimeField).format("llll") }} mit
+      {{ this.$dayjs(props.data.dateTimeField).format("llll") }} mit
       {{ props.data.getTypeFieldDisplay }}
     </dd>
     <dd class="mt-1 text-sm text-gray-500">
@@ -92,12 +92,12 @@ async function onNewTravelConfirmClicked(travel) {
     "travel"
   );
   console.log(res);
-  if (res.statusCode = '200') {
+  if ((res.statusCode = "200")) {
     const id = route.params.id;
     const response = await eventStore.fetchRegistration(id);
     commonStore.showSuccess("Anreise erfolfreich gespeichert.");
   } else {
-    commonStore.showError("Fehler beim speichern.")
+    commonStore.showError("Fehler beim speichern.");
   }
 
   openNewTravelModal.value = false;

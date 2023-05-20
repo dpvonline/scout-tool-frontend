@@ -1136,6 +1136,11 @@ dayjs@^1.10.4:
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.10.8.tgz"
   integrity sha512-wbNwDfBHHur9UOzNUjeKUOJ0fCb0a52Wx0xInmQ7Y8FstyajiV1NmK1e00cxsr9YrE9r7yAChE0VvpuY5Rnlow==
 
+dayjs@^1.11.5:
+  version "1.11.7"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.7.tgz#4b296922642f70999544d1144a2c25730fce63e2"
+  integrity sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==
+
 debug@^2.6.9:
   version "2.6.9"
   resolved "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz"
@@ -3763,6 +3768,13 @@ vue-router@~4.0:
   integrity sha512-wAO6zF9zxA3u+7AkMPqw9LjoUCjSxfFvINQj3E/DceTt6uEz1XZLraDhdg2EYmvVwTBSGlLYsUw8bDmx0754Mw==
   dependencies:
     "@vue/devtools-api" "^6.0.0"
+
+vue3-dayjs-plugin@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vue3-dayjs-plugin/-/vue3-dayjs-plugin-1.0.2.tgz#ff8a80fa883619df1f13716c4bd871dfde4a5385"
+  integrity sha512-kLopIov1UzL1zeFFCuUDr19pIwslkyPiOeKt8jNizNE3b5LrAX2WUJ2ysRAvZ/nrFIbnyBU0gVHhachkd0eNPQ==
+  dependencies:
+    dayjs "^1.11.5"
 
 vue@~3.2:
   version "3.2.31"

@@ -44,5 +44,5 @@ onMounted(() => {
   }
 });
 
-const pages = [{ name: "Alle Personen", link: "PersonMain" }];
+const pages = [{ name: "Alle Personen", link: { name: "PersonMain" } }];
 </script>

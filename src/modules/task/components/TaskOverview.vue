@@ -18,7 +18,9 @@
             <dt class="text-sm font-medium text-gray-500">gestellt am</dt>
             <dd class="mt-1 text-sm text-gray-900">
               {{
-                task?.createdAt ? moment(task?.createdAt).format("llll") : ""
+                task?.createdAt
+                  ? this.$dayjs(task?.createdAt).format("llll")
+                  : ""
               }}
             </dd>
           </div>

@@ -24,7 +24,11 @@
           </div>
         </div>
         <div class="ml-4 mt-4 flex flex-shrink-0">
-          <PrimaryButton :icon="DocumentChartBarIcon" @click="onStatisticsClicked" class="mx-0 my-2">
+          <PrimaryButton
+            :icon="DocumentChartBarIcon"
+            @click="onStatisticsClicked"
+            class="mx-0 my-2"
+          >
             Statistiken anzeigen
           </PrimaryButton>
         </div>
@@ -104,25 +108,25 @@
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Veranstaltung Start</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.startDate).format("llll") }}
+            {{ this.$dayjs(event.startDate).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Veranstaltung Ende</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.endDate).format("llll") }}
+            {{ this.$dayjs(event.endDate).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Anmeldestart</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.registrationStart).format("llll") }}
+            {{ this.$dayjs(event.registrationStart).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Anmeldeschluss</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.registrationDeadline).format("llll") }}
+            {{ this.$dayjs(event.registrationDeadline).format("llll") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -130,7 +134,7 @@
             Anmeldung Änderbar bis
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.lastPossibleUpdate).format("llll") }}
+            {{ this.$dayjs(event.lastPossibleUpdate).format("llll") }}
           </dd>
         </div>
       </dl>
@@ -239,12 +243,13 @@
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Wer ist eingeladen?</dt>
-          <dd v-if="event.invitedGroups && event.invitedGroups.length > 0" class="mt-1 text-sm text-gray-900">
+          <dd
+            v-if="event.invitedGroups && event.invitedGroups.length > 0"
+            class="mt-1 text-sm text-gray-900"
+          >
             {{ event.invitedGroups?.map((a) => `${a.displayName}`).join(", ") }}
           </dd>
-          <dd v-else class="mt-1 text-sm text-gray-900">
-            Jeder
-          </dd>
+          <dd v-else class="mt-1 text-sm text-gray-900">Jeder</dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
@@ -260,7 +265,7 @@
       <div class="pb-3">
         <div class="flex w-0 items-center">
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
-            Buchungs Optionen
+            Buchung Optionen
           </h3>
           <button
             @click="onEventEditClicked(3, {})"
@@ -462,7 +467,7 @@ function onEventClosedClicked() {
 function onStatisticsClicked() {
   const id = route.params.id;
   router.push({
-    name: 'EventStatisticSummary',
+    name: "EventStatisticSummary",
     params: {
       id,
     },

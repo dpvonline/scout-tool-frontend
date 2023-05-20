@@ -78,7 +78,9 @@
           <dt class="text-sm font-medium text-gray-500">Anmeldeschluss</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{
-              moment(registration?.event?.registrationDeadline).format("llll")
+              this.$dayjs(registration?.event?.registrationDeadline).format(
+                "llll"
+              )
             }}
           </dd>
         </div>
@@ -156,7 +158,7 @@
                 Geschlecht: {{ person.getGenderDisplay }}
               </p>
               <p class="text-base leading-7 text-gray-600">
-                Geburtsdatum: {{ moment(person.birthday).format("ll") }}
+                Geburtsdatum: {{ this.$dayjs(person.birthday).format("ll") }}
               </p>
               <p class="text-base leading-7 text-gray-600">
                 Essenbesonderheiten:
@@ -411,9 +413,9 @@ async function onAddMemberConfirmClicked(userId) {
   const regId = route.params.id;
   eventRegisterStore.addResponsablePerson({
     id: regId,
-    responsiblePersons: props.registration?.responsiblePersons.map(a => a.id).concat([
-      userId,
-    ]),
+    responsiblePersons: props.registration?.responsiblePersons
+      .map((a) => a.id)
+      .concat([userId]),
   });
   const response = await eventStore.fetchRegistration(regId);
   commonStore.showSuccess("User zur Fahrtenleitung hinzugefügt");
@@ -422,5 +424,4 @@ async function onAddMemberConfirmClicked(userId) {
 function onAddMemberCancellicked() {
   openAddMember.value = false;
 }
-
 </script>

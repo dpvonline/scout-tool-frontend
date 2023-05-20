@@ -66,7 +66,9 @@
                 </div>
 
                 <div class="px-6 py-5 text-center text-sm font-medium">
-                  <span class="text-blue-600 mr-1">{{ openInvitationCount }}</span>
+                  <span class="text-blue-600 mr-1">{{
+                    openInvitationCount
+                  }}</span>
                   <router-link
                     :to="{
                       name: 'EventInvitations',
@@ -136,7 +138,9 @@
                           Tagen
                         </p>
                         <p class="text-sm text-gray-500">
-                          {{ moment(notification.timestamp).format("llll") }}
+                          {{
+                            this.$dayjs(notification.timestamp).format("llll")
+                          }}
                         </p>
                       </div>
                     </li>
@@ -186,7 +190,10 @@
                         </div>
                         <div>
                           <router-link
-                            :to="{ name: 'EventPlanungsjurte' }"
+                            :to="{
+                              name: 'InvitationDetail',
+                              params: { id: event.id },
+                            }"
                             class="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50"
                             >Öffnen</router-link
                           >
@@ -196,10 +203,13 @@
                   </ul>
                 </div>
                 <div class="mt-6">
-                  <a
-                    href="#"
+                  <router-link
+                    :to="{
+                      name: 'EventInvitations',
+                      query: { status: 'pending' },
+                    }"
                     class="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
-                    >Alle Veranstaltungen</a
+                    >Alle Veranstaltungen</router-link
                   >
                 </div>
               </div>
