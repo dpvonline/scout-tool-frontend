@@ -259,7 +259,7 @@
           </dd>
         </div>
 
-        <div class="sm:col-span-2" v-if="adminUsers.length">
+        <div class="sm:col-span-2" v-if="adminUsers.length && adminUsers.length >0">
           <dt class="text-sm font-medium text-gray-500">adminUsers</dt>
           <dd class="mt-1 text-sm text-gray-900">
             <ul

@@ -1,136 +1,137 @@
 <template>
   <div>
-    <!-- Profile -->
-    <div class="mt-10 divide-y divide-gray-200">
-      <div class="space-y-1">
-        <div class="flex py-4">
-          <div class="flex-grow">
-            <h3 class="text-lg font-medium leading-6 text-gray-900">
-              Profil bearbeiten
-            </h3>
-            <p class="max-w-2xl text-sm text-gray-500">
-              Deine persönlichen Angaben.
-            </p>
+    <div v-if="!isLoading">
+      <!-- Profile -->
+      <div class="mt-10 divide-y divide-gray-200">
+        <div class="space-y-1">
+          <div class="flex py-4">
+            <div class="flex-grow">
+              <h3 class="text-lg font-medium leading-6 text-gray-900">
+                Profil bearbeiten
+              </h3>
+              <p class="max-w-2xl text-sm text-gray-500">
+                Deine persönlichen Angaben.
+              </p>
+            </div>
           </div>
         </div>
+        <div class="mt-6">
+          <dl class="divide-y divide-gray-200">
+            <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+              <div class="pt-4 sm:py-5">
+                <BaseField
+                  component="Text"
+                  :label="'Fahrtenname'"
+                  techName="scoutName"
+                  v-model="state.scoutName"
+                  :errors="errors.scoutName?.$errors"
+                />
+              </div>
+              <div class="pt-4 sm:py-5">
+                <BaseField
+                  component="Text"
+                  :label="'Vorname'"
+                  techName="firstName"
+                  v-model="state.firstName"
+                  :errors="errors.firstName?.$errors"
+                />
+              </div>
+              <div class="pt-4 sm:py-5">
+                <BaseField
+                  component="Text"
+                  :label="'Nachname'"
+                  techName="lastName"
+                  v-model="state.lastName"
+                  :errors="errors.lastName?.$errors"
+                />
+              </div>
+              <div class="pt-4 sm:py-5">
+                <BaseField
+                  component="Date"
+                  :label="'Geburtsdatum'"
+                  techName="birthday"
+                  v-model="state.birthday"
+                  :errors="errors.birthday?.$errors"
+                />
+              </div>
+              <div class="pt-4 sm:py-5">
+                <BaseField
+                  component="Select"
+                  :label="'Geschlecht'"
+                  techName="gender"
+                  v-model="state.gender"
+                  :errors="errors.gender?.$errors"
+                  :items="registerStore.genderMappings"
+                />
+              </div>
+            </div>
+          </dl>
+        </div>
       </div>
-      <div class="mt-6">
-        <dl class="divide-y divide-gray-200">
-          <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                component="Text"
-                :label="'Fahrtenname'"
-                techName="scoutName"
-                v-model="state.scoutName"
-                :errors="errors.scoutName?.$errors"
-              />
-            </div>
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                component="Text"
-                :label="'Vorname'"
-                techName="firstName"
-                v-model="state.firstName"
-                :errors="errors.firstName?.$errors"
-              />
-            </div>
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                component="Text"
-                :label="'Nachname'"
-                techName="lastName"
-                v-model="state.lastName"
-                :errors="errors.lastName?.$errors"
-              />
-            </div>
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                component="Date"
-                :label="'Geburtsdatum'"
-                techName="birthday"
-                v-model="state.birthday"
-                :errors="errors.birthday?.$errors"
-              />
-            </div>
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                component="Select"
-                :label="'Geschlecht'"
-                techName="gender"
-                v-model="state.gender"
-                :errors="errors.gender?.$errors"
-                :items="registerStore.genderMappings"
-              />
-            </div>
-          </div>
-        </dl>
-      </div>
-    </div>
 
-    <!-- Contact -->
-    <div class="mt-10 divide-y divide-gray-200">
-      <div class="space-y-1">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">
-          Kontakt bearbeiten
-        </h3>
-        <p class="max-w-2xl text-sm text-gray-500">Deine Kontaktangaben.</p>
+      <!-- Contact -->
+      <div class="mt-10 divide-y divide-gray-200">
+        <div class="space-y-1">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">
+            Kontakt bearbeiten
+          </h3>
+          <p class="max-w-2xl text-sm text-gray-500">Deine Kontaktangaben.</p>
+        </div>
+        <div class="mt-6">
+          <dl class="divide-y divide-gray-200">
+            <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+              <div class="pt-4 sm:py-5">
+                <BaseField
+                  disabled="true"
+                  component="EMail"
+                  :label="'E-Mail-Adresse*'"
+                  techName="email"
+                  v-model="state.email"
+                  :errors="errors.email?.$errors"
+                />
+              </div>
+              <div class="pt-4 sm:py-5">
+                <BaseField
+                  component="PhoneNumber"
+                  :label="'Handynummer'"
+                  techName="phoneNumber"
+                  v-model="state.phoneNumber"
+                  :errors="errors.phoneNumber?.$errors"
+                />
+              </div>
+              <div class="pt-4 sm:py-5">
+                <BaseField
+                  component="Text"
+                  :label="'Addresse'"
+                  techName="address"
+                  v-model="state.address"
+                  :errors="errors.address?.$errors"
+                />
+              </div>
+              <div class="pt-4 sm:py-5">
+                <BaseField
+                  component="Text"
+                  :label="'Addresszusatz'"
+                  techName="addressSupplement"
+                  v-model="state.addressSupplement"
+                  :errors="errors.addressSupplement?.$errors"
+                />
+              </div>
+              <div class="pt-4 sm:py-5">
+                <BaseField
+                  component="ZIP"
+                  :label="'Postleitzahl'"
+                  techName="zipCode"
+                  v-model="state.zipCode"
+                  :errors="errors.zipCode?.$errors"
+                />
+              </div>
+            </div>
+          </dl>
+        </div>
       </div>
-      <div class="mt-6">
-        <dl class="divide-y divide-gray-200">
-          <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                disabled="true"
-                component="EMail"
-                :label="'E-Mail-Adresse*'"
-                techName="email"
-                v-model="state.email"
-                :errors="errors.email?.$errors"
-              />
-            </div>
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                component="PhoneNumber"
-                :label="'Handynummer'"
-                techName="phoneNumber"
-                v-model="state.phoneNumber"
-                :errors="errors.phoneNumber?.$errors"
-              />
-            </div>
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                component="Text"
-                :label="'Addresse'"
-                techName="address"
-                v-model="state.address"
-                :errors="errors.address?.$errors"
-              />
-            </div>
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                component="Text"
-                :label="'Addresszusatz'"
-                techName="addressSupplement"
-                v-model="state.addressSupplement"
-                :errors="errors.addressSupplement?.$errors"
-              />
-            </div>
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                component="ZIP"
-                :label="'Postleitzahl'"
-                techName="zipCode"
-                v-model="state.zipCode"
-                :errors="errors.zipCode?.$errors"
-              />
-            </div>
-          </div>
-        </dl>
-      </div>
-    </div>
 
-    <!-- Eat Habits
+      <!-- Eat Habits
     <div class="mt-10 divide-y divide-gray-200">
       <div class="space-y-1">
         <h3 class="text-lg font-medium leading-6 text-gray-900">
@@ -153,33 +154,35 @@
       </div>
     </div> -->
 
-    <!-- Roles -->
-    <div class="mt-10 divide-y divide-gray-200">
-      <div class="space-y-1">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">
-          Pfadfinderdaten bearbeiten
-        </h3>
-        <p class="max-w-2xl text-sm text-gray-500">Deine Zugehörigkeiten</p>
-      </div>
-      <div class="mt-6">
-        <dl class="divide-y divide-gray-200">
-          <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
-            <div class="pt-4 sm:py-5">
-              <BaseField
-                component="AutoComplete"
-                :label="'Stamm*'"
-                techName="scoutGroup"
-                v-model="state.scoutGroup"
-                :errors="errors.scoutGroup?.$errors"
-                :items="registerStore.scoutGroupMappings"
-                hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."
-                :lookupListDisplay="['bund', '$ - Stamm ', 'name']"
-              />
+      <!-- Roles -->
+      <div class="mt-10 divide-y divide-gray-200">
+        <div class="space-y-1">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">
+            Pfadfinderdaten bearbeiten
+          </h3>
+          <p class="max-w-2xl text-sm text-gray-500">Deine Zugehörigkeiten</p>
+        </div>
+        <div class="mt-6">
+          <dl class="divide-y divide-gray-200">
+            <div class="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+              <div class="pt-4 sm:py-5">
+                <BaseField
+                  component="AutoComplete"
+                  :label="'Stamm*'"
+                  techName="scoutGroup"
+                  v-model="state.scoutGroup"
+                  :errors="errors.scoutGroup?.$errors"
+                  :items="registerStore.scoutGroupMappings"
+                  hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."
+                  :lookupListDisplay="['bund', '$ - Stamm ', 'name']"
+                />
+              </div>
             </div>
-          </div>
-        </dl>
+          </dl>
+        </div>
       </div>
     </div>
+      <div v-else> <LoadingItem/> </div>
     <!-- <div class="pt-4 sm:py-5">
               <BaseField
                   component="Select"
@@ -310,9 +313,17 @@ import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";
 import { computed, onMounted, reactive, watch } from "vue";
 import { useRoute } from "vue-router";
 import BaseField from "@/components/field/Base.vue";
+import LoadingItem from "@/components/list/LoadingItem.vue";
+
 
 import { useVuelidate } from "@vuelidate/core";
-import { required, email, minLength, maxLength } from "@vuelidate/validators";
+import {
+  required,
+  minLength,
+  sameAs,
+  email,
+  helpers,
+} from "@vuelidate/validators";
 
 const registerStore = useRegisterStore();
 
@@ -443,16 +454,40 @@ const personalData = computed(() => {
 
 async function fetchAllMappings() {
   const id = route.params.id;
-  await registerStore.fetchAllMappings(id)
+  await registerStore.fetchAllMappings(id);
 }
 
 async function fetchPersonalData() {
   await personalDataStore.fetchPersonalData(route.query);
 }
 
+const zipCheck = async (value) => {
+  if (!value || value == "") {
+    return false;
+  }
+  console.log(value);
+  return !(await registerStore.zipCheck(value));
+};
+
 const rules = {
   firstName: {
     required,
+  },
+  zipCode: {
+    validPLZ: helpers.withMessage(
+      "Bitte gib eine gültige Postleitzahl an.",
+      function (value) {
+        return /^[0-9]{5}$/.test(value);
+      }
+    ),
+    required: helpers.withMessage(
+      "Du musst eine gültige Postleitzahl angeben.",
+      required
+    ),
+    metBackendRules1: helpers.withMessage(
+      "Diese Postleitzahl ist nicht gültig.",
+      helpers.withAsync(zipCheck)
+    ),
   },
 };
 
@@ -505,6 +540,7 @@ function onButtonClicked() {
 }
 
 onMounted(async () => {
+  isLoading.value = true;
   await Promise.all([fetchAllMappings()]);
 
   await fetchPersonalData();
@@ -518,6 +554,7 @@ onMounted(async () => {
   // state.scoutLevel = registerStore.scoutLevelMappings.find(a => a['name'] === state.scoutLevel);
   // state.bundespost = bundespostChoices.find(a => a['name'] === state.bundespost);
   // state.emailNotification = emailNotificationChoices.find(a => a['name'] === state.emailNotification);
+  isLoading.value = false;
 });
 
 function fillpersonalDataStore() {
