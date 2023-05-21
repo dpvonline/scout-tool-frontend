@@ -5,6 +5,7 @@
     :disabled="isLoading"
     class="
       inline-flex
+      items-center
       justify-center
       rounded-md
       border border-transparent

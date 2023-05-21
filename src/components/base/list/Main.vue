@@ -36,7 +36,7 @@
                   placeholder="Suche"
                 />
               </div>
-              <ToolDropdown :buttonList="buttonList" />
+              <ToolDropdown v-if="buttonList && buttonList.length > 0" :buttonList="buttonList" />
             </div>
           </div>
         </div>

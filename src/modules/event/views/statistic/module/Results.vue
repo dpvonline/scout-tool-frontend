@@ -6,7 +6,7 @@
       </h3>
       <dl class="my-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
         <div
-          class="overflow-hidden rounded-lg bg-gray-200 px-4 py-5 shadow sm:p-6"
+          class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6"
         >
           <dt class="truncate text-sm font-medium text-gray-500">Gesamt</dt>
           <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
@@ -19,7 +19,7 @@
         <div
           v-for="item in eventFoodSummary"
           :key="item.name"
-          class="overflow-hidden rounded-lg bg-green-100 px-4 py-5 shadow sm:p-6"
+          class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6"
         >
           <dt class="text-sm font-medium text-gray-500">
             {{ item.food }}
@@ -35,7 +35,7 @@
       </h3>
       <dl class="my-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
         <div
-          class="overflow-hidden rounded-lg bg-blue-100 px-4 py-5 shadow sm:p-6"
+          class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6"
         >
           <dt class="truncate text-sm font-medium text-gray-500">
             Wölfling (bis 12 Jahre)
@@ -45,7 +45,7 @@
           </dd>
         </div>
         <div
-          class="overflow-hidden rounded-lg bg-blue-100 px-4 py-5 shadow sm:p-6"
+          class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6"
         >
           <dt class="truncate text-sm font-medium text-gray-500">
             Pfadfinder (12-15 Jahre)
@@ -55,7 +55,7 @@
           </dd>
         </div>
         <div
-          class="overflow-hidden rounded-lg bg-blue-100 px-4 py-5 shadow sm:p-6"
+          class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6"
         >
           <dt class="truncate text-sm font-medium text-gray-500">
             Rover (16-24 Jahre)
@@ -65,7 +65,7 @@
           </dd>
         </div>
         <div
-          class="overflow-hidden rounded-lg bg-blue-100 px-4 py-5 shadow sm:p-6"
+          class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6"
         >
           <dt class="truncate text-sm font-medium text-gray-500">
             Alt-Rover (über 25 Jahre)

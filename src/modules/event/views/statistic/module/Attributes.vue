@@ -3,7 +3,7 @@
     <h3 class="text-base font-semibold leading-6 text-gray-900">Attribute</h3>
     <dl class="my-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
       <div
-        class="overflow-hidden rounded-lg bg-gray-300 px-4 py-5 shadow sm:p-6"
+        class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6"
       >
         <dt class="truncate text-sm font-medium text-gray-500">Gesamt</dt>
         <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">

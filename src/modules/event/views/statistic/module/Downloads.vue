@@ -1,7 +1,7 @@
 <template>
   <div class="px-3 py-3">
-    <h3 class="text-base font-semibold leading-6 text-gray-900">Aktionen</h3>
-    <PrimaryButton> Zahlungserinnerung senden </PrimaryButton>
+    <h3 class="text-base ma-2 my-2 font-semibold leading-6 text-gray-900">Aktionen</h3>
+    <PrimaryButton class="ma-2 my-2" :icon="CurrencyEuroIcon"> Zahlungserinnerung senden </PrimaryButton>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import { computed, onMounted } from "vue";
 import { useEventStore } from "@/modules/event/store";
 
-import { PlusIcon } from "@heroicons/vue/20/solid";
+import { PlusIcon, CurrencyEuroIcon } from "@heroicons/vue/20/solid";
 
 import PrimaryButton from "@/components/button/Primary.vue";
 

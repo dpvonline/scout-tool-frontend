@@ -7,16 +7,15 @@
       label="Kurze Beschreibung"
     />
     <BaseField
-      component="Html"
-      v-model="state.longDescription"
-      label="Einladungstext"
-    />
-    <BaseField
       component="TextArea"
       v-model="state.technicalName"
       label="Technischer Name"
     />
-
+    <BaseField
+      component="Html"
+      v-model="state.longDescription"
+      label="Einladungstext"
+    />
     <PrimaryButton
       @click="onSaveClicked"
       :isLoading="!!isLoading"

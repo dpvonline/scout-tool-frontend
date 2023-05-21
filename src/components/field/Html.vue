@@ -9,6 +9,7 @@
         contentType="html"
         @update:content="updateValue"
         theme="snow"
+        :toolbar="toolbarOptions"
       />
       <div
         v-if="hasError"
@@ -37,6 +38,8 @@
 import { computed, ref, watch } from "vue";
 
 import { ExclamationCircleIcon } from "@heroicons/vue/20/solid";
+
+const toolbarOptions = ref('essential')
 
 const props = defineProps({
   modelValue: { type: String, required: true },

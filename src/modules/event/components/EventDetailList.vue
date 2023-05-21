@@ -75,11 +75,13 @@
           <dd class="mt-1 text-sm text-gray-900">{{ event.technicalName }}</dd>
         </div>
         <div class="sm:col-span-2">
-          <dt class="text-sm font-medium text-gray-500">Einladungtext</dt>
-          <dd
-            class="mt-1 text-sm text-gray-900"
-            v-html="event.longDescription"
-          ></dd>
+          <div class="sm:col-span-2 border border-1 px-2 py-2">
+            <dt class="text-sm font-medium text-gray-500">Einladungtext</dt>
+            <dd
+              class="mt-1 text-sm text-gray-900"
+              v-html="event.longDescription"
+            ></dd>
+          </div>
         </div>
       </dl>
     </div>
@@ -101,49 +103,16 @@
           </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Personal details and application.
+          Termine and Anmeldeschluss
         </p>
       </div>
-      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Veranstaltung Start</dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ this.$dayjs(event.startDate).format("llll") }}
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Veranstaltung Ende</dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ this.$dayjs(event.endDate).format("llll") }}
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Anmeldestart</dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ this.$dayjs(event.registrationStart).format("llll") }}
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Anmeldeschluss</dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ this.$dayjs(event.registrationDeadline).format("llll") }}
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">
-            Anmeldung Änderbar bis
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ this.$dayjs(event.lastPossibleUpdate).format("llll") }}
-          </dd>
-        </div>
-      </dl>
+      <TimelineEvent :event="event"/>
     </div>
     <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
       <div class="pb-3">
         <div class="flex w-0 items-center">
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
-            Ort
+            Ort der Veranstaltung
           </h3>
           <!-- <button
             @click="onEventEditClicked"
@@ -177,6 +146,12 @@
           <dt class="text-sm font-medium text-gray-500">Ort</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ event?.location?.zipCode?.city }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Adresse</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event?.location?.address || 'Keine Adresse angegeben' }}
           </dd>
         </div>
       </dl>
@@ -441,6 +416,7 @@ import {
 import PrimaryButton from "@/components/button/Primary.vue";
 
 import EventEditOverlay from "@/modules/event/components/EventEdit/Overlay.vue";
+import TimelineEvent from "@/modules/event/components/general/TimelineEvent.vue";
 
 // messsage
 const eventData = ref({});

@@ -374,6 +374,8 @@ import GroupListItem from "@/modules/group/components/GroupListItem.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
+const isLoading = ref(false);
+
 const groupStore = useGroupStore();
 const authStore = useAuthStore();
 
