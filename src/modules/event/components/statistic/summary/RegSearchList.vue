@@ -71,7 +71,12 @@ function updateSearch(params) {
   }
 }
 
-const sortOptions = [];
+const sortOptions = [
+  { name: "A-Z", value: "scout_organisation__name", current: false },
+  { name: "Neuste", value: "-created_at", current: true },
+  { name: "Größte", value: "biggest", current: false },
+  { name: "Kleinste", value: "smallest", current: false },
+];
 
 const filters = [];
 const buttonList = [];

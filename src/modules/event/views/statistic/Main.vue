@@ -22,7 +22,10 @@ const tabs = computed(() => {
     },
     {
       name: "Gruppen",
-      linkName: { name: "EventStatisticRegistration" },
+      linkName: {
+        name: "EventStatisticRegistration",
+        pararms: { ordering: "-created_at" },
+      },
       current: route.name === "EventStatisticRegistration",
     },
     {

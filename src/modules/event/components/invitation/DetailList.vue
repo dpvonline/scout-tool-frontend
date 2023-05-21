@@ -44,16 +44,13 @@
             Einladung
           </h3>
         </div>
-        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          An welchem Ort findet das Lager statt?
-        </p>
       </div>
-        <div class="sm:col-span-2">
-          <div class="sm:col-span-2 border border-1 px-2 py-2">
-            <dt class="text-sm font-medium text-gray-500">Einladungtext</dt>
-            <p v-html="event.longDescription"></p>
-          </div>
+      <div class="sm:col-span-2">
+        <div class="sm:col-span-2 border border-1 px-2 py-2">
+          <dt class="text-sm font-medium text-gray-500">Einladungtext</dt>
+          <p v-html="event.longDescription"></p>
         </div>
+      </div>
     </div>
     <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
       <div class="pb-3">
@@ -66,7 +63,7 @@
           Alles rund um die Termine
         </p>
       </div>
-        <TimelineEvent :event="event"/>
+      <TimelineEvent :event="event" />
     </div>
     <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
       <div class="pb-3">
@@ -101,7 +98,7 @@
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Adresse</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ event?.location?.address || 'Keine Adresse angegeben' }}
+            {{ event?.location?.address || "Keine Adresse angegeben" }}
           </dd>
         </div>
       </dl>

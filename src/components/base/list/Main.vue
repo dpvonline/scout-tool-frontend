@@ -36,7 +36,10 @@
                   placeholder="Suche"
                 />
               </div>
-              <ToolDropdown v-if="buttonList && buttonList.length > 0" :buttonList="buttonList" />
+              <ToolDropdown
+                v-if="buttonList && buttonList.length > 0"
+                :buttonList="buttonList"
+              />
             </div>
           </div>
         </div>
@@ -348,7 +351,11 @@
           v-if="!isLoading"
           class="overflow-hidden bg-white shadow sm:rounded-md overflow-scroll"
         >
-          <ul role="list" v-if="items?.length || isLoading" class="divide-y divide-gray-200">
+          <ul
+            role="list"
+            v-if="items?.length || isLoading"
+            class="divide-y divide-gray-200"
+          >
             <li v-for="item in items" :key="item">
               <component
                 :is="detailPageLink ? 'router-link' : 'div'"
@@ -480,7 +487,9 @@ onBeforeMount(() => {
       const filterItem = filterCategory.options.filter(
         (item) => item.value === value
       )[0];
-      filterItem.checked = true;
+      if (filterItem && filterItem.checked) {
+        filterItem.checked = true;
+      }
     }
     if (key === "search") {
       searchInput.value = value;
@@ -500,7 +509,7 @@ function filteredChecked(ary) {
 function updateFilters(option, section) {
   query = { ...router.currentRoute.value.query };
 
-  if (option.search) {
+  if (option.search || option.search == "") {
     query.search = option.search;
   }
   if (option.current === false) {

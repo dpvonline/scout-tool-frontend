@@ -27,13 +27,18 @@
               <div>
                 <p class="text-sm text-gray-500">
                   {{ event.content }}
-                  <p class="font-medium text-gray-900">{{
-                    event.target}} ({{ daydeltaToNow(event.date) >= 0 ? 'in' : 'seit'}} {{ Math.abs(daydeltaToNow(event.date)) }} Tagen)
-                  </p>
+                </p>
+                <p class="font-medium text-gray-900">
+                  {{ event.target }} ({{
+                    daydeltaToNow(event.date) >= 0 ? "in" : "seit"
+                  }}
+                  {{ Math.abs(daydeltaToNow(event.date)) }} Tagen)
                 </p>
               </div>
               <div class="whitespace-nowrap text-right text-sm text-gray-500">
-                <time :datetime="event.datetime">{{ (event.date).format('DD.MMM HH:mm') }}</time>
+                <time :datetime="event.datetime">{{
+                  event.date.format("DD.MMM HH:mm")
+                }}</time>
               </div>
             </div>
           </div>
