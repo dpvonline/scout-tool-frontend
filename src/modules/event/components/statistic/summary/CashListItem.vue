@@ -67,6 +67,5 @@ function onPayedClicked() {
 }
 
 function onAddPaymentClicked() {
-  debugger;
 }
 </script>
