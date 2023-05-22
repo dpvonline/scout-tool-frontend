@@ -1,7 +1,24 @@
 <template>
   <div class="px-3 py-3">
-    <h3 class="text-base ma-2 my-2 font-semibold leading-6 text-gray-900">Aktionen</h3>
-    <PrimaryButton class="ma-2 my-2" :icon="CurrencyEuroIcon"> Zahlungserinnerung senden </PrimaryButton>
+    <h2 class="text-base ma-2 my-2 font-semibold leading-6 text-gray-900">
+      Aktionen
+    </h2>
+    <ul role="list" class="mx-5 space-y-1">
+      <li>
+        <PrimaryButton class="ma-2 my-2" :icon="CurrencyEuroIcon">
+          Zahlungserinnerung senden
+        </PrimaryButton>
+      </li>
+      <li>
+        <PrimaryButton
+          @click="onNewRegClicked"
+          class="pa-2 py-2"
+          :icon="PlusIcon"
+        >
+          Neue Anmeldung hinzufügen
+        </PrimaryButton>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -17,9 +34,13 @@ const pages = [{ name: "Alle Anmeldungen", link: { name: "EventMain" } }];
 
 const eventStore = useEventStore();
 
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
+
+import { useEventRegisterStore } from "@/modules/event/store/register";
+const eventRegisterStore = useEventRegisterStore();
 
 const eventSummaryBookingOptions = computed(() => {
   return eventStore.eventSummaryBookingOptions;
@@ -39,6 +60,18 @@ const stats = computed(() => {
     { name: "Gruppen", stat: eventSummaryTotalRegistrations.value },
   ];
 });
+
+function onNewRegClicked() {
+  const eventId = route.params.id;
+  eventRegisterStore.$reset();
+
+  router.push({
+    name: "RegistrationNewStart",
+    params: {
+      id: eventId,
+    },
+  });
+}
 
 onMounted(() => {
   const eventId = route.params.id;

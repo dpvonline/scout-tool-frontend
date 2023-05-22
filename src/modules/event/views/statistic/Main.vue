@@ -49,7 +49,7 @@ const tabs = computed(() => {
       current: route.name === "EventStatisticPersons",
     },
     {
-      name: "Downloads",
+      name: "Aktionen",
       linkName: { name: "EventStatisticDownloads" },
       current: route.name === "EventStatisticDownloads",
     },
