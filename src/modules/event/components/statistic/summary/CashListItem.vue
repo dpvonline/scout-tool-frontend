@@ -64,7 +64,6 @@ const props = defineProps({
 });
 
 function onPayedClicked() {
-  debugger;
 }
 
 function onAddPaymentClicked() {
