@@ -34,7 +34,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 import { ref, watch, computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
 import RequestModal from "@/modules/group/components/RequestModal.vue";

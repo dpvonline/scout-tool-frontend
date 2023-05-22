@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
 import { PencilIcon } from "@heroicons/vue/20/solid";
 import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";

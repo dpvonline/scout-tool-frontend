@@ -26,7 +26,6 @@
 <script setup lang="ts">
 import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
-import moment from "moment";
 
 import { reactive, onMounted, ref, watch, computed } from "vue";
 import BaseField from "@/components/field/Base.vue";

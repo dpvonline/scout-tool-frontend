@@ -139,7 +139,7 @@
                         </p>
                         <p class="text-sm text-gray-500">
                           {{
-                            moment(notification.timestamp).format("llll")
+                            $dayjs(notification.timestamp).format("llll")
                           }}
                         </p>
                       </div>

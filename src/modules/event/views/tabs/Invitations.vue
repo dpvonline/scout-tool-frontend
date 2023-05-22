@@ -69,7 +69,6 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
-import moment from "moment";
 import {
   ScaleIcon,
   UserGroupIcon,

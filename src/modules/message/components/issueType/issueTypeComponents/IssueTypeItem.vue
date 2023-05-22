@@ -35,7 +35,6 @@ import {
   CheckCircleIcon,
 } from "@heroicons/vue/20/solid";
 import { QuestionMarkCircleIcon } from "@heroicons/vue/24/outline";
-import moment from "moment";
 const props = defineProps({
   item: Object,
 });

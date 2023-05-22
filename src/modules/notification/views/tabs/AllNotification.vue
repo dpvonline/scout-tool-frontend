@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import moment from "moment";
 import {
   ScaleIcon,
   UserGroupIcon,

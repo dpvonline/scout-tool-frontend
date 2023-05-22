@@ -44,7 +44,6 @@ import {
   CheckCircleIcon,
   EnvelopeIcon,
 } from "@heroicons/vue/24/outline";
-import moment from "moment";
 
 import { useEventRegisterStore } from "@/modules/event/store/register.ts";
 const eventRegisterStore = useEventRegisterStore();

@@ -56,7 +56,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 import { PaperClipIcon } from "@heroicons/vue/20/solid";
 
 const props = defineProps({

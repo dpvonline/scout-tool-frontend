@@ -15,7 +15,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";

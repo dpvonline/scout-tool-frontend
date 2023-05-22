@@ -27,5 +27,4 @@ import {
   RocketLaunchIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/vue/24/outline";
-import moment from "moment";
 </script>

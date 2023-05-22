@@ -400,8 +400,6 @@ import { ref } from "vue";
 const router = useRouter();
 const route = useRoute();
 
-import moment from "moment";
-
 import {
   PencilIcon,
   CalendarIcon,

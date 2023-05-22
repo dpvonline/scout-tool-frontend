@@ -41,7 +41,6 @@
 
 <script setup lang="ts">
 import AddTravelModal from "@/modules/event/components/registration/AddTravelModal.vue";
-import moment from "moment";
 import { ref, watch, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 

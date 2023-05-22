@@ -17,7 +17,6 @@
 
 <script setup lang="ts">
 import { ClipboardIcon, RocketLaunchIcon, UserIcon, Cog8ToothIcon, BuildingLibraryIcon } from "@heroicons/vue/24/outline";
-import moment from "moment";
 const props = defineProps({
   item: Object,
 });

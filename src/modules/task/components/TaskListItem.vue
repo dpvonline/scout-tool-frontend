@@ -48,7 +48,6 @@ import {
   RocketLaunchIcon,
   CheckCircleIcon,
 } from "@heroicons/vue/24/outline";
-import moment from "moment";
 
 function getColorByStatus(status) {
   switch (status) {

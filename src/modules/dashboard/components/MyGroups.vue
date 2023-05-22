@@ -16,7 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 import { computed } from "vue";
 import { useGroupStore } from "@/modules/group/store/index";
 
