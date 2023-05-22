@@ -31,7 +31,7 @@
           <dd class="mt-1 text-sm text-gray-900">
             {{
               message.createdAt
-                ? this.$dayjs(message.createdAt).format("llll")
+                ? $dayjs(message.createdAt).format("llll")
                 : ""
             }}
           </dd>

@@ -60,7 +60,7 @@
           <dd class="mt-1 text-sm text-gray-900">
             {{
               props.item.timestamp
-                ? this.$dayjs(props.item.timestamp).format("llll")
+                ? $dayjs(props.item.timestamp).format("llll")
                 : ""
             }}
           </dd>

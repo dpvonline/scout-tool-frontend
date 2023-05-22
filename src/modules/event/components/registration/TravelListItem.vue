@@ -14,7 +14,7 @@
         <p class="text-sm font-medium text-black-600">
           {{ props.item.numberPersons }} Person/en mit
           {{ props.item.typeField?.name }} um
-          {{ this.$dayjs(props.item.dateTimeField).format("llll") }}
+          {{ $dayjs(props.item.dateTimeField).format("llll") }}
         </p>
         <p class="mt-2 flex items-center text-sm text-gray-500">
           {{ props.item.description }}

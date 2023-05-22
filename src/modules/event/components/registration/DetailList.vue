@@ -78,7 +78,7 @@
           <dt class="text-sm font-medium text-gray-500">Anmeldeschluss</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{
-              this.$dayjs(registration?.event?.registrationDeadline).format(
+              $dayjs(registration?.event?.registrationDeadline).format(
                 "llll"
               )
             }}
@@ -158,7 +158,7 @@
                 Geschlecht: {{ person.getGenderDisplay }}
               </p>
               <p class="text-base leading-7 text-gray-600">
-                Geburtsdatum: {{ this.$dayjs(person.birthday).format("ll") }}
+                Geburtsdatum: {{ $dayjs(person.birthday).format("ll") }}
               </p>
               <p class="text-base leading-7 text-gray-600">
                 Essenbesonderheiten:

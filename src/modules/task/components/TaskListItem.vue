@@ -24,7 +24,7 @@
         <div>
           <p class="text-sm text-gray-900">
             Antrag gestellt:
-            {{ this.$dayjs(props.item.createdAt).format("llll") }}
+            {{ $dayjs(props.item.createdAt).format("llll") }}
           </p>
           <p class="text-gray-400 mt-2 flex items-center text-sm">
             <CheckCircleIcon

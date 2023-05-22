@@ -24,7 +24,7 @@
     </dt>
     <dd class="mt-1 text-sm text-gray-900">
       {{ props.data.numberPersons }} Personen um
-      {{ this.$dayjs(props.data.dateTimeField).format("llll") }} mit
+      {{ $dayjs(props.data.dateTimeField).format("llll") }} mit
       {{ props.data.getTypeFieldDisplay }}
     </dd>
     <dd class="mt-1 text-sm text-gray-500">

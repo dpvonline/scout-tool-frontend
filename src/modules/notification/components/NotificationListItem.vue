@@ -40,7 +40,7 @@
               Tagen</span
             >
             <span class="font-medium text-gray-500">{{
-              this.$dayjs(props.item.timestamp).format("llll")
+              $dayjs(props.item.timestamp).format("llll")
             }}</span>
           </p>
         </div>

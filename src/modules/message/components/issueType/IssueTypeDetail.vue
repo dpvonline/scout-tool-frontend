@@ -52,7 +52,7 @@
           <dd class="mt-1 text-sm text-gray-900">
             {{
               issueType.createdAt
-                ? this.$dayjs(issueType.createdAt).format("llll")
+                ? $dayjs(issueType.createdAt).format("llll")
                 : ""
             }}
           </dd>
