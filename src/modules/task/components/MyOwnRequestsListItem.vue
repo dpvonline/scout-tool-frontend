@@ -24,7 +24,7 @@
         <div>
           <p class="text-sm text-gray-900">
             Antrag gestellt:
-            {{ this.$dayjs(props.item.createdAt).format("llll") }}
+            {{ $dayjs(props.item.createdAt).format("llll") }}
           </p>
           <p class="text-gray-400 mt-2 flex items-center text-sm">
             <CheckCircleIcon
@@ -48,7 +48,6 @@ import {
   RocketLaunchIcon,
   CheckCircleIcon,
 } from "@heroicons/vue/24/outline";
-import moment from "moment";
 
 function getColorByStatus(status) {
   switch (status) {

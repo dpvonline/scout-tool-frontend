@@ -31,7 +31,7 @@
           <dd class="mt-1 text-sm text-gray-900">
             {{
               message.createdAt
-                ? this.$dayjs(message.createdAt).format("llll")
+                ? $dayjs(message.createdAt).format("llll")
                 : ""
             }}
           </dd>
@@ -56,7 +56,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 import { PaperClipIcon } from "@heroicons/vue/20/solid";
 
 const props = defineProps({

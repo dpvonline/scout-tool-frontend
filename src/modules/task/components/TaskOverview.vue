@@ -19,7 +19,7 @@
             <dd class="mt-1 text-sm text-gray-900">
               {{
                 task?.createdAt
-                  ? this.$dayjs(task?.createdAt).format("llll")
+                  ? $dayjs(task?.createdAt).format("llll")
                   : ""
               }}
             </dd>
@@ -76,7 +76,6 @@
 </template>
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import moment from "moment";
 import {
   ScaleIcon,
   UserGroupIcon,

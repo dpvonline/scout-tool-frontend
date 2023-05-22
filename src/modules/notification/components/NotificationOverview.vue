@@ -60,7 +60,7 @@
           <dd class="mt-1 text-sm text-gray-900">
             {{
               props.item.timestamp
-                ? this.$dayjs(props.item.timestamp).format("llll")
+                ? $dayjs(props.item.timestamp).format("llll")
                 : ""
             }}
           </dd>
@@ -85,7 +85,6 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
 
-import moment from "moment";
 import {
   PaperClipIcon,
   PencilIcon,

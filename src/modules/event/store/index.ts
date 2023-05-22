@@ -192,6 +192,15 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
+    async sendPaymentReminder(data: any) {
+      try {
+        const response = await EventApi.sendPaymentReminder(data);
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
     newEventReset() {
       this._eventStart = {
         name: "Dein Lager",

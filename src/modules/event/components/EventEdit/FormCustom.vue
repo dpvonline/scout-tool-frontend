@@ -33,7 +33,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 
 import { reactive, onMounted, ref, watch, computed } from "vue";
 import { useCommonStore } from "@/modules/common/store/index";

@@ -56,7 +56,7 @@ import {
   RocketLaunchIcon,
   CheckCircleIcon,
 } from "@heroicons/vue/24/outline";
-import moment from "moment";
+
 import PrimaryButton from "@/components/button/Primary.vue";
 
 const props = defineProps({

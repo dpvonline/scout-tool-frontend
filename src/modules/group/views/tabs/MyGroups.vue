@@ -24,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 import { computed, onMounted } from "vue";
 
 import {

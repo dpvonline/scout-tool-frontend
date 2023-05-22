@@ -46,7 +46,6 @@ import {
   EnvelopeIcon,
   UserIcon,
 } from "@heroicons/vue/24/outline";
-import moment from "moment";
 const props = defineProps({
   item: Object,
 });

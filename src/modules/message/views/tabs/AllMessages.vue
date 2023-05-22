@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 import { ref, watch, onMounted, computed } from "vue";
 import List from "@/components/base/list/Main.vue";
 import MessageListItem from "@/modules/message/components/MessageListItem.vue";

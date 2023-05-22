@@ -5,7 +5,7 @@
     </h2>
     <ul role="list" class="mx-5 space-y-1">
       <li>
-        <PrimaryButton class="ma-2 my-2" :icon="CurrencyEuroIcon">
+        <PrimaryButton @click="onPaymentReminderClicked" class="ma-2 my-2" :icon="CurrencyEuroIcon">
           Zahlungserinnerung senden
         </PrimaryButton>
       </li>
@@ -35,6 +35,11 @@ const pages = [{ name: "Alle Anmeldungen", link: { name: "EventMain" } }];
 const eventStore = useEventStore();
 
 import { useRoute, useRouter } from "vue-router";
+
+function onPaymentReminderClicked() {
+  const eventId = route.params.id;
+  eventStore.sendPaymentReminder({eventId})
+}
 
 const route = useRoute();
 const router = useRouter();

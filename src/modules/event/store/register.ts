@@ -5,7 +5,6 @@ import EventApi from "@/modules/event/services/event";
 import RegistrationApi from "@/modules/event/services/registration";
 import MappingApi from "@/modules/auth/services/mapping";
 import GroupApi from "@/modules/group/services/group";
-import moment from "moment";
 
 const format1 = "YYYY-MM-DD HH:mm:ss";
 

@@ -24,7 +24,7 @@
           {{ -moment(props.item.createdAt).diff(moment(), "days") }} Tagen</span
         >
         <span class="font-medium text-gray-500">{{
-          this.$dayjs(props.item.createdAt).format("llll")
+          $dayjs(props.item.createdAt).format("llll")
         }}</span>
         <span class="font-medium text-gray-500">&middot;</span>
         <span class="font-medium text-gray-400">

@@ -24,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 import { reactive, computed, ref, onMounted } from "vue";
 import BaseField from "@/components/field/Base.vue";
 import StepFrame from "@/components/stepper/StepFrame.vue";

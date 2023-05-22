@@ -304,7 +304,6 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment";
 import { ref, watchEffect } from "vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
