@@ -20,7 +20,7 @@
           </svg>
           <router-link
             v-if="props.pages.length > 1"
-            :to="{ name: page.link, params: { id: page.id } }"
+            :to="{ ...page.link, params: { id: page.id } }"
             class="
               ml-2
               sn:ml-4
@@ -36,7 +36,7 @@
           </router-link>
           <router-link
             v-else
-            :to="{ name: page.link, params: { id: page.id } }"
+            :to="{ ...page.link, params: { id: page.id } }"
             class="
               ml-1
               md:ml-4

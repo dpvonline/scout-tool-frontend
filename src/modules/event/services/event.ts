@@ -66,4 +66,34 @@ export default {
   fetchEventSummaryBookingOptions(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/kpi/booking-options/`);
   },
+  fetchFoodSummary(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/food/`);
+  },
+  fetchAgeGroupsSummary(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/age-groups/`);
+  },
+  fetchAttributesSummary(id: any, params: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/attributes/`, {
+      params: params,
+    });
+  },
+  fetchCashSummary(id: any, params: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/cash/`, {
+      params: params,
+    });
+  },
+  fetchPersonsSummary(id: any, params: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/detailed/`, {
+      params: params,
+    });
+  },
+  fetchAvailableTemplates(id: any, params: any) {
+    return axios.get(`${BASE_URL}/event/files/available-templates/`);
+  },
+  createFileRequest(eventId: any, data: any) {
+    return axios.post(`${BASE_URL}/event/event/${eventId}/files/generate/`, data);
+  },
+  fetchDownloadSummary(eventId: any, params: any) {
+    return axios.get(`${BASE_URL}/event/event/${eventId}/files/generate/`, { params });
+  },
 };

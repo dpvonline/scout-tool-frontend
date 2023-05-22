@@ -31,8 +31,7 @@ function updateSearch(params) {
   personStore.fetchPersons(params);
 }
 
-const pages = [{ name: "Alle User", link: "AllUsers" }];
-
+const pages = [{ name: "Alle User", link: { name: "AllUsers" } }];
 
 onMounted(() => {
   const id = route.params.id;
@@ -40,5 +39,4 @@ onMounted(() => {
     personStore.fetchUserById(id);
   }
 });
-
 </script>

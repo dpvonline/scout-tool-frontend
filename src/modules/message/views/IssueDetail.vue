@@ -2,8 +2,8 @@
   <PageWrapper>
     <Breadcrumbs :pages="pages" />
     <main class="relative flex-1 focus:outline-none">
-      <MessageDetailList :message="issue" v-if="!isLoading"/>
-      <LoadingItem v-else/>
+      <MessageDetailList :message="issue" v-if="!isLoading" />
+      <LoadingItem v-else />
     </main>
   </PageWrapper>
 </template>
@@ -31,7 +31,7 @@ const issue = computed(() => {
   return messageStore.issue;
 });
 
-const pages = [{ name: "Alle Issues", link: "MessageMain" }];
+const pages = [{ name: "Alle Issues", link: { name: "MessageMain" } }];
 
 onMounted(() => {
   const id = route.params.id;

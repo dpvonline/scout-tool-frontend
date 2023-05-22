@@ -40,6 +40,7 @@ declare module '@vue/runtime-core' {
     StepperNav: typeof import('./src/components/stepper/StepperNav.vue')['default']
     StepperNavSmall: typeof import('./src/components/stepper/StepperNavSmall.vue')['default']
     TabGroup: typeof import('./src/components/menu/TabGroup.vue')['default']
+    TabGroupBig: typeof import('./src/components/menu/TabGroupBig.vue')['default']
     TabWrapper: typeof import('./src/components/base/TabWrapper.vue')['default']
     Text: typeof import('./src/components/field/Text.vue')['default']
     TextArea: typeof import('./src/components/field/TextArea.vue')['default']

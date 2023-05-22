@@ -3,14 +3,14 @@
   <PageWrapper>
     <Breadcrumbs :pages="pages" />
     <main class="relative flex-1 focus:outline-none">
-      <NotificationOverview :item="notification" v-if="!isLoading"/>
-      <LoadingItem v-else/>
+      <NotificationOverview :item="notification" v-if="!isLoading" />
+      <LoadingItem v-else />
     </main>
   </PageWrapper>
 </template>
 
 <script setup lang="ts">
-import NotificationOverview from '@/modules/notification/components/NotificationOverview.vue'
+import NotificationOverview from "@/modules/notification/components/NotificationOverview.vue";
 import PageWrapper from "@/components/base/PageWrapper.vue";
 import LoadingItem from "@/components/list/LoadingItem.vue";
 import { useRoute } from "vue-router";
@@ -22,16 +22,18 @@ import { useNotificationStore } from "@/modules/notification/store";
 const notificationsStore = useNotificationStore();
 
 const notification = computed(() => {
-  return notificationsStore.notification
+  return notificationsStore.notification;
 });
 
 const isLoading = computed(() => {
-  return notificationsStore.isLoading
+  return notificationsStore.isLoading;
 });
 
 import { ref, watch, onMounted, computed } from "vue";
 
-const pages = [{ name: "Alle Benachrichtigungen", link: "AllNotification" }];
+const pages = [
+  { name: "Alle Benachrichtigungen", link: { name: "AllNotification" } },
+];
 
 function refreshData() {
   const id = route.params.id;
@@ -43,5 +45,4 @@ function refreshData() {
 onMounted(() => {
   refreshData();
 });
-
 </script>

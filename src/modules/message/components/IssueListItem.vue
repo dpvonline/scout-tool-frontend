@@ -12,7 +12,7 @@
       </div>
       <div class="text-md">
         <div class="pt-1 text-sm font-medium text-gray-900">
-          {{ item ? `Betreff: ${item?.issueSubject}` : '' }}
+          {{ item ? `Betreff: ${item?.issueSubject}` : "" }}
         </div>
       </div>
       <div class="mt-2 space-x-2 text-sm">
@@ -20,11 +20,15 @@
           >vor {{ -moment(item.createdAt).diff(moment(), "days") }} Tagen</span
         >
         <span class="font-medium text-gray-500">{{
-          moment(item.createdAt).format("llll")
+          this.$dayjs(item.createdAt).format("llll")
         }}</span>
         <span class="font-medium text-gray-500">&middot;</span>
         <span class="font-medium text-gray-400">
-          {{ item.messages?.length === 1 ? "Unbeantwortet" : `${item.messages?.length} Nachricht(en)` }}
+          {{
+            item.messages?.length === 1
+              ? "Unbeantwortet"
+              : `${item.messages?.length} Nachricht(en)`
+          }}
         </span>
       </div>
     </div>

@@ -2,21 +2,27 @@
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6">
       <h3 class="text-lg font-medium leading-6 text-gray-900">
-        Betreff: {{ issueType.messageSubject ? issueType.messageSubject : ' fehlt' }}
+        Betreff:
+        {{ issueType.messageSubject ? issueType.messageSubject : " fehlt" }}
       </h3>
       <p class="mt-1 max-w-2xl text-sm text-gray-500">
         Kategorie: {{ issueType.issueType?.name }}
       </p>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
-
-      <PrimaryButton @click="onEventUpdateClicked" :icon="PencilIcon" class="mx-0 my-2">
+      <PrimaryButton
+        @click="onEventUpdateClicked"
+        :icon="PencilIcon"
+        class="mx-0 my-2"
+      >
         Nachricht Bearbeiten
       </PrimaryButton>
 
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div v-if="issueType.createdByEmail" class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">E-Mail vom Nichtangemeldeten</dt>
+          <dt class="text-sm font-medium text-gray-500">
+            E-Mail vom Nichtangemeldeten
+          </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ issueType.createdByEmail }}
           </dd>
@@ -45,13 +51,17 @@
           <dt class="text-sm font-medium text-gray-500">Erstellt</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{
-              issueType.createdAt ? moment(issueType.createdAt).format("llll") : ""
+              issueType.createdAt
+                ? this.$dayjs(issueType.createdAt).format("llll")
+                : ""
             }}
           </dd>
         </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">Nachricht</dt>
-          <dd class="mt-1 text-sm text-gray-900">{{ issueType.messageBody }}</dd>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ issueType.messageBody }}
+          </dd>
         </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">Internes Kommentar</dt>
@@ -99,7 +109,7 @@ function onEventClosedClicked() {
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
 import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";
 import { useRoute } from "vue-router";
-import ReadOnlyPerson from '@/modules/person/components/list/ReadOnlyPerson.vue'
+import ReadOnlyPerson from "@/modules/person/components/list/ReadOnlyPerson.vue";
 
 import { useMessageStore } from "@/modules/message/store";
 
@@ -120,5 +130,4 @@ onMounted(() => {
     messageStore.fetchIssueTypeById(id);
   }
 });
-
 </script>

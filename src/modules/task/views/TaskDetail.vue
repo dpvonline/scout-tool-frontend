@@ -26,5 +26,5 @@ const task = computed(() => {
   return taskStore.task;
 });
 
-const pages = [{ name: "Alle Aufgaben", link: "AllTasks" }];
+const pages = [{ name: "Alle Aufgaben", link: { name: "AllTasks" } }];
 </script>

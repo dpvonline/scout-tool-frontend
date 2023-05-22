@@ -9,6 +9,13 @@ import keycloak from "@/modules/auth/keycloak";
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
+import dayjs from 'dayjs'
+import 'dayjs/locale/de';
+import LocalizedFormat from 'dayjs/plugin/localizedFormat';
+dayjs.locale('de')
+dayjs.extend(LocalizedFormat);
+
+
 import auth from "./plugin/auth"
 
 const head = createHead();
@@ -36,5 +43,7 @@ app.use(keycloak);
 app.component('QuillEditor', QuillEditor)
 
 auth.interceptorsSetup();
+
+app.config.globalProperties.$dayjs = dayjs
 
 app.mount("#app");

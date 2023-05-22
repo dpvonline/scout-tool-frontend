@@ -2,7 +2,8 @@
   <div class="flex min-w-0 flex-1 items-center">
     <div class="flex-shrink-0">
       <span
-        :class="[getColorByStatus(props.item.status),
+        :class="[
+          getColorByStatus(props.item.status),
           'h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white',
         ]"
       >
@@ -15,7 +16,7 @@
           Von: {{ props.item.user.scoutName }} ({{ props.item.user.email }})
         </p>
         <p class="mt-2 flex items-center text-sm text-gray-500">
-          für Gruppe: 
+          für Gruppe:
           <span class="ml-2 truncate">{{ props.item.group.name }}</span>
         </p>
       </div>
@@ -23,7 +24,7 @@
         <div>
           <p class="text-sm text-gray-900">
             Antrag gestellt:
-            {{ moment(props.item.createdAt).format("llll") }}
+            {{ this.$dayjs(props.item.createdAt).format("llll") }}
           </p>
           <p class="text-gray-400 mt-2 flex items-center text-sm">
             <CheckCircleIcon
@@ -32,10 +33,8 @@
               aria-hidden="true"
             />
             {{ props.item.status }}
-            <span class="px-1" v-if="props.item.checkedBy">
-             von 
-            </span> 
-            {{ props.item.checkedBy ? props.item.checkedBy.username : ''}}
+            <span class="px-1" v-if="props.item.checkedBy"> von </span>
+            {{ props.item.checkedBy ? props.item.checkedBy.username : "" }}
           </p>
         </div>
       </div>
@@ -44,20 +43,24 @@
 </template>
 
 <script setup lang="ts">
-import { ClipboardIcon, RocketLaunchIcon, CheckCircleIcon } from "@heroicons/vue/24/outline";
+import {
+  ClipboardIcon,
+  RocketLaunchIcon,
+  CheckCircleIcon,
+} from "@heroicons/vue/24/outline";
 import moment from "moment";
 
 function getColorByStatus(status) {
   switch (status) {
-    case 'abgelehnt': {
+    case "abgelehnt": {
       return "bg-red-400";
       break;
     }
-    case 'akzeptiert': {
+    case "akzeptiert": {
       return "bg-green-400";
       break;
     }
-    case 'offen': {
+    case "offen": {
       return "bg-yellow-500";
       break;
     }
@@ -69,15 +72,15 @@ function getColorByStatus(status) {
 }
 function getIconColorByStatus(status) {
   switch (status) {
-    case 'abgelehnt': {
+    case "abgelehnt": {
       return "text-red-400";
       break;
     }
-    case 'akzeptiert': {
+    case "akzeptiert": {
       return "text-green-400";
       break;
     }
-    case 'offen': {
+    case "offen": {
       return "text-yellow-500";
       break;
     }

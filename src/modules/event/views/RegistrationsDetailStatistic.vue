@@ -2,14 +2,14 @@
   <PageWrapper>
     <Breadcrumbs :pages="pages" />
     <main class="relative flex-1 focus:outline-none">
-      <InvitationDetailList :event="event" v-if="!isLoading" />
+      <RegistrationDetailList :registration="registration" v-if="!isLoading" />
       <LoadingItem v-else />
     </main>
   </PageWrapper>
 </template>
 
 <script setup lang="ts">
-import InvitationDetailList from "@/modules/event/components/invitation/DetailList.vue";
+import RegistrationDetailList from "@/modules/event/components/registration/DetailList.vue";
 import PageWrapper from "@/components/base/PageWrapper.vue";
 import ListItem from "@/modules/task/components/TaskListItem.vue";
 import ListItemEmpty from "@/modules/group/components/PersonListItemEmpty.vue";
@@ -22,46 +22,37 @@ import { useRoute } from "vue-router";
 
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 
-const route = useRoute();
+import { useEventStore } from "@/modules/event/store";
 
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
 const personalDataStore = usePersonalDataStore();
 
-import { useEventStore } from "@/modules/event/store";
-const eventStore = useEventStore();
-
-import { useEventRegisterStore } from "@/modules/event/store/register.ts";
+import { useEventRegisterStore } from "@/modules/event/store/register";
 const eventRegisterStore = useEventRegisterStore();
 
-const personalData = computed(() => {
-  return personalDataStore.personalData;
+const eventStore = useEventStore();
+
+const route = useRoute();
+
+const registration = computed(() => {
+  return eventStore.registration;
 });
 
-const registerPerson = computed(() => {
-  return eventRegisterStore.registerPerson;
-});
+const isLoading = ref(false);
 
-import { useRegisterStore } from "@/modules/auth/store/index";
-const registerStore = useRegisterStore();
-
-const event = computed(() => {
-  return eventStore.event;
-});
-
-const isLoading = computed(() => {
-  return eventStore.isLoading;
-});
 const pages = [
-  {
-    name: "Alle Einladungen",
-    link: { name: "EventInvitations", query: { status: "pending" } },
-  },
+  { name: "Alle Gruppen", link: { name: "EventStatisticRegistration" } },
 ];
 
 onMounted(async () => {
   const id = route.params.id;
-  if (id) {
-    eventStore.fetchEvent(id);
-  }
+  isLoading.value = true;
+  const response = await eventStore.fetchRegistration(id);
+  await Promise.all([
+    personalDataStore.fetchPersonalData(),
+    eventRegisterStore.fetchAllMappings(response?.data?.event?.id),
+    eventStore.fetchBookingOptionsById(response?.data?.event?.id),
+  ]);
+  isLoading.value = false;
 });
 </script>

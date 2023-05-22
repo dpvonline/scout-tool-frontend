@@ -38,19 +38,18 @@ const registration = computed(() => {
   return eventStore.registration;
 });
 
-const isLoading = computed(() => {
-  return eventStore.isLoading;
-});
-const pages = [{ name: "Alle Anmeldungen", link: "EventMain" }];
-
+const isLoading = ref(false);
+const pages = [{ name: "Alle Anmeldungen", link: { name: "EventMain" } }];
 
 onMounted(async () => {
   const id = route.params.id;
+  isLoading.value = true;
   const response = await eventStore.fetchRegistration(id);
   await Promise.all([
     personalDataStore.fetchPersonalData(),
     eventRegisterStore.fetchAllMappings(response?.data?.event?.id),
     eventStore.fetchBookingOptionsById(response?.data?.event?.id),
   ]);
+  isLoading.value = false;
 });
 </script>

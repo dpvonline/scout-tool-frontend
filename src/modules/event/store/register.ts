@@ -28,12 +28,15 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
 
   actions: {
     async fetchEvent(id: number) {
+      this._isLoading = true;
       try {
         const response = await EventApi.fetchById(id);
         this._event = response.data;
+        this._isLoading = false;
       } catch (error) {
         // alert(error);
         console.log(error);
+        this._isLoading = false;
       }
     },
     async sendConfirmMail(regId: number) {
@@ -164,7 +167,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       } catch (e: any) {
         const statusCode = e.response.status; // 400
         const statusText = e.response.statusText; // Bad Request
-        await this.cleanUpRegCreate(regId)
+        await this.cleanUpRegCreate(regId);
         return false;
       }
       try {
@@ -178,7 +181,6 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         regId,
         attributes: responses,
         mailResponse,
-
       };
     },
     async fetchRegistration(id: number) {

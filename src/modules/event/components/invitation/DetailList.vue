@@ -22,7 +22,10 @@
               </p>
             </div>
           </div>
-          <div v-if="event.status !== 'expired'" class="ml-4 mt-4 flex flex-shrink-0">
+          <div
+            v-if="event.status !== 'expired'"
+            class="ml-4 mt-4 flex flex-shrink-0"
+          >
             <PrimaryButton
               @click="onInvitationClicked(event.id)"
               :icon="PaperAirplaneIcon"
@@ -38,6 +41,21 @@
       <div class="pb-3">
         <div class="flex w-0 items-center">
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Einladung
+          </h3>
+        </div>
+      </div>
+      <div class="sm:col-span-2">
+        <div class="sm:col-span-2 border border-1 px-2 py-2">
+          <dt class="text-sm font-medium text-gray-500">Einladungtext</dt>
+          <p v-html="event.longDescription"></p>
+        </div>
+      </div>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Termin
           </h3>
         </div>
@@ -45,40 +63,7 @@
           Alles rund um die Termine
         </p>
       </div>
-      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Veranstaltung Start</dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.startDate).format("llll") }}
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Veranstaltung Ende</dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.endDate).format("llll") }}
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Anmeldestart</dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.registrationStart).format("llll") }}
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Anmeldeschluss</dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.registrationDeadline).format("llll") }}
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">
-            Anmeldung Änderbar bis
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ moment(event.lastPossibleUpdate).format("llll") }}
-          </dd>
-        </div>
-      </dl>
+      <TimelineEvent :event="event" />
     </div>
     <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
       <div class="pb-3">
@@ -108,6 +93,12 @@
           <dt class="text-sm font-medium text-gray-500">Ort</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ event?.location?.zipCode?.city }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Adresse</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ event?.location?.address || "Keine Adresse angegeben" }}
           </dd>
         </div>
       </dl>
@@ -164,12 +155,13 @@
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Wer ist eingeladen?</dt>
-          <dd v-if="event.invitedGroups && event.invitedGroups.length > 0" class="mt-1 text-sm text-gray-900">
+          <dd
+            v-if="event.invitedGroups && event.invitedGroups.length > 0"
+            class="mt-1 text-sm text-gray-900"
+          >
             {{ event.invitedGroups?.map((a) => `${a.displayName}`).join(", ") }}
           </dd>
-          <dd v-else class="mt-1 text-sm text-gray-900">
-            Jeder
-          </dd>
+          <dd v-else class="mt-1 text-sm text-gray-900">Jeder</dd>
         </div>
       </dl>
     </div>
@@ -212,15 +204,20 @@
             </dt>
             <DisclosurePanel as="dd" class="mt-2 pr-12">
               <p class="text-base leading-7 text-gray-600">
-                <div v-for="attribute in child.attributeModules" :key="attribute.id" class="mb-3">
-                  <p class="text-base leading-7 text-gray-800">
-                    {{ attribute.title }}
-                  </p>
-                  <p class="text-base leading-7 text-gray-500">
-                    {{ attribute.text }}
-                  </p>
-                </div>
+                {{ child.description || "" }}
               </p>
+              <div
+                v-for="attribute in child.attributeModules"
+                :key="attribute.id"
+                class="mb-3"
+              >
+                <p class="text-sm leading-7 text-gray-800">
+                  {{ attribute.title }}
+                </p>
+                <p class="text-sm leading-7 text-gray-500">
+                  {{ attribute.text }}
+                </p>
+              </div>
             </DisclosurePanel>
           </Disclosure>
         </dl>
@@ -296,6 +293,8 @@ const eventRegisterStore = useEventRegisterStore();
 
 import MessageEditOverlay from "@/modules/message/components/MessageEdit/Overlay.vue";
 import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue";
+import TimelineEvent from "@/modules/event/components/general/TimelineEvent.vue";
+
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
 import { useRouter } from "vue-router";

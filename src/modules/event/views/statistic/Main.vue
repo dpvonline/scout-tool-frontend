@@ -1,6 +1,6 @@
 <template>
   <PageWrapper>
-    <MyTabGroup :tabs="tabs" />
+    <MyTabGroupBig :tabs="tabs" />
   </PageWrapper>
 </template>
 
@@ -8,7 +8,7 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
-import MyTabGroup from "@/components/menu/TabGroup.vue";
+import MyTabGroupBig from "@/components/menu/TabGroupBig.vue";
 import PageWrapper from "@/components/base/PageWrapper.vue";
 
 const route = useRoute();
@@ -21,10 +21,37 @@ const tabs = computed(() => {
       current: route.name === "EventStatisticSummary",
     },
     {
-      name: "Anmeldungen",
-      linkName: { name: "EventStatisticRegistration" },
-      current:
-        route.name === "EventStatisticRegistration"
+      name: "Gruppen",
+      linkName: {
+        name: "EventStatisticRegistration",
+        pararms: { ordering: "-created_at" },
+      },
+      current: route.name === "EventStatisticRegistration",
+    },
+    {
+      name: "Auswertungen",
+      linkName: { name: "EventStatisticResults" },
+      current: route.name === "EventStatisticResults",
+    },
+    {
+      name: "Zahlungen",
+      linkName: { name: "EventStatisticPayments" },
+      current: route.name === "EventStatisticPayments",
+    },
+    {
+      name: "Attribute",
+      linkName: { name: "EventStatisticAttributes" },
+      current: route.name === "EventStatisticAttributes",
+    },
+    {
+      name: "Personen",
+      linkName: { name: "EventStatisticPersons" },
+      current: route.name === "EventStatisticPersons",
+    },
+    {
+      name: "Downloads",
+      linkName: { name: "EventStatisticDownloads" },
+      current: route.name === "EventStatisticDownloads",
     },
   ];
 });

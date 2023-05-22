@@ -2,34 +2,20 @@
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
       <div
-        class="
-          -ml-4
-          -mt-4
-          flex flex-wrap
-          items-center
-          justify-between
-          sm:flex-nowrap
-        "
+        class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap"
       >
         <div class="ml-4 mt-4">
           <div class="flex items-center">
             <div class="flex-shrink-0">
               <span
-                class="
-                  inline-block
-                  h-8
-                  w-8
-                  overflow-hidden
-                  rounded-full
-                  bg-gray-100
-                "
+                class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100"
               >
                 <BellAlertIcon />
               </span>
             </div>
             <div class="ml-4">
               <h3 class="text-lg font-medium leading-6 text-gray-900">
-                {{ props.item.verb}}
+                {{ props.item.verb }}
               </h3>
             </div>
           </div>
@@ -56,7 +42,9 @@
       </PrimaryButton>
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div v-if="props.item.sender" class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Pfadfindername des Senders</dt>
+          <dt class="text-sm font-medium text-gray-500">
+            Pfadfindername des Senders
+          </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ props.item.sender.scoutName }} ({{ props.item.sender.username }})
           </dd>
@@ -72,7 +60,7 @@
           <dd class="mt-1 text-sm text-gray-900">
             {{
               props.item.timestamp
-                ? moment(props.item.timestamp).format("llll")
+                ? this.$dayjs(props.item.timestamp).format("llll")
                 : ""
             }}
           </dd>
@@ -148,25 +136,25 @@ function onReadedClicked(id) {
 }
 
 function jumpToItem(item) {
-  if (item.targetType === 'keycloakgroup') {
+  if (item.targetType === "keycloakgroup") {
     router.push({
-      name: 'GroupRequests',
+      name: "GroupRequests",
       params: {
-        id: item.target.id
+        id: item.target.id,
       },
     });
-  } else if (item.targetType === 'issue') {
+  } else if (item.targetType === "issue") {
     router.push({
-      name: 'MessageDetail',
+      name: "MessageDetail",
       params: {
-        id: item.target.id
+        id: item.target.id,
       },
     });
-  } else if (item.targetType === 'requestgroupaccess') {
+  } else if (item.targetType === "requestgroupaccess") {
     router.push({
-      name: 'GroupDetail',
+      name: "GroupDetail",
       params: {
-        id: item.target.group.id
+        id: item.target.group.id,
       },
     });
   }

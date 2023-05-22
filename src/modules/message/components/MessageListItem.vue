@@ -3,7 +3,11 @@
     <div>
       <div class="text-sm">
         <div class="font-medium text-gray-600">
-          {{ props.item.issue?.createdByEmail ? `Extern: ${props.item.issue.createdByEmail}` : `${props.item?.createdBy?.scoutName} (${props.item?.createdBy?.username})` }}
+          {{
+            props.item.issue?.createdByEmail
+              ? `Extern: ${props.item.issue.createdByEmail}`
+              : `${props.item?.createdBy?.scoutName} (${props.item?.createdBy?.username})`
+          }}
         </div>
       </div>
       <div class="text-sm">
@@ -16,10 +20,11 @@
       </div>
       <div class="mt-2 space-x-2 text-sm">
         <span class="font-medium text-gray-800"
-          >vor {{ -moment(props.item.createdAt).diff(moment(), "days") }} Tagen</span
+          >vor
+          {{ -moment(props.item.createdAt).diff(moment(), "days") }} Tagen</span
         >
         <span class="font-medium text-gray-500">{{
-          moment(props.item.createdAt).format("llll")
+          this.$dayjs(props.item.createdAt).format("llll")
         }}</span>
         <span class="font-medium text-gray-500">&middot;</span>
         <span class="font-medium text-gray-400">
@@ -43,8 +48,6 @@ import moment from "moment";
 const props = defineProps({
   item: Object,
 });
-
-
 
 function getColorByProcessed(isProcessed) {
   switch (isProcessed) {

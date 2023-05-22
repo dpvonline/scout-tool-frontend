@@ -32,7 +32,7 @@
           </TabPanels>
         </TabGroup>
       </article>
-      <LoadingItem v-else/>
+      <LoadingItem v-else />
     </main>
   </PageWrapper>
 </template>
@@ -50,8 +50,8 @@ import { useAuthStore } from "@/modules/auth/store/index";
 const route = useRoute();
 
 const pages = computed(() => {
-  const returnArry = [{ name: "Alle", link: "GroupMain"}];
-  const groupObj = { link: "GroupOverview" };
+  const returnArry = [{ name: "Alle", link: { name: "GroupMain" } }];
+  const groupObj = { link: { name:"GroupOverview" }};
   if (group?.value?.parent?.parent?.parent) {
     returnArry.push({ ...group.value.parent.parent.parent.id, ...groupObj });
   }
@@ -67,7 +67,10 @@ const pages = computed(() => {
   if (group?.value) {
     returnArry.push({ ...group.value, ...groupObj });
   }
-  return returnArry.filter(item => item.link === "GroupMain" || (item.link === "GroupOverview" && item?.id ));
+  return returnArry.filter(
+    (item) =>
+      item?.link?.name === "GroupMain" || (item?.link?.name === "GroupOverview" && item?.id)
+  );
 });
 
 const tabs = computed(() => {

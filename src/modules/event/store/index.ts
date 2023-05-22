@@ -47,6 +47,11 @@ export const useEventStore = defineStore("event", {
     _eventSummaryTotalParticipants: [],
     _eventSummaryTotalRegistrations: [],
     _eventSummaryBookingOptions: [],
+    _eventFoodSummary: [],
+    _eventAgeGroupsSummary: [],
+    _eventAttributesSummary: [],
+    _eventCashSummary: [],
+    _eventPersonsSummary: [],
   }),
 
   actions: {
@@ -60,12 +65,15 @@ export const useEventStore = defineStore("event", {
       }
     },
     async fetchEventSummary(id: any, params = {}) {
+      this._isLoading = true;
       try {
         const response = await EventApi.fetchEventSummary(id, params);
         this._eventSummary = response.data;
+        this._isLoading = false;
       } catch (error) {
         // alert(error);
         console.log(error);
+        this._isLoading = false;
       }
     },
     async fetchEventSummaryTotalParticipants(id: any) {
@@ -95,22 +103,83 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
-    async fetchEventOverviews(params = {}) {
+    async fetchFoodSummary(id: any) {
       try {
-        const response = await EventApi.fetchAllOverviews(params);
-        this._eventOverviews = response.data;
+        const response = await EventApi.fetchFoodSummary(id);
+        this._eventFoodSummary = response.data;
+        return response;
       } catch (error) {
         // alert(error);
         console.log(error);
       }
     },
-    async fetchMyInvitations(params = {}) {
+    async fetchAgeGroupsSummary(id: any) {
       try {
-        const response = await EventApi.fetchMyInvitations(params);
-        this._invitations = response.data;
+        const response = await EventApi.fetchAgeGroupsSummary(id);
+        this._eventAgeGroupsSummary = response.data;
+        return response;
       } catch (error) {
         // alert(error);
         console.log(error);
+      }
+    },
+    async fetchAttributesSummary(id: any, params: any) {
+      try {
+        const response = await EventApi.fetchAttributesSummary(id, params);
+        this._eventAttributesSummary = response.data;
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchCashSummary(id: any, params: any) {
+      try {
+        const response = await EventApi.fetchCashSummary(id, params);
+        this._eventCashSummary = response.data;
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchPersonsSummary(id: any, params: any) {
+      this._isLoading = true;
+      try {
+        const response = await EventApi.fetchPersonsSummary(id, params);
+        this._eventPersonsSummary = response.data;
+        this._isLoading = false;
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchEventOverviews(params = {}) {
+      this._isLoading = true;
+      try {
+        const response = await EventApi.fetchAllOverviews(params);
+        this._eventOverviews = response.data;
+        this._isLoading = false;
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchMyInvitations(params = {}) {
+      this._isLoading = true;
+      try {
+        const response = await EventApi.fetchMyInvitations(params);
+        this._invitations = response.data;
+        this._isLoading = false;
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+        this._isLoading = false;
       }
     },
     async fetchEvent(id: number) {
@@ -189,12 +258,15 @@ export const useEventStore = defineStore("event", {
       }
     },
     async fetchMyRegistrations(params = {}) {
+      this._isLoading = true;
       try {
         const response = await RegistrationApi.fetchMyRegistrations(params);
         this._registrations = response.data;
+        this._isLoading = false;
       } catch (error) {
         // alert(error);
         console.log(error);
+        this._isLoading = false;
       }
     },
     async fetchRegistration(id: number) {
@@ -304,11 +376,11 @@ export const useEventStore = defineStore("event", {
     },
     async fetchEatHabitTypes() {
       try {
-        const response = await MappingApi.fetchEatHabit()
-        this._eatHabitTypes = response.data
+        const response = await MappingApi.fetchEatHabit();
+        this._eatHabitTypes = response.data;
       } catch (e) {
-        alert(e)
-        console.error(e)
+        alert(e);
+        console.error(e);
       }
     },
     updateEventStart(data: any) {
@@ -359,6 +431,9 @@ export const useEventStore = defineStore("event", {
     },
     eventOverviews: (state) => {
       return state._eventOverviews;
+    },
+    isLoading: (state) => {
+      return state._isLoading;
     },
 
     // new Event
@@ -423,20 +498,34 @@ export const useEventStore = defineStore("event", {
       return state._travelTypeChoices;
     },
     eatHabitTypes: (state) => {
-      return state._eatHabitTypes
+      return state._eatHabitTypes;
     },
-
     eventSummary: (state) => {
-      return state._eventSummary
+      return state._eventSummary;
     },
     eventSummaryTotalParticipants: (state) => {
-      return state._eventSummaryTotalParticipants
+      return state._eventSummaryTotalParticipants;
     },
     eventSummaryTotalRegistrations: (state) => {
-      return state._eventSummaryTotalRegistrations
+      return state._eventSummaryTotalRegistrations;
     },
     eventSummaryBookingOptions: (state) => {
-      return state._eventSummaryBookingOptions
+      return state._eventSummaryBookingOptions;
+    },
+    eventFoodSummary: (state) => {
+      return state._eventFoodSummary;
+    },
+    eventAgeGroupsSummary: (state) => {
+      return state._eventAgeGroupsSummary;
+    },
+    eventAttributesSummary: (state) => {
+      return state._eventAttributesSummary;
+    },
+    eventCashSummary: (state) => {
+      return state._eventCashSummary;
+    },
+    eventPersonsSummary: (state) => {
+      return state._eventPersonsSummary;
     },
   },
 });

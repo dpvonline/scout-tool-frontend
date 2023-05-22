@@ -14,7 +14,7 @@
                       tab.current
                         ? 'text-blue-600 border-blue-600'
                         : 'text-gray-900 border-transparent',
-                      'flex-1 whitespace-nowrap border-b-2 pb-2 sm:py-4 px-1 sm:text-base text-sm sm:text-md font-medium text-center',
+                      'flex-1 whitespace-nowrap border-b-2 pb-2 md:py-4 px-1 sm:text-base text-sm sm:text-md font-medium text-center',
                     ]"
                   >
                     {{ tab.name }}
