@@ -26,7 +26,7 @@
         </div>
       </nav>
       <p class="mt-10 text-center text-xs leading-5 text-gray-500">
-        &copy; 2023 Deutscher Pfadfinderverband
+        &copy; 2023 Deutscher Pfadfinderverband e.V.
       </p>
     </div>
   </footer>

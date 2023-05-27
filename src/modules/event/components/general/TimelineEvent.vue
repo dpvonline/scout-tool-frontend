@@ -77,7 +77,7 @@ const timeline = computed(() => {
   return [
     {
       id: 1,
-      content: "Anmeldung",
+      content: "Anmeldungphase",
       target: "Start",
       href: "#",
       date: registrationStart,
@@ -88,7 +88,7 @@ const timeline = computed(() => {
     },
     {
       id: 2,
-      content: "Anmeldung",
+      content: "Anmeldungphase",
       target: "Ende",
       href: "#",
       date: registrationDeadline,
@@ -99,7 +99,7 @@ const timeline = computed(() => {
     },
     {
       id: 3,
-      content: "Veranstaltung",
+      content: "Veranstaltungstermin",
       target: "Start",
       href: "#",
       date: startDate,
@@ -110,7 +110,7 @@ const timeline = computed(() => {
     },
     {
       id: 4,
-      content: "Veranstaltung",
+      content: "Veranstaltungstermin",
       target: "Ende",
       href: "#",
       date: endDate,

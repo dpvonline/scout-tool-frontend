@@ -99,7 +99,7 @@ const invitationsFiltered = computed(() => {
   return invitations.value.filter((q) => q.status === query.status);
 });
 
-const selectedValue = ref("Offen");
+const selectedValue = ref("Aktive Anmeldephase");
 
 function onChange(event) {
   const linkName = tabs.value.find((item) => item.name === selectedValue.value)[
@@ -113,25 +113,19 @@ const tabs = computed(() => {
 
   return [
     {
-      name: "Offen",
+      name: "Aktive Anmeldephase",
       linkName: { name: "EventInvitations", query: { status: "pending" } },
       count: invitations.value.filter((q) => q.status === "pending").length,
       current: query.status === "pending",
     },
     {
-      name: "Angemeldet",
-      linkName: { name: "EventInvitations", query: { status: "already" } },
-      count: invitations.value.filter((q) => q.status === "already").length | 0,
-      current: query.status === "already",
-    },
-    {
-      name: "Abgelaufen",
+      name: "Anmeldephase abgelaufen",
       linkName: { name: "EventInvitations", query: { status: "expired" } },
       count: invitations.value.filter((q) => q.status === "expired").length,
       current: query.status === "expired",
     },
     {
-      name: "Startet bald",
+      name: "Anmeldephase startet noch",
       linkName: { name: "EventInvitations", query: { status: "future" } },
       count: invitations.value.filter((q) => q.status === "future").length,
       current: query.status === "future",

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia"
 import { keycloak } from "@/modules/auth/keycloak"
 import { useStorage } from "@vueuse/core"
+import { useRouter } from 'vue-router'
 import mappingServices from "@/modules/auth/services/mapping"
 import registerServices from "../services/register"
 import checkingServices from "../services/checking"
@@ -17,8 +18,15 @@ export const useAuthStore = defineStore("authStore", {
 
   actions: {
     login(init : boolean = false) {
+      const router = useRouter()
+      var currentLocation = window.location;
+
       const APP_URL = import.meta.env.VITE_APP_URL;
-      const loginOptions = { redirectUri: `${APP_URL}/dashboard` };
+      let loginOptions = { redirectUri: `${APP_URL}/dashboard` };
+      if (currentLocation?.pathname !== '/landing') {
+        loginOptions = { redirectUri: `${APP_URL}${currentLocation?.pathname}` };
+      }
+
       if (init) {
         keycloak.login(loginOptions)
       } else {

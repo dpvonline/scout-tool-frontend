@@ -8,7 +8,7 @@
         sm:text-left
       "
     >
-      <span class="block sm:inline">&copy; 2023 Deutscher Pfadfinderverband</span>
+      <span class="block sm:inline">&copy; 2023 Deutscher Pfadfinderverband e.V.</span>
     </div>
   </div>
 </template>
