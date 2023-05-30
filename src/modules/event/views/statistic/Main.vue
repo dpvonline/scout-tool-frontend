@@ -33,11 +33,11 @@ const tabs = computed(() => {
       linkName: { name: "EventStatisticResults" },
       current: route.name === "EventStatisticResults",
     },
-    // {
-    //   name: "Zahlungen",
-    //   linkName: { name: "EventStatisticPayments" },
-    //   current: route.name === "EventStatisticPayments",
-    // },
+    {
+      name: "Zahlungen",
+      linkName: { name: "EventStatisticPayments" },
+      current: route.name === "EventStatisticPayments",
+    },
     // {
     //   name: "Attribute",
     //   linkName: { name: "EventStatisticAttributes" },

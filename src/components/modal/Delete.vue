@@ -111,7 +111,7 @@
                   "
                   @click="onButtonDeleteClicked"
                 >
-                  Löschen
+                  {{ props.buttonText }}
                 </button>
                 <button
                   type="button"
@@ -165,6 +165,7 @@ const props = defineProps({
   open: { type: Boolean, required: true},
   header: { type: String, required: false, default: "Löschen"},
   text: { type: String, required: false, default: "Willst du den Eintrag löschen?"},
+  buttonText: { type: String, required: false, default: "Löschen"},
   callbackOnConfirm: { type: Function, required: true },
   callbackOnCancel: { type: Function, required: true },
 });

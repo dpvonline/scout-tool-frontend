@@ -19,12 +19,22 @@
         </PrimaryButton>
       </li>
     </ul>
+    <SendPaymentReminderModal
+      :open="openPaymentReminderModal"
+      :header="'Zahlungserinnerung'"
+      :text="'Bist du sicher, dass du an alle Stämme eine Zahlungserinnerung senden möchtest?'"
+      :buttonText="'E-Mails senden'"
+      :callbackOnConfirm="sendPaymentReminder"
+      :callbackOnCancel="cancelModal"
+    >
+    </SendPaymentReminderModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useEventStore } from "@/modules/event/store";
+import SendPaymentReminderModal from "@/components/modal/Delete.vue";
 
 import { PlusIcon, CurrencyEuroIcon } from "@heroicons/vue/20/solid";
 
@@ -36,9 +46,19 @@ const eventStore = useEventStore();
 
 import { useRoute, useRouter } from "vue-router";
 
-function onPaymentReminderClicked() {
+function sendPaymentReminder() {
   const eventId = route.params.id;
-  eventStore.sendPaymentReminder({eventId})
+  eventStore.sendPaymentReminder({eventId}).then(() => {
+    openPaymentReminderModal.value = false;
+  })
+}
+
+function onPaymentReminderClicked() {
+  openPaymentReminderModal.value = true;
+}
+
+async function cancelModal() {
+  openPaymentReminderModal.value = false;
 }
 
 const route = useRoute();
@@ -58,6 +78,8 @@ const eventSummaryTotalParticipants = computed(() => {
 const eventSummaryTotalRegistrations = computed(() => {
   return eventStore.eventSummaryTotalRegistrations;
 });
+
+const openPaymentReminderModal = ref(false);
 
 const stats = computed(() => {
   return [

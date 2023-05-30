@@ -218,7 +218,7 @@ watch(
 function resetData() {
     state.numberPersons = eventRegisterStore.registerPersonCount;
     state.typeField = travelTypeChoices.value[0]
-    state.dateTimeField = moment(eventRegisterStore.event.startDate).format('YYYY-MM-DDThh:mm');
+    state.dateTimeField = moment(eventRegisterStore.event.startDate).format('YYYY-MM-DDTHH:mm');
     state.description = '';
 }
 
@@ -233,7 +233,7 @@ function initData(eatHabits) {
     state.storeId = props?.travel?.storeId;
     state.numberPersons = props?.travel?.numberPersons;
     state.typeField = props?.travel?.typeField;
-    state.dateTimeField = moment(props?.travel?.dateTimeField).format('YYYY-MM-DDThh:mm');
+    state.dateTimeField = moment(props?.travel?.dateTimeField).format('YYYY-MM-DDTHH:mm');
     state.description = props?.travel?.description;
   } else if (
     props.open &&
@@ -244,7 +244,7 @@ function initData(eatHabits) {
     state.id = props?.travel.id;
     state.numberPersons = props?.travel?.numberPersons;
     state.typeField = getTravelTypeObj(props?.travel?.typeField)
-    state.dateTimeField = moment(props?.travel?.dateTimeField).format('YYYY-MM-DDThh:mm');
+    state.dateTimeField = moment(props?.travel?.dateTimeField).format('YYYY-MM-DDTHH:mm');
     state.description = props?.travel?.description;
   } else {
     resetData();

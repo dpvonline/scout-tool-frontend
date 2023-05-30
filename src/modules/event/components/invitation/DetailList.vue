@@ -40,7 +40,7 @@
           >
             <PrimaryButton
               @click="onRegClicked(event)"
-              :icon="PaperAirplaneIcon"
+              :icon="PencilIcon"
               class="mx-0 my-2"
             >
               Deine Anmeldung verändern

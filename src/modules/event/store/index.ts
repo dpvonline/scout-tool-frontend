@@ -4,6 +4,7 @@ import EventApi from "@/modules/event/services/event";
 import RegistrationApi from "@/modules/event/services/registration";
 import MappingApi from "@/modules/auth/services/mapping";
 import EventMappingApi from "@/modules/event/services/mapping";
+import CashApi from "@/modules/event/services/cash-income";
 import GroupApi from "@/modules/group/services/group";
 import moment from "moment";
 
@@ -429,6 +430,13 @@ export const useEventStore = defineStore("event", {
     },
     updateEventCustom(data: any) {
       this._eventCustom = data;
+    },
+    async createPayment(data: Object) {
+      try {
+        return await CashApi.create(data);
+      } catch (error) {
+        console.log(error);
+      } 
     },
   },
   getters: {

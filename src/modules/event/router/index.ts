@@ -161,6 +161,15 @@ export default [
       import(/* webpackChunkName: "RegistrationFinish" */ "@/modules/event/views/newRegister/Finish.vue"),
   },
   {
+    path: "/event-payment-details/:id",
+    name: "EventPaymentDetails",
+    meta: {
+      requiresAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "EventPaymentDetails" */ "@/modules/event/views/payments/PaymentDetails.vue"),
+  },
+  {
     path: "/event-statistic/:id",
     name: "EventStatistic",
     meta: {
