@@ -52,6 +52,7 @@ export const useEventStore = defineStore("event", {
     _eventAgeGroupsSummary: [],
     _eventAttributesSummary: [],
     _eventCashSummary: [],
+    _eventCashDetails: [],
     _eventPersonsSummary: [],
   }),
 
@@ -138,6 +139,16 @@ export const useEventStore = defineStore("event", {
       try {
         const response = await EventApi.fetchCashSummary(id, params);
         this._eventCashSummary = response.data;
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchEventPaymentsById(reg_id: any, params: any) {
+      try {
+        const response = await EventApi.fetchCashDetailById(reg_id, params);
+        this._eventCashDetails = response.data;
         return response;
       } catch (error) {
         // alert(error);
@@ -540,6 +551,9 @@ export const useEventStore = defineStore("event", {
     },
     eventCashSummary: (state) => {
       return state._eventCashSummary;
+    },
+    eventCashDetails: (state) => {
+      return state._eventCashDetails;
     },
     eventPersonsSummary: (state) => {
       return state._eventPersonsSummary;

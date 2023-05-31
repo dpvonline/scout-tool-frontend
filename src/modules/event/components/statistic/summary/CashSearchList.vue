@@ -1,7 +1,7 @@
 <template>
   <div>
     <List
-      :name="'Alle Anmeldungen'"
+      :name="'Alle Zahlungen'"
       :items="eventCashSummary"
       :searchValue="searchValue"
       :sortOptions="sortOptions"

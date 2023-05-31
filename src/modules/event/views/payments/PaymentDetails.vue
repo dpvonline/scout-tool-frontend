@@ -2,9 +2,8 @@
   <PageWrapper>
     <Breadcrumbs :pages="pages" />
     <main class="relative flex-1 focus:outline-none">
-      {{ event }}
-      <!-- <EventPaymentDetailList :payments="payments" v-if="!isLoading" /> -->
-      <LoadingItem />
+      <EventPaymentDetailList :item="eventCashDetails" v-if="!isLoading" />
+      <LoadingItem v-else/>
     </main>
   </PageWrapper>
 </template>
@@ -16,6 +15,7 @@ import ListItem from "@/modules/task/components/TaskListItem.vue";
 import ListItemEmpty from "@/modules/group/components/PersonListItemEmpty.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import LoadingItem from "@/components/list/LoadingItem.vue";
+import EventPaymentDetailList from "@/modules/event/components/statistic/payments/EventPaymentDetailList.vue"
 
 import { PlusIcon } from "@heroicons/vue/20/solid";
 
@@ -30,8 +30,8 @@ const eventStore = useEventStore();
 
 const route = useRoute();
 
-const event = computed(() => {
-  return eventStore.event;
+const eventCashDetails = computed(() => {
+  return eventStore.eventCashDetails[0];
 });
 
 const isLoading = computed(() => {
@@ -47,9 +47,9 @@ const pages = [
 ];
 
 onMounted(() => {
-  const id = route.params.id;
-  if (id) {
-    // eventStore.fetchEventPaymentsById(id);
+  const reg_id = route.params.id;
+  if (reg_id) {
+    eventStore.fetchEventPaymentsById(reg_id);
   }
 });
 </script>
