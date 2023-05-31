@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Disclosure as="nav" class="bg-white shadow" v-slot="{ open }">
+    <Disclosure as="nav" class="bg-white shadow" v-slot="{ open, close }">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
           <div class="flex">
@@ -42,16 +42,15 @@
         <div
           v-for="tab in props.tabs"
           :key="tab.name"
-          class="space-y-1 pb-3 pt-2"
+          class="space-y-1 sm:pb-3 sm:pt-2"
         >
           <DisclosureButton
-            as="template"
             :class="[
               tab.current ? 'bg-indigo-50' : '',
               'block border-l-4 border-blue-500 py-2 pl-3 pr-4 text-base font-medium text-blue-700',
             ]"
           >
-            <router-link :to="tab.linkName">
+            <router-link @click.native="doClose(close)" :to="tab.linkName">
               {{ tab.name }}
             </router-link>
           </DisclosureButton>
@@ -77,4 +76,8 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 const props = defineProps({
   tabs: Array,
 });
+
+function doClose(close) {
+  close();
+}
 </script>

@@ -23,7 +23,7 @@
             </div>
           </div>
           <div
-            v-if="event.status !== 'expired'"
+            v-if="event.status == 'pending' && !event?.existingRegister?.id"
             class="ml-4 mt-4 flex flex-shrink-0"
           >
             <PrimaryButton
@@ -31,7 +31,32 @@
               :icon="PaperAirplaneIcon"
               class="mx-0 my-2"
             >
-              Anmeldung starten
+              Jetzt Anmelden
+            </PrimaryButton>
+          </div>
+          <div
+            v-if="event.status == 'pending' && event?.existingRegister?.id"
+            class="ml-4 mt-4 flex flex-shrink-0"
+          >
+            <PrimaryButton
+              @click="onRegClicked(event)"
+              :icon="PencilIcon"
+              class="mx-0 my-2"
+            >
+              Deine Anmeldung verändern
+            </PrimaryButton>
+          </div>
+          <div
+            v-if="event.status == 'pending' && event?.existingRegister?.id"
+            class="ml-4 mt-4 flex flex-shrink-0"
+          >
+            <PrimaryButton
+              color="gray"
+              @click="onInvitationClicked(event.id)"
+              :icon="PaperAirplaneIcon"
+              class="mx-0 my-2"
+            >
+              Weitere Anmeldung hinzufügen
             </PrimaryButton>
           </div>
         </div>
@@ -306,6 +331,15 @@ function onInvitationClicked(id) {
     name: "RegistrationNewStart",
     params: {
       id: id,
+    },
+  });
+}
+
+function onRegClicked(event) {
+  router.push({
+    name: "RegistrationsDetail",
+    params: {
+      id: event?.existingRegister?.id,
     },
   });
 }

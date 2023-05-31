@@ -4,6 +4,7 @@ import EventApi from "@/modules/event/services/event";
 import RegistrationApi from "@/modules/event/services/registration";
 import MappingApi from "@/modules/auth/services/mapping";
 import EventMappingApi from "@/modules/event/services/mapping";
+import CashApi from "@/modules/event/services/cash-income";
 import GroupApi from "@/modules/group/services/group";
 import moment from "moment";
 
@@ -51,6 +52,7 @@ export const useEventStore = defineStore("event", {
     _eventAgeGroupsSummary: [],
     _eventAttributesSummary: [],
     _eventCashSummary: [],
+    _eventCashDetails: [],
     _eventPersonsSummary: [],
   }),
 
@@ -137,6 +139,16 @@ export const useEventStore = defineStore("event", {
       try {
         const response = await EventApi.fetchCashSummary(id, params);
         this._eventCashSummary = response.data;
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchEventPaymentsById(reg_id: any, params: any) {
+      try {
+        const response = await EventApi.fetchCashDetailById(reg_id, params);
+        this._eventCashDetails = response.data;
         return response;
       } catch (error) {
         // alert(error);
@@ -430,6 +442,13 @@ export const useEventStore = defineStore("event", {
     updateEventCustom(data: any) {
       this._eventCustom = data;
     },
+    async createPayment(data: Object) {
+      try {
+        return await CashApi.create(data);
+      } catch (error) {
+        console.log(error);
+      } 
+    },
   },
   getters: {
     events: (state) => {
@@ -532,6 +551,9 @@ export const useEventStore = defineStore("event", {
     },
     eventCashSummary: (state) => {
       return state._eventCashSummary;
+    },
+    eventCashDetails: (state) => {
+      return state._eventCashDetails;
     },
     eventPersonsSummary: (state) => {
       return state._eventPersonsSummary;

@@ -89,7 +89,7 @@ const commonStore = useCommonStore();
 const eventEditStore = useEventEditStore();
 const route = useRoute();
 
-const format1 = "YYYY-MM-DDThh:mm";
+const format1 = "YYYY-MM-DDTHH:mm";
 
 const state = reactive({
   adminGroup: null,

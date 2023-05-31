@@ -82,6 +82,11 @@ export default {
       params: params,
     });
   },
+  fetchCashDetailById(id: any, params: any) {
+    return axios.get(`${BASE_URL}/event/registration/${id}/cash-detail/`, {
+      params: params,
+    });
+  },
   sendPaymentReminder(data: any) {
     return axios.post(`${BASE_URL}/event/cash/mail-reminder/`, data);
   },

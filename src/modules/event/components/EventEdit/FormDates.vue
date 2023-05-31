@@ -66,7 +66,7 @@ const commonStore = useCommonStore();
 const eventEditStore = useEventEditStore();
 const route = useRoute();
 
-const format1 = "YYYY-MM-DDThh:mm";
+const format1 = "YYYY-MM-DDTHH:mm";
 
 const state = reactive({
   startDate: null,
@@ -136,11 +136,11 @@ function goToRoute(id: number) {
 }
 
 function setInitData(data) {
-  state.startDate = moment(data.startDate).format('YYYY-MM-DDThh:mm');
-  state.endDate = moment(data.endDate).format('YYYY-MM-DDThh:mm');
-  state.registrationStart = moment(data.registrationStart).format('YYYY-MM-DDThh:mm');
-  state.registrationDeadline = moment(data.registrationDeadline).format('YYYY-MM-DDThh:mm');
-  state.lastPossibleUpdate = moment(data.lastPossibleUpdate).format('YYYY-MM-DDThh:mm');
+  state.startDate = moment(data.startDate).format('YYYY-MM-DDTHH:mm');
+  state.endDate = moment(data.endDate).format('YYYY-MM-DDTHH:mm');
+  state.registrationStart = moment(data.registrationStart).format('YYYY-MM-DDTHH:mm');
+  state.registrationDeadline = moment(data.registrationDeadline).format('YYYY-MM-DDTHH:mm');
+  state.lastPossibleUpdate = moment(data.lastPossibleUpdate).format('YYYY-MM-DDTHH:mm');
 }
 
 onMounted(async () => {

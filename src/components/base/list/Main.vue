@@ -25,7 +25,7 @@
                   id="mobile-search-candidate"
                   v-model="searchInput"
                   class="block w-full rounded-none rounded-l-md border-gray-300 pl-10 focus:border-blue-500 focus:ring-blue-500 sm:hidden"
-                  placeholder="Search"
+                  placeholder="Suche"
                 />
                 <input
                   type="text"

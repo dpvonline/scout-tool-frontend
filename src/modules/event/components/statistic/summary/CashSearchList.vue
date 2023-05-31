@@ -1,7 +1,7 @@
 <template>
   <div>
     <List
-      :name="'Alle Anmeldungen'"
+      :name="'Alle Zahlungen'"
       :items="eventCashSummary"
       :searchValue="searchValue"
       :sortOptions="sortOptions"
@@ -35,7 +35,7 @@ const route = useRoute();
 
 const eventCashSummary = computed(() => {
   if (eventStore.eventCashSummary && eventStore.eventCashSummary.length) {
-    return eventStore.eventCashSummary[0].registrationSet;
+    return eventStore.eventCashSummary;
   }
   return [];
 });
@@ -75,6 +75,15 @@ function updateSearch(params) {
 
 const sortOptions = [];
 
-const filters = [];
+const filters = [
+  // {
+  //   id: "unpaid_status",
+  //   name: "Unbezahlt",
+  //   options: [
+  //     { value: "true", label: "Ja", checked: false },
+  //     { value: "false", label: "Nein", checked: false },
+  //   ],
+  // },
+];
 const buttonList = [];
 </script>

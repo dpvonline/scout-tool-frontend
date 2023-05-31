@@ -8,7 +8,7 @@ export const useCommonStore = defineStore("common", {
     _errorMessage: 'Döner sind mega mega lecker',
     _errorStatus: false,
 
-    _bannerStatus: true,
+    _bannerStatus: false,
     _bannerHeader: 'Hypercare-Phase vom Anmelde-Tool',
     _bannerMesasge: 'Fragen zur Anmeldung jederzeit per WhatsApp / Signal oder Telegram an 0176 5676 2746 oder robertbagdahn@gmail.com'
   }),

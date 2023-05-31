@@ -1,0 +1,226 @@
+<template>
+  <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+    <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+      <div
+        class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap"
+      >
+        <div class="ml-4 mt-4">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <span
+                class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100"
+              >
+                <CalendarIcon />
+              </span>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-lg font-medium leading-6 text-gray-900">
+                {{ item?.refId }}
+              </h3>
+              <p class="text-sm text-gray-500">
+                {{ item?.scoutOrganisation?.name }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-6 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Status
+          </h3>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Summe der Zahlungen
+        </p>
+      </div>
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            Offene Posten
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ item?.payement?.open }} €
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Bezahlter Betrag</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ item?.payement?.paid }} €
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Zu zahlender Betrag</dt>
+          <dd class="mt-1 text-sm text-gray-900">{{ item?.payement?.price }} €</dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Teilnehmende</dt>
+          <dd class="mt-1 text-sm text-gray-900">{{ item?.participantCount }} Personen</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Buchungen
+          </h3>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"></p>
+      </div>
+      <div class="sm:col-span-2" v-if="item?.cashincomeSet?.length">
+        <dd class="mt-1 text-sm text-gray-900">
+          <ul
+            role="list"
+            class="divide-y divide-gray-200 rounded-md border border-gray-200"
+          >
+            <li
+              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              v-for="child in item?.cashincomeSet"
+              :key="child.id"
+            >
+              <div class="flex w-0 flex-1 items-center">
+                <AdjustmentsVerticalIcon
+                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                  aria-hidden="true"
+                />
+                <span> {{ `${child.amount} € am ${ $dayjs(child?.transferDate).format("llll")}` }}</span>
+              </div>
+              <div class="ml-4 flex-shrink-0">
+                {{ item?.description || 'Keine Beschreibung' }}
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Buchungs Optionen
+          </h3>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"></p>
+      </div>
+      <div class="sm:col-span-2" v-if="item?.bookingOptions?.length">
+        <dd class="mt-1 text-sm text-gray-900">
+          <ul
+            role="list"
+            class="divide-y divide-gray-200 rounded-md border border-gray-200"
+          >
+            <li
+              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              v-for="child in item?.bookingOptions"
+              :key="child.id"
+            >
+              <div class="flex w-0 flex-1 items-center">
+                <AdjustmentsVerticalIcon
+                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                  aria-hidden="true"
+                />
+                <span> {{ `${child.sum} ${child.bookingOptions} ${child.price} €` }}</span>
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </div>
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+      <div class="pb-3">
+        <div class="flex w-0 items-center">
+          <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            Verantwortliche Personen
+          </h3>
+        </div>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"></p>
+      </div>
+      <div class="sm:col-span-2" v-if="item?.responsiblePersons?.length">
+        <dd class="mt-1 text-sm text-gray-900">
+          <ul
+            role="list"
+            class="divide-y divide-gray-200 rounded-md border border-gray-200"
+          >
+            <li
+              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
+              v-for="child in item?.responsiblePersons"
+              :key="child.id"
+            >
+              <div class="flex w-0 flex-1 items-center">
+                <UserCircleIcon
+                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
+                  aria-hidden="true"
+                />
+                <span> {{ `${child.firstName} ${child.lastName} - ${child.email} - ${child.phoneNumber || 'keine Nummer'}` }}</span>
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useRoute, useRouter } from "vue-router";
+import { ref } from "vue";
+import moment from "moment";
+
+const router = useRouter();
+const route = useRoute();
+
+import {
+  PencilIcon,
+  CalendarIcon,
+  PencilSquareIcon,
+  QueueListIcon,
+  AdjustmentsVerticalIcon,
+  PlusCircleIcon,
+  CpuChipIcon,
+  ArrowSmallUpIcon,
+  UserCircleIcon,
+  DocumentChartBarIcon,
+} from "@heroicons/vue/24/outline";
+import PrimaryButton from "@/components/button/Primary.vue";
+
+import PaymentOverlay from "@/modules/event/components/statistic/payments/newPayment/Overlay.vue";
+import TimelineEvent from "@/modules/event/components/general/TimelineEvent.vue";
+
+// messsage
+const eventData = ref({});
+
+// issue
+const openPaymentEdit = ref(false);
+const eventEditForm = ref(0);
+
+function onPaymentEditClicked(formNo, child = null) {
+  openPaymentEdit.value = true;
+  eventEditForm.value = formNo;
+  if (child === null) {
+    eventData.value = props.event;
+  } else {
+    eventData.value = child;
+  }
+}
+
+function onPaymentClosedClicked() {
+  openPaymentEdit.value = false;
+  eventData.value = {};
+}
+
+function onStatisticsClicked() {
+  const id = route.params.id;
+  router.push({
+    name: "EventStatisticSummary",
+    params: {
+      id,
+    },
+  });
+}
+
+const props = defineProps({
+  item: Object,
+});
+</script>
