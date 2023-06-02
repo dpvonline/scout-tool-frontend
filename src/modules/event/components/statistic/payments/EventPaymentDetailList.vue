@@ -2,7 +2,7 @@
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
       <div
-        class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap"
+        class="-ml-4 -mt-4 flex grow items-center justify-between sm:flex-nowrap"
       >
         <div class="ml-4 mt-4">
           <div class="flex items-center">
@@ -10,7 +10,7 @@
               <span
                 class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100"
               >
-                <CalendarIcon />
+                <BanknotesIcon />
               </span>
             </div>
             <div class="ml-4">
@@ -20,6 +20,31 @@
               <p class="text-sm text-gray-500">
                 {{ item?.scoutOrganisation?.name }}
               </p>
+            </div>
+            <div class="flex">
+              <div class="grow"></div>
+              <div class="ml-4 mt-4 flex flex">
+                <PrimaryButton
+                  color="green"
+                  :icon="PlusIcon"
+                  @click="onPayedAddedClicked"
+                  >Buchung</PrimaryButton
+                >
+              </div>
+              <div class="ml-4 mt-4 flex flex">
+                <PrimaryButton
+                  :icon="PencilIcon"
+                  @click="onRegClicked(item?.id)"
+                  >Anmeldung</PrimaryButton
+                >
+              </div>
+              <!-- <div class="ml-4 mt-4 flex flex">
+                <PrimaryButton
+                  :icon="EnvelopeIcon"
+                  @click="onPaymentReminderClicked(item?.id)"
+                  >Erinnerung</PrimaryButton
+                >
+              </div> -->
             </div>
           </div>
         </div>
@@ -38,26 +63,28 @@
       </div>
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">
-            Offene Posten
-          </dt>
+          <dt class="text-sm font-medium text-gray-500">Offene Posten</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ item?.payement?.open }} €
+            {{ (item?.payement?.open || 0).toFixed(2) }} €
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Bezahlter Betrag</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ item?.payement?.paid }} €
+            {{ (item?.payement?.paid || 0).toFixed(2) }} €
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Zu zahlender Betrag</dt>
-          <dd class="mt-1 text-sm text-gray-900">{{ item?.payement?.price }} €</dd>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ (item?.payement?.price || 0).toFixed(2) }} €
+          </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Teilnehmende</dt>
-          <dd class="mt-1 text-sm text-gray-900">{{ item?.participantCount }} Personen</dd>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ item?.participantCount }} Personen
+          </dd>
         </div>
       </dl>
     </div>
@@ -81,20 +108,14 @@
               v-for="child in item?.cashincomeSet"
               :key="child.id"
             >
-              <div class="flex w-0 flex-1 items-center">
-                <AdjustmentsVerticalIcon
-                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
-                  aria-hidden="true"
-                />
-                <span> {{ `${child.amount} € am ${ $dayjs(child?.transferDate).format("llll")}` }}</span>
-              </div>
-              <div class="ml-4 flex-shrink-0">
-                {{ item?.description || 'Keine Beschreibung' }}
-              </div>
+            <CashItem class="grow" :item="child"/>
             </li>
           </ul>
         </dd>
       </div>
+    <div v-else>
+      <p class="text-sm">Noch keine Buchung </p>
+    </div>
     </div>
     <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
       <div class="pb-3">
@@ -160,6 +181,13 @@
         </dd>
       </div>
     </div>
+    <PaymentOverlay
+      header="Zahlung hinzufügen"
+      :open="newPaymentDialog"
+      :currentPayment="currentPayment"
+      :callbackOnConfirm="onPayedAddedClicked"
+      :callbackOnCancel="onNewPaymentClosedClicked"
+    />
   </div>
 </template>
 
@@ -175,18 +203,22 @@ import {
   PencilIcon,
   CalendarIcon,
   PencilSquareIcon,
+  PlusIcon,
   QueueListIcon,
   AdjustmentsVerticalIcon,
   PlusCircleIcon,
   CpuChipIcon,
   ArrowSmallUpIcon,
   UserCircleIcon,
+  BanknotesIcon,
   DocumentChartBarIcon,
+  EnvelopeIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
 import PaymentOverlay from "@/modules/event/components/statistic/payments/newPayment/Overlay.vue";
 import TimelineEvent from "@/modules/event/components/general/TimelineEvent.vue";
+import CashItem from "@/modules/event/components/statistic/payments/CashItem.vue";
 
 // messsage
 const eventData = ref({});
@@ -194,6 +226,9 @@ const eventData = ref({});
 // issue
 const openPaymentEdit = ref(false);
 const eventEditForm = ref(0);
+
+const newPaymentDialog = ref(false);
+const currentPayment = ref({});
 
 function onPaymentEditClicked(formNo, child = null) {
   openPaymentEdit.value = true;
@@ -210,6 +245,12 @@ function onPaymentClosedClicked() {
   eventData.value = {};
 }
 
+function onPayedAddedClicked() {
+  newPaymentDialog.value = true;
+  currentPayment.value = props.item;
+  console.log(currentPayment.value);
+}
+
 function onStatisticsClicked() {
   const id = route.params.id;
   router.push({
@@ -218,6 +259,26 @@ function onStatisticsClicked() {
       id,
     },
   });
+}
+
+function onRegClicked(id) {
+  const regId = route.params.id;
+  if (regId) {
+    router.push({
+      name: "RegistrationsDetail",
+      params: {
+        regId,
+      },
+    });
+  }
+}
+
+function onPaymentReminderClicked(id) {
+  const regId = route.params.id;
+}
+
+function onNewPaymentClosedClicked() {
+  newPaymentDialog.value = false;
 }
 
 const props = defineProps({

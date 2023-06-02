@@ -2,7 +2,7 @@
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
       <div
-        class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap"
+        class="-ml-4 -mt-4 flex grow items-center justify-between sm:flex-nowrap"
       >
         <div class="ml-4 mt-4">
           <div class="flex items-center">
@@ -22,6 +22,9 @@
               </p>
             </div>
           </div>
+        </div>
+        <div class="flex">
+          <div class="grow"></div>
           <div
             v-if="event.status == 'pending' && !event?.existingRegister?.id"
             class="ml-4 mt-4 flex flex-shrink-0"
@@ -40,10 +43,11 @@
           >
             <PrimaryButton
               @click="onRegClicked(event)"
+              color="green"
               :icon="PencilIcon"
               class="mx-0 my-2"
+              :label="windowWidth > 800 ? 'Anmeldung ändern' : 'ändern'"
             >
-              Deine Anmeldung verändern
             </PrimaryButton>
           </div>
           <div
@@ -53,10 +57,10 @@
             <PrimaryButton
               color="gray"
               @click="onInvitationClicked(event.id)"
-              :icon="PaperAirplaneIcon"
+              :icon="PlusSmallIcon"
               class="mx-0 my-2"
+              :label="windowWidth > 800 ? 'Weitere Anmeldung' : 'neu'"
             >
-              Weitere Anmeldung hinzufügen
             </PrimaryButton>
           </div>
         </div>
@@ -293,7 +297,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from "vue";
+import { ref, watch, onMounted, computed, nextTick } from "vue";
 
 import {
   PaperClipIcon,
@@ -335,6 +339,8 @@ function onInvitationClicked(id) {
   });
 }
 
+const windowWidth = ref(100);
+
 function onRegClicked(event) {
   router.push({
     name: "RegistrationsDetail",
@@ -344,7 +350,18 @@ function onRegClicked(event) {
   });
 }
 
+function onResize() {
+  windowWidth.value = window.innerWidth;
+}
+
 const props = defineProps({
   event: Object,
+});
+
+onMounted(() => {
+  onResize();
+  nextTick(() => {
+    window.addEventListener("resize", onResize);
+  });
 });
 </script>

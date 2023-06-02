@@ -16,7 +16,7 @@
     />
    <BaseField
       component="DateTime"
-      label="Datum/Uhrzeit"
+      label="Buchungsdatum"
       techName="transferDate"
       v-model="state.transferDate"
       :errors="errors.transferDate?.$errors"
@@ -137,12 +137,7 @@ function onSaveClicked() {
 }
 
 function goToRoute(id: any) {
-  router.push({
-    name: "EventStatisticPayments",
-  });
-  if (router.currentRoute.value.name === "EventStatisticPayments") {
-    router.go(router.currentRoute.value);
-  }
+  router.go(router.currentRoute.value);
 }
 
 function onDeleteClicked() {
