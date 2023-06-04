@@ -108,14 +108,14 @@
               v-for="child in item?.cashincomeSet"
               :key="child.id"
             >
-            <CashItem class="grow" :item="child"/>
+              <CashItem class="grow" :item="child" />
             </li>
           </ul>
         </dd>
       </div>
-    <div v-else>
-      <p class="text-sm">Noch keine Buchung </p>
-    </div>
+      <div v-else>
+        <p class="text-sm">Noch keine Buchung</p>
+      </div>
     </div>
     <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
       <div class="pb-3">
@@ -142,7 +142,11 @@
                   class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
                   aria-hidden="true"
                 />
-                <span> {{ `${child.sum} ${child.bookingOptions} ${child.price} €` }}</span>
+                <span>
+                  {{
+                    `${child.sum} ${child.bookingOptions} ${child.price} €`
+                  }}</span
+                >
               </div>
             </li>
           </ul>
@@ -174,7 +178,13 @@
                   class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
                   aria-hidden="true"
                 />
-                <span> {{ `${child.firstName} ${child.lastName} - ${child.email} - ${child.phoneNumber || 'keine Nummer'}` }}</span>
+                <span>
+                  {{
+                    `${child.firstName} ${child.lastName} - ${child.email} - ${
+                      child.phoneNumber || "keine Nummer"
+                    }`
+                  }}</span
+                >
               </div>
             </li>
           </ul>
@@ -213,12 +223,18 @@ import {
   BanknotesIcon,
   DocumentChartBarIcon,
   EnvelopeIcon,
+  CurrencyEuroIcon,
 } from "@heroicons/vue/24/outline";
-import PrimaryButton from "@/components/button/Primary.vue";
 
 import PaymentOverlay from "@/modules/event/components/statistic/payments/newPayment/Overlay.vue";
 import TimelineEvent from "@/modules/event/components/general/TimelineEvent.vue";
 import CashItem from "@/modules/event/components/statistic/payments/CashItem.vue";
+import SendPaymentReminderModal from "@/components/modal/Delete.vue";
+
+const openPaymentReminderModal = ref(false);
+
+import { useEventStore } from "@/modules/event/store";
+const eventStore = useEventStore();
 
 // messsage
 const eventData = ref({});
@@ -271,10 +287,6 @@ function onRegClicked(id) {
       },
     });
   }
-}
-
-function onPaymentReminderClicked(id) {
-  const regId = route.params.id;
 }
 
 function onNewPaymentClosedClicked() {

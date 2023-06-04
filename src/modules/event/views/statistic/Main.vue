@@ -38,23 +38,23 @@ const tabs = computed(() => {
       linkName: { name: "EventStatisticPayments" },
       current: route.name === "EventStatisticPayments",
     },
-    // {
-    //   name: "Attribute",
-    //   linkName: { name: "EventStatisticAttributes" },
-    //   current: route.name === "EventStatisticAttributes",
-    // },
+    {
+      name: "Attribute",
+      linkName: { name: "EventStatisticAttributes" },
+      current: route.name === "EventStatisticAttributes",
+    },
     {
       name: "Personen",
       linkName: { name: "EventStatisticPersons" },
       current: route.name === "EventStatisticPersons",
     },
     {
-      name: "Aktionen",
+      name: "Download",
       linkName: { name: "EventStatisticDownloads" },
       current: route.name === "EventStatisticDownloads",
     },
     {
-      name: "Maps",
+      name: "Karte",
       linkName: { name: "EventStatisticMaps" },
       current: route.name === "EventStatisticMaps",
     },

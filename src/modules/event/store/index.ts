@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import EventApi from "@/modules/event/services/event";
+import EventFilesApi from "@/modules/event/services/event-files";
 import RegistrationApi from "@/modules/event/services/registration";
 import MappingApi from "@/modules/auth/services/mapping";
 import EventMappingApi from "@/modules/event/services/mapping";
@@ -55,7 +56,7 @@ export const useEventStore = defineStore("event", {
     _eventAttributesSummary: [],
     _eventCashSummary: [],
     _eventCashDetails: [],
-    _eventPersonsSummary: [], 
+    _eventPersonsSummary: [],
     _eventLocationSummary: [],
     _registrationLocationsSummary: [],
     _hierarchyMappingDetailed: [],
@@ -218,6 +219,54 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
+    async getAvailableFileTemplates(params: any) {
+      try {
+        const response = await EventFilesApi.getAvailableFileTemplates(params);
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async addFileRequest(eventId: any, params: any) {
+      try {
+        const response = await EventFilesApi.addFileRequest(eventId, params);
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async getDownloadSummary(eventId: any, params: any) {
+      try {
+        const response = await EventFilesApi.getDownloadSummary(eventId, params);
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async getFileType(eventId: any, params: any) {
+      try {
+        return await EventFilesApi.getFileType(eventId, params);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getFileGenerationStatus(eventId: any, params: any) {
+      try {
+        return await EventFilesApi.getFileGenerationStatus(eventId, params);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getFileExtension(eventId: any, params: any) {
+      try {
+        return await EventFilesApi.getFileExtension(eventId, params);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     newEventReset() {
       this._eventStart = {
         name: "Dein Lager",
@@ -329,11 +378,9 @@ export const useEventStore = defineStore("event", {
       }
     },
     async fetchScoutOrgaLevel() {
-      this._isLoading = true;
       try {
         const response = await MappingApi.fetchScoutOrgaLevel();
         this._scoutOrgaLevels = response.data;
-        this._isLoading = false;
       } catch (error) {
         // // alert(error);
         console.log(error);
@@ -353,11 +400,9 @@ export const useEventStore = defineStore("event", {
       }
     },
     async fetchThemes() {
-      this._isLoading = true;
       try {
         const response = await MappingApi.fetchThemes();
         this._themes = response.data;
-        this._isLoading = false;
       } catch (error) {
         // // alert(error);
         console.log(error);
@@ -365,11 +410,9 @@ export const useEventStore = defineStore("event", {
       }
     },
     async fetchEmailSets() {
-      this._isLoading = true;
       try {
         const response = await MappingApi.fetchEmailSets();
         this._emailSets = response.data;
-        this._isLoading = false;
       } catch (error) {
         // // alert(error);
         console.log(error);
@@ -479,7 +522,7 @@ export const useEventStore = defineStore("event", {
         return await CashApi.create(data);
       } catch (error) {
         console.log(error);
-      } 
+      }
     },
   },
   getters: {

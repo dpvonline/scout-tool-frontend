@@ -93,7 +93,7 @@ const event = computed(() => {
   return eventRegisterStore.event;
 });
 
-function setInitData() {
+function setInitData(response) {
   isLoading.value = true;
 
   isLoading.value = false;
@@ -101,8 +101,8 @@ function setInitData() {
 
 onMounted(async () => {
   isLoading.value = true;
-  await Promise.all([]);
+  const response = await Promise.all([]);
 
-  setInitData();
+  setInitData(response);
 });
 </script>

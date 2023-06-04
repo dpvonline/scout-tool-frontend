@@ -7,7 +7,7 @@
       <p class="text-sm text-gray-500"></p>
       <div class="mt-4 space-y-4">
         <BaseField
-          component="Select"
+          component="AutoComplete"
           :label="'Zugriff auf Persönliche Anmeldedaten'"
           techName="adminGroup"
           v-model="state.adminGroup"
@@ -18,7 +18,7 @@
           :cols="12"
         />
         <BaseField
-          component="Select"
+          component="AutoComplete"
           :label="'Zugriff auf aggrigierte Anmeldedaten'"
           techName="viewGroup"
           v-model="state.viewGroup"
@@ -41,7 +41,7 @@
           valueField="value"
         />
         <BaseField
-          component="Select"
+          component="AutoComplete"
           :label="'Einladene Gruppe'"
           techName="invitingGroup"
           v-model="state.invitingGroup"
@@ -168,22 +168,21 @@ const shortGroups2 = computed(() => {
   }
 });
 
-
 function setInitData() {
   isLoading.value = true;
-  state.viewGroup = eventStore.eventAuth.viewGroup
-  state.adminGroup = eventStore.eventAuth.adminGroup
-  state.invitedGroups = eventStore.eventAuth.invitedGroups
-  state.invitingGroup = eventStore.eventAuth.invitingGroup
-  state.registrationLevel = eventStore.eventAuth.registrationLevel
-  state.isPublic = eventStore.eventAuth.isPublic
+  state.viewGroup = eventStore.eventAuth.viewGroup;
+  state.adminGroup = eventStore.eventAuth.adminGroup;
+  state.invitedGroups = eventStore.eventAuth.invitedGroups;
+  state.invitingGroup = eventStore.eventAuth.invitingGroup;
+  state.registrationLevel = eventStore.eventAuth.registrationLevel;
+  state.isPublic = eventStore.eventAuth.isPublic;
 
   if (!state.registrationLevel) {
-    state.registrationLevel = scoutOrgaLevels.value[0]
+    state.registrationLevel = scoutOrgaLevels.value[0];
   }
 
   if (!state.isPublic) {
-    state.isPublic = false
+    state.isPublic = false;
   }
 
   isLoading.value = false;

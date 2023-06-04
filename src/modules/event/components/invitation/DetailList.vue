@@ -46,7 +46,7 @@
               color="green"
               :icon="PencilIcon"
               class="mx-0 my-2"
-              :label="windowWidth > 800 ? 'Anmeldung ändern' : 'ändern'"
+              :label="windowWidth > 800 ? 'Deine Anmeldung' : 'Anmeldung'"
             >
             </PrimaryButton>
           </div>
@@ -59,7 +59,7 @@
               @click="onInvitationClicked(event.id)"
               :icon="PlusSmallIcon"
               class="mx-0 my-2"
-              :label="windowWidth > 800 ? 'Weitere Anmeldung' : 'neu'"
+              :label="windowWidth > 800 ? 'Weitere Gruppe' : 'weitere'"
             >
             </PrimaryButton>
           </div>
