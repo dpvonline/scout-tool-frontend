@@ -53,7 +53,7 @@
 <script setup>
 const GOOGLE_MAPS_API_KEY =
   import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY ||
-  "AIzaSyCReJ0be_90eATs_lDXNXRV7_mvZFY5GMg";
+  "no Key";
 import { defineComponent, onMounted } from "vue";
 import { GoogleMap, Marker, InfoWindow } from "vue3-google-map";
 
