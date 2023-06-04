@@ -1,7 +1,7 @@
 <template>
   <div>
     <BaseField
-      component="Select"
+      component="AutoComplete"
       :label="'Zugriff auf Persönliche Anmeldedaten'"
       techName="adminGroup"
       v-model="state.adminGroup"
