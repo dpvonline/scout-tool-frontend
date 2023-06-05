@@ -228,6 +228,12 @@ export default [
         component: () =>
           import(/* webpackChunkName: "EventStatisticPersons" */ "@/modules/event/views/statistic/module/Persons.vue"),
       },
+      {
+        path: "maps",
+        name: "EventStatisticMaps",
+        component: () =>
+          import(/* webpackChunkName: "EventStatisticMaps" */ "@/modules/event/views/statistic/module/Maps.vue"),
+      },
     ],
   },
 ];

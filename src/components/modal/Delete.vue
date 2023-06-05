@@ -17,15 +17,7 @@
 
       <div class="fixed inset-0 z-10 overflow-y-auto">
         <div
-          class="
-            flex
-            min-h-full
-            items-end
-            justify-center
-            p-4
-            text-center
-            sm:items-center sm:p-0
-          "
+          class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
         >
           <TransitionChild
             as="template"
@@ -37,33 +29,12 @@
             leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <DialogPanel
-              class="
-                relative
-                transform
-                overflow-hidden
-                rounded-lg
-                bg-white
-                text-left
-                shadow-xl
-                transition-all
-                sm:my-8 sm:w-full sm:max-w-lg
-              "
+              class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
             >
               <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="sm:flex sm:items-start">
                   <div
-                    class="
-                      mx-auto
-                      flex
-                      h-12
-                      w-12
-                      flex-shrink-0
-                      items-center
-                      justify-center
-                      rounded-full
-                      bg-red-100
-                      sm:mx-0 sm:h-10 sm:w-10
-                    "
+                    class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
                   >
                     <ExclamationTriangleIcon
                       class="h-6 w-6 text-red-600"
@@ -87,60 +58,22 @@
               <div
                 class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6"
               >
-                <button
-                  type="button"
-                  class="
-                    inline-flex
-                    w-full
-                    justify-center
-                    rounded-md
-                    border border-transparent
-                    bg-red-600
-                    px-4
-                    py-2
-                    text-base
-                    font-medium
-                    text-white
-                    shadow-sm
-                    hover:bg-red-700
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-red-500
-                    focus:ring-offset-2
-                    sm:ml-3 sm:w-auto sm:text-sm
-                  "
+                <PrimaryButton
+                  class="mx-2"
+                  color="red"
+                  :isLoading="props.isSaving"
                   @click="onButtonDeleteClicked"
                 >
                   {{ props.buttonText }}
-                </button>
-                <button
-                  type="button"
-                  class="
-                    mt-3
-                    inline-flex
-                    w-full
-                    justify-center
-                    rounded-md
-                    border border-gray-300
-                    bg-white
-                    px-4
-                    py-2
-                    text-base
-                    font-medium
-                    text-gray-700
-                    shadow-sm
-                    hover:bg-gray-50
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-blue-500
-                    focus:ring-offset-2
-                    sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm
-                  "
+                </PrimaryButton>
+                <PrimaryButton
+                  color="gray"
+                  :isLoading="props.isSaving"
                   @click="close"
                   ref="cancelButtonRef"
                 >
                   Abbrechen
-                </button>
+                </PrimaryButton>
               </div>
             </DialogPanel>
           </TransitionChild>
@@ -152,6 +85,8 @@
 
 <script setup>
 import { ref } from "vue";
+import PrimaryButton from "@/components/button/Primary.vue";
+
 import {
   Dialog,
   DialogPanel,
@@ -162,10 +97,15 @@ import {
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
 
 const props = defineProps({
-  open: { type: Boolean, required: true},
-  header: { type: String, required: false, default: "Löschen"},
-  text: { type: String, required: false, default: "Willst du den Eintrag löschen?"},
-  buttonText: { type: String, required: false, default: "Löschen"},
+  open: { type: Boolean, required: true },
+  isSaving: { type: Boolean, required: false },
+  header: { type: String, required: false, default: "Löschen" },
+  text: {
+    type: String,
+    required: false,
+    default: "Willst du den Eintrag löschen?",
+  },
+  buttonText: { type: String, required: false, default: "Löschen" },
   callbackOnConfirm: { type: Function, required: true },
   callbackOnCancel: { type: Function, required: true },
 });
@@ -175,6 +115,4 @@ function close() {
 function onButtonDeleteClicked() {
   props.callbackOnConfirm();
 }
-
-
 </script>

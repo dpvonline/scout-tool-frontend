@@ -104,4 +104,16 @@ export default {
   fetchDownloadSummary(eventId: any, params: any) {
     return axios.get(`${BASE_URL}/event/event/${eventId}/files/generate/`, { params });
   },
+  getEventLocationSummary(eventId: any, params: any) {
+    const path = `${BASE_URL}/${SERVICE}/${eventId}/summary/event-location/`;
+    return axios.get(path, { params });
+  },
+  getRegistrationLocationsSummary(eventId: any, params: any) {
+    const path = `${BASE_URL}/${SERVICE}/${eventId}/summary/participant-locations/`;
+    return axios.get(path, { params });
+  },
+  getHierarchyMappingDetailed() {
+    const path = `${BASE_URL}/basic/scout-hierarchy-detail/`;
+    return axios.get(path);
+  },
 };

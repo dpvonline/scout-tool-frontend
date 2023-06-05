@@ -78,9 +78,7 @@
           <dt class="text-sm font-medium text-gray-500">Anmeldeschluss</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{
-              $dayjs(registration?.event?.registrationDeadline).format(
-                "llll"
-              )
+              $dayjs(registration?.event?.registrationDeadline).format("llll")
             }}
           </dd>
         </div>

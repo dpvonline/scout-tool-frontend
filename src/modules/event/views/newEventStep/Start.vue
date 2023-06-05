@@ -1,12 +1,14 @@
 <template>
-  <StepFrame header="Neue Veranstaltung anlegen" :isLoading="isLoading" @click="onNextButtonClicked">
+  <StepFrame
+    header="Neue Veranstaltung anlegen"
+    :isLoading="isLoading"
+    @click="onNextButtonClicked"
+  >
     <fieldset class="mt-6">
       <legend class="contents text-base font-medium text-gray-900">
         Geb die Basis Daten deiner Veranstaltung
       </legend>
-      <p class="text-sm text-gray-500">
-
-      </p>
+      <p class="text-sm text-gray-500"></p>
       <div class="mt-4 space-y-4">
         <BaseField
           component="Text"
@@ -27,7 +29,7 @@
           hint="Wähle das Datum aus, an dem die Veranstaltung beginnen sollt."
         />
         <BaseField
-          component="Select"
+          component="AutoComplete"
           :label="'Einladene Gruppe*'"
           techName="invitedGroup"
           v-model="state.invitedGroup"
@@ -63,7 +65,7 @@ const commonStore = useCommonStore();
 import { useGroupStore } from "@/modules/group/store/index";
 const groupStore = useGroupStore();
 
-const format1 = "YYYY-MM-DD"
+const format1 = "YYYY-MM-DD";
 
 const state = reactive({
   name: null,
@@ -115,18 +117,18 @@ const djangoGroups = computed(() => {
 
 function setInitData() {
   isLoading.value = true;
-  state.name = eventStore.eventStart.name
-  state.startDate = eventStore.eventStart.startDate
-  state.invitedGroup = eventStore.eventStart.invitedGroup
+  state.name = eventStore.eventStart.name;
+  state.startDate = eventStore.eventStart.startDate;
+  state.invitedGroup = eventStore.eventStart.invitedGroup;
 
   if (!state.name) {
-    state.name = 'Dein Lager'
+    state.name = "Dein Lager";
   }
   if (!state.startDate) {
-    state.startDate = moment(new Date()).subtract(-2, 'month').format(format1)
+    state.startDate = moment(new Date()).subtract(-2, "month").format(format1);
   }
   if (!state.invitedGroup) {
-    state.invitedGroup = shortGroups.value[0]
+    state.invitedGroup = shortGroups.value[0];
   }
   isLoading.value = false;
 }
@@ -143,7 +145,7 @@ onMounted(async () => {
     eventStore.fetchEmailSets(),
     eventStore.fetchEventLocations(),
     groupStore.fetchGroupsShort(),
-    registerStore.fetchAllMappings(eventId)
+    registerStore.fetchAllMappings(eventId),
   ]);
 
   setInitData();

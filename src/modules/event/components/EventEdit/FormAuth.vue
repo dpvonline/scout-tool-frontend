@@ -1,7 +1,7 @@
 <template>
   <div>
     <BaseField
-      component="Select"
+      component="AutoComplete"
       :label="'Zugriff auf Persönliche Anmeldedaten'"
       techName="adminGroup"
       v-model="state.adminGroup"
@@ -12,7 +12,7 @@
       :cols="12"
     />
     <BaseField
-      component="Select"
+      component="AutoComplete"
       :label="'Zugriff auf aggrigierte Anmeldedaten'"
       techName="viewGroup"
       v-model="state.viewGroup"
@@ -35,7 +35,7 @@
       valueField="value"
     />
     <BaseField
-      component="Select"
+      component="AutoComplete"
       :label="'Einladene Gruppe'"
       techName="invitingGroup"
       v-model="state.invitingGroup"

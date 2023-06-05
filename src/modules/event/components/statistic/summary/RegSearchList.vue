@@ -1,5 +1,12 @@
 <template>
   <div>
+    <PrimaryButton
+      color="green"
+      @click="onNewRegClicked"
+      :icon="PlusIcon"
+      class="mx-3 my-3"
+      >Anmeldung hinzufügen</PrimaryButton
+    >
     <List
       :name="'Alle Anmeldungen'"
       :items="eventSummary"
@@ -20,10 +27,15 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
-import { TagIcon, ChevronRightIcon, HomeIcon } from "@heroicons/vue/20/solid";
+import {
+  TagIcon,
+  ChevronRightIcon,
+  HomeIcon,
+  PlusIcon,
+} from "@heroicons/vue/20/solid";
 import List from "@/components/base/list/Main.vue";
 import RegListItem from "@/modules/event/components/statistic/summary/RegListItem.vue";
-import { useRoute } from "vue-router";
+import PrimaryButton from "@/components/button/Primary.vue";
 
 import { useEventStore } from "@/modules/event/store/index";
 import { useAuthStore } from "@/modules/auth/store/index";
@@ -32,7 +44,10 @@ const authStore = useAuthStore();
 
 const eventStore = useEventStore();
 
+import { useRoute, useRouter } from "vue-router";
+
 const route = useRoute();
+const router = useRouter();
 
 const eventSummary = computed(() => {
   return eventStore.eventSummary.results;
@@ -80,4 +95,19 @@ const sortOptions = [
 
 const filters = [];
 const buttonList = [];
+
+import { useEventRegisterStore } from "@/modules/event/store/register";
+const eventRegisterStore = useEventRegisterStore();
+
+function onNewRegClicked() {
+  const eventId = route.params.id;
+  eventRegisterStore.$reset();
+
+  router.push({
+    name: "RegistrationNewStart",
+    params: {
+      id: eventId,
+    },
+  });
+}
 </script>

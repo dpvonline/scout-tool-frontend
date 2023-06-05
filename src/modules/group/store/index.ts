@@ -179,12 +179,10 @@ export const useGroupStore = defineStore("group", {
       }
     },
     async fetchGroupsShort() {
-      this._isLoading = true;
       this._shortGroups = [];
       try {
         const response = await GroupApi.fetchGroupsShort();
         this._shortGroups = response.data;
-        this._isLoading = false;
       } catch (error) {
         // // alert(error);
         console.log(error);

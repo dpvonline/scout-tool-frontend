@@ -20,14 +20,24 @@
       </div>
       <div class="hidden md:block"></div>
     </div>
-    <div class="flex-none w-20">
+    <div class="flex-none w-20 hidden md:block">
       <PrimaryButton @click="onPersonEditClicked(props?.item)" color="blue"
-        >editieren</PrimaryButton
+        >ändern</PrimaryButton
       >
     </div>
-    <div class="flex-none w-20 mx-2 my-2">
+    <div class="flex-none mx-1 md:hidden block">
+      <PrimaryButton :icon="PencilIcon" @click="onPersonEditClicked(props?.item)" color="blue"
+        ></PrimaryButton
+      >
+    </div>
+    <div class="flex-none w-20 mx-2 my-2 hidden md:block">
       <PrimaryButton @click="onDeletePersonClicked(props?.item)" color="red"
         >löschen</PrimaryButton
+      >
+    </div>
+    <div class="flex-none sm:hidden block">
+      <PrimaryButton :icon="TrashIcon" @click="onDeletePersonClicked(props?.item)" color="red"
+        ></PrimaryButton
       >
     </div>
   </div>
@@ -41,6 +51,8 @@ const eventRegisterStore = useEventRegisterStore();
 
 import {
   ClipboardIcon,
+  PencilIcon,
+  TrashIcon,
   RocketLaunchIcon,
   CheckCircleIcon,
   EnvelopeIcon,

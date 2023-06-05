@@ -3,19 +3,7 @@
     @click="onButtonClicked"
     type="button"
     :disabled="isLoading"
-    class="
-      inline-flex
-      items-center
-      justify-center
-      rounded-md
-      border border-transparent
-      py-2
-      px-4
-      text-xs
-      font-medium
-      text-white
-      shadow-sm
-    "
+    class="inline-flex items-center justify-center rounded-md border border-transparent py-2 px-4 text-xs font-medium text-white shadow-sm"
     :class="
       isLoading
         ? `bg-blue-300 focus:outline-none bg-blue-500`
@@ -30,7 +18,8 @@
     <component
       v-if="props.icon"
       :is="props.icon"
-      class="ml-1 mr-2 h-5 w-5 text-white"
+      class=" h-4 w-4 text-white"
+      :class="props.label ? '-ml-1 mr-2': ''"
       aria-hidden="true"
     />
     {{ props.label }}

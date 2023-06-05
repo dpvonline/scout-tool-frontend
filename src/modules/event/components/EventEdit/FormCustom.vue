@@ -1,27 +1,27 @@
 <template>
   <div>
-        <BaseField
-          component="Select"
-          :label="'E-Mail Template'"
-          techName="emailSet"
-          v-model="state.emailSet"
-          :errors="errors.emailSet?.$errors"
-          :cols="12"
-          :items="emailSets"
-          hint="Legt fest wie die E-Mails aussehen werden."
-          :lookupListDisplay="['name']"
-        />
-        <BaseField
-          component="Select"
-          :label="'Layout'"
-          techName="theme"
-          v-model="state.theme"
-          :errors="errors.theme?.$errors"
-          :cols="12"
-          :items="themes"
-          hint="Legt fest in welchem Layout die Anmeldungen erscheinen sollen."
-          :lookupListDisplay="['name']"
-        />
+    <BaseField
+      component="Select"
+      :label="'E-Mail Template'"
+      techName="emailSet"
+      v-model="state.emailSet"
+      :errors="errors.emailSet?.$errors"
+      :cols="12"
+      :items="emailSets"
+      hint="Legt fest wie die E-Mails aussehen werden."
+      :lookupListDisplay="['name']"
+    />
+    <BaseField
+      component="Select"
+      :label="'Layout'"
+      techName="theme"
+      v-model="state.theme"
+      :errors="errors.theme?.$errors"
+      :cols="12"
+      :items="themes"
+      hint="Legt fest in welchem Layout die Anmeldungen erscheinen sollen."
+      :lookupListDisplay="['name']"
+    />
 
     <PrimaryButton
       class="my-4"
@@ -33,7 +33,6 @@
 </template>
 
 <script setup lang="ts">
-
 import { reactive, onMounted, ref, watch, computed } from "vue";
 import { useCommonStore } from "@/modules/common/store/index";
 import { useEventEditStore } from "@/modules/event/store/edit";
@@ -123,14 +122,16 @@ function setInitData(data) {
 
 onMounted(async () => {
   const id = route.params.id;
-  await Promise.all([
+  const response = await Promise.all([
     eventStore.fetchThemes(),
     eventStore.fetchEmailSets(),
-  ]);
+    eventEditStore.fetchTechById(id),
+  ])
   if (id) {
-    const response = await eventEditStore.fetchTechById(id);
-    setInitData(response.data);
-    data.value = response.data;
+    const myData = response[2].data;
+    console.log(myData);
+    setInitData(myData);
+    data.value = myData;
   }
 });
 </script>

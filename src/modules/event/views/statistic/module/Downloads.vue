@@ -1,33 +1,9 @@
 <template>
   <div class="px-3 py-3">
     <h2 class="text-base ma-2 my-2 font-semibold leading-6 text-gray-900">
-      Aktionen
+      Downloads
     </h2>
-    <ul role="list" class="mx-5 space-y-1">
-      <li>
-        <PrimaryButton @click="onPaymentReminderClicked" class="ma-2 my-2" :icon="CurrencyEuroIcon">
-          Zahlungserinnerung senden
-        </PrimaryButton>
-      </li>
-      <li>
-        <PrimaryButton
-          @click="onNewRegClicked"
-          class="pa-2 py-2"
-          :icon="PlusIcon"
-        >
-          Neue Anmeldung hinzufügen
-        </PrimaryButton>
-      </li>
-    </ul>
-    <SendPaymentReminderModal
-      :open="openPaymentReminderModal"
-      :header="'Zahlungserinnerung'"
-      :text="'Bist du sicher, dass du an alle Stämme eine Zahlungserinnerung senden möchtest?'"
-      :buttonText="'E-Mails senden'"
-      :callbackOnConfirm="sendPaymentReminder"
-      :callbackOnCancel="cancelModal"
-    >
-    </SendPaymentReminderModal>
+    <DownloadDetailList :item="generatedFiles" />
   </div>
 </template>
 
@@ -35,6 +11,7 @@
 import { computed, onMounted, ref } from "vue";
 import { useEventStore } from "@/modules/event/store";
 import SendPaymentReminderModal from "@/components/modal/Delete.vue";
+import DownloadDetailList from "@/modules/event/components/statistic/download/DetailList.vue";
 
 import { PlusIcon, CurrencyEuroIcon } from "@heroicons/vue/20/solid";
 
@@ -44,22 +21,9 @@ const pages = [{ name: "Alle Anmeldungen", link: { name: "EventMain" } }];
 
 const eventStore = useEventStore();
 
+const isLoading = ref(false);
+
 import { useRoute, useRouter } from "vue-router";
-
-function sendPaymentReminder() {
-  const eventId = route.params.id;
-  eventStore.sendPaymentReminder({eventId}).then(() => {
-    openPaymentReminderModal.value = false;
-  })
-}
-
-function onPaymentReminderClicked() {
-  openPaymentReminderModal.value = true;
-}
-
-async function cancelModal() {
-  openPaymentReminderModal.value = false;
-}
 
 const route = useRoute();
 const router = useRouter();
@@ -100,10 +64,24 @@ function onNewRegClicked() {
   });
 }
 
-onMounted(() => {
+const generatedFiles = ref([]);
+
+onMounted(async () => {
   const eventId = route.params.id;
-  eventStore.fetchEventSummaryTotalParticipants(eventId);
-  eventStore.fetchEventSummaryTotalRegistrations(eventId);
-  eventStore.fetchEventSummaryBookingOptions(eventId);
+  isLoading.value = true;
+
+  const response = await Promise.all([eventStore.getDownloadSummary(eventId)]);
+  generatedFiles.value = response[0].data;
+  isLoading.value = false;
 });
+
+const people = [
+  {
+    name: "Leslie Alexander",
+    email: "leslie.alexander@example.com",
+    imageUrl:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    href: "#",
+  },
+];
 </script>

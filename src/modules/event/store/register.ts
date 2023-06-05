@@ -112,6 +112,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       let register = null;
       let responses = null;
       let mailResponse = null;
+      debugger;
       try {
         register = await RegistrationApi.create(registerCreate);
       } catch (e: any) {
@@ -119,11 +120,13 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         const statusText = e.response.statusText; // Bad Request
         return false;
       }
-
+      debugger;
       const regId = register.data.id;
 
       const promises = [];
+      debugger;
       this._registerPerson.forEach((person) => {
+        debugger;
         promises.push(RegistrationApi.createParticipant(regId, this.transformEatHabits(person)));
       });
 
@@ -131,6 +134,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       const attributeModuleIdTravel = this._event?.eventmoduleSet.filter((item) => item.name === "Travel")[0]
         .attributeModules[0];
       this._registerTravel.forEach((travelItem) => {
+        debugger;
         promises.push(
           this.createAttribute(
             regId,
