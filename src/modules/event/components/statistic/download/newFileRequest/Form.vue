@@ -95,7 +95,7 @@ async function onSaveClicked() {
 
   const response = await eventStore.addFileRequest(eventId, {
     fileExtension: state.fileExtension?.value,
-    fileTemplate: state.fileTemplate?.id,
+    template: state.fileTemplate?.id,
   });
 
   if (response) {
