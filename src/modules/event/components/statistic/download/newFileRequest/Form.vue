@@ -98,13 +98,13 @@ async function onSaveClicked() {
     template: state.fileTemplate?.id,
   });
 
-  if (response) {
+  if (response && response.status === 201) {
     commonStore.showSuccess("Datei erfolgreich angefordert");
   } else {
     commonStore.showError("Datei angefordern fehlgeschlagen.");
   }
-
   isSaving.value = false;
+  onCloseClicked()
 }
 
 function goToRoute(id: number) {}
@@ -141,4 +141,10 @@ onMounted(async () => {
 
   isLoading.value = false;
 });
+
+const emit = defineEmits(["close"]);
+
+const onCloseClicked = () => {
+  emit("close");
+};
 </script>

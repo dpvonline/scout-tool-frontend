@@ -234,6 +234,12 @@ export default [
         component: () =>
           import(/* webpackChunkName: "EventStatisticMaps" */ "@/modules/event/views/statistic/module/Maps.vue"),
       },
+      {
+        path: "mail",
+        name: "EventStatisticMail",
+        component: () =>
+          import(/* webpackChunkName: "EventStatisticMail" */ "@/modules/event/views/statistic/module/Mail.vue"),
+      },
     ],
   },
 ];

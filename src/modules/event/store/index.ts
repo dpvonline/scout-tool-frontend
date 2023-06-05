@@ -7,6 +7,8 @@ import MappingApi from "@/modules/auth/services/mapping";
 import EventMappingApi from "@/modules/event/services/mapping";
 import CashApi from "@/modules/event/services/cash-income";
 import GroupApi from "@/modules/group/services/group";
+import EventMailApi from "@/modules/event/services/event-mail.ts";
+
 import moment from "moment";
 import { any } from "cypress/types/bluebird";
 import { param } from "cypress/types/jquery";
@@ -60,6 +62,7 @@ export const useEventStore = defineStore("event", {
     _eventLocationSummary: [],
     _registrationLocationsSummary: [],
     _hierarchyMappingDetailed: [],
+    _registrationsResponsiblePersons: [],
   }),
 
   actions: {
@@ -204,6 +207,16 @@ export const useEventStore = defineStore("event", {
       try {
         const response = await EventApi.fetchById(id);
         this._event = response.data;
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async getRegistrationsResponsiblePersons(eventId: number, params: any) {
+      try {
+        const response = await EventMailApi.getRegistrationsResponsiblePersons(eventId, params);
+        this._registrationsResponsiblePersons = response.data;
         return response;
       } catch (error) {
         // alert(error);
@@ -641,6 +654,9 @@ export const useEventStore = defineStore("event", {
     },
     hierarchyMappingDetailed: (state) => {
       return state._hierarchyMappingDetailed;
+    },
+    registrationsResponsiblePersons: (state) => {
+      return state._registrationsResponsiblePersons;
     },
   },
 });

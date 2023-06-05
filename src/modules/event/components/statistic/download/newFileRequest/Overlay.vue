@@ -1,6 +1,6 @@
 <template>
-  <OverlayBasic :open="open" :header="header" @close="onCancelClicked">
-    <Form :callbackOnCancel="onCancelClicked" />
+  <OverlayBasic :open="open" :header="header">
+    <Form @close="onCancelClicked" />
   </OverlayBasic>
 </template>
 
