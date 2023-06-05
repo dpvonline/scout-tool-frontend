@@ -55,7 +55,6 @@ const types = [
 const picked = ref("travel");
 
 const eventAttributesSummary = computed(() => {
-  debugger;
   if (picked.value === "travel") {
     return getAttributeByName(eventStore.eventAttributesSummary, 'Travel')
   }
