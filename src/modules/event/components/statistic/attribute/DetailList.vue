@@ -55,11 +55,14 @@ const types = [
 const picked = ref("travel");
 
 const eventAttributesSummary = computed(() => {
+  debugger;
   if (picked.value === "travel") {
-    return eventStore.eventAttributesSummary[2]?.attributeModules[0].travelattributeSet
-  } else {
-    return eventStore.eventAttributesSummary[1]?.attributeModules[0].stringattributeSet;
+    return getAttributeByName(eventStore.eventAttributesSummary, 'Travel')
   }
+  if (picked.value === "freeText") {
+    return getAttributeByName(eventStore.eventAttributesSummary, 'Letter')
+  }
+  return [];
 });
 
 import { useEventStore } from "@/modules/event/store";
@@ -68,6 +71,26 @@ const eventStore = useEventStore();
 import { useRoute } from "vue-router";
 
 const route = useRoute();
+
+function getAttributeByName(list, name) {
+
+let setName = ''
+  try {
+    if (name === 'Travel') {
+      setName = 'travelattributeSet'
+    }
+    if (name === 'Letter') {
+      setName = 'stringattributeSet'
+    }
+
+    const filtered = list.filter(item => item.name === name)[0].attributeModules[0][setName]
+
+    return filtered
+  }
+  catch(err) {
+    return []
+  }
+}
 
 onMounted(() => {
   const eventId = route.params.id;
