@@ -29,12 +29,12 @@ const tabs = computed(() => {
       current: route.name === "EventStatisticRegistration",
     },
     {
-      name: "Auswertungen",
+      name: "Zahlen",
       linkName: { name: "EventStatisticResults" },
       current: route.name === "EventStatisticResults",
     },
     {
-      name: "Zahlungen",
+      name: "Geld",
       linkName: { name: "EventStatisticPayments" },
       current: route.name === "EventStatisticPayments",
     },
@@ -57,6 +57,11 @@ const tabs = computed(() => {
       name: "Karte",
       linkName: { name: "EventStatisticMaps" },
       current: route.name === "EventStatisticMaps",
+    },
+    {
+      name: "Mail",
+      linkName: { name: "EventStatisticMail" },
+      current: route.name === "EventStatisticMail",
     },
   ];
 });
