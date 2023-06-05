@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="flex-0">
-      <PrimaryButton @click="onRegClicked(props?.item.registration.id)" color="blue"
+      <PrimaryButton @click="onRegClicked(props?.item?.registration?.id)" color="blue"
         >öffnen</PrimaryButton
       >
     </div>

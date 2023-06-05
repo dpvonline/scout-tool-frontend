@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="flex-0">
-      <PrimaryButton @click="onRegClicked(props?.item)" color="blue"
+      <PrimaryButton @click="onRegClicked(props?.item?.registration?.id)" color="blue"
         >öffnen</PrimaryButton
       >
     </div>
