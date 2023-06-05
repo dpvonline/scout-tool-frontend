@@ -18,7 +18,8 @@
     <component
       v-if="props.icon"
       :is="props.icon"
-      class="-ml-1 mr-2 h-4 w-4 text-white"
+      class=" h-4 w-4 text-white"
+      :class="props.label ? '-ml-1 mr-2': ''"
       aria-hidden="true"
     />
     {{ props.label }}
