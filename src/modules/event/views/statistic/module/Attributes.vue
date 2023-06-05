@@ -1,7 +1,7 @@
 <template>
   <div class="px-3 py-3">
     <h3 class="text-base font-semibold leading-6 text-gray-900">Attribute</h3>
-    {{ eventAttributesSummary || "Fehler" }}
+    <AttributeDetailList/>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import { useEventStore } from "@/modules/event/store";
 import { PlusIcon } from "@heroicons/vue/20/solid";
 
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
-import RegSearchList from "@/modules/event/components/statistic/summary/RegSearchList.vue";
+import AttributeDetailList from "@/modules/event/components/statistic/attribute/DetailList.vue";
 
 const pages = [{ name: "Alle Anmeldungen", link: { name: "EventMain" } }];
 
