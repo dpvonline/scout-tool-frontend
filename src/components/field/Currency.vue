@@ -10,6 +10,7 @@
         type="text"
         name="price"
         id="price"
+        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
         placeholder="0.00"
         aria-describedby="price-currency"
@@ -77,9 +78,15 @@ const hasError = computed(() => {
   return props.errors[0] && props.errors.length;
 });
 
+function cleanCurrency(value) {
+  let returnValue = value.replace(',', '.').trim()
+  returnValue =  returnValue.replace(new RegExp("^[1-9][\.\d]*(,\d+)?$"), '')
+  return returnValue;
+}
+
 const updateValue = (event) => {
   const value = event.target.value;
-  emit("update:modelValue", value.replace(',', '.').trim())
+  emit("update:modelValue", cleanCurrency(value))
 };
 
 </script>

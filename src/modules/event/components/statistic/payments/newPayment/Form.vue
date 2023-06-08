@@ -157,7 +157,7 @@ const props = defineProps({
 function setInitData(item) {
   isLoading.value = true;
 
-  state.amount = item?.payement?.open;
+  state.amount = item?.payement?.open.toFixed(2);
   state.transferSubject = item.refId;
   state.transferDate = dayjs().locale("de").format('YYYY-MM-DDTHH:mm');
   state.description = item.description;
