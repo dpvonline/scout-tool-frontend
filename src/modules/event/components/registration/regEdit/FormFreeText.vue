@@ -74,7 +74,6 @@ async function onSaveClicked() {
     data,
     "string"
   );
-
   if ((res.statusCode = "200")) {
     const id = route.params.id;
     const response = await eventStore.fetchRegistration(id);

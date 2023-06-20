@@ -48,6 +48,9 @@ export default {
   update(data: any) {
     return axios.put(`${BASE_URL}/${SERVICE}/${data.id}/`, data);
   },
+  updatePartial(data: any) {
+    return axios.patch(`${BASE_URL}/${SERVICE}-update-partial/${data.id}/`, data);
+  },
 
   delete(id: any) {
     return axios.delete(`${BASE_URL}/${SERVICE}/${id}/`);
@@ -77,10 +80,13 @@ export default {
       params: params,
     });
   },
-  fetchCashSummary(id: any, params: any) {
-    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/cash/`, {
+  fetchCashListSummary(id: any, params: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/cash-list/`, {
       params: params,
     });
+  },
+  fetchCashSummary(id: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/cash/`);
   },
   fetchCashDetailById(id: any, params: any) {
     return axios.get(`${BASE_URL}/event/registration/${id}/cash-detail/`, {

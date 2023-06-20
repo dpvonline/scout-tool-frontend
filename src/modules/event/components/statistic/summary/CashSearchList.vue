@@ -7,9 +7,12 @@
     >
       Zahlungserinnerung an alle
     </PrimaryButton>
+    <p>Gesamtbeitrag: {{ (eventCashSummary.total || 0).toFixed(2) }} €</p>
+    <p>Bereits bezahlt: {{ (eventCashSummary.paid || 0).toFixed(2) }} €</p>
+    <p>Noch offen: {{ (eventCashSummary.unpaid || 0).toFixed(2) }} €</p>
     <List
       :name="'Alle Zahlungen'"
-      :items="eventCashSummary"
+      :items="eventCashListSummary"
       :searchValue="searchValue"
       :sortOptions="sortOptions"
       :filters="filters"
@@ -60,11 +63,18 @@ const isSaving = ref(false);
 import { useEventStore } from "@/modules/event/store";
 const eventStore = useEventStore();
 
-const eventCashSummary = computed(() => {
-  if (eventStore.eventCashSummary && eventStore.eventCashSummary.length) {
-    return eventStore.eventCashSummary;
+const eventCashListSummary = computed(() => {
+  if (
+    eventStore.eventCashListSummary &&
+    eventStore.eventCashListSummary.length
+  ) {
+    return eventStore.eventCashListSummary;
   }
   return [];
+});
+
+const eventCashSummary = computed(() => {
+  return eventStore.eventCashSummary;
 });
 
 const searchValue = ref();
@@ -82,7 +92,9 @@ const isLoading = computed(() => {
 });
 
 onMounted(() => {
+  const id = route.params.id;
   updateSearch(route.query);
+  eventStore.fetchCashSummary(id);
 });
 
 watch(
@@ -100,21 +112,21 @@ const openPaymentReminderModal = ref(false);
 function updateSearch(params) {
   const id = route.params.id;
   if (id) {
-    eventStore.fetchCashSummary(id, params);
+    eventStore.fetchCashListSummary(id, params);
   }
 }
 
 const sortOptions = [];
 
 const filters = [
-  // {
-  //   id: "unpaid_status",
-  //   name: "Unbezahlt",
-  //   options: [
-  //     { value: "true", label: "Ja", checked: false },
-  //     { value: "false", label: "Nein", checked: false },
-  //   ],
-  // },
+  {
+    id: "paid",
+    name: "Vollständig bezahlt?",
+    options: [
+      { value: "true", label: "Ja", checked: false },
+      { value: "false", label: "Nein", checked: true },
+    ],
+  },
 ];
 const buttonList = [];
 

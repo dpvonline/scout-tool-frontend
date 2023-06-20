@@ -73,4 +73,7 @@ export default {
   sendConfirmMail(id: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/send-confirmation-mail/`);
   },
+  createRating(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/registration-rating/`, data);
+  },
 };

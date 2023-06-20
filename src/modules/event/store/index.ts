@@ -8,6 +8,7 @@ import EventMappingApi from "@/modules/event/services/mapping";
 import CashApi from "@/modules/event/services/cash-income";
 import GroupApi from "@/modules/group/services/group";
 import EventMailApi from "@/modules/event/services/event-mail.ts";
+import LocationApi from "@/modules/event/services/location";
 
 import moment from "moment";
 import { any } from "cypress/types/bluebird";
@@ -57,6 +58,7 @@ export const useEventStore = defineStore("event", {
     _eventAgeGroupsSummary: [],
     _eventAttributesSummary: [],
     _eventCashSummary: [],
+    _eventCashListSummary: [],
     _eventCashDetails: [],
     _eventPersonsSummary: [],
     _eventLocationSummary: [],
@@ -144,9 +146,19 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
-    async fetchCashSummary(id: any, params: any) {
+    async fetchCashListSummary(id: any, params: any) {
       try {
-        const response = await EventApi.fetchCashSummary(id, params);
+        const response = await EventApi.fetchCashListSummary(id, params);
+        this._eventCashListSummary = response.data;
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
+    async fetchCashSummary(id: any) {
+      try {
+        const response = await EventApi.fetchCashSummary(id);
         this._eventCashSummary = response.data;
         return response;
       } catch (error) {
@@ -537,6 +549,27 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
+    async createLocation(data: Object) {
+      try {
+        return await LocationApi.create(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateLocation(data: Object) {
+      try {
+        return await LocationApi.update(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async eventPartialUpdate(data: Object) {
+      try {
+        return await EventApi.updatePartial(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   getters: {
     events: (state) => {
@@ -639,6 +672,9 @@ export const useEventStore = defineStore("event", {
     },
     eventCashSummary: (state) => {
       return state._eventCashSummary;
+    },
+    eventCashListSummary: (state) => {
+      return state._eventCashListSummary;
     },
     eventCashDetails: (state) => {
       return state._eventCashDetails;

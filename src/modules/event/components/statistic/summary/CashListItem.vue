@@ -43,7 +43,7 @@
       <PrimaryButton :icon="PlusIcon" @click="onPayedClicked(props.item)" color="green">
         Zahlung
       </PrimaryButton>
-      <PrimaryButton :icon="BanknotesIcon" @click="onAddPaymentClicked(props.item.id)" class="sm:mx-2 my-1">
+      <PrimaryButton :icon="BanknotesIcon" @click="onAddPaymentClicked(props.item.id)" class="mx-2 my-1">
         Buchungen
       </PrimaryButton>
     </div>
