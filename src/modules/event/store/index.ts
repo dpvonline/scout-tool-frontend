@@ -549,6 +549,20 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
+    async updatePayment(data: Object) {
+      try {
+        return await CashApi.update(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deletePayment(id: any) {
+      try {
+        return await CashApi.delete(id);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async createLocation(data: Object) {
       try {
         return await LocationApi.create(data);

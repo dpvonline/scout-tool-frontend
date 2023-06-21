@@ -144,7 +144,9 @@
                 />
                 <span>
                   {{
-                    `${child.sum} ${child.bookingOptions} ${child.price} €`
+                    `${child.sum} ${child.bookingOptions} ${child.price.toFixed(
+                      2
+                    )} €`
                   }}</span
                 >
               </div>
