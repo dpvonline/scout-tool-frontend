@@ -41,6 +41,9 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     async sendConfirmMail(regId: number) {
       return await RegistrationApi.sendConfirmMail(regId);
     },
+    async createRating(regId: number, data: any) {
+      return await RegistrationApi.createRating(regId, data);
+    },
     async fetchEatHabitTypes() {
       try {
         const response = await MappingApi.fetchEatHabit();

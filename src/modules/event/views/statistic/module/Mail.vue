@@ -1,7 +1,7 @@
 <template>
-<MailDetailList/>
+  <MailDetailList />
 </template>
 
 <script setup>
-import MailDetailList from '@/modules/event/components/statistic/mail/DetailList.vue'
+import MailDetailList from "@/modules/event/components/statistic/mail/DetailList.vue";
 </script>

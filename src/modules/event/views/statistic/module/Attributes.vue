@@ -1,7 +1,7 @@
 <template>
   <div class="px-3 py-3">
     <h3 class="text-base font-semibold leading-6 text-gray-900">Attribute</h3>
-    <AttributeDetailList/>
+    <AttributeDetailList />
   </div>
 </template>
 

@@ -7,6 +7,13 @@
         </div>
         <div class="flex-1 w-64">
           <button
+            @click="onTravelAttributeNewClicked(props.data)"
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <PlusIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </button>
+          <button
             @click="onTravelAttributeEditClicked(props.data)"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -41,6 +48,7 @@
 
 <script setup lang="ts">
 import AddTravelModal from "@/modules/event/components/registration/AddTravelModal.vue";
+import { PencilSquareIcon, PlusIcon } from "@heroicons/vue/24/outline";
 import { ref, watch, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 
@@ -68,6 +76,11 @@ function onNewTravelClicked() {
   travel.value = props.data;
 }
 
+function onTravelAttributeNewClicked() {
+  openNewTravelModal.value = true;
+  travel.value = {};
+}
+
 function onTravelAttributeEditClicked() {
   openNewTravelModal.value = true;
   travel.value = props.data;
@@ -77,7 +90,32 @@ const travelTypeChoices = computed(() => {
   return eventStore.travelTypeChoices;
 });
 
-async function onNewTravelConfirmClicked(travel) {
+const event = computed(() => {
+  return eventStore.event;
+});
+
+const registration = computed(() => {
+  return eventStore.registration;
+});
+
+async function newTravel(travel) {
+  const regId = route.params.id;
+  const attributeModuleIdTravel = event.value?.eventmoduleSet.filter(
+    (item) => item.name === "Travel"
+  )[0].attributeModules[0];
+
+  const data = {
+    numberPersons: travel.numberPersons,
+    typeField: travel.typeField.value,
+    dateTimeField: travel.dateTimeField,
+    description: travel.description,
+    attributeModule: attributeModuleIdTravel?.id,
+  };
+  const res = await eventRegisterStore.createAttribute(regId, data, "travel");
+  return res;
+}
+
+async function updateTravel(travel) {
   const data = {
     id: travel.id,
     numberPersons: travel.numberPersons,
@@ -90,25 +128,45 @@ async function onNewTravelConfirmClicked(travel) {
     data,
     "travel"
   );
-  console.log(res);
-  if ((res.statusCode = "200")) {
+  return res;
+}
+
+async function onNewTravelConfirmClicked(travel) {
+  let res = null;
+  if (travel.id) {
+    let res = await updateTravel(travel);
+    if ((res.statusCode = "200") || (res.statusCode = "201")) {
+      commonStore.showSuccess("Anreise erfolfreich gespeichert.");
+    } else {
+      commonStore.showError("Fehler beim Speichern.");
+    }
     const id = route.params.id;
     const response = await eventStore.fetchRegistration(id);
-    commonStore.showSuccess("Anreise erfolfreich gespeichert.");
-  } else {
-    commonStore.showError("Fehler beim speichern.");
-  }
 
-  openNewTravelModal.value = false;
+    openNewTravelModal.value = false;
+  } else {
+    let res = await newTravel(travel);
+    if ((res.statusCode = "200") || (res.statusCode = "201")) {
+      commonStore.showSuccess("Anreise erfolfreich gespeichert.");
+    } else {
+      commonStore.showError("Fehler beim Speichern.");
+    }
+    const id = route.params.id;
+    const response = await eventStore.fetchRegistration(id);
+    openNewTravelModal.value = false;
+  }
 }
 
 function onNewTravelCancelClicked() {
   openNewTravelModal.value = false;
 }
 
-import { PencilSquareIcon } from "@heroicons/vue/24/outline";
-
 onMounted(async () => {
-  await Promise.all([eventStore.fetchTravelTypeChoices()]);
+  const regId = route.params.id;
+
+  await Promise.all([
+    eventStore.fetchEvent(registration.value.event.id),
+    eventStore.fetchTravelTypeChoices(),
+  ]);
 });
 </script>

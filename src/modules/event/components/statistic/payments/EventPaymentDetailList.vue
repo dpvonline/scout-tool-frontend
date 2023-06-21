@@ -230,6 +230,7 @@ import PaymentOverlay from "@/modules/event/components/statistic/payments/newPay
 import TimelineEvent from "@/modules/event/components/general/TimelineEvent.vue";
 import CashItem from "@/modules/event/components/statistic/payments/CashItem.vue";
 import SendPaymentReminderModal from "@/components/modal/Delete.vue";
+import PrimaryButton from "@/components/button/Primary.vue";
 
 const openPaymentReminderModal = ref(false);
 

@@ -34,6 +34,8 @@
               </dd>
             </div>
           </dl>
+          <div class="border-b border-gray-200 my-2" />
+          <RatingRegistration />
           <ul
             role="list"
             class="mt-6 divide-y divide-gray-200 border-t border-b border-gray-200"
@@ -83,6 +85,7 @@
 
 <script setup lang="ts">
 import PageWrapper from "@/components/base/PageWrapper.vue";
+import RatingRegistration from "@/modules/event/components/finish/Rating.vue";
 import { reactive, computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 const route = useRoute();

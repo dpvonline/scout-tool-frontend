@@ -35,12 +35,15 @@
       </div>
     </fieldset>
     <div class="px-4 py-6 sm:px-6 md:px-0">
-      <h2 class="text-lg font-medium text-red-600">
-        Wichtig
-      </h2>
+      <h2 class="text-lg font-medium text-red-600">Wichtig</h2>
       <p class="mt-1 text-sm text-gray-500">
-       Am Ende bekommst du eine Bestätigungs-Email. Nur mit dieser E-Mail ist deine Anmeldung erfolgreich abgeschlossen.
-       Du kannst deine Anmeldung nach dem Absenden nochmal angucken und editieren.
+        Am Ende bekommst du eine Bestätigungs-Email. Nur mit dieser E-Mail ist
+        deine Anmeldung erfolgreich abgeschlossen.
+      </p>
+      <p class="mt-1 text-sm text-gray-500">
+        Du kannst deine Anmeldung nach dem Absenden noch bis zum
+        {{ moment(event.registrationDeadline).format(format1) }}
+        <b>verändern </b> und jederzeit angucken.
       </p>
     </div>
   </StepFrame>

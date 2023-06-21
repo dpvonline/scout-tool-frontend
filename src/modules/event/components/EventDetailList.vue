@@ -1,15 +1,11 @@
 <template>
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
-      <div
-        class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap"
-      >
+      <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
         <div class="ml-4 mt-4">
           <div class="flex items-center">
             <div class="flex-shrink-0">
-              <span
-                class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100"
-              >
+              <span class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100">
                 <CalendarIcon />
               </span>
             </div>
@@ -24,11 +20,7 @@
           </div>
         </div>
         <div class="ml-4 mt-4 flex flex-shrink-0">
-          <PrimaryButton
-            :icon="DocumentChartBarIcon"
-            @click="onStatisticsClicked"
-            class="mx-0 my-2"
-          >
+          <PrimaryButton :icon="DocumentChartBarIcon" @click="onStatisticsClicked" class="mx-0 my-2">
             Statistiken anzeigen
           </PrimaryButton>
         </div>
@@ -40,15 +32,9 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Namen und Texte
           </h3>
-          <button
-            @click="onEventEditClicked(0)"
-            type="button"
-            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            <PencilSquareIcon
-              class="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
+          <button @click="onEventEditClicked(0)" type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <PencilSquareIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
           </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
@@ -77,10 +63,7 @@
         <div class="sm:col-span-2">
           <div class="sm:col-span-2 border border-1 px-2 py-2">
             <dt class="text-sm font-medium text-gray-500">Einladungtext</dt>
-            <dd
-              class="mt-1 text-sm text-gray-900"
-              v-html="event.longDescription"
-            ></dd>
+            <dd class="mt-1 text-sm text-gray-900" v-html="event.longDescription"></dd>
           </div>
         </div>
       </dl>
@@ -91,22 +74,16 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Termine
           </h3>
-          <button
-            @click="onEventEditClicked(1)"
-            type="button"
-            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            <PencilSquareIcon
-              class="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
+          <button @click="onEventEditClicked(1)" type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <PencilSquareIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
           </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
           Termine and Anmeldeschluss
         </p>
       </div>
-      <TimelineEvent :event="event"/>
+      <TimelineEvent :event="event" />
     </div>
     <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
       <div class="pb-3">
@@ -114,15 +91,17 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Ort der Veranstaltung
           </h3>
-          <!-- <button
-            @click="onEventEditClicked"
-            type="button"
-            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            <PencilSquareIcon
-              class="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
+          <button @click="onLocationEditClicked({})" type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <PlusIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </button>
+          <button @click="onLocationEditClicked(event.location)" type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <PencilSquareIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </button>
+          <!-- <button @click="onEventEditClicked" type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <ListBulletIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
           </button> -->
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
@@ -162,15 +141,9 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Rechte und Zugriffe
           </h3>
-          <button
-            @click="onEventEditClicked(2)"
-            type="button"
-            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            <PencilSquareIcon
-              class="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
+          <button @click="onEventEditClicked(2)" type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <PencilSquareIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
           </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
@@ -218,10 +191,7 @@
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Wer ist eingeladen?</dt>
-          <dd
-            v-if="event.invitedGroups && event.invitedGroups.length > 0"
-            class="mt-1 text-sm text-gray-900"
-          >
+          <dd v-if="event.invitedGroups && event.invitedGroups.length > 0" class="mt-1 text-sm text-gray-900">
             {{ event.invitedGroups?.map((a) => `${a.displayName}`).join(", ") }}
           </dd>
           <dd v-else class="mt-1 text-sm text-gray-900">Jeder</dd>
@@ -242,11 +212,8 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Buchung Optionen
           </h3>
-          <button
-            @click="onEventEditClicked(3, {})"
-            type="button"
-            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
+          <button @click="onEventEditClicked(3, {})" type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             <PlusCircleIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
           </button>
         </div>
@@ -254,30 +221,15 @@
       </div>
       <div class="sm:col-span-2" v-if="event?.bookingOptions?.length">
         <dd class="mt-1 text-sm text-gray-900">
-          <ul
-            role="list"
-            class="divide-y divide-gray-200 rounded-md border border-gray-200"
-          >
-            <li
-              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
-              v-for="child in event?.bookingOptions"
-              :key="child.id"
-            >
+          <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
+            <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm" v-for="child in event?.bookingOptions"
+              :key="child.id">
               <div class="flex w-0 flex-1 items-center">
-                <AdjustmentsVerticalIcon
-                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
-                  aria-hidden="true"
-                />
+                <AdjustmentsVerticalIcon class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400" aria-hidden="true" />
                 <span> {{ `${child.name} - ${child.price} €` }}</span>
-                <button
-                  @click="onEventEditClicked(3, child)"
-                  type="button"
-                  class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  <PencilSquareIcon
-                    class="h-5 w-5 text-gray-400"
-                    aria-hidden="true"
-                  />
+                <button @click="onEventEditClicked(3, child)" type="button"
+                  class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  <PencilSquareIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
                 </button>
               </div>
               <div class="ml-4 flex-shrink-0"></div>
@@ -304,20 +256,11 @@
       </div>
       <div class="sm:col-span-2" v-if="event?.eventmoduleSet?.length">
         <dd class="mt-1 text-sm text-gray-900">
-          <ul
-            role="list"
-            class="divide-y divide-gray-200 rounded-md border border-gray-200"
-          >
-            <li
-              class="flex items-center justify-between py-3 pl-3 pr-4 text-sm"
-              v-for="child in event?.eventmoduleSet"
-              :key="child.id"
-            >
+          <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
+            <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm" v-for="child in event?.eventmoduleSet"
+              :key="child.id">
               <div class="flex w-0 flex-1 items-center">
-                <CpuChipIcon
-                  class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
-                  aria-hidden="true"
-                />
+                <CpuChipIcon class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400" aria-hidden="true" />
                 <span> {{ `${child.header}` }}</span>
                 <!-- <button
                   @click="onEventEditClicked(3, child)"
@@ -353,15 +296,9 @@
           <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
             Layout und Design
           </h3>
-          <button
-            @click="onEventEditClicked(4)"
-            type="button"
-            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            <PencilSquareIcon
-              class="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
+          <button @click="onEventEditClicked(4)" type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <PencilSquareIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
           </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
@@ -383,13 +320,9 @@
         </div>
       </dl>
     </div>
-    <EventEditOverlay
-      :open="openEventEdit"
-      :items="eventData"
-      @close="onEventClosedClicked"
-      header="Event bearbeiten"
-      :formNo="eventEditForm"
-    />
+    <EventEditOverlay :open="openEventEdit" :items="eventData" @close="onEventClosedClicked" header="Event bearbeiten"
+      :formNo="eventEditForm" />
+    <LocationOverlay :open="openLocationEdit" :items="locationData" @close="onLocationEditClosedClicked" header="Location"/>
   </div>
 </template>
 
@@ -410,18 +343,26 @@ import {
   CpuChipIcon,
   ArrowSmallUpIcon,
   DocumentChartBarIcon,
+  PlusIcon,
+  ListBulletIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 
 import EventEditOverlay from "@/modules/event/components/EventEdit/Overlay.vue";
+import LocationOverlay from "@/modules/event/components/EventEdit/location/Overlay.vue";
 import TimelineEvent from "@/modules/event/components/general/TimelineEvent.vue";
 
-// messsage
-const eventData = ref({});
-
-// issue
+// edit Event
 const openEventEdit = ref(false);
+const eventData = ref({});
 const eventEditForm = ref(0);
+
+// location
+const openLocationEdit = ref(false);
+const locationData = ref({});
+
+
+
 
 function onEventEditClicked(formNo, child = null) {
   openEventEdit.value = true;
@@ -433,9 +374,19 @@ function onEventEditClicked(formNo, child = null) {
   }
 }
 
+function onLocationEditClicked(data) {
+  openLocationEdit.value = true;
+  locationData.value = data;
+}
+
 function onEventClosedClicked() {
   openEventEdit.value = false;
   eventData.value = {};
+}
+
+function onLocationEditClosedClicked() {
+  openLocationEdit.value = false;
+  locationData.value = {};
 }
 
 function onStatisticsClicked() {

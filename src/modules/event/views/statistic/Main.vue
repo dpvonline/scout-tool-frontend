@@ -35,7 +35,7 @@ const tabs = computed(() => {
     },
     {
       name: "Geld",
-      linkName: { name: "EventStatisticPayments" },
+      linkName: { name: "EventStatisticPayments", query: { paid: "false" } },
       current: route.name === "EventStatisticPayments",
     },
     {

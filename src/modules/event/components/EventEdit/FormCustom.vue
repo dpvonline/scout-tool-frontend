@@ -129,7 +129,6 @@ onMounted(async () => {
   ])
   if (id) {
     const myData = response[2].data;
-    console.log(myData);
     setInitData(myData);
     data.value = myData;
   }
