@@ -43,7 +43,7 @@
       </PrimaryButton>
     </div>
     <PaymentOverlay
-      header="Zahlung hinzufügen"
+      header="Zahlung ändern"
       :open="newPaymentDialog"
       :currentPayment="currentPayment"
       :callbackOnConfirm="onPayedAddedClicked"
