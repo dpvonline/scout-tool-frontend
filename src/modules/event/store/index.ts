@@ -244,6 +244,15 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
+    async sendSinglePaymentReminder(data: any) {
+      try {
+        const response = await EventApi.sendSinglePaymentReminder(data);
+        return response;
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
     async getAvailableFileTemplates(params: any) {
       try {
         const response = await EventFilesApi.getAvailableFileTemplates(params);

@@ -96,6 +96,9 @@ export default {
   sendPaymentReminder(data: any) {
     return axios.post(`${BASE_URL}/event/cash/mail-reminder/`, data);
   },
+  sendSinglePaymentReminder(data: any) {
+    return axios.post(`${BASE_URL}/event/cash/mail-single-reminder/`, data);
+  },
   fetchPersonsSummary(id: any, params: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/detailed/`, {
       params: params,
