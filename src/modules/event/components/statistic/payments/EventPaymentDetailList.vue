@@ -38,13 +38,13 @@
                   >Anmeldung</PrimaryButton
                 >
               </div>
-              <!-- <div class="ml-4 mt-4 flex flex">
+              <div class="ml-4 mt-4 flex flex">
                 <PrimaryButton
                   :icon="EnvelopeIcon"
                   @click="onPaymentReminderClicked(item?.id)"
                   >Erinnerung</PrimaryButton
                 >
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
@@ -193,6 +193,16 @@
         </dd>
       </div>
     </div>
+    <SendPaymentReminderModal
+      :open="openPaymentReminderModal"
+      :isSaving="isSaving"
+      :header="'Zahlungserinnerung'"
+      :text="'Bist du sicher, dass du an diesen Stamm eine Zahlungserinnerung senden möchtest?'"
+      :buttonText="'E-Mails senden'"
+      :callbackOnConfirm="sendPaymentReminder"
+      :callbackOnCancel="cancelModal"
+    >
+    </SendPaymentReminderModal>
     <PaymentOverlay
       header="Zahlung hinzufügen"
       :open="newPaymentDialog"
@@ -239,10 +249,13 @@ const openPaymentReminderModal = ref(false);
 import { useEventStore } from "@/modules/event/store";
 const eventStore = useEventStore();
 
-// messsage
-const eventData = ref({});
+import { useCommonStore } from "@/modules/common/store/index.ts";
+const commonStore = useCommonStore();
 
-// issue
+const eventData = ref({});
+const isSaving = ref(false);
+
+
 const openPaymentEdit = ref(false);
 const eventEditForm = ref(0);
 
@@ -294,6 +307,27 @@ function onRegClicked(id) {
 
 function onNewPaymentClosedClicked() {
   newPaymentDialog.value = false;
+}
+
+async function sendPaymentReminder() {
+  isSaving.value = true;
+  const registrationId = route.params.id;
+  const obj = await eventStore.sendSinglePaymentReminder({ registrationId });
+  const response = obj?.response;
+  if (response && response?.status === 200) {
+    commonStore.showSuccess("E-Mail erfolgreich versendet");
+  } else {
+    commonStore.showError("E-Mail nicht versendet");
+  }
+  openPaymentReminderModal.value = false;
+}
+
+function onPaymentReminderClicked() {
+  openPaymentReminderModal.value = true;
+}
+
+async function cancelModal() {
+  openPaymentReminderModal.value = false;
 }
 
 const props = defineProps({
