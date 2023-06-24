@@ -65,6 +65,24 @@ export const useEventStore = defineStore("event", {
     _registrationLocationsSummary: [],
     _hierarchyMappingDetailed: [],
     _registrationsResponsiblePersons: [],
+
+    _eventmodules: [
+      {
+        id: 1,
+        order: 1,
+        content: "test1",
+      },
+      {
+        id: 2,
+        order: 2,
+        content: "test2",
+      },
+      {
+        id: 3,
+        order: 3,
+        content: "teat3",
+      },
+    ],
   }),
 
   actions: {
@@ -593,6 +611,41 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
+    async updateEventModuleById(eventId: any, eventModuleId: any, data: Object) {
+      try {
+        return await EventApi.updateEventModuleById(eventId, eventModuleId, data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async createEventModule(eventId: any, data: Object) {
+      try {
+        return await EventApi.createEventModule(eventId, data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updatePartialEventModuleById(eventId: any, eventModuleId: any, data: Object) {
+      try {
+        return await EventApi.updatePartialEventModuleById(eventId, eventModuleId, data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteEventModule(eventId: any, eventModuleId: any) {
+      try {
+        return await EventApi.deleteEventModule(eventId, eventModuleId);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async fetchAvailableModules(eventId: any) {
+      try {
+        return await EventApi.fetchAvailableModules(eventId);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   getters: {
     events: (state) => {
@@ -716,6 +769,9 @@ export const useEventStore = defineStore("event", {
     },
     registrationsResponsiblePersons: (state) => {
       return state._registrationsResponsiblePersons;
+    },
+    eventmodules: (state) => {
+      return state._event?.eventmoduleSet;
     },
   },
 });

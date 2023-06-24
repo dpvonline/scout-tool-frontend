@@ -112,27 +112,12 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@fawmi/vue-google-maps@^0.9.79":
-  version "0.9.79"
-  resolved "https://registry.yarnpkg.com/@fawmi/vue-google-maps/-/vue-google-maps-0.9.79.tgz#0e43bd2a2d0e3309219d400bc06efad4134104a8"
-  integrity sha512-SnITonfrBfT/7uESF8SCs1DRWHSJyr/K0bPv9taONAUp/YiggmlwHOwAzA63UeDl8vP0bBmT56MYC1bZmAdUjQ==
-  dependencies:
-    "@googlemaps/markerclusterer" "^2.0.3"
-
 "@googlemaps/js-api-loader@^1.12.11":
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.16.1.tgz#db74c851f8e26a50f578a07c195a87e1fb60ae90"
   integrity sha512-x6M48e2nkIrp1KGNwXEVMRTCzruBw/w1HItlhVXL6Lp5pKuTcJEfOCE4tjPk3n6kLcMuJYXE8aluYMmakn7tTw==
   dependencies:
     fast-deep-equal "^3.1.3"
-
-"@googlemaps/markerclusterer@^2.0.3":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@googlemaps/markerclusterer/-/markerclusterer-2.3.0.tgz#e12916b81338ecbea0c8fdb8b924621064ae3a85"
-  integrity sha512-C7AzLfpWYSfFZF6H7g3PW58KIl+/sPoQcgJXZJaxHbY/P3yvky5joMGxko0qd025+Gofm0E/XN4rYPb/DvevXA==
-  dependencies:
-    fast-deep-equal "^3.1.3"
-    supercluster "^8.0.1"
 
 "@googlemaps/markerclusterer@^2.0.6":
   version "2.2.3"
@@ -3649,6 +3634,11 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
+sortablejs@1.14.0:
+  version "1.14.0"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.14.0.tgz#6d2e17ccbdb25f464734df621d4f35d4ab35b3d8"
+  integrity sha512-pBXvQCs5/33fdN1/39pPL0NZF20LeRbLQ5jtnheIPN9JQAaufGjKdWduZn4U7wCtVuzKhmRkI0DFYHYRbB2H1w==
+
 source-map-js@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
@@ -4174,6 +4164,13 @@ vue@^3.3.4:
     "@vue/runtime-dom" "3.3.4"
     "@vue/server-renderer" "3.3.4"
     "@vue/shared" "3.3.4"
+
+vuedraggable@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/vuedraggable/-/vuedraggable-4.1.0.tgz#edece68adb8a4d9e06accff9dfc9040e66852270"
+  integrity sha512-FU5HCWBmsf20GpP3eudURW3WdWTKIbEIQxh9/8GE806hydR9qZqRRxRE3RjqX7PkuLuMQG/A7n3cfj9rCEchww==
+  dependencies:
+    sortablejs "1.14.0"
 
 wait-on@~6.0:
   version "6.0.1"

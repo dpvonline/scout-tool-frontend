@@ -35,6 +35,24 @@ export default {
   updateBookingOptionById(eventId: any, bookingId: any, data: Object) {
     return axios.put(`${BASE_URL}/${SERVICE}/${eventId}/booking-options/${bookingId}/`, data);
   },
+
+  createEventModule(eventId: any, data: Object) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${eventId}/event-module/`, data);
+  },
+  updateEventModuleById(eventId: any, eventModuleId: any, data: Object) {
+    return axios.put(`${BASE_URL}/${SERVICE}/${eventId}/event-module/${eventModuleId}/`, data);
+  },
+  updatePartialEventModuleById(eventId: any, eventModuleId: any, data: Object) {
+    return axios.patch(`${BASE_URL}/${SERVICE}/${eventId}/event-module/${eventModuleId}/`, data);
+  },
+  deleteEventModule(eventId: any, id: any) {
+    return axios.delete(`${BASE_URL}/${SERVICE}/${eventId}/event-module/${id}/`);
+  },
+
+  fetchAvailableModules(eventId: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${eventId}/available-modules/`);
+  },
+
   fetchById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}-read/${id}/`);
   },
