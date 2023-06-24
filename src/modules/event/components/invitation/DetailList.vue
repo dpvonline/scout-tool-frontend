@@ -243,8 +243,7 @@
                 <p class="text-sm leading-7 text-gray-800">
                   {{ attribute.title }}
                 </p>
-                <p class="text-sm leading-7 text-gray-500">
-                  {{ attribute.text }}
+                <p class="text-sm leading-7 text-gray-500" v-html="attribute.text">
                 </p>
               </div>
             </DisclosurePanel>
