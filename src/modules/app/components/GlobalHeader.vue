@@ -136,14 +136,14 @@
                   </router-link>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
-                  <router-link
+                  <div
                     :to="{}"
                     @click="onLogoutClicked"
                     :class="[
                       active ? 'bg-gray-100' : '',
                       'block px-4 py-2 text-sm text-gray-700',
                     ]"
-                    >Ausloggen</router-link
+                    >Ausloggen</div
                   >
                 </MenuItem>
               </MenuItems>

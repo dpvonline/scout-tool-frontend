@@ -232,9 +232,7 @@
               </DisclosureButton>
             </dt>
             <DisclosurePanel as="dd" class="mt-2 pr-12">
-              <p class="text-base leading-7 text-gray-600">
-                {{ child.description || "" }}
-              </p>
+              <p class="text-base leading-7 text-gray-600" v-html="child.description || ''"></p>
               <div
                 v-for="attribute in child.attributeModules"
                 :key="attribute.id"

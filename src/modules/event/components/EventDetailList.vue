@@ -416,13 +416,13 @@
       :open="openLocationEdit"
       :items="locationData"
       @close="onLocationEditClosedClicked"
-      header="Location"
+      header="Ort"
     />
     <EventModalOverlay
       :open="openEventModuleEdit"
       :items="eventModuleData"
       @close="onEventModuleClosedClicked"
-      header="Location"
+      header="Module"
     />
     <DeleteModal
       :open="openDeleteModal"
