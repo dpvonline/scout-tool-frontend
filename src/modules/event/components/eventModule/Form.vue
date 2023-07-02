@@ -7,7 +7,7 @@
       v-model="state['module']"
       label="Module"
       :items="modules"
-      hint="Wähle eine Hauptkategorie für deine Zutat."
+      hint="Wähle das Module aus."
       :errors="errors.module && errors.module.$errors"
       :lookupListDisplay="['header']"
     />
@@ -102,7 +102,7 @@ async function onSaveClicked() {
   }
   const eventId = route.params.id;
 
-  if (!isEdit) {
+  if (!isEdit.value) {
   const data = {
     module: state.module,
     header: state.header,
@@ -114,7 +114,7 @@ async function onSaveClicked() {
     eventId,
     data,
   );
-  if ((res.statusCode = "201")) {
+  if ((res.status === 201)) {
 
     const response = await eventStore.fetchEvent(eventId);
     commonStore.showSuccess("Erfolfreich gespeichert.");
@@ -139,7 +139,7 @@ async function onSaveClicked() {
     props.items.id,
     data,
   );
-  if ((res.statusCode = "200")) {
+  if ((res.ststus === 200)) {
     const response = await eventStore.fetchEvent(eventId);
     commonStore.showSuccess("Erfolfreich gespeichert.");
     onCloseClicked();
@@ -150,15 +150,15 @@ async function onSaveClicked() {
 }
 
 const isEdit = computed(() => {
-  return props.items && props.items.id;
+  return !!props.items && !!props.items.id;
 });
 
 onMounted(async () => {
   const eventId = route.params.id;
-  if (!isEdit) {
-    eventStore.fetchAvailableModules(eventId).then((res) => {
+  eventStore.fetchAvailableModules(eventId).then((res) => {
       modules.value = res.data
     })
+  if (!isEdit.value) {
   } else {
     state.header = props.items?.header;
     state.description = props.items?.description;

@@ -76,7 +76,7 @@ const rules = {
   },
   technicalName: {
     required,
-    maxLength: maxLength(15)
+    maxLength: maxLength(14)
   },
   shortDescription: {
     required,

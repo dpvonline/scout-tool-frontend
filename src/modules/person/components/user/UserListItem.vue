@@ -33,9 +33,9 @@
             props.item?.scoutGroup?.bund
           }})
         </p>
-        <p v-else class="truncate text-xs font-medium text-gray-400">
+        <!-- <p v-else class="truncate text-xs font-medium text-gray-400">
           Noch kein Stamm aufgewählt
-        </p>
+        </p> -->
       </div>
     </div>
   </div>
