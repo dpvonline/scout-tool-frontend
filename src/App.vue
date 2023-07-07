@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-full">
     <Banner />
-    <BaseLayout v-if="isKeycloakInit">
+    <BaseLayout v-if="isKeycloakInit || true">
       <router-view />
     </BaseLayout>
     <div v-else class="flex justify-center items-center w-full h-screen">
