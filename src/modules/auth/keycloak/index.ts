@@ -8,6 +8,7 @@ const config = {
 };
 
 const initOptions: KeycloakInitOptions = {
+  checkLoginIframe: false, // default
   onLoad: "check-sso",
   silentCheckSsoFallback: false,
 };
