@@ -20,5 +20,6 @@ const personalData = computed(() => {
 
 onMounted(() => {
   personalDataStore.fetchPersonalData();
+  personalDataStore.fetchMyTribeIsVerified();
 });
 </script>
