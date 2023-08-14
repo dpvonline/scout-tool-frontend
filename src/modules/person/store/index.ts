@@ -52,15 +52,10 @@ export const usePersonStore = defineStore("person", {
       }
     },
     async fetchUserById(id: number) {
-      this._isLoading = true;
       try {
-        const response = await userApi.fetchById(id);
-        this._user = response.data;
-        this._isLoading = false;
+        return await userApi.fetchById(id);
       } catch (error) {
-        // alert(error);
         console.log(error);
-        this._isLoading = false;
       }
     },
   },
