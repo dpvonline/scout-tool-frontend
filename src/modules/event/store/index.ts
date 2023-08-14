@@ -9,6 +9,7 @@ import CashApi from "@/modules/event/services/cash-income";
 import GroupApi from "@/modules/group/services/group";
 import EventMailApi from "@/modules/event/services/event-mail.ts";
 import LocationApi from "@/modules/event/services/location";
+import AttributeModuleApi from "@/modules/event/services/attribute-module";
 
 import moment from "moment";
 import { any } from "cypress/types/bluebird";
@@ -590,6 +591,27 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
+    async createAttributeModule(data: Object) {
+      try {
+        return await AttributeModuleApi.create(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateAttributeModule(data: Object) {
+      try {
+        return await AttributeModuleApi.update(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteAttributeModule(id: any) {
+      try {
+        return await AttributeModuleApi.delete(id);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async createLocation(data: Object) {
       try {
         return await LocationApi.create(data);
@@ -635,6 +657,13 @@ export const useEventStore = defineStore("event", {
     async deleteEventModule(eventId: any, eventModuleId: any) {
       try {
         return await EventApi.deleteEventModule(eventId, eventModuleId);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteModuleAttribute(id: any) {
+      try {
+        return await AttributeModuleApi.delete(id);
       } catch (error) {
         console.log(error);
       }
