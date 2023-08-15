@@ -26,4 +26,7 @@ export default {
     return axios.delete(`${BASE_URL}/${SERVICE}/${id}`)
   },
   */
+  async fetchTribeIsVerified() {
+    return axios.get(`${BASE_URL}/auth/my-tribe-verified/`);
+  },
 };
