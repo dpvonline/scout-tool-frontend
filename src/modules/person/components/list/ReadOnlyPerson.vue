@@ -73,9 +73,18 @@
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
             <dt class="text-sm font-medium text-gray-500">Stamm</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{
-                props.personalData.scoutGroup?.name || ""
-              }}</span>
+              <div class="flex justify-between group">
+              <span>
+                {{ props.personalData.scoutGroup?.name || "" }}
+              </span>
+                <span v-if="!personalDataStore.tribeIsVerified.verified" class="pl-2">
+                <ExclamationTriangleIcon class="h-5 w-5 text-red-500"/>
+              </span>
+                <span
+                    class="group-hover:opacity-100 transition-opacity bg-gray-100 px-2 text-sm text-black rounded-md absolute -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto">
+                {{ personalDataStore.tribeIsVerified.status }}
+              </span>
+              </div>
             </dd>
           </div>
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
@@ -207,7 +216,7 @@
       </div>
     </div> -->
 
-   
+
 
     <!-- More -->
     <!-- <div class="mt-10 divide-y divide-gray-200">
@@ -312,6 +321,7 @@ import { PencilIcon } from "@heroicons/vue/20/solid";
 import { Switch, SwitchGroup, SwitchLabel } from "@headlessui/vue";
 import { computed, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
+import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
 
 const personalDataStore = usePersonalDataStore();
 

@@ -12,25 +12,25 @@
     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
         <p class="truncate text-sm font-medium text-gray-600">
-          {{ props.item.scoutName }}
-        </p>
-        <p
-          v-if="
-            props.item &&
-            props.item.displayName
-          "
-          class="truncate text-sm font-medium text-blue-600"
-        >
           {{ props.item.displayName }}
         </p>
         <p
           v-if="
-            props.item?.scoutGroup && props.item?.scoutGroup.id
+            props.item &&
+            props.item.email
+          "
+          class="truncate text-sm font-medium text-blue-600"
+        >
+          {{ props.item.email }}
+        </p>
+        <p
+          v-if="
+            props.item?.stammBund && props.item?.stammBund?.id
           "
           class="truncate text-sm font-medium text-gray-400"
         >
-          Stamm: {{ props.item?.scoutGroup?.name }} ({{
-            props.item?.scoutGroup?.bund
+          Stamm: {{ props.item?.stammBund?.name }} ({{
+            props.item?.stammBund?.bund
           }})
         </p>
         <!-- <p v-else class="truncate text-xs font-medium text-gray-400">
