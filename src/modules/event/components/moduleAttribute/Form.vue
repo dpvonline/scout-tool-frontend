@@ -1,6 +1,15 @@
 <template>
   <div>
     <BaseField
+      component="Select"
+      :label="'fieldType'"
+      techName="fieldType"
+      v-model="state.fieldType"
+      :errors="errors.fieldType?.$errors"
+      :items="attributeChoices"
+      :cols="12"
+    />
+    <BaseField
       component="Text"
       :label="'Titel'"
       techName="title"
@@ -52,12 +61,16 @@ const props = defineProps({
 const state = reactive({
   id: null,
   eventModule: null,
+  fieldType: null,
   title: null,
   text: null,
 });
 
 const rules = {
   eventModule: {
+    required,
+  },
+  fieldType: {
     required,
   },
   title: {
@@ -74,6 +87,7 @@ const errors = ref([]);
 const isLoading = ref(false);
 const data = ref({});
 let modules = ref({});
+let attributeChoices = ref([]);
 
 function onNewCustomModuleClicked() {
   debugger;
@@ -91,6 +105,7 @@ async function onSaveClicked() {
   if (!isEdit.value) {
     const data = {
       eventModule: state.eventModule,
+      fieldType: state.fieldType.value,
       title: state.title,
       text: state.text,
     };
@@ -107,6 +122,7 @@ async function onSaveClicked() {
     const data = {
       id: state.id,
       eventModule: state.eventModule,
+      fieldType: state.fieldType.value,
       title: state.title,
       text: state.text,
     };
@@ -126,8 +142,12 @@ const isEdit = computed(() => {
 });
 
 onMounted(async () => {
+const res = await eventStore.fetchAttributeTypes();
+  
+  attributeChoices.value = res
   state.eventModule = props.items.eventModule;
   if (isEdit.value) {
+    state.fieldType = attributeChoices.value.find((a) => a["name"] === props.items.fieldType);
     state.id = props.items.id;
     state.title = props.items.title;
     state.text = props.items.text;

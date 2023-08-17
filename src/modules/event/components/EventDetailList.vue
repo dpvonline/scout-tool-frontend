@@ -381,7 +381,7 @@
                         <div class="flex min-w-0 gap-x-4">
                           <div class="min-w-0 flex-auto">
                             <p class="text-xs font-medium text-gray-900">
-                              {{ attribute.title }}
+                              {{ attribute.title }} ({{ attribute.fieldType }})
                               <button
                                 @click="
                                   onModuleAttributeEditClicked(

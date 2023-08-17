@@ -49,6 +49,7 @@ export const useEventStore = defineStore("event", {
     _bookingOptions: [],
     _eventLocations: [],
     _travelTypeChoices: [],
+    _attributeChoices: [],
     _eatHabitTypes: [],
 
     _eventSummary: [],
@@ -135,9 +136,9 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
-    async fetchFoodSummary(id: any) {
+    async fetchFoodSummary(id: any, params: any) {
       try {
-        const response = await EventApi.fetchFoodSummary(id);
+        const response = await EventApi.fetchFoodSummary(id, params);
         this._eventFoodSummary = response.data;
         return response;
       } catch (error) {
@@ -145,9 +146,9 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
-    async fetchAgeGroupsSummary(id: any) {
+    async fetchAgeGroupsSummary(id: any, params: any) {
       try {
-        const response = await EventApi.fetchAgeGroupsSummary(id);
+        const response = await EventApi.fetchAgeGroupsSummary(id, params);
         this._eventAgeGroupsSummary = response.data;
         return response;
       } catch (error) {
@@ -440,6 +441,16 @@ export const useEventStore = defineStore("event", {
         this._isLoading = false;
       }
     },
+    async fetchAttributeTypes() {
+      try {
+        const response = await MappingApi.fetchAttributeChoices();
+        return response.data;
+      } catch (error) {
+        // // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
     async fetchDjangoGroups() {
       this._isLoading = true;
       try {
@@ -493,6 +504,16 @@ export const useEventStore = defineStore("event", {
       } catch (error) {
         // // alert(error);
         console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchAttributeChoices() {
+      this._isLoading = true;
+      try {
+        const response = await EventMappingApi.fetchAttributeChoices();
+        this._isLoading = false;
+        return response.data;
+      } catch (error) {
         this._isLoading = false;
       }
     },
@@ -750,6 +771,9 @@ export const useEventStore = defineStore("event", {
     },
     travelTypeChoices: (state) => {
       return state._travelTypeChoices;
+    },
+    attributeChoices: (state) => {
+      return state._attributeChoices;
     },
     eatHabitTypes: (state) => {
       return state._eatHabitTypes;
