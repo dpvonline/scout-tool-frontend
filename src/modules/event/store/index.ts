@@ -9,6 +9,7 @@ import CashApi from "@/modules/event/services/cash-income";
 import GroupApi from "@/modules/group/services/group";
 import EventMailApi from "@/modules/event/services/event-mail.ts";
 import LocationApi from "@/modules/event/services/location";
+import AttributeModuleApi from "@/modules/event/services/attribute-module";
 
 import moment from "moment";
 import { any } from "cypress/types/bluebird";
@@ -48,6 +49,7 @@ export const useEventStore = defineStore("event", {
     _bookingOptions: [],
     _eventLocations: [],
     _travelTypeChoices: [],
+    _attributeChoices: [],
     _eatHabitTypes: [],
 
     _eventSummary: [],
@@ -134,9 +136,9 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
-    async fetchFoodSummary(id: any) {
+    async fetchFoodSummary(id: any, params: any) {
       try {
-        const response = await EventApi.fetchFoodSummary(id);
+        const response = await EventApi.fetchFoodSummary(id, params);
         this._eventFoodSummary = response.data;
         return response;
       } catch (error) {
@@ -144,9 +146,9 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
-    async fetchAgeGroupsSummary(id: any) {
+    async fetchAgeGroupsSummary(id: any, params: any) {
       try {
-        const response = await EventApi.fetchAgeGroupsSummary(id);
+        const response = await EventApi.fetchAgeGroupsSummary(id, params);
         this._eventAgeGroupsSummary = response.data;
         return response;
       } catch (error) {
@@ -439,6 +441,16 @@ export const useEventStore = defineStore("event", {
         this._isLoading = false;
       }
     },
+    async fetchAttributeTypes() {
+      try {
+        const response = await MappingApi.fetchAttributeChoices();
+        return response.data;
+      } catch (error) {
+        // // alert(error);
+        console.log(error);
+        this._isLoading = false;
+      }
+    },
     async fetchDjangoGroups() {
       this._isLoading = true;
       try {
@@ -492,6 +504,16 @@ export const useEventStore = defineStore("event", {
       } catch (error) {
         // // alert(error);
         console.log(error);
+        this._isLoading = false;
+      }
+    },
+    async fetchAttributeChoices() {
+      this._isLoading = true;
+      try {
+        const response = await EventMappingApi.fetchAttributeChoices();
+        this._isLoading = false;
+        return response.data;
+      } catch (error) {
         this._isLoading = false;
       }
     },
@@ -590,6 +612,27 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
+    async createAttributeModule(data: Object) {
+      try {
+        return await AttributeModuleApi.create(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateAttributeModule(data: Object) {
+      try {
+        return await AttributeModuleApi.update(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteAttributeModule(id: any) {
+      try {
+        return await AttributeModuleApi.delete(id);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async createLocation(data: Object) {
       try {
         return await LocationApi.create(data);
@@ -635,6 +678,13 @@ export const useEventStore = defineStore("event", {
     async deleteEventModule(eventId: any, eventModuleId: any) {
       try {
         return await EventApi.deleteEventModule(eventId, eventModuleId);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteModuleAttribute(id: any) {
+      try {
+        return await AttributeModuleApi.delete(id);
       } catch (error) {
         console.log(error);
       }
@@ -721,6 +771,9 @@ export const useEventStore = defineStore("event", {
     },
     travelTypeChoices: (state) => {
       return state._travelTypeChoices;
+    },
+    attributeChoices: (state) => {
+      return state._attributeChoices;
     },
     eatHabitTypes: (state) => {
       return state._eatHabitTypes;

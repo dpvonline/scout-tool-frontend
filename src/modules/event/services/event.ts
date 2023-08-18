@@ -87,11 +87,17 @@ export default {
   fetchEventSummaryBookingOptions(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/kpi/booking-options/`);
   },
-  fetchFoodSummary(id: any) {
-    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/food/`);
+  fetchFoodSummary(id: any, params: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/food/`, {
+      params: params,
+    }
+    );
   },
-  fetchAgeGroupsSummary(id: any) {
-    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/age-groups/`);
+  fetchAgeGroupsSummary(id: any, params: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/age-groups/`, {
+      params: params,
+    }
+    );
   },
   fetchAttributesSummary(id: any, params: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/summary/attributes/`, {

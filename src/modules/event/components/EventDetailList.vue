@@ -311,7 +311,9 @@
             <PlusCircleIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
           </button>
         </div>
-        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Die Reihenfolge kann per Drag and Drop verändert werden.</p>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Die Reihenfolge kann per Drag and Drop verändert werden.
+        </p>
       </div>
       <div class="sm:col-span-2" v-if="event?.eventmoduleSet?.length">
         <dd class="mt-1 text-sm text-gray-900">
@@ -319,10 +321,7 @@
             role="list"
             class="divide-y divide-gray-200 rounded-md border border-gray-200"
           >
-            <draggable
-              v-model="eventmodules"
-              item-key="ordering"
-            >
+            <draggable v-model="eventmodules" item-key="ordering">
               <template #item="{ element }">
                 <div class="drag-item">
                   <li
@@ -335,7 +334,7 @@
                         class="h-5 w-5 mr-2 flex-shrink-0 text-gray-400"
                         aria-hidden="true"
                       />
-                      <span>
+                      <span class="text-md font-medium">
                         {{ `${element.ordering + 1}` }} -
                         {{ `${element.header}` }}</span
                       >
@@ -360,7 +359,66 @@
                           aria-hidden="true"
                         />
                       </button>
+                      <button
+                        @click="addNewAttributeClicked(element)"
+                        type="button"
+                        class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        <PlusCircleIcon
+                          class="h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
+                      </button>
                     </div>
+                  </li>
+                  <li class="mx-7">
+                    <ul role="list" class="">
+                      <li
+                        v-for="attribute in element.attributeModules"
+                        :key="attribute.id"
+                        class="flex gap-x-4 pb-5"
+                      >
+                        <div class="flex min-w-0 gap-x-4">
+                          <div class="min-w-0 flex-auto">
+                            <p class="text-xs font-medium text-gray-900">
+                              {{ attribute.title }} ({{ attribute.fieldType }})
+                              <button
+                                @click="
+                                  onModuleAttributeEditClicked(
+                                    attribute,
+                                    element
+                                  )
+                                "
+                                type="button"
+                                class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                              >
+                                <PencilSquareIcon
+                                  class="h-5 w-5 text-gray-400"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                              <button
+                                @click="
+                                  onAttributeDeleteClicked(attribute, element)
+                                "
+                                type="button"
+                                class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                              >
+                                <TrashIcon
+                                  class="h-5 w-5 text-red-400"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                            </p>
+                            <p
+                              class="mt-1 truncate text-xs leading-5 text-gray-500"
+                            >
+                              {{ attribute.text }}
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
                   </li>
                 </div>
               </template>
@@ -426,10 +484,24 @@
     />
     <DeleteModal
       :open="openDeleteModal"
-      :header="'Anmeldung löschen?'"
-      :text="'Bist du dir sicher, dass du die Anmeldung unwiderruflich löschen möchtest?'"
+      :header="'Module entfernen?'"
+      :text="'Bist du dir sicher, dass du dieses Module entfernen möchtest?'"
       :callbackOnConfirm="onModuleDelete"
       :callbackOnCancel="cancelModal"
+    >
+    </DeleteModal>
+    <ModuleAttributeOverlay
+      :open="openModuleAttributeEdit"
+      :items="moduleAttributeData"
+      @close="onModuleAttributeClosedClicked"
+      header="Attribute"
+    />
+    <DeleteModal
+      :open="openAttributeDeleteModal"
+      :header="'Attribute löschen?'"
+      :text="'Bist du dir sicher, dass du dieses Attribute unwiderruflich löschen möchtest?'"
+      :callbackOnConfirm="onModuleAttributeDelete"
+      :callbackOnCancel="cancelModuleAttributeModal"
     >
     </DeleteModal>
   </div>
@@ -463,7 +535,7 @@ import DeleteModal from "@/components/modal/Delete.vue";
 import EventEditOverlay from "@/modules/event/components/EventEdit/Overlay.vue";
 import LocationOverlay from "@/modules/event/components/EventEdit/location/Overlay.vue";
 import EventModalOverlay from "@/modules/event/components/eventModule/Overlay.vue";
-
+import ModuleAttributeOverlay from "@/modules/event/components/moduleAttribute/Overlay.vue";
 
 import TimelineEvent from "@/modules/event/components/general/TimelineEvent.vue";
 import draggable from "vuedraggable";
@@ -494,9 +566,35 @@ function onEventModuleEditClicked(data) {
   eventModuleData.value = data;
 }
 
-function onEventModuleNewClicked(data) {
+function onEventModuleNewClicked() {
   openEventModuleEdit.value = true;
 }
+// event Module ends
+
+// module Attribute
+const openModuleAttributeEdit = ref(false);
+const moduleAttributeData = ref({});
+
+function onModuleAttributeClosedClicked() {
+  openModuleAttributeEdit.value = false;
+  moduleAttributeData.value = {};
+}
+
+function onModuleAttributeEditClicked(attribute, module) {
+  openModuleAttributeEdit.value = true;
+  moduleAttributeData.value = {
+    eventModule: module.id,
+    ...attribute,
+  };
+}
+
+function addNewAttributeClicked(module) {
+  openModuleAttributeEdit.value = true;
+  moduleAttributeData.value = {
+    eventModule: module.id
+  };
+}
+// event Module ends
 
 function saveModules(modules) {
   const eventId = route.params.id;
@@ -518,7 +616,6 @@ const eventmodules = computed({
     saveModules(newValue);
   },
 });
-
 
 function onEventEditClicked(formNo, child = null) {
   openEventEdit.value = true;
@@ -555,12 +652,6 @@ function onStatisticsClicked() {
   });
 }
 
-function onModuleNewClicked() {
-}
-
-function onModuleEdit() {
-}
-
 function onModuleDelete() {
   const eventId = route.params.id;
   const id = deleteId.value;
@@ -570,16 +661,36 @@ function onModuleDelete() {
   });
 }
 
+function onModuleAttributeDelete(data) {
+  const id = deleteAttributeId.value;
+  const eventId = route.params.id;
+  eventStore.deleteModuleAttribute(id).then(() => {
+    eventStore.fetchEvent(eventId);
+    openAttributeDeleteModal.value = false;
+  });
+}
+
 const openDeleteModal = ref(false);
+const openAttributeDeleteModal = ref(false);
 const deleteId = ref(null);
 
 async function onRegDeleteClicked(data) {
   openDeleteModal.value = true;
   deleteId.value = data.id;
 }
+const deleteAttributeId = ref(null);
+
+async function onAttributeDeleteClicked(data) {
+  openAttributeDeleteModal.value = true;
+  deleteAttributeId.value = data.id;
+}
 
 function cancelModal() {
   openDeleteModal.value = false;
+}
+
+function cancelModuleAttributeModal() {
+  openAttributeDeleteModal.value = false;
 }
 
 const props = defineProps({

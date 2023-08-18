@@ -10,6 +10,9 @@ export default {
   fetchTravelTypeChoices() {
     return axios.get(`${BASE_URL}/event/travel-type-choices/`);
   },
+  fetchAttributeChoices() {
+    return axios.get(`${BASE_URL}/event/attribute-choices/`);
+  },
   fetchGenderMappings: async () => {
     return axios.get(`${BASE_URL}/basic/gender/`);
   },
