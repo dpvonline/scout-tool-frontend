@@ -35,6 +35,15 @@
         label="Speichern"
       />
     </div>
+    <div v-else>
+      <PrimaryButton
+        class="my-4"
+        color="green"
+        @click="onNewCustomModuleClicked"
+        :isLoading="!!isLoading"
+        label="Neues Module erstellen"
+      />
+    </div>
   </div>
 </template>
 
@@ -92,6 +101,10 @@ const errors = ref([]);
 const isLoading = ref(false);
 const data = ref({});
 let modules = ref({});
+
+function onNewCustomModuleClicked() {
+  debugger;
+}
 
 async function onSaveClicked() {
   v$.value.$validate();
