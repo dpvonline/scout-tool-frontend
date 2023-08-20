@@ -161,7 +161,6 @@ function queryUpdated(query: any) {
   eventStore.fetchAgeGroupsSummary(eventId, query);
   eventStore.fetchEventSummary(eventId).then(() => {
     if (query?.regId && eventSummary?.value) {
-      debugger;
       state.selectedReg = eventSummary.value.find(
         (a) => a["id"] === query.regId
       );
