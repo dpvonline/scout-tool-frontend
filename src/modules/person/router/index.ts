@@ -40,6 +40,6 @@ export default [
     meta: {
       requiresAuth: true
     },
-    component: () => import(/* webpackChunkName: "UserDetails" */ "@/modules/person/views/User.vue"),
+    component: () => import(/* webpackChunkName: "UserDetail" */ "@/modules/person/views/User.vue"),
   }
 ]
