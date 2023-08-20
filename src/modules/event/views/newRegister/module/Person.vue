@@ -21,6 +21,9 @@
           <PrimaryButton @click="onMyselfClicked" class="my-1 mx-1">
             Mich selbst anmelden
           </PrimaryButton>
+          <PrimaryButton @click="onStammesMitgliedClicked" class="my-1 mx-1">
+            Stammesmitglied anmelden
+          </PrimaryButton>
           <SimpleList :items="registerPerson" :isLoading="isLoading">
             <template v-slot:notEmpty="slotProps">
               <PersonListItem @onPersonEditClicked="onPersonEditClicked2" :item="slotProps.item" />
@@ -38,6 +41,11 @@
       :callbackOnConfirm="onNewPersonConfirmClicked"
       :callbackOnCancel="onNewPersonCancelClicked"
     />
+    <AddStammesMitgliedModal
+      :open="openAddStammesMitgliedModal"
+      :callbackOnConfirm="onAddStammesMitgliedConfirmClicked"
+      :callbackOnCancel="onAddStammesMitgliedCancelClicked"
+    />
   </StepFrame>
 </template>
 
@@ -49,6 +57,7 @@ import SimpleList from "@/components/list/SimpleList.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import PersonListItem from "@/modules/event/components/registration/PersonListItem.vue";
 import AddPersonModal from "@/modules/event/components/registration/AddPersonModal.vue";
+import AddStammesMitgliedModal from "@/modules/event/components/registration/AddStammesMitgliedModal.vue";
 
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
@@ -78,8 +87,9 @@ const errors = reactive(v$);
 const isLoading = ref(false);
 
 const openNewPersonModal = ref(false);
+const openAddStammesMitgliedModal = ref(false);
 
-function onNewPersonClicked(item) {
+function onNewPersonClicked() {
   openNewPersonModal.value = true;
   person.value = {};
 }
@@ -89,6 +99,10 @@ function onMyselfClicked() {
   person.value = personalData.value;
 }
 
+function onStammesMitgliedClicked() {
+  openAddStammesMitgliedModal.value = true;
+}
+
 function onPersonEditClicked2(data) {
   openNewPersonModal.value = true;
   person.value = data;
@@ -96,6 +110,15 @@ function onPersonEditClicked2(data) {
 
 function onNewPersonCancelClicked() {
   openNewPersonModal.value = false;
+}
+
+function onAddStammesMitgliedCancelClicked() {
+  openAddStammesMitgliedModal.value = false;
+}
+function onAddStammesMitgliedConfirmClicked(selectedPerson: any) {
+  openAddStammesMitgliedModal.value = false;
+  openNewPersonModal.value = true;
+  person.value = selectedPerson;
 }
 
 function onNewPersonConfirmClicked(newPerson) {
