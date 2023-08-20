@@ -1,7 +1,7 @@
 <template>
   <div>
     <BaseField
-      v-if="!isEdit"
+      v-if="!isEdit && !isCreate"
       component="Select"
       techName="module"
       v-model="state['module']"
@@ -11,13 +11,21 @@
       :errors="errors.module && errors.module.$errors"
       :lookupListDisplay="['header']"
     />
-    <div v-if="state.module || isEdit">
+    <div v-if="state.module || isEdit || isCreate">
       <BaseField
         component="Text"
         :label="'Titel'"
         techName="header"
         v-model="state.header"
         :errors="errors.header?.$errors"
+        :cols="12"
+      />
+      <BaseField
+        component="Text"
+        :label="'Module Name'"
+        techName="name"
+        v-model="state.name"
+        :errors="errors.name?.$errors"
         :cols="12"
       />
       <BaseField
@@ -29,13 +37,21 @@
         :cols="12"
       />
       <PrimaryButton
+        v-if="isEdit"
         class="my-4"
         @click="onSaveClicked"
         :isLoading="!!isLoading"
-        label="Speichern"
+        label="Änderungen speichern"
+      />
+      <PrimaryButton
+        v-if="isCreate"
+        class="my-4"
+        @click="onSaveClicked"
+        :isLoading="!!isLoading"
+        label="Custom Module erstellen und hinzufügen."
       />
     </div>
-    <div v-else>
+    <div v-if="!isEdit && !isCreate">
       <PrimaryButton
         class="my-4"
         color="green"
@@ -73,6 +89,7 @@ const props = defineProps({
 });
 
 const state = reactive({
+  name: 'New Custom',
   module: null,
   header: null,
   description: null,
@@ -100,10 +117,11 @@ const v$ = useVuelidate(rules, state);
 const errors = ref([]);
 const isLoading = ref(false);
 const data = ref({});
+const isCreate = ref(false);
 let modules = ref({});
 
 function onNewCustomModuleClicked() {
-  debugger;
+  isCreate.value = true;
 }
 
 async function onSaveClicked() {
@@ -116,9 +134,11 @@ async function onSaveClicked() {
   const eventId = route.params.id;
 
   if (!isEdit.value) {
+    debugger;
   const data = {
     module: state.module,
     header: state.header,
+    name: state.name,
     description: state.description,
     event: eventId,
   }
@@ -136,6 +156,7 @@ async function onSaveClicked() {
     commonStore.showError("Fehler beim speichern.");
   }
   } else {
+    debugger;
   const data = {
     id: props.items.id,
     name: props.items.name,

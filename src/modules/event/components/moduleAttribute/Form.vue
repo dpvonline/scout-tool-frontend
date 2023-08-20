@@ -89,10 +89,6 @@ const data = ref({});
 let modules = ref({});
 let attributeChoices = ref([]);
 
-function onNewCustomModuleClicked() {
-  debugger;
-}
-
 async function onSaveClicked() {
   v$.value.$validate();
   errors.value = v$.value;
@@ -127,7 +123,7 @@ async function onSaveClicked() {
       text: state.text,
     };
     const res = await eventStore.updateAttributeModule(data);
-    if (res.ststus === 200) {
+    if (res.status === 200) {
       const response = await eventStore.fetchEvent(eventId);
       commonStore.showSuccess("Erfolfreich gespeichert.");
       onCloseClicked();
