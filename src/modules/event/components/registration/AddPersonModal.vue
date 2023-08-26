@@ -191,7 +191,6 @@ const zipCheck = async (value) => {
   if (!value || value == "") {
     return false;
   }
-  console.log(value);
   return !(await registerStore.zipCheck(value));
 };
 
@@ -200,20 +199,35 @@ const rules = {
     required,
   },
   firstName: {
-    required,
+    required: helpers.withMessage("Du musst ein Vornamen angeben.", required),
   },
   lastName: {
-    required,
+    required: helpers.withMessage("Du musst ein Nachnamen angeben.", required),
   },
   scoutName: {},
   birthday: {
     required,
+    minDateCustom: helpers.withMessage(
+      "Die Person muss jünger als 100 Jahre sein.",
+      function (value) {
+        return new Date(value) >= new Date("1945-01-01");
+      }
+    ),
+    mminDateCustom: helpers.withMessage(
+      "Die Person muss bereits geboren sein.",
+      function (value) {
+        return new Date(value) <= new Date();
+      }
+    ),
   },
   gender: {
-    required,
+    required: helpers.withMessage("Du musst eine Auswahl treffen.", required),
   },
   address: {
-    required,
+    required: helpers.withMessage(
+      "Du eine Straße mit Hausnummer angeben.",
+      required
+    ),
   },
   city: {},
   zipCode: {
@@ -234,7 +248,7 @@ const rules = {
   },
   eatHabit: {},
   bookingOption: {
-    required,
+    required: helpers.withMessage("Du musst eine Auswahl treffen.", required),
   },
 };
 
@@ -370,16 +384,16 @@ watch(
 );
 
 function resetData() {
-    state.allowPermanently = true;
-    state.firstName = null;
-    state.lastName = null;
-    state.scoutName = null;
-    state.gender = "N";
-    state.address = null;
-    state.eatHabit = null;
-    state.bookingOption = bookingOptions.value[0];
-    state.zipCode = personalDataStore?.personalData?.scoutGroup?.zipCode?.zipCode;
-    state.birthday = moment().add(-10, "y").format("YYYY-MM-DD");
+  state.allowPermanently = true;
+  state.firstName = null;
+  state.lastName = null;
+  state.scoutName = null;
+  state.gender = "N";
+  state.address = null;
+  state.eatHabit = null;
+  state.bookingOption = bookingOptions.value[0];
+  state.zipCode = personalDataStore?.personalData?.scoutGroup?.zipCode?.zipCode;
+  state.birthday = moment().add(-10, "y").format("YYYY-MM-DD");
 }
 
 function initData(eatHabits) {
