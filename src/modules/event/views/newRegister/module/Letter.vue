@@ -46,6 +46,10 @@ const eventRegisterStore = useEventRegisterStore();
 
 const format1 = "YYYY-MM-DD";
 
+const props = defineProps({
+  step: Object,
+});
+
 const state = reactive({
   freeText: null,
 });
@@ -72,7 +76,10 @@ function onNextButtonClicked() {
   eventRegisterStore.updateRegisterFreeText(state)
 
   router.push({
-    name: "RegistrationNewSummary",
+    name: props.step.nextLink,
+    params: {
+      module: props.step.nextId,
+    },
   });
 }
 

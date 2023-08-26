@@ -329,7 +329,7 @@ function onInvitationClicked(id) {
   eventRegisterStore.$reset();
 
   router.push({
-    name: "RegistrationNewStart",
+    name: "RegistrationIntroduction",
     params: {
       id: id,
     },

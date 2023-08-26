@@ -104,7 +104,7 @@ function onNewRegClicked() {
   eventRegisterStore.$reset();
 
   router.push({
-    name: "RegistrationNewStart",
+    name: "RegistrationIntroduction",
     params: {
       id: eventId,
     },

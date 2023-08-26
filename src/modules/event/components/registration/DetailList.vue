@@ -285,7 +285,7 @@ const components = {
 
 function onRegistrationClicked(id) {
   router.push({
-    name: "RegistrationNewStart",
+    name: "RegistrationIntroduction",
     params: {
       id: id,
     },

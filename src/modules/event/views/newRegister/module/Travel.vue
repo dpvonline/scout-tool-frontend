@@ -61,6 +61,10 @@ const eventRegisterStore = useEventRegisterStore();
 import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
 
+const props = defineProps({
+  step: Object,
+});
+
 const state = reactive({});
 
 const travel = ref({});
@@ -99,20 +103,20 @@ function onNewTravelCancelClicked() {
 function onNewTravelConfirmClicked(travel) {
   if (travel.storeId) {
     eventRegisterStore.editTravel({
-    storeId: travel.storeId,
-    numberPersons: travel.numberPersons,
-    typeField: travel.typeField,
-    dateTimeField: travel.dateTimeField,
-    description: travel.description,
-  });
+      storeId: travel.storeId,
+      numberPersons: travel.numberPersons,
+      typeField: travel.typeField,
+      dateTimeField: travel.dateTimeField,
+      description: travel.description,
+    });
   } else {
     eventRegisterStore.addTravel({
-    storeId: travel.storeId,
-    numberPersons: travel.numberPersons,
-    typeField: travel.typeField,
-    dateTimeField: travel.dateTimeField,
-    description: travel.description,
-  });
+      storeId: travel.storeId,
+      numberPersons: travel.numberPersons,
+      typeField: travel.typeField,
+      dateTimeField: travel.dateTimeField,
+      description: travel.description,
+    });
   }
   openNewTravelModal.value = false;
 }
@@ -126,9 +130,11 @@ function onNextButtonClicked() {
     commonStore.showError("Bitte füge mindestens eine Travel hinzu.");
     return;
   }
-
   router.push({
-    name: "RegistrationNewFreeText",
+    name: props.step.nextLink,
+    params: {
+      module: props.step.nextId,
+    },
   });
 }
 

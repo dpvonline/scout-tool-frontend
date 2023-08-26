@@ -19,7 +19,7 @@
       </Switch>
       <SwitchLabel as="span" class="ml-3">
         <span class="text-sm font-medium text-gray-900">{{ props.label }}</span>
-        <span class="text-sm text-gray-500">{{ props.hint }}</span>
+        <span class="ml-4 text-xs text-gray-500">{{ props.hint }}</span>
       </SwitchLabel>
     </SwitchGroup>
   </div>

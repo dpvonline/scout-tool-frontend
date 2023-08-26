@@ -45,6 +45,11 @@ const commonStore = useCommonStore();
 
 const format1 = "YYYY-MM-DD";
 
+
+const props = defineProps({
+  step: Object,
+});
+
 const state = reactive({
   hasConfirmed: false,
 });
