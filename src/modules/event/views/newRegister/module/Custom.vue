@@ -102,7 +102,7 @@ function getComponentType(fieldType: string) {
   switch (fieldType) {
     case "booleanAttribute":
       return "Toggle";
-    case "timeAttribute":
+    case "dateTimeAttribute":
       return "DateTime";
     case "integerAttribute":
       return "Number";

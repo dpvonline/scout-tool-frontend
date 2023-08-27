@@ -25,7 +25,8 @@
       {{ props.data.text }}
     </dt>
     <dd class="mt-1 text-sm text-gray-900">
-      {{ props.data.booleanField ? "Ja" : "Nein" }}
+      {{ $dayjs(props.value.dateTimeField).format("llll") }}
+      
     </dd>
     <RegEditOverlay
       :open="openEventEdit"
@@ -53,6 +54,7 @@ import RegEditOverlay from "@/modules/event/components/registration/regEdit/Over
 const openEventEdit = ref(false);
 const eventEditForm = ref(0);
 const itemData = ref({});
+const valueData = ref({});
 
 function onEventClosedClicked() {
   openEventEdit.value = false;

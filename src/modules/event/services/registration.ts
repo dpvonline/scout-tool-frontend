@@ -34,6 +34,7 @@ export default {
   deleteParticipant(regId: any, id: any) {
     return axios.delete(`${BASE_URL}/${SERVICE}/${regId}/single-participant/${id}`);
   },
+
   createBooleanAttribute(id: any, data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/boolean-attribute/`, data);
   },
@@ -46,14 +47,15 @@ export default {
   createFloatAttribute(id: any, data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/float-attribute/`, data);
   },
-  createTimeAttribute(id: any, data: any) {
-    return axios.post(`${BASE_URL}/${SERVICE}/${id}/time-attribute/`, data);
+  createDateTimeAttribute(id: any, data: any) {
+    return axios.post(`${BASE_URL}/${SERVICE}/${id}/date-time-attribute/`, data);
   },
   createIntegerAttribute(id: any, data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/integer-attribute/`, data);
   },
+
   updateBooleanAttribute(id: any, data: any) {
-    return axios.put(`${BASE_URL}/event/${id}/boolean-attribute/`, data);
+    return axios.put(`${BASE_URL}/event/boolean-attribute/${id}/`, data);
   },
   updateStringAttribute(id: any, data: any) {
     return axios.put(`${BASE_URL}/event/string-attribute/${id}/`, data);
@@ -62,14 +64,15 @@ export default {
     return axios.put(`${BASE_URL}/event/travel-attribute/${id}/`, data);
   },
   updateFloatAttribute(id: any, data: any) {
-    return axios.put(`${BASE_URL}/event/${id}/float-attribute/`, data);
+    return axios.put(`${BASE_URL}/event/float-attribute/${id}/`, data);
   },
-  updateTimeAttribute(id: any, data: any) {
-    return axios.put(`${BASE_URL}/event/${id}/time-attribute/`, data);
+  updateDateTimeAttribute(id: any, data: any) {
+    return axios.put(`${BASE_URL}/event/date-time-attribute/${id}/`, data);
   },
   updateIntegerAttribute(id: any, data: any) {
-    return axios.put(`${BASE_URL}/event/${id}/integer-attribute/`, data);
+    return axios.put(`${BASE_URL}/event/integer-attribute/${id}/`, data);
   },
+
   sendConfirmMail(id: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/send-confirmation-mail/`);
   },

@@ -174,17 +174,40 @@
         <p class="text-sm text-gray-400">Noch niemanden angemeldet</p>
       </div>
     </div>
-    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
+    <div
+      v-for="mod in getOverviewModules(registration)"
+      :key="mod.id"
+      class="border-t-8 border-gray-100 px-4 py-5 sm:px-6"
+    >
       <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
-        Weitere Daten
+        {{ mod.header }}
       </h3>
+      <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+        {{ mod.description }}
+      </p>
       <dl
+        v-for="modu in mod.attributeModules"
+        :key="modu.id"
         class="grid grid-cols-1 mt-2 gap-x-4 gap-y-8 sm:grid-cols-2"
-        v-for="attribute in registration?.attributes"
-        :key="attribute.id"
       >
-        <component :is="components[attribute.type]" :data="attribute">
-        </component>
+        <div v-if="filterAttribute(modu.id).length > 0">
+          <div v-for="attribute in filterAttribute(modu.id)" :key="modu.id">
+            <component
+              :is="components[attribute.attributeModule.fieldType]"
+              :data="modu"
+              :value="attribute"
+            >
+            </component>
+          </div>
+        </div>
+        <div v-else>
+          <component
+            :is="components[modu.fieldType]"
+            :data="modu"
+            :value="null"
+          >
+          </component>
+        </div>
       </dl>
     </div>
     <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
@@ -252,6 +275,9 @@ import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue
 import AddPersonModal from "@/modules/event/components/registration/AddPersonModal.vue";
 
 import booleanAttribute from "@/modules/event/components/registration/attribute/booleanAttribute.vue";
+import dateTimeAttribute from "@/modules/event/components/registration/attribute/dateTimeAttribute.vue";
+import integerAttribute from "@/modules/event/components/registration/attribute/integerAttribute.vue";
+import floatAttribute from "@/modules/event/components/registration/attribute/floatAttribute.vue";
 import stringAttribute from "@/modules/event/components/registration/attribute/stringAttribute.vue";
 import travelAttribute from "@/modules/event/components/registration/attribute/travelAttribute.vue";
 
@@ -279,11 +305,20 @@ const openDeletePersonModal = ref(false);
 
 const components = {
   booleanAttribute,
+  dateTimeAttribute,
+  integerAttribute,
+  floatAttribute,
   stringAttribute,
   travelAttribute,
 };
 
-function onRegistrationClicked(id) {
+function filterAttribute(id: any) {
+  return props.registration?.attributes.filter(
+    (item) => item.attributeModule.id === id
+  );
+}
+
+function onRegistrationClicked(id: any) {
   router.push({
     name: "RegistrationIntroduction",
     params: {
@@ -298,6 +333,37 @@ const props = defineProps({
 
 const person = ref({});
 const openNewPersonModal = ref(false);
+
+const fieldTypes = {
+  booleanAttribute: "booleanField",
+  dateTimeAttribute: "dateTimeField",
+  integerAttribute: "integerField",
+  floatAttribute: "floatField",
+  stringAttribute: "stringField",
+  travelAttribute: "travelField",
+};
+
+function getValueByAttribute(currentAttribute, attributes) {
+  try {
+    const valueObj = attributes.find((attribute) => {
+      return attribute.attributeModule.id == currentAttribute.id;
+    });
+    return valueObj;
+  } catch (e) {
+    return null;
+  }
+}
+
+function getOverviewModules(registration: any) {
+  try {
+    const list = registration?.event?.eventmoduleSet;
+    const arrB = ["Custom", "Letter", "Travel", "TravelBack"];
+    let filteredArray = list.filter((itm: any) => arrB.indexOf(itm.name) > -1);
+    return filteredArray;
+  } catch (e) {
+    return [];
+  }
+}
 
 function onNewPersonClicked() {
   openNewPersonModal.value = true;
@@ -394,7 +460,7 @@ function cancelModal() {
 
 function onConfirmMailClicked() {
   const regId = route.params.id;
-  eventRegisterStore.sendConfirmMail(regId).them;
+  eventRegisterStore.sendConfirmMail(regId);
 }
 
 // - - - - - Add User - - - - - - - - - - -

@@ -315,7 +315,7 @@
           Die Reihenfolge kann per Drag and Drop verändert werden.
         </p>
       </div>
-      <div class="sm:col-span-2" v-if="event?.eventmoduleSet?.length">
+      <div class="sm:col-span-2" v-if="event?.eventmoduleSet?.length && !isLoading">
         <dd class="mt-1 text-sm text-gray-900">
           <ul
             role="list"
@@ -336,8 +336,9 @@
                       />
                       <span class="text-md font-medium">
                         {{ `${element.ordering + 1}` }} -
-                        {{ `${element.header}` }}</span
-                      >
+                        {{ `${element.header}` }}
+                        {{ element.name === 'Custom' ? '- (Konfigurierbar)' : '' }}
+                      </span>
                       <button
                         @click="onEventModuleEditClicked(element)"
                         type="button"
@@ -425,6 +426,9 @@
             </draggable>
           </ul>
         </dd>
+      </div>
+      <div v-else>
+        <LoadingItem/>
       </div>
     </div>
     <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
@@ -536,6 +540,7 @@ import EventEditOverlay from "@/modules/event/components/EventEdit/Overlay.vue";
 import LocationOverlay from "@/modules/event/components/EventEdit/location/Overlay.vue";
 import EventModalOverlay from "@/modules/event/components/eventModule/Overlay.vue";
 import ModuleAttributeOverlay from "@/modules/event/components/moduleAttribute/Overlay.vue";
+import LoadingItem from "@/components/list/LoadingItem.vue";
 
 import TimelineEvent from "@/modules/event/components/general/TimelineEvent.vue";
 import draggable from "vuedraggable";
@@ -555,6 +560,8 @@ const locationData = ref({});
 // event Module
 const openEventModuleEdit = ref(false);
 const eventModuleData = ref({});
+
+const isLoading = ref(false);
 
 function onEventModuleClosedClicked() {
   openEventModuleEdit.value = false;
@@ -596,16 +603,22 @@ function addNewAttributeClicked(module) {
 }
 // event Module ends
 
-function saveModules(modules) {
+async function saveModules(modules) {  
   const eventId = route.params.id;
   let eventModuleId = null;
+  const promises = [];
+  isLoading.value = true;
+
   modules.forEach((module, index) => {
     eventModuleId = module.id;
-    eventStore.updatePartialEventModuleById(eventId, eventModuleId, {
+    promises.push(eventStore.updatePartialEventModuleById(eventId, eventModuleId, {
       ordering: index,
-    });
+    }));
   });
+
+  const responses = await Promise.all(promises);
   eventStore.fetchEvent(eventId);
+  isLoading.value = false;
 }
 
 const eventmodules = computed({

@@ -50,7 +50,7 @@
               color="green"
               :icon="PencilIcon"
               class="mx-0 my-2"
-              :label="windowWidth > 800 ? 'Deine Anmeldung' : 'Anmeldung'"
+              :label="windowWidth > 800 ? 'Anmeldung' : 'Anmeldung'"
             >
             </PrimaryButton>
           </div>
@@ -59,11 +59,11 @@
             class="ml-4 mt-4 flex flex-shrink-0"
           >
             <PrimaryButton
-              color="gray"
+              color="red"
               @click="onInvitationClicked(event.id)"
               :icon="PlusSmallIcon"
               class="mx-0 my-2"
-              :label="windowWidth > 800 ? 'Weitere Gruppe' : 'weitere'"
+              :label="windowWidth > 800 ? 'neu' : 'neu'"
             >
             </PrimaryButton>
           </div>

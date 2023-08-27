@@ -67,6 +67,12 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         return await RegistrationApi.createStringAttribute(regId, data);
       } else if (type === "travelAttribute") {
         return await RegistrationApi.createTravelAttribute(regId, data);
+      } else if (type === "floatAttribute") {
+        return await RegistrationApi.createFloatAttribute(regId, data);
+      } else if (type === "dateTimeAttribute") {
+        return await RegistrationApi.createDateTimeAttribute(regId, data);
+      } else if (type === "integerAttribute") {
+        return await RegistrationApi.createIntegerAttribute(regId, data);
       }
     },
     async updateAttribute(id: any, data: any, type: any) {
@@ -76,6 +82,12 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         return await RegistrationApi.updateStringAttribute(id, data);
       } else if (type === "travelAttribute") {
         return await RegistrationApi.updateTravelAttribute(id, data);
+      } else if (type === "integerAttribute") {
+        return await RegistrationApi.updateIntegerAttribute(id, data);
+      } else if (type === "floatAttribute") {
+        return await RegistrationApi.updateFloatAttribute(id, data);
+      } else if (type === "dateTimeAttribute") {
+        return await RegistrationApi.updateDateTimeAttribute(id, data);
       }
     },
 
@@ -134,7 +146,6 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       // travel
       const attributeModuleIdTravel = this._event?.eventmoduleSet.filter((item) => item.name === "Travel")[0]
         .attributeModules[0];
-      debugger;
       this._registerTravel.forEach((travelItem) => {
         promises.push(
           this.createAttribute(
@@ -167,10 +178,12 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       }
 
       const fieldTypes = {
-        stringAttribute: 'stringField',
-        booleanAttribute: 'booleanField',
-        floatAttribute: 'floatField',
-        travelAttribute: 'travelField',
+        booleanAttribute: "booleanField",
+        dateTimeAttribute: "dateTimeField",
+        integerAttribute: "integerField",
+        floatAttribute: "floatField",
+        stringAttribute: "stringField",
+        travelAttribute: "travelField",
       }
 
       for (const [moduleId, attData] of Object.entries(this._registerCustom)) {
@@ -180,7 +193,6 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
             const mod = this._event?.eventmoduleSet.find((module) => module.id == moduleId)
             const attribute = mod.attributeModules.find(attribute => attribute.id == attId)
             if (attribute) {
-              debugger;
               promises.push(
                 this.createAttribute(
                   regId,
