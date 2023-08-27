@@ -137,12 +137,10 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         return false;
       }
       const regId = register.data.id;
-
       const promises = [];
       this._registerPerson.forEach((person) => {
         promises.push(RegistrationApi.createParticipant(regId, this.transformEatHabits(person)));
       });
-
       // travel
       const attributeModuleIdTravel = this._event?.eventmoduleSet.filter((item) => item.name === "Travel")[0]
         .attributeModules[0];
@@ -176,7 +174,6 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
           )
         );
       }
-
       const fieldTypes = {
         booleanAttribute: "booleanField",
         dateTimeAttribute: "dateTimeField",
@@ -185,7 +182,6 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         stringAttribute: "stringField",
         travelAttribute: "travelField",
       }
-
       for (const [moduleId, attData] of Object.entries(this._registerCustom)) {
         if (attData) {
           Object.keys(attData).forEach(att => {
@@ -197,10 +193,10 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
                 this.createAttribute(
                   regId,
                   {
-                    [attribute.fieldType]: this._registerCustom[moduleId][att],
-                    attributeModule: parseInt(moduleId, 10),
+                    [fieldTypes[attribute.fieldType]]: this._registerCustom[moduleId][att],
+                    attributeModule: parseInt(attId, 10),
                   },
-                  fieldTypes[attribute.fieldType]
+                  attribute.fieldType,
                 )
               );
             }
@@ -301,6 +297,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       this._registerFreeText = data;
     },
     updateRegisterCustom(moduleId: number, data: any) {
+      debugger;
       this._registerCustom[moduleId] = data;
     },
   },

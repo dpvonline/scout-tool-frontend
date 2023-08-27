@@ -11,7 +11,7 @@
         {{
           registerPerson && registerPerson.length ? registerPerson.length : 0
         }}
-        Personen zur Veranstaltung {{ event.name }} angmeldet.
+        Personen zur Veranstaltung {{ event?.name }} angmeldet.
       </p>
       <BaseField
         component="Toggle"
@@ -56,7 +56,7 @@ const state = reactive({
 
 const rules = {
   hasConfirmed: {
-    checked: (value) => value === true,
+    checked: (value: any) => value === true,
   },
 };
 const router = useRouter();
@@ -98,7 +98,7 @@ const event = computed(() => {
   return eventRegisterStore.event;
 });
 
-function setInitData(response) {
+function setInitData(response: any) {
   isLoading.value = true;
 
   isLoading.value = false;

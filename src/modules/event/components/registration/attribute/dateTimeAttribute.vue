@@ -22,10 +22,10 @@
       </div>
     </dt>
     <dt class="text-sm font-medium text-gray-500">
-      {{ props.data.text }}
+      {{ props.data?.text }}
     </dt>
     <dd class="mt-1 text-sm text-gray-900">
-      {{ $dayjs(props.value.dateTimeField).format("llll") }}
+      {{ $dayjs(props.value?.dateTimeField).format("llll") }}
       
     </dd>
     <RegEditOverlay
