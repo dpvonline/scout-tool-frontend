@@ -73,7 +73,7 @@ async function onSaveClicked() {
     commonStore.showError("Bitte Felder überprüfen");
     return;
   }
-
+debugger;
   if (isEdit.value) {
     const data = {
       id: props.value?.id,
@@ -96,7 +96,9 @@ async function onSaveClicked() {
       isLoading.value = false;
     }
   }
+  debugger;
   if (!isEdit.value) {
+    debugger;
     const data = {
       registration: redId,
       [fieldTypes[fieldType]]: state.value,
@@ -124,7 +126,8 @@ import { useEventStore } from "@/modules/event/store";
 const eventStore = useEventStore();
 
 const isEdit = computed(() => {
-  return !!props.value;
+debugger;
+return !!props.value;
 });
 
 function getComponentType(fieldType: string) {
@@ -158,6 +161,7 @@ onMounted(async () => {
   try {
     const fieldType = props.items?.fieldType;
     state.value = props.value[fieldTypes[fieldType]];
+    debugger;
   } catch (e) {
     state.value = null;
   }

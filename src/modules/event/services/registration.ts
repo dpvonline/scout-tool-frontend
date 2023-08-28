@@ -34,7 +34,6 @@ export default {
   deleteParticipant(regId: any, id: any) {
     return axios.delete(`${BASE_URL}/${SERVICE}/${regId}/single-participant/${id}`);
   },
-
   createBooleanAttribute(id: any, data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/boolean-attribute/`, data);
   },
@@ -53,7 +52,6 @@ export default {
   createIntegerAttribute(id: any, data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/integer-attribute/`, data);
   },
-
   updateBooleanAttribute(id: any, data: any) {
     return axios.put(`${BASE_URL}/event/boolean-attribute/${id}/`, data);
   },
@@ -72,7 +70,6 @@ export default {
   updateIntegerAttribute(id: any, data: any) {
     return axios.put(`${BASE_URL}/event/integer-attribute/${id}/`, data);
   },
-
   sendConfirmMail(id: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/send-confirmation-mail/`);
   },

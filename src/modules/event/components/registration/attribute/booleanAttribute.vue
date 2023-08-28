@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:col-span-2">
+  <div class="my-1 sm:col-span-2">
     <dt class="text-md font-medium text-gray-800">
       <div class="flex">
         <div class="flex-none">
@@ -24,8 +24,8 @@
     <dt class="text-sm font-medium text-gray-500">
       {{ props.data?.text }}
     </dt>
-    <dd class="mt-1 text-sm text-gray-900">
-      {{ props.data.booleanField ? "Ja" : "Nein" }}
+    <dd class="mtb-3 text-sm text-gray-900">
+      {{ props.value.booleanField ? "Ja" : "Nein" }}
     </dd>
     <RegEditOverlay
       :open="openEventEdit"
@@ -43,7 +43,7 @@ import { ref } from "vue";
 
 const props = defineProps({
   data: { type: Object, required: true },
-  value: { type: String, required: false },
+  value: { type: Object, required: false },
 });
 
 import { PencilSquareIcon } from "@heroicons/vue/24/outline";
@@ -53,6 +53,7 @@ import RegEditOverlay from "@/modules/event/components/registration/regEdit/Over
 const openEventEdit = ref(false);
 const eventEditForm = ref(0);
 const itemData = ref({});
+const valueData = ref({});
 
 function onEventClosedClicked() {
   openEventEdit.value = false;
