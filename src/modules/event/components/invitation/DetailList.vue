@@ -26,13 +26,17 @@
         <div class="flex">
           <div class="grow"></div>
           <div
-            v-if="event.status == 'pending' && !event?.existingRegister?.id"
+            v-if="
+              event.status == 'pending' &&
+              !event?.existingRegister?.id
+            "
             class="ml-4 mt-4 flex flex-shrink-0"
           >
             <PrimaryButton
               @click="onInvitationClicked(event.id)"
               :icon="PaperAirplaneIcon"
               class="mx-0 my-2"
+              :disabled="!startDateInFuture(event)"
             >
               Jetzt Anmelden
             </PrimaryButton>
@@ -232,7 +236,10 @@
               </DisclosureButton>
             </dt>
             <DisclosurePanel as="dd" class="mt-2 pr-12">
-              <p class="text-base leading-7 text-gray-600" v-html="child.description || ''"></p>
+              <p
+                class="text-base leading-7 text-gray-600"
+                v-html="child.description || ''"
+              ></p>
               <div
                 v-for="attribute in child.attributeModules"
                 :key="attribute.id"
@@ -241,8 +248,10 @@
                 <p class="text-sm leading-7 text-gray-800">
                   {{ attribute.title }}
                 </p>
-                <p class="text-sm leading-7 text-gray-500" v-html="attribute.text">
-                </p>
+                <p
+                  class="text-sm leading-7 text-gray-500"
+                  v-html="attribute.text"
+                ></p>
               </div>
             </DisclosurePanel>
           </Disclosure>
@@ -325,6 +334,9 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
+import dayjs from "dayjs";
+dayjs.locale("de");
+
 function onInvitationClicked(id) {
   eventRegisterStore.$reset();
 
@@ -334,6 +346,10 @@ function onInvitationClicked(id) {
       id: id,
     },
   });
+}
+
+function startDateInFuture(event: any) {
+  return dayjs().diff(dayjs(event.registrationStart)) > 0;
 }
 
 const windowWidth = ref(100);
