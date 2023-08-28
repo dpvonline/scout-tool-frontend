@@ -297,7 +297,6 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       this._registerFreeText = data;
     },
     updateRegisterCustom(moduleId: number, data: any) {
-      debugger;
       this._registerCustom[moduleId] = data;
     },
   },
