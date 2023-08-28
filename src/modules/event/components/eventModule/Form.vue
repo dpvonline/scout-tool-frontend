@@ -134,7 +134,6 @@ async function onSaveClicked() {
   const eventId = route.params.id;
 
   if (!isEdit.value) {
-    debugger;
   const data = {
     module: state.module,
     header: state.header,
@@ -156,7 +155,6 @@ async function onSaveClicked() {
     commonStore.showError("Fehler beim speichern.");
   }
   } else {
-    debugger;
   const data = {
     id: props.items.id,
     name: props.items.name,
