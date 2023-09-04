@@ -102,9 +102,9 @@ const rules = {
   header: {
     required,
   },
-  description: {
-    required,
-  },
+  // description: {
+  //   required,
+  // },
 };
 
 const v$ = useVuelidate(rules, state);
@@ -157,7 +157,7 @@ async function onSaveClicked() {
   if ((res.status === 201)) {
 
     const response = await eventStore.fetchEvent(eventId);
-    commonStore.showSuccess("Erfolfreich gespeichert.");
+    commonStore.showSuccess("Erfolgreich gespeichert.");
     onCloseClicked();
   } else {
     commonStore.showError("Fehler beim speichern.");

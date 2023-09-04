@@ -358,7 +358,7 @@ function getOverviewModules(registration: any) {
   try {
     const list = registration?.event?.eventmoduleSet;
     const arrB = ["Custom", "Letter", "Travel", "TravelBack"];
-    let filteredArray = list.filter((itm: any) => arrB.indexOf(itm.name) > -1);
+    const filteredArray = list.filter((itm: any) => arrB.indexOf(itm.name) > -1);
     return filteredArray;
   } catch (e) {
     return [];

@@ -2,7 +2,7 @@
   <PageWrapper>
     <Breadcrumbs :pages="pages" />
     <main class="relative flex-1 focus:outline-none">
-      <RegistrationDetailList :registration="registration" v-if="!isLoading" />
+      <RegistrationDetailList v-if="!isLoading" :registration="registration" />
       <LoadingItem v-else />
     </main>
   </PageWrapper>

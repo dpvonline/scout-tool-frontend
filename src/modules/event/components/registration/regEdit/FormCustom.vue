@@ -86,7 +86,7 @@ async function onSaveClicked() {
       data,
       props.items?.fieldType
     );
-    if (res.statusCode = "200") {
+    if (res.status = "200") {
       const response = await eventStore.fetchRegistration(redId);
       commonStore.showSuccess("erfolfreich gespeichert.");
       onCloseClicked();
@@ -107,7 +107,7 @@ async function onSaveClicked() {
       data,
       props.items?.fieldType
     );
-    if (res.statusCode = "201") {
+    if (res.status = "201") {
       const response = await eventStore.fetchRegistration(redId);
       commonStore.showSuccess("erfolfreich erstellt.");
       onCloseClicked();

@@ -103,15 +103,13 @@ const registration = computed(() => {
 
 async function newTravel(travel2) {
   const regId = route.params.id;
-  const attributeModuleIdTravel = event.value?.eventmoduleSet.filter(
-    (item) => item.name === "Travel"
-  )[0].attributeModules[0];
+
   const data = {
     numberPersons: travel2.numberPersons,
     typeField: travel2.typeField.value,
     dateTimeField: travel2.dateTimeField,
     description: travel2.description,
-    attributeModule: attributeModuleIdTravel?.id,
+    attributeModule: props.data?.id,
   };
   const respon = await eventRegisterStore.createAttribute(regId, data, "travelAttribute");
   return respon;
@@ -137,7 +135,7 @@ async function onNewTravelConfirmClicked(travel) {
   let res = null;
   if (travel.id) {
     let res = await updateTravel(travel);
-    if ((res.statusCode = "200") || (res.statusCode = "201")) {
+    if ((res.status = "200") || (res.status = "201")) {
       commonStore.showSuccess("Anreise erfolfreich gespeichert.");
     } else {
       commonStore.showError("Fehler beim Speichern.");
@@ -148,7 +146,7 @@ async function onNewTravelConfirmClicked(travel) {
     openNewTravelModal.value = false;
   } else {
     let res2 = await newTravel(travel);
-    if ((res2.statusCode == 200) || (res2.statusCode == 201)) {
+    if ((res2.status == 200) || (res2.status == 201)) {
       commonStore.showSuccess("Anreise erfolfreich gespeichert.");
     } else {
       commonStore.showError("Fehler beim Speichern.");
