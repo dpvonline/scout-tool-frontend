@@ -6,36 +6,38 @@
         <div
           class="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0"
         >
-          <div v-for="type in types" :key="type.id" class="flex items-center">
+          <div
+            v-for="typeItem in types"
+            :key="typeItem.id"
+            class="flex items-center"
+          >
             <input
-              :id="type.id"
+              :id="typeItem.id"
               name="notification-method"
               type="radio"
-              :checked="type.id === picked"
-              :value="type.id"
+              :checked="typeItem.id === picked"
+              :value="typeItem.id"
               v-model="picked"
               class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-600"
             />
             <label
-              :for="type.id"
+              :for="typeItem.id"
               class="ml-3 block text-sm font-medium leading-6 text-gray-900"
-              >{{ type.title }}</label
+              >{{ typeItem.title }}</label
             >
           </div>
         </div>
       </fieldset>
     </div>
-      <SimpleList :items="eventAttributesSummary" :isLoading="isLoading">
-        <template v-slot:notEmpty="slotProps">
-          <component
-            :is="picked === 'travel' ? TravelItem : FreeTextItem"
-            :item="slotProps.item" 
-          />
-        </template>
-        <template v-slot:empty>
-          Keine Anreisen bisher
-        </template>
-      </SimpleList>
+    <SimpleList :items="eventAttributesSummary" :isLoading="isLoading">
+      <template v-slot:notEmpty="slotProps">
+        <component
+          :is="picked === 'travel' ? TravelItem : FreeTextItem"
+          :item="slotProps.item"
+        />
+      </template>
+      <template v-slot:empty> Keine Anreisen bisher </template>
+    </SimpleList>
   </div>
 </template>
 
@@ -45,7 +47,7 @@ import TravelItem from "@/modules/event/components/statistic/attribute/list/Trav
 import FreeTextItem from "@/modules/event/components/statistic/attribute/list/FreeTextItem.vue";
 import { defineComponent, onMounted, ref, computed } from "vue";
 
-// 
+const isLoading = ref(false);
 
 const types = [
   { id: "travel", title: "Anreise" },
@@ -56,10 +58,10 @@ const picked = ref("travel");
 
 const eventAttributesSummary = computed(() => {
   if (picked.value === "travel") {
-    return getAttributeByName(eventStore.eventAttributesSummary, 'Travel')
+    return getAttributeByName(eventStore.eventAttributesSummary, "Travel");
   }
   if (picked.value === "freeText") {
-    return getAttributeByName(eventStore.eventAttributesSummary, 'Letter')
+    return getAttributeByName(eventStore.eventAttributesSummary, "Letter");
   }
   return [];
 });
@@ -72,22 +74,21 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 
 function getAttributeByName(list, name) {
-
-let setName = ''
+  let setName = "";
   try {
-    if (name === 'Travel') {
-      setName = 'travelattributeSet'
+    if (name === "Travel") {
+      setName = "travelattributeSet";
     }
-    if (name === 'Letter') {
-      setName = 'stringattributeSet'
+    if (name === "Letter") {
+      setName = "stringattributeSet";
     }
 
-    const filtered = list.filter(item => item.name === name)[0].attributeModules[0][setName]
+    const filtered = list.filter((item) => item.name === name)[0]
+      .attributeModules[0][setName];
 
-    return filtered
-  }
-  catch(err) {
-    return []
+    return filtered;
+  } catch (err) {
+    return [];
   }
 }
 

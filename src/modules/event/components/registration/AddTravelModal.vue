@@ -136,10 +136,10 @@ const rules = {
 };
 
 const state = reactive({
-    numberPersons: null,
-    typeField: null,
-    dateTimeField: null,
-    description: ''
+  numberPersons: null,
+  typeField: null,
+  dateTimeField: null,
+  description: "",
 });
 
 const genderMappings = computed(() => {
@@ -160,15 +160,15 @@ const event = computed(() => {
 
 const getDescriptionText = computed(() => {
   switch (state.typeField?.value) {
-    case 'T': {
+    case "T": {
       return "Welcher Bahnhof";
       break;
     }
-    case 'B': {
+    case "B": {
       return "Welche Reisegesellschaft?";
       break;
     }
-    case 'C': {
+    case "C": {
       return "Wieviele Autos?'";
       break;
     }
@@ -177,7 +177,7 @@ const getDescriptionText = computed(() => {
       break;
     }
   }
-  return 'Döner'
+  return "Döner";
 });
 
 const v$ = useVuelidate(rules, state);
@@ -216,10 +216,12 @@ watch(
 );
 
 function resetData() {
-    state.numberPersons = eventRegisterStore.registerPersonCount;
-    state.typeField = travelTypeChoices.value[0]
-    state.dateTimeField = moment(eventRegisterStore.event.startDate).format('YYYY-MM-DDTHH:mm');
-    state.description = '';
+  state.numberPersons = eventRegisterStore.registerPersonCount;
+  state.typeField = travelTypeChoices.value[0];
+  state.dateTimeField = moment(eventRegisterStore.event.startDate).format(
+    "YYYY-MM-DDTHH:mm"
+  );
+  state.description = "";
 }
 
 function initData(eatHabits) {
@@ -233,7 +235,9 @@ function initData(eatHabits) {
     state.storeId = props?.travel?.storeId;
     state.numberPersons = props?.travel?.numberPersons;
     state.typeField = props?.travel?.typeField;
-    state.dateTimeField = moment(props?.travel?.dateTimeField).format('YYYY-MM-DDTHH:mm');
+    state.dateTimeField = moment(props?.travel?.dateTimeField).format(
+      "YYYY-MM-DDTHH:mm"
+    );
     state.description = props?.travel?.description;
   } else if (
     props.open &&
@@ -243,11 +247,13 @@ function initData(eatHabits) {
   ) {
     state.id = props?.travel.id;
     state.numberPersons = props?.travel?.numberPersons;
-    state.typeField = getTravelTypeObj(props?.travel?.typeField)
-    state.dateTimeField = moment(props?.travel?.dateTimeField).format('YYYY-MM-DDTHH:mm');
+    state.typeField = getTravelTypeObj(props?.travel?.typeField);
+    state.dateTimeField = moment(props?.travel?.dateTimeField).format(
+      "YYYY-MM-DDTHH:mm"
+    );
     state.description = props?.travel?.description;
   } else {
     resetData();
   }
-};
+}
 </script>

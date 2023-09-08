@@ -1,6 +1,6 @@
 <template>
   <StepFrame
-    header="Anreise"
+    :header="props.step?.header"
     :isLoading="isLoading"
     @click="onNextButtonClicked"
   >
@@ -8,15 +8,12 @@
       <div class="px-4 sm:px-6 py-3 lg:px-8">
         <div class="sm:flex sm:items-center">
           <div class="sm:flex-auto">
-            <h1 class="text-xl font-semibold text-gray-900">Deine Anreise</h1>
-            <p class="mt-2 text-sm text-gray-700">
-              In dieser Liste sind deine Anreisewege
-            </p>
+            <p v-html="props.step?.description" class="text-lg text-gray-800"></p>
           </div>
         </div>
         <div class="mt-8 flex flex-col">
           <PrimaryButton @click="onNewTravelClicked" class="my-1 mx-1">
-            Neue Anreise hinzufügen
+            Neuer Eintrag
           </PrimaryButton>
           <SimpleList :items="registerTravel" :isLoading="isLoading">
             <template v-slot:notEmpty="slotProps">
@@ -61,6 +58,10 @@ const eventRegisterStore = useEventRegisterStore();
 import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
 
+const props = defineProps({
+  step: Object,
+});
+
 const state = reactive({});
 
 const travel = ref({});
@@ -99,20 +100,22 @@ function onNewTravelCancelClicked() {
 function onNewTravelConfirmClicked(travel) {
   if (travel.storeId) {
     eventRegisterStore.editTravel({
-    storeId: travel.storeId,
-    numberPersons: travel.numberPersons,
-    typeField: travel.typeField,
-    dateTimeField: travel.dateTimeField,
-    description: travel.description,
-  });
+      storeId: travel.storeId,
+      numberPersons: travel.numberPersons,
+      typeField: travel.typeField,
+      dateTimeField: travel.dateTimeField,
+      description: travel.description,
+      attributeModule: props.step?.id,
+    });
   } else {
     eventRegisterStore.addTravel({
-    storeId: travel.storeId,
-    numberPersons: travel.numberPersons,
-    typeField: travel.typeField,
-    dateTimeField: travel.dateTimeField,
-    description: travel.description,
-  });
+      storeId: travel.storeId,
+      numberPersons: travel.numberPersons,
+      typeField: travel.typeField,
+      dateTimeField: travel.dateTimeField,
+      description: travel.description,
+      attributeModule: props.step?.id,
+    });
   }
   openNewTravelModal.value = false;
 }
@@ -126,9 +129,11 @@ function onNextButtonClicked() {
     commonStore.showError("Bitte füge mindestens eine Travel hinzu.");
     return;
   }
-
   router.push({
-    name: "RegistrationNewFreeText",
+    name: props.step.nextLink,
+    params: {
+      module: props.step.nextId,
+    },
   });
 }
 
@@ -149,7 +154,9 @@ const personalData = computed(() => {
 });
 
 const registerTravel = computed(() => {
-  return eventRegisterStore.registerTravel;
+  return eventRegisterStore.registerTravel.filter(
+    (item) => item?.attributeModule === props.step?.id
+  );
 });
 
 const travelTypeChoices = computed(() => {

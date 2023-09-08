@@ -2,7 +2,7 @@
   <div>
     <BaseField
       component="Select"
-      :label="'fieldType'"
+      :label="'Datentyp'"
       techName="fieldType"
       v-model="state.fieldType"
       :errors="errors.fieldType?.$errors"
@@ -19,7 +19,7 @@
     />
     <BaseField
       component="TextArea"
-      :label="'Text'"
+      :label="'Hinweis'"
       techName="text"
       v-model="state.text"
       :errors="errors.text?.$errors"

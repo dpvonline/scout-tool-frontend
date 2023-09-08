@@ -87,7 +87,6 @@ const props = defineProps({
 function onPayedClicked(item) {
   newPaymentDialog.value = true;
   currentPayment.value = item;
-  console.log(currentPayment.value);
 }
 
 function onPayedAddedClicked() {

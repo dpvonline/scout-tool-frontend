@@ -10,7 +10,7 @@
           </div>
           <div class="flex-1 w-64">
             <button
-              @click="onEventEditClicked(0)"
+              @click="onEventEditClicked()"
               type="button"
               class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
@@ -25,11 +25,8 @@
       <dt class="text-sm font-medium text-gray-500">
         {{ props.data?.text }}
       </dt>
-      <dd class="mt-1 text-sm text-gray-900">
-        {{ props.data.stringField }}
-      </dd>
       <dd class="mt-1 text-sm">
-        Wert: {{ props.value?.stringField || "kein Wert" }}
+        {{ props.value?.floatField || " - " }}
       </dd>
     </div>
     <RegEditOverlay

@@ -464,7 +464,6 @@ const zipCheck = async (value) => {
   if (!value || value == "") {
     return false;
   }
-  console.log(value);
   return !(await registerStore.zipCheck(value));
 };
 
