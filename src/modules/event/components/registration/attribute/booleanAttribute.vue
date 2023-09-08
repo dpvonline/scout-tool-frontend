@@ -25,7 +25,7 @@
       {{ props.data?.text }}
     </dt>
     <dd class="mtb-3 text-sm text-gray-900">
-      {{ props.value.booleanField ? "Ja" : "Nein" }}
+      {{ props.value?.booleanField ? "Ja" : "Nein" }}
     </dd>
     <RegEditOverlay
       :open="openEventEdit"
