@@ -142,9 +142,9 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         promises.push(RegistrationApi.createParticipant(regId, this.transformEatHabits(person)));
       });
       // travel
-      const attributeModuleIdTravel = this._event?.eventmoduleSet.filter((item) => item.name === "Travel")[0]
-        .attributeModules[0];
       this._registerTravel.forEach((travelItem) => {
+        const attributeModuleIdTravel = this._event?.eventmoduleSet.filter((item) => item.id === travelItem?.attributeModule)[0]
+        .attributeModules[0].id;
         promises.push(
           this.createAttribute(
             regId,
@@ -153,7 +153,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
               typeField: travelItem.typeField.value,
               dateTimeField: travelItem.dateTimeField,
               description: travelItem.description,
-              attributeModule: attributeModuleIdTravel?.id,
+              attributeModule: attributeModuleIdTravel,
             },
             "travelAttribute"
           )
@@ -271,6 +271,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         typeField: data.typeField,
         dateTimeField: data.dateTimeField,
         description: data.description,
+        attributeModule: data.attributeModule,
       });
     },
     editTravel(data: any) {

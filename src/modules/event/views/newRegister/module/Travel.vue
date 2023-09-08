@@ -1,6 +1,6 @@
 <template>
   <StepFrame
-    header="Anreise"
+    :header="props.step?.header"
     :isLoading="isLoading"
     @click="onNextButtonClicked"
   >
@@ -8,15 +8,12 @@
       <div class="px-4 sm:px-6 py-3 lg:px-8">
         <div class="sm:flex sm:items-center">
           <div class="sm:flex-auto">
-            <h1 class="text-xl font-semibold text-gray-900">Deine Anreise</h1>
-            <p class="mt-2 text-sm text-gray-700">
-              In dieser Liste sind deine Anreisewege
-            </p>
+            <p v-html="props.step?.description" class="text-lg text-gray-800"></p>
           </div>
         </div>
         <div class="mt-8 flex flex-col">
           <PrimaryButton @click="onNewTravelClicked" class="my-1 mx-1">
-            Neue Anreise hinzufügen
+            Neuer Eintrag
           </PrimaryButton>
           <SimpleList :items="registerTravel" :isLoading="isLoading">
             <template v-slot:notEmpty="slotProps">
@@ -108,6 +105,7 @@ function onNewTravelConfirmClicked(travel) {
       typeField: travel.typeField,
       dateTimeField: travel.dateTimeField,
       description: travel.description,
+      attributeModule: props.step?.id,
     });
   } else {
     eventRegisterStore.addTravel({
@@ -116,6 +114,7 @@ function onNewTravelConfirmClicked(travel) {
       typeField: travel.typeField,
       dateTimeField: travel.dateTimeField,
       description: travel.description,
+      attributeModule: props.step?.id,
     });
   }
   openNewTravelModal.value = false;
@@ -155,7 +154,9 @@ const personalData = computed(() => {
 });
 
 const registerTravel = computed(() => {
-  return eventRegisterStore.registerTravel;
+  return eventRegisterStore.registerTravel.filter(
+    (item) => item?.attributeModule === props.step?.id
+  );
 });
 
 const travelTypeChoices = computed(() => {

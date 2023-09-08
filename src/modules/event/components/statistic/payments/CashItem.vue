@@ -106,7 +106,6 @@ function onPaymentClosedClicked() {
 function onPayedAddedClicked() {
   newPaymentDialog.value = true;
   currentPayment.value = props.item;
-  console.log(currentPayment.value);
 }
 
 function onNewPaymentClosedClicked() {

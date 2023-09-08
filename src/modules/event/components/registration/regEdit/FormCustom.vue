@@ -80,7 +80,6 @@ async function onSaveClicked() {
       [fieldTypes[fieldType]]: state.value,
       type: props.items?.fieldType,
     };
-    console.log(data);
     const res = await eventRegisterStore.updateAttribute(
       props.value?.id,
       data,
