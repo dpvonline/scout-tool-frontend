@@ -74,6 +74,10 @@ const commonStore = useCommonStore();
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
 const personalDataStore = usePersonalDataStore();
 
+const props = defineProps({
+  step: Object,
+});
+
 const format1 = "DD.MM.YYYY";
 
 const route = useRoute();
@@ -106,7 +110,10 @@ function onNextButtonClicked() {
   eventRegisterStore.updateRegisterStart(state);
 
   router.push({
-    name: "RegistrationNewPerson",
+    name: props.step.nextLink,
+    params: {
+      module: props.step.nextId,
+    }
   });
 }
 

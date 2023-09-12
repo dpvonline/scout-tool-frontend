@@ -3,18 +3,20 @@
     <dt class="text-md font-medium text-gray-800">
       <div class="flex">
         <div class="flex-none">
-          {{ props.data.attributeModule.title }}
+          <p class="text-sm font-medium text-gray-800">
+            {{ props.data?.title }}
+          </p>
         </div>
         <div class="flex-1 w-64">
           <button
-            @click="onTravelAttributeNewClicked(props.data)"
+            @click="onTravelAttributeNewClicked(props.value)"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             <PlusIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
           </button>
           <button
-            @click="onTravelAttributeEditClicked(props.data)"
+            @click="onTravelAttributeEditClicked(props.value)"
             type="button"
             class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -27,15 +29,15 @@
       </div>
     </dt>
     <dt class="text-sm font-medium text-gray-500">
-      {{ props.data.attributeModule.text }}
+      <!-- {{ props?.value }} -->
     </dt>
     <dd class="mt-1 text-sm text-gray-900">
-      {{ props.data.numberPersons }} Personen um
-      {{ $dayjs(props.data.dateTimeField).format("llll") }} mit
-      {{ props.data.getTypeFieldDisplay }}
+      {{ props?.value?.numberPersons }} Personen um
+      {{ $dayjs(props?.value?.dateTimeField).format("llll") }} mit
+      {{ props?.value?.getTypeFieldDisplay }}
     </dd>
     <dd class="mt-1 text-sm text-gray-500">
-      {{ props.data.description }}
+      {{ props?.value?.description }}
     </dd>
     <AddTravelModal
       :open="openNewTravelModal"
@@ -58,6 +60,7 @@ const travel = ref({});
 
 const props = defineProps({
   data: { type: Object, required: true },
+  value: { type: Object, required: false },
 });
 
 const openNewTravelModal = ref(false);
@@ -73,7 +76,7 @@ const commonStore = useCommonStore();
 
 function onNewTravelClicked() {
   openNewTravelModal.value = true;
-  travel.value = props.data;
+  travel.value = props.value
 }
 
 function onTravelAttributeNewClicked() {
@@ -83,7 +86,7 @@ function onTravelAttributeNewClicked() {
 
 function onTravelAttributeEditClicked() {
   openNewTravelModal.value = true;
-  travel.value = props.data;
+  travel.value = props.value;
 }
 
 const travelTypeChoices = computed(() => {
@@ -98,21 +101,18 @@ const registration = computed(() => {
   return eventStore.registration;
 });
 
-async function newTravel(travel) {
+async function newTravel(travel2) {
   const regId = route.params.id;
-  const attributeModuleIdTravel = event.value?.eventmoduleSet.filter(
-    (item) => item.name === "Travel"
-  )[0].attributeModules[0];
 
   const data = {
-    numberPersons: travel.numberPersons,
-    typeField: travel.typeField.value,
-    dateTimeField: travel.dateTimeField,
-    description: travel.description,
-    attributeModule: attributeModuleIdTravel?.id,
+    numberPersons: travel2.numberPersons,
+    typeField: travel2.typeField.value,
+    dateTimeField: travel2.dateTimeField,
+    description: travel2.description,
+    attributeModule: props.data?.id,
   };
-  const res = await eventRegisterStore.createAttribute(regId, data, "travel");
-  return res;
+  const respon = await eventRegisterStore.createAttribute(regId, data, "travelAttribute");
+  return respon;
 }
 
 async function updateTravel(travel) {
@@ -126,7 +126,7 @@ async function updateTravel(travel) {
   const res = await eventRegisterStore.updateAttribute(
     travel.id,
     data,
-    "travel"
+    "travelAttribute"
   );
   return res;
 }
@@ -135,7 +135,7 @@ async function onNewTravelConfirmClicked(travel) {
   let res = null;
   if (travel.id) {
     let res = await updateTravel(travel);
-    if ((res.statusCode = "200") || (res.statusCode = "201")) {
+    if ((res.status = "200") || (res.status = "201")) {
       commonStore.showSuccess("Anreise erfolfreich gespeichert.");
     } else {
       commonStore.showError("Fehler beim Speichern.");
@@ -145,8 +145,8 @@ async function onNewTravelConfirmClicked(travel) {
 
     openNewTravelModal.value = false;
   } else {
-    let res = await newTravel(travel);
-    if ((res.statusCode = "200") || (res.statusCode = "201")) {
+    let res2 = await newTravel(travel);
+    if ((res2.status == 200) || (res2.status == 201)) {
       commonStore.showSuccess("Anreise erfolfreich gespeichert.");
     } else {
       commonStore.showError("Fehler beim Speichern.");

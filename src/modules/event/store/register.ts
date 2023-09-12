@@ -5,6 +5,7 @@ import EventApi from "@/modules/event/services/event";
 import RegistrationApi from "@/modules/event/services/registration";
 import MappingApi from "@/modules/auth/services/mapping";
 import GroupApi from "@/modules/group/services/group";
+import attributeModule from "../services/attribute-module";
 
 const format1 = "YYYY-MM-DD HH:mm:ss";
 
@@ -22,6 +23,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     _registerPerson: [],
     _registerTravel: [],
     _registerFreeText: {},
+    _registerCustom: [],
     _eatHabitTypes: [],
   }),
 
@@ -59,21 +61,33 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       await this.fetchEatHabitTypes();
     },
     async createAttribute(regId: any, data: any, type: any) {
-      if (type === "boolean") {
+      if (type === "booleanAttribute") {
         return await RegistrationApi.createBooleanAttribute(regId, data);
-      } else if (type === "string") {
+      } else if (type === "stringAttribute") {
         return await RegistrationApi.createStringAttribute(regId, data);
-      } else if (type === "travel") {
+      } else if (type === "travelAttribute") {
         return await RegistrationApi.createTravelAttribute(regId, data);
+      } else if (type === "floatAttribute") {
+        return await RegistrationApi.createFloatAttribute(regId, data);
+      } else if (type === "dateTimeAttribute") {
+        return await RegistrationApi.createDateTimeAttribute(regId, data);
+      } else if (type === "integerAttribute") {
+        return await RegistrationApi.createIntegerAttribute(regId, data);
       }
     },
     async updateAttribute(id: any, data: any, type: any) {
-      if (type === "boolean") {
+      if (type === "booleanAttribute") {
         return await RegistrationApi.updateBooleanAttribute(id, data);
-      } else if (type === "string") {
+      } else if (type === "stringAttribute") {
         return await RegistrationApi.updateStringAttribute(id, data);
-      } else if (type === "travel") {
+      } else if (type === "travelAttribute") {
         return await RegistrationApi.updateTravelAttribute(id, data);
+      } else if (type === "integerAttribute") {
+        return await RegistrationApi.updateIntegerAttribute(id, data);
+      } else if (type === "floatAttribute") {
+        return await RegistrationApi.updateFloatAttribute(id, data);
+      } else if (type === "dateTimeAttribute") {
+        return await RegistrationApi.updateDateTimeAttribute(id, data);
       }
     },
 
@@ -123,16 +137,14 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         return false;
       }
       const regId = register.data.id;
-
       const promises = [];
       this._registerPerson.forEach((person) => {
         promises.push(RegistrationApi.createParticipant(regId, this.transformEatHabits(person)));
       });
-
       // travel
-      const attributeModuleIdTravel = this._event?.eventmoduleSet.filter((item) => item.name === "Travel")[0]
-        .attributeModules[0];
       this._registerTravel.forEach((travelItem) => {
+        const attributeModuleIdTravel = this._event?.eventmoduleSet.filter((item) => item.id === travelItem?.attributeModule)[0]
+        .attributeModules[0].id;
         promises.push(
           this.createAttribute(
             regId,
@@ -141,13 +153,12 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
               typeField: travelItem.typeField.value,
               dateTimeField: travelItem.dateTimeField,
               description: travelItem.description,
-              attributeModule: attributeModuleIdTravel?.id,
+              attributeModule: attributeModuleIdTravel,
             },
-            "travel"
+            "travelAttribute"
           )
         );
       });
-
       // freetext
       const attributeModuleIdLetter = this._event?.eventmoduleSet.filter((item) => item.name === "Letter")[0]
         .attributeModules[0].id;
@@ -159,10 +170,40 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
               stringField: this._registerFreeText?.freeText,
               attributeModule: attributeModuleIdLetter,
             },
-            "string"
+            "stringAttribute"
           )
         );
       }
+      const fieldTypes = {
+        booleanAttribute: "booleanField",
+        dateTimeAttribute: "dateTimeField",
+        integerAttribute: "integerField",
+        floatAttribute: "floatField",
+        stringAttribute: "stringField",
+        travelAttribute: "travelField",
+      }
+      for (const [moduleId, attData] of Object.entries(this._registerCustom)) {
+        if (attData) {
+          Object.keys(attData).forEach(att => {
+            const attId = att.split("_")[1];
+            const mod = this._event?.eventmoduleSet.find((module) => module.id == moduleId)
+            const attribute = mod.attributeModules.find(attribute => attribute.id == attId)
+            if (attribute) {
+              promises.push(
+                this.createAttribute(
+                  regId,
+                  {
+                    [fieldTypes[attribute.fieldType]]: this._registerCustom[moduleId][att],
+                    attributeModule: parseInt(attId, 10),
+                  },
+                  attribute.fieldType,
+                )
+              );
+            }
+          })
+        }
+      }
+
       try {
         responses = await Promise.all(promises);
       } catch (e: any) {
@@ -230,6 +271,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         typeField: data.typeField,
         dateTimeField: data.dateTimeField,
         description: data.description,
+        attributeModule: data.attributeModule,
       });
     },
     editTravel(data: any) {
@@ -255,6 +297,9 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     updateRegisterFreeText(data: any) {
       this._registerFreeText = data;
     },
+    updateRegisterCustom(moduleId: number, data: any) {
+      this._registerCustom[moduleId] = data;
+    },
   },
   getters: {
     event: (state) => {
@@ -276,6 +321,9 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     },
     registerFreeText: (state) => {
       return state._registerFreeText;
+    },
+    registerCustom: (state) => {
+      return state._registerCustom;
     },
 
     // registrations

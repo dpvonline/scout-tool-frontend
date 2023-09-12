@@ -134,6 +134,9 @@ export default {
   createFileRequest(eventId: any, data: any) {
     return axios.post(`${BASE_URL}/event/event/${eventId}/files/generate/`, data);
   },
+  mergeRegistrations(eventId: any, data: any) {
+    return axios.post(`${BASE_URL}/event/event/${eventId}/summary/merge-registrations/`, data);
+  },
   fetchDownloadSummary(eventId: any, params: any) {
     return axios.get(`${BASE_URL}/event/event/${eventId}/files/generate/`, { params });
   },

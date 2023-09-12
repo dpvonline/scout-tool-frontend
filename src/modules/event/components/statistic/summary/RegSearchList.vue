@@ -5,8 +5,17 @@
       @click="onNewRegClicked"
       :icon="PlusIcon"
       class="mx-3 my-3"
-      >Anmeldung hinzufügen</PrimaryButton
     >
+      Anmeldung hinzufügen
+    </PrimaryButton>
+    <PrimaryButton
+      color="blue"
+      @click="onRegMergeClicked"
+      :icon="FolderOpenIcon"
+      class="mx-3 my-3"
+    >
+      Anmeldungen zusammenfassen
+    </PrimaryButton>
     <List
       :name="'Alle Anmeldungen'"
       :items="eventSummary"
@@ -22,6 +31,11 @@
         <RegListItem :item="item" />
       </template>
     </List>
+    <RegMergeOverlay
+      :open="openRegMerge"
+      @close="onRegClosedClicked"
+      header="Zusammenfassen"
+    />
   </div>
 </template>
 
@@ -32,10 +46,12 @@ import {
   ChevronRightIcon,
   HomeIcon,
   PlusIcon,
+  FolderOpenIcon,
 } from "@heroicons/vue/20/solid";
 import List from "@/components/base/list/Main.vue";
 import RegListItem from "@/modules/event/components/statistic/summary/RegListItem.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
+import RegMergeOverlay from "@/modules/event/components/statistic/summary/regMerge/Overlay.vue";
 
 import { useEventStore } from "@/modules/event/store/index";
 import { useAuthStore } from "@/modules/auth/store/index";
@@ -96,6 +112,15 @@ const sortOptions = [
 const filters = [];
 const buttonList = [];
 
+// regestrierung zusammenfügen
+function onRegMergeClicked() {
+  openRegMerge.value = true;
+}
+function onRegClosedClicked() {
+  openRegMerge.value = false;
+}
+const openRegMerge = ref(false);
+
 import { useEventRegisterStore } from "@/modules/event/store/register";
 const eventRegisterStore = useEventRegisterStore();
 
@@ -104,7 +129,7 @@ function onNewRegClicked() {
   eventRegisterStore.$reset();
 
   router.push({
-    name: "RegistrationNewStart",
+    name: "RegistrationIntroduction",
     params: {
       id: eventId,
     },

@@ -668,6 +668,13 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
+    async mergeRegistrations(eventId: any, data: Object) {
+      try {
+        return await EventApi.mergeRegistrations(eventId, data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async updatePartialEventModuleById(eventId: any, eventModuleId: any, data: Object) {
       try {
         return await EventApi.updatePartialEventModuleById(eventId, eventModuleId, data);

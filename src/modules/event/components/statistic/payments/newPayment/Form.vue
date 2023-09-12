@@ -227,7 +227,6 @@ function setInitData(item) {
 }
 
 const isEdit = computed(() => {
-  console.log(props.items);
   return !!props.items.id && !props.items.refId;
 });
 

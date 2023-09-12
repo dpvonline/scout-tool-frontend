@@ -14,23 +14,17 @@
     <div v-if="state.module || isEdit || isCreate">
       <BaseField
         component="Text"
-        :label="'Titel'"
+        :label="'Name des Modules'"
         techName="header"
+        :hint="''"
         v-model="state.header"
         :errors="errors.header?.$errors"
         :cols="12"
       />
       <BaseField
-        component="Text"
-        :label="'Module Name'"
-        techName="name"
-        v-model="state.name"
-        :errors="errors.name?.$errors"
-        :cols="12"
-      />
-      <BaseField
-        component="TextArea"
+        component="Html"
         :label="'Beschreibung'"
+        :hint="'Dieser Text wird über den Daten angezeigt.'"
         techName="description"
         v-model="state.description"
         :errors="errors.description?.$errors"
@@ -44,14 +38,14 @@
         label="Änderungen speichern"
       />
       <PrimaryButton
-        v-if="isCreate"
+        v-if="isCreate || state.module"
         class="my-4"
         @click="onSaveClicked"
         :isLoading="!!isLoading"
-        label="Custom Module erstellen und hinzufügen."
+        label="Module erstellen und hinzufügen."
       />
     </div>
-    <div v-if="!isEdit && !isCreate">
+    <div v-if="!isEdit && !isCreate && !state.module">
       <PrimaryButton
         class="my-4"
         color="green"
@@ -65,7 +59,7 @@
 
 <script setup lang="ts">
 
-import { reactive, onMounted, ref, watch, computed } from "vue";
+import { reactive, onMounted, ref, watch, computed, getTransitionRawChildren } from "vue";
 import { useCommonStore } from "@/modules/common/store/index";
 import { useEventEditStore } from "@/modules/event/store/edit";
 import BaseField from "@/components/field/Base.vue";
@@ -89,9 +83,10 @@ const props = defineProps({
 });
 
 const state = reactive({
-  name: 'New Custom',
+  name: 'Custom',
   module: null,
   header: null,
+  ordering: null,
   description: null,
 });
 
@@ -107,9 +102,9 @@ const rules = {
   header: {
     required,
   },
-  description: {
-    required,
-  },
+  // description: {
+  //   required,
+  // },
 };
 
 const v$ = useVuelidate(rules, state);
@@ -124,6 +119,20 @@ function onNewCustomModuleClicked() {
   isCreate.value = true;
 }
 
+const event = computed(() => {
+  return eventStore.event;
+});
+
+function getOrderingValue () {
+  let ordering = 1;
+  const modules = event.value.eventmoduleSet;
+  if (modules && modules.length) {
+    modules[modules.length - 2].ordering
+  }
+  return ordering
+}
+
+
 async function onSaveClicked() {
   v$.value.$validate();
   errors.value = v$.value;
@@ -132,16 +141,15 @@ async function onSaveClicked() {
     return;
   }
   const eventId = route.params.id;
-
   if (!isEdit.value) {
   const data = {
     module: state.module,
     header: state.header,
-    name: state.name,
+    name: 'Custom',
     description: state.description,
+    ordering: getOrderingValue(),
     event: eventId,
   }
-
   const res = await eventStore.createEventModule(
     eventId,
     data,
@@ -149,7 +157,7 @@ async function onSaveClicked() {
   if ((res.status === 201)) {
 
     const response = await eventStore.fetchEvent(eventId);
-    commonStore.showSuccess("Erfolfreich gespeichert.");
+    commonStore.showSuccess("Erfolgreich gespeichert.");
     onCloseClicked();
   } else {
     commonStore.showError("Fehler beim speichern.");
@@ -171,7 +179,7 @@ async function onSaveClicked() {
     props.items.id,
     data,
   );
-  if ((res.ststus === 200)) {
+  if ((res.status === 200)) {
     const response = await eventStore.fetchEvent(eventId);
     commonStore.showSuccess("Erfolfreich gespeichert.");
     onCloseClicked();
@@ -192,6 +200,7 @@ onMounted(async () => {
     })
   if (!isEdit.value) {
   } else {
+    state.name = props.items?.name;
     state.header = props.items?.header;
     state.description = props.items?.description;
   }

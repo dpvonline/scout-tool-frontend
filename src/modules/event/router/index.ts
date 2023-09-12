@@ -116,37 +116,51 @@ export default [
       import(/* webpackChunkName: "NewRegistration" */ "@/modules/event/views/newRegister/Container.vue"),
     children: [
       {
-        path: "start",
-        name: "RegistrationNewStart",
+        path: "introduction",
+        name: "RegistrationIntroduction",
         component: () =>
-          import(/* webpackChunkName: "RegistrationNewStart" */ "@/modules/event/views/newRegister/module/Start.vue"),
+          import(/* webpackChunkName: "RegistrationIntroduction" */ "@/modules/event/views/newRegister/module/Introduction.vue"),
       },
       {
-        path: "person",
-        name: "RegistrationNewPerson",
+        path: "participants",
+        name: "RegistrationParticipants",
         component: () =>
-          import(/* webpackChunkName: "RegistrationNewPerson" */ "@/modules/event/views/newRegister/module/Person.vue"),
+          import(/* webpackChunkName: "RegistrationParticipants" */ "@/modules/event/views/newRegister/module/Participants.vue"),
       },
       {
         path: "travel",
-        name: "RegistrationNewTravel",
+        name: "RegistrationTravel",
         component: () =>
-          import(/* webpackChunkName: "RegistrationNewTravel" */ "@/modules/event/views/newRegister/module/Travel.vue"),
+          import(/* webpackChunkName: "RegistrationTravel" */ "@/modules/event/views/newRegister/module/Travel.vue"),
       },
       {
-        path: "free-text",
-        name: "RegistrationNewFreeText",
+        path: "travel-back",
+        name: "RegistrationTravelBack",
+        component: () =>
+          import(/* webpackChunkName: "RegistrationTravelBack" */ "@/modules/event/views/newRegister/module/Travel.vue"),
+      },
+      {
+        path: "letter",
+        name: "RegistrationLetter",
         component: () =>
           import(
-            /* webpackChunkName: "RegistrationNewFreeText" */ "@/modules/event/views/newRegister/module/FreeText.vue"
+            /* webpackChunkName: "RegistrationLetter" */ "@/modules/event/views/newRegister/module/Letter.vue"
+          ),
+      },
+      {
+        path: "custom/:module:",
+        name: "RegistrationCustom",
+        component: () =>
+          import(
+            /* webpackChunkName: "RegistrationCustom" */ "@/modules/event/views/newRegister/module/Custom.vue"
           ),
       },
       {
         path: "summary",
-        name: "RegistrationNewSummary",
+        name: "RegistrationSummary",
         component: () =>
           import(
-            /* webpackChunkName: "RegistrationNewSummary" */ "@/modules/event/views/newRegister/module/Summary.vue"
+            /* webpackChunkName: "RegistrationSummary" */ "@/modules/event/views/newRegister/module/Summary.vue"
           ),
       },
     ],
