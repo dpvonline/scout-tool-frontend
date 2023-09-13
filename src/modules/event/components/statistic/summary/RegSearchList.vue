@@ -112,7 +112,7 @@ const sortOptions = [
 const filters = [];
 const buttonList = [];
 
-// regestrierung zusammenfügen
+// Registrierung zusammenfügen
 function onRegMergeClicked() {
   openRegMerge.value = true;
 }
