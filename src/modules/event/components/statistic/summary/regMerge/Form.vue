@@ -8,7 +8,7 @@
       :errors="errors.regPrimary?.$errors"
       :cols="12"
       :items="registrations"
-      hint="Wähle eine Regestrierung falls du nur eine Regestrierung sehen willst."
+      hint="Wähle eine Registrierung falls du nur eine Registrierung sehen willst."
       :lookupListDisplay="[
         'scoutOrganisationDisplay',
         'responsiblePersonsExtended',
@@ -24,7 +24,7 @@
       :errors="errors.regSecondary?.$errors"
       cols="12"
       :items="registrations"
-      hint="Wähle eine Regestrierung falls du nur eine Regestrierung sehen willst."
+      hint="Wähle eine Registrierung falls du nur eine Registrierung sehen willst."
       :lookupListDisplay="[
         'scoutOrganisationDisplay',
         'responsiblePersonsExtended',
