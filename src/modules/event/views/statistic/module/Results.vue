@@ -6,12 +6,12 @@
       </h3>
       <BaseField
         component="Select"
-        :label="'Filter nach einer Regestrierung'"
+        :label="'Filter nach einer Registrierung'"
         techName="selectedReg"
         v-model="state.selectedReg"
         :cols="6"
         :items="eventSummary"
-        hint="Wähle eine Regestrierung falls du nur eine Regestrierung sehen willst."
+        hint="Wähle eine Registrierung falls du nur eine Registrierung sehen willst."
         :lookupListDisplay="['scoutOrganisationDisplay', 'responsible_persons_extended']"
       />
       <dl class="my-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
