@@ -311,8 +311,7 @@ function onNewPaymentClosedClicked() {
 async function sendPaymentReminder() {
   isSaving.value = true;
   const registrationId = route.params.id;
-  const obj = await eventStore.sendSinglePaymentReminder({ registrationId });
-  const response = obj?.response;
+  const response = await eventStore.sendSinglePaymentReminder({ registrationId });
   if (response && response?.status === 200) {
     commonStore.showSuccess("E-Mail erfolgreich versendet");
   } else {
