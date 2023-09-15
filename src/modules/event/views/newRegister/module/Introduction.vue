@@ -21,6 +21,9 @@
         />
       </div>
       <div class="mt-4 space-y-4">
+        <p class="text-sm text-gray-800 mt-4">
+        Diese Anmeldung ist auf der Ebene: <b>{{ event?.registrationLevel?.name }}</b>
+      </p>
         <BaseField
           component="AutoComplete"
           :label="'Gruppe*'"
@@ -28,7 +31,7 @@
           v-model="state.scoutGroup"
           :errors="errors.scoutGroup?.$errors"
           :items="registerStore.scoutGroupMappings"
-          hint="Suche dir die Gruppe aus, den du anmelden willst."
+          hint="Suche dir die Gruppe aus, die du anmelden willst."
           :lookupListDisplay="['displayName']"
           :cols="12"
         />
