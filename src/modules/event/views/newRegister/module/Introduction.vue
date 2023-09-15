@@ -23,13 +23,13 @@
       <div class="mt-4 space-y-4">
         <BaseField
           component="AutoComplete"
-          :label="'Stamm*'"
+          :label="'Gruppe*'"
           techName="scoutGroup"
           v-model="state.scoutGroup"
           :errors="errors.scoutGroup?.$errors"
           :items="registerStore.scoutGroupMappings"
-          hint="Suche den Stamm aus, den du anmelden willst."
-          :lookupListDisplay="['bund', '$ - Stamm ', 'name']"
+          hint="Suche dir die Gruppe aus, den du anmelden willst."
+          :lookupListDisplay="['displayName']"
           :cols="12"
         />
       </div>
@@ -113,7 +113,7 @@ function onNextButtonClicked() {
     name: props.step.nextLink,
     params: {
       module: props.step.nextId,
-    }
+    },
   });
 }
 
@@ -121,13 +121,19 @@ function setInitData() {
   isLoading.value = true;
   state.hasConfirmed = false;
 
-  console.log(personalData.value);
-  console.log(personalData?.value?.scoutGroup);
+  const myBund = personalData?.value?.scoutGroup.bund;
+  const eventLevelId = event?.value?.registrationLevel?.id;
 
-  if (personalData?.value?.scoutGroup?.id) {
-    state.scoutGroup = registerStore.scoutGroupMappings.find(
-      (a) => a["id"] === personalData?.value?.scoutGroup.id
-    );
+  if (eventLevelId === 3 && myBund) {
+      state.scoutGroup = registerStore.scoutGroupMappings.find(
+        (a) => a["name"] === myBund
+      );
+  } else {
+    if (personalData?.value?.scoutGroup?.id) {
+      state.scoutGroup = registerStore.scoutGroupMappings.find(
+        (a) => a["id"] === personalData?.value?.scoutGroup.id
+      );
+    }
   }
 
   isLoading.value = false;
@@ -151,9 +157,9 @@ onMounted(async () => {
   await Promise.all([
     personalDataStore.fetchPersonalData(),
     eventRegisterStore.fetchEvent(id),
-    registerStore.fetchAllMappings(id),
+    registerStore.fetchAllMappings(event?.value?.registrationLevel?.id),
   ]);
-
+  
   setInitData();
 });
 </script>

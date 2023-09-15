@@ -55,7 +55,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         console.error(e);
       }
     },
-    async fetchAllMappings(eventId: any) {
+    async fetchAllMappings(eventId: any, levelId=5) {
       await GroupApi.fetchMyGroups();
       await this.fetchEvent(eventId);
       await this.fetchEatHabitTypes();

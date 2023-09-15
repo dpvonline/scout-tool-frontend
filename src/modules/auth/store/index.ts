@@ -127,7 +127,7 @@ export const useRegisterStore = defineStore("registerStore", {
     setRegistered() {
       this._registered = true
     },
-    async fetchAllMappings(params = {}) {
+    async fetchAllMappings(levelId=5) {
       try {
         const genders = await mappingServices.fetchGenderMappings()
         this._mappings.gender = genders.data
@@ -137,7 +137,7 @@ export const useRegisterStore = defineStore("registerStore", {
       }
 
       try {
-        const scoutGroup = await mappingServices.fetchScoutGroupMapping()
+        const scoutGroup = await mappingServices.fetchScoutGroupMapping(levelId)
         this._mappings.scoutGroup = scoutGroup.data
       } catch (e) {
         alert(e)
