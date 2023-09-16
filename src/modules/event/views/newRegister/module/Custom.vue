@@ -20,7 +20,7 @@
           :hint="attribute.text"
         />
       </div>
-      <div v-if="!currentAttributes?.length">Keine Attribute</div>
+      <div v-if="!currentAttributes?.length">Du musst hier nichts ausfüllen und kannst dirket auf weiter klicken.</div>
     </fieldset>
   </StepFrame>
 </template>
