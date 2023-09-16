@@ -182,9 +182,10 @@
       <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
         {{ mod.header }}
       </h3>
-      <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-        {{ mod.description }}
-      </p>
+      <p
+        class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"
+        v-html="mod.description || ''"
+      ></p>
       <dl
         v-for="modu in mod.attributeModules"
         :key="modu.id"
@@ -358,7 +359,9 @@ function getOverviewModules(registration: any) {
   try {
     const list = registration?.event?.eventmoduleSet;
     const arrB = ["Custom", "Letter", "Travel", "TravelBack"];
-    const filteredArray = list.filter((itm: any) => arrB.indexOf(itm.name) > -1);
+    const filteredArray = list.filter(
+      (itm: any) => arrB.indexOf(itm.name) > -1
+    );
     return filteredArray;
   } catch (e) {
     return [];
