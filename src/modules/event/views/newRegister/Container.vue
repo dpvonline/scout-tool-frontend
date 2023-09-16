@@ -40,7 +40,7 @@ const compNo = computed(() => {
   return window.innerWidth < 1200 ? 0 : 1;
 });
 
-function nextLink(eventModule) {
+function nextLink(eventModule: any) {
   try {
     return getCompLeftList(eventModule.id)[0].link;
   } catch (error) {
@@ -57,10 +57,10 @@ function nextId(eventModule) {
 }
 
 const steps = computed(() => {
-  const eventObj = [];
-  eventModuleList.value.forEach((eventModule) => {
+  const eventObj: any = [];
+  eventModuleList.value.forEach((eventModule: any) => {
     const compName = `Registration${eventModule.name}`;
-    eventObj.push({
+    const routeObj = {
       id: eventModule.id,
       name: eventModule.name,
       header: eventModule.header,
@@ -75,13 +75,15 @@ const steps = computed(() => {
         eventModule
       ),
       current: getCurrent(eventModule, eventModule.id),
-    });
+    }
+    console.log(routeObj)
+    eventObj.push(routeObj);
   });
   return eventObj;
 });
 
 
-function getStatus(value: string, next: Array<String>, index, eventModule) {
+function getStatus(value: string, next: Array<String>, index: any, eventModule: any) {
   const isCustom = eventModule.name === "Custom";
   const moduleIdMatch =
     router.currentRoute.value.params.module == index ||
@@ -95,7 +97,7 @@ function getStatus(value: string, next: Array<String>, index, eventModule) {
   return status;
 }
 
-function getCurrent(eventModule, index) {
+function getCurrent(eventModule: any, index: any) {
   const isCustom = eventModule.name === "Custom";
   const compName = `Registration${eventModule.name}`;
   return (
@@ -125,7 +127,7 @@ const eventModuleList = computed(() => {
 
 function getCompLeftList(id) {
   const moduleList = eventModuleList.value;
-  const compList = moduleList.map((module) => {
+  const compList = moduleList.map((module: any) => {
     return {
       link: `Registration${module.name}`,
       id: module.id,
@@ -135,7 +137,7 @@ function getCompLeftList(id) {
   return compList.slice(index + 1);
 }
 
-function getCompLeftListIndex(compName, ind) {
+function getCompLeftListIndex(compName: any, ind: any) {
   const moduleList = eventModuleList.value;
   const compList = moduleList.map(
     (module) => `Registration${module.name}-${module.id}`
