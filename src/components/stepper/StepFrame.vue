@@ -23,14 +23,14 @@
           <div class="flex justify-end" v-if="!isFinalStep">
             <PrimaryButton
               @click="onButtonClicked"
-              label="Weiter"
+              label="weiter"
               :isLoading="isLoading"
             />
           </div>
           <div class="flex justify-end" v-if="isFinalStep">
             <PrimaryButton
               @click="onButtonClicked"
-              label="Speichern"
+              label="speichern"
               :isLoading="isLoading"
             />
           </div>

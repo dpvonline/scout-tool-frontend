@@ -22,6 +22,15 @@
         :cols="12"
       />
       <BaseField
+      component="Text"
+        :label="'Component'"
+        techName="name"
+        :hint="'name for Component'"
+        v-model="state.name"
+        :errors="errors.name?.$errors"
+        :cols="12"
+      />
+      <BaseField
         component="Html"
         :label="'Beschreibung'"
         :hint="'Dieser Text wird über den Daten angezeigt.'"
@@ -99,6 +108,9 @@ watch(
 );
 
 const rules = {
+  name: {
+    required,
+  },
   header: {
     required,
   },
@@ -145,7 +157,7 @@ async function onSaveClicked() {
   const data = {
     module: state.module,
     header: state.header,
-    name: 'Custom',
+    name: state.name,
     description: state.description,
     ordering: getOrderingValue(),
     event: eventId,
@@ -165,7 +177,7 @@ async function onSaveClicked() {
   } else {
   const data = {
     id: props.items.id,
-    name: props.items.name,
+    name: state.name,
     header: state.header,
     description: state.description,
     internal: props.items.internal,
