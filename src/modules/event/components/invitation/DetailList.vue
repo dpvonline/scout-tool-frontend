@@ -23,24 +23,17 @@
             </div>
           </div>
         </div>
-        <div class="inline-flex rounded-md shadow-sm">
+        <div class="inline-flex rounded-md shadow-sm" v-if="isEdit">
           <button
-            v-if="!isEdit"
             type="button"
-            class="relative inline-flex items-center rounded-l-md bg-green-500 px-3 py-2 text-sm font-semibold text-gray-100 ring-1 ring-inset ring-gray-500 hover:bg-green-850 focus:z-10"
-          >
-            <PaperAirplaneIcon class="h-5 w-5" aria-hidden="true" />
-          </button>
-          <button
-            v-else
-            type="button"
-            class="relative inline-flex items-center rounded-l-md bg-green-500 px-3 py-2 text-sm font-semibold text-gray-100 ring-1 ring-inset ring-gray-500 hover:bg-green-850 focus:z-10"
+            class="relative inline-flex items-center rounded-l-md bg-green-600 px-3 py-2 text-sm font-semibold text-gray-100 ring-1 ring-inset ring-gray-100 hover:bg-green-700 focus:z-10"
+            @click="onRegClicked(event)"
           >
             <PencilIcon class="h-5 w-5" aria-hidden="true" />
           </button>
           <Menu as="div" class="relative -ml-px block">
             <MenuButton
-              class="relative inline-flex items-center rounded-r-md bg-white px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+              class="relative inline-flex items-center rounded-r-md bg-white px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-100 hover:bg-gray-50 focus:z-10"
             >
               <span class="sr-only">Open options</span>
               <ChevronDownIcon class="h-5 w-5" aria-hidden="true" />
@@ -62,14 +55,15 @@
                     :key="item.name"
                     v-slot="{ active }"
                   >
-                    <a
-                      :href="item.href"
+                    <router-link
+                      :to="item.link"
                       :class="[
                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                         'block px-4 py-2 text-sm',
                       ]"
-                      >{{ item.name }}</a
                     >
+                      {{ item.name }}
+                    </router-link>
                   </MenuItem>
                 </div>
               </MenuItems>
@@ -123,6 +117,31 @@
         </div> -->
       </div>
     </div>
+
+    <div
+      v-if="event.status == 'pending' && event?.existingRegister?.id"
+      class="border-t-8 border-gray-100 px-4 py-5 sm:px-6"
+    >
+      <button
+        type="submit"
+        class="mt-2 flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-10 py-1 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        @click="onRegClicked(event)"
+      >
+        Deine Anmeldung öffnen
+      </button>
+    </div>
+
+    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6" v-if="!isEdit">
+      <button
+        type="submit"
+        class="mt-2 flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-10 py-1 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        @click="onInvitationClicked(event.id)"
+        :disabled="!startDateInFuture(event)"
+      >
+        Anmeldung starten
+      </button>
+    </div>
+
     <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
       <div class="pb-3">
         <div class="flex w-0 items-center">
@@ -372,6 +391,7 @@ import {
   MinusSmallIcon,
   PlusSmallIcon,
   AdjustmentsVerticalIcon,
+  PlayIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
@@ -394,12 +414,20 @@ dayjs.locale("de");
 
 const buttonItems = computed(() => {
   return [
-    { name: "Andere Gruppe anmelden", href: "#" },
+    {
+      name: "neue Gruppe anmelden",
+      link: {
+        name: "RegistrationIntroduction",
+        params: { id: props.event?.id || 0 },
+      },
+    },
   ];
 });
 
 const isEdit = computed(() => {
-  return props?.event?.status == 'pending' && props?.event?.existingRegister?.id
+  return (
+    props?.event?.status == "pending" && props?.event?.existingRegister?.id
+  );
 });
 
 function onInvitationClicked(id) {
@@ -411,7 +439,7 @@ function onInvitationClicked(id) {
       id: id,
     },
   });
-};
+}
 
 function startDateInFuture(event: any) {
   return dayjs().diff(dayjs(event.registrationStart)) > 0;
@@ -419,7 +447,7 @@ function startDateInFuture(event: any) {
 
 const windowWidth = ref(100);
 
-function onRegClicked(event) {
+function onRegClicked(event: any) {
   router.push({
     name: "RegistrationsDetail",
     params: {

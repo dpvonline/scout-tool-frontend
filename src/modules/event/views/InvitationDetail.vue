@@ -49,7 +49,7 @@ const event = computed(() => {
 });
 
 const isLoading = computed(() => {
-  return eventStore.isLoading;
+  return event.id
 });
 const pages = [
   {

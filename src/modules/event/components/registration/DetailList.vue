@@ -2,7 +2,7 @@
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
       <div
-        class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap"
+        class="-ml-4 -mt-4 flex items-center justify-between flex-nowrap"
       >
         <div class="ml-4 mt-4">
           <div class="flex items-center">
@@ -24,6 +24,54 @@
           </div>
         </div>
         <div class="ml-4 mt-4 flex flex-shrink-0">
+          <button
+            type="button"
+            class="relative inline-flex items-center rounded-l-md bg-red-600 px-3 py-2 text-sm font-semibold text-gray-100 ring-1 ring-inset ring-gray-100 hover:bg-red-700 focus:z-10"
+            @click="onRegDeleteClicked"
+          >
+            <TrashIcon class="h-5 w-5" aria-hidden="true" />
+          </button>
+          <Menu as="div" class="relative -ml-px block">
+            <MenuButton
+              class="relative inline-flex items-center rounded-r-md bg-white px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-100 hover:bg-gray-50 focus:z-10"
+            >
+              <span class="sr-only">Open options</span>
+              <ChevronDownIcon class="h-5 w-5" aria-hidden="true" />
+            </MenuButton>
+            <transition
+              enter-active-class="transition ease-out duration-100"
+              enter-from-class="transform opacity-0 scale-95"
+              enter-to-class="transform opacity-100 scale-100"
+              leave-active-class="transition ease-in duration-75"
+              leave-from-class="transform opacity-100 scale-100"
+              leave-to-class="transform opacity-0 scale-95"
+            >
+              <MenuItems
+                class="absolute right-0 z-10 -mr-1 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              >
+                <div class="py-1">
+                  <PrimaryButton
+                    class="my-1"
+                    color="blue"
+                    @click="onConfirmMailClicked"
+                    :isLoading="isLoading"
+                  >
+                    Bestätigungs-Email erneut senden
+                  </PrimaryButton>
+                  <PrimaryButton
+                    class="my-1"
+                    color="blue"
+                    @click="onAddResponsablePersonClicked"
+                    :isLoading="isLoading"
+                  >
+                    Verantwortliche Person hinzufügen
+                  </PrimaryButton>
+                </div>
+              </MenuItems>
+            </transition>
+          </Menu>
+        </div>
+        <!-- <div class="ml-4 mt-4 flex flex-shrink-0">
           <PrimaryButton
             :icon="EnvelopeIcon"
             @click="onConfirmMailClicked"
@@ -41,7 +89,7 @@
           >
             Löschen
           </PrimaryButton>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
@@ -210,14 +258,6 @@
         </div>
       </dl>
     </div>
-    <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
-      <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
-        Weitere Aktionen
-      </h3>
-      <PrimaryButton @click="onAddResponsablePersonClicked">
-        Verantwortliche Person hinzufügen
-      </PrimaryButton>
-    </div>
     <DeleteModal
       :open="openDeleteModal"
       :header="'Anmeldung löschen?'"
@@ -267,8 +307,10 @@ import {
   XMarkIcon,
   UserPlusIcon,
   TrashIcon,
+  ChevronDownIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 
 import MessageEditOverlay from "@/modules/message/components/MessageEdit/Overlay.vue";
 import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue";
@@ -302,6 +344,8 @@ const eventStore = useEventStore();
 
 const openDeleteModal = ref(false);
 const openDeletePersonModal = ref(false);
+
+const isLoading = ref(false);
 
 const components = {
   booleanAttribute,
@@ -358,7 +402,9 @@ function getOverviewModules(registration: any) {
   try {
     const list = registration?.event?.eventmoduleSet;
     const arrB = ["Custom", "Letter", "Travel", "TravelBack"];
-    const filteredArray = list.filter((itm: any) => arrB.indexOf(itm.name) > -1);
+    const filteredArray = list.filter(
+      (itm: any) => arrB.indexOf(itm.name) > -1
+    );
     return filteredArray;
   } catch (e) {
     return [];
@@ -458,14 +504,31 @@ function cancelModal() {
   openDeleteModal.value = false;
 }
 
-function onConfirmMailClicked() {
+async function onConfirmMailClicked() {
+  isLoading.value = true;
   const regId = route.params.id;
-  eventRegisterStore.sendConfirmMail(regId);
+  let response = null;
+  try {
+    response = await eventRegisterStore.sendConfirmMail(regId);
+  } catch (e: any) {
+    const statusCode = e.response.status; // 400
+    const statusText = e.response.statusText; // Bad Request
+    response = e;
+  }
+  debugger;
+  if (response && response?.status === 200) {
+    commonStore.showSuccess("E-Mail erfolgreich versendet");
+    isLoading.value = false;
+  } else {
+    commonStore.showError("E-Mail nicht versendet");
+    isLoading.value = false;
+  }
 }
 
 // - - - - - Add User - - - - - - - - - - -
 function onAddResponsablePersonClicked() {
   openAddMember.value = true;
+  isLoading.value = true;
 }
 
 const openAddMember = ref(false);
@@ -483,6 +546,7 @@ async function onAddMemberConfirmClicked(userId) {
   const response = await eventStore.fetchRegistration(regId);
   commonStore.showSuccess("User zur Fahrtenleitung hinzugefügt");
   openAddMember.value = false;
+  isLoading.value = false;
 }
 function onAddMemberCancellicked() {
   openAddMember.value = false;
