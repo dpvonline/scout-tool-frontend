@@ -35,6 +35,9 @@
               <p class="text-sm text-gray-500">
                 Kategorie: {{ message.issueType?.name }}
               </p>
+              <p class="text-sm text-gray-400">
+                Bearbeitungsgruppe: {{ message.issueType?.responsableGroups[0].name }}
+              </p>
             </div>
           </div>
         </div>
@@ -60,7 +63,7 @@
           </dd>
         </div>
         <div v-if="message.createdBy" class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Username</dt>
+          <dt class="text-sm font-medium text-gray-500">Benutzer der Nachricht</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ message.createdBy.username }}
           </dd>
@@ -69,7 +72,7 @@
           <dt class="text-sm font-medium text-gray-500">Erstellt</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{
-              message.createdAt ? moment(message.createdAt).format("llll") : ""
+              message.createdAt ? $dayjs(message.createdAt).format("llll") : ""
             }}
           </dd>
         </div>
