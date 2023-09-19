@@ -16,8 +16,8 @@ export default {
   fetchGenderMappings: async () => {
     return axios.get(`${BASE_URL}/basic/gender/`);
   },
-  fetchScoutGroupMapping: async () => {
-    return axios.get(`${BASE_URL}/basic/scout-hierarchy-detail/?level=5`);
+  fetchScoutGroupMapping: async (levelId=5) => {
+    return axios.get(`${BASE_URL}/basic/scout-hierarchy-detail/?level=${levelId}`);
   },
   fetchThemes: async () => {
     return axios.get(`${BASE_URL}/basic/theme/`);
