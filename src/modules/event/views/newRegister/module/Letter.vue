@@ -6,7 +6,7 @@
   >
     <fieldset class="mt-6">
       <legend class="contents text-base font-medium text-gray-900">
-        Möchstest du der Lagerleitung noch etwas mitgeben?
+        <p v-html="props.step?.description" class="text-lg text-gray-800"></p>
       </legend>
       <p class="text-sm text-gray-500"></p>
       <div class="mt-4 space-y-4">

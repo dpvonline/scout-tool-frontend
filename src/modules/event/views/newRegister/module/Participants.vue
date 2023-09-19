@@ -5,6 +5,7 @@
     @click="onNextButtonClicked"
   >
     <fieldset class="mt-6">
+      <p v-html="props.step?.description" class="text-lg text-gray-800"></p>
       <div class="px-4 sm:px-6 py-3 lg:px-8">
         <div class="sm:flex sm:items-center">
           <div class="sm:flex-auto">
