@@ -49,7 +49,7 @@ const event = computed(() => {
 });
 
 const isLoading = computed(() => {
-  return event.id
+  return !event.value.id
 });
 const pages = [
   {

@@ -516,7 +516,6 @@ async function onConfirmMailClicked() {
     const statusText = e.response.statusText; // Bad Request
     response = e;
   }
-  debugger;
   if (response && response?.status === 200) {
     commonStore.showSuccess("E-Mail erfolgreich versendet");
     isLoading.value = false;

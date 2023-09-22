@@ -12,7 +12,7 @@
     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
         <p class="truncate text-sm font-medium text-blue-600">
-          Name: {{ props.item.person.scoutName }} ({{ props.item.person.firstName }} {{ props.item.person.lastName }})
+          Name: {{ props.item?.person?.scoutName }} ({{ props.item?.person?.firstName }} {{ props.item?.person?.lastName }})
         </p>
         <p class="truncate text-sm font-medium text-gray-400">
           Stamm: {{ props.item?.person?.scoutGroup?.name }} ({{ props.item?.person?.scoutGroup?.bund }})
