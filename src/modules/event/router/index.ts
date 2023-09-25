@@ -116,31 +116,31 @@ export default [
       import(/* webpackChunkName: "NewRegistration" */ "@/modules/event/views/newRegister/Container.vue"),
     children: [
       {
-        path: "introduction",
+        path: "introduction/:module",
         name: "RegistrationIntroduction",
         component: () =>
           import(/* webpackChunkName: "RegistrationIntroduction" */ "@/modules/event/views/newRegister/module/Introduction.vue"),
       },
       {
-        path: "participants",
+        path: "participants/:module",
         name: "RegistrationParticipants",
         component: () =>
           import(/* webpackChunkName: "RegistrationParticipants" */ "@/modules/event/views/newRegister/module/Participants.vue"),
       },
       {
-        path: "travel",
+        path: "travel/:module",
         name: "RegistrationTravel",
         component: () =>
           import(/* webpackChunkName: "RegistrationTravel" */ "@/modules/event/views/newRegister/module/Travel.vue"),
       },
       {
-        path: "travel-back",
+        path: "travel-back/:module",
         name: "RegistrationTravelBack",
         component: () =>
           import(/* webpackChunkName: "RegistrationTravelBack" */ "@/modules/event/views/newRegister/module/Travel.vue"),
       },
       {
-        path: "letter",
+        path: "letter/:module",
         name: "RegistrationLetter",
         component: () =>
           import(
@@ -148,7 +148,7 @@ export default [
           ),
       },
       {
-        path: "custom/:module:",
+        path: "custom/:module",
         name: "RegistrationCustom",
         component: () =>
           import(
@@ -156,7 +156,7 @@ export default [
           ),
       },
       {
-        path: "summary",
+        path: "summary/:module",
         name: "RegistrationSummary",
         component: () =>
           import(

@@ -135,7 +135,7 @@
       <button
         type="submit"
         class="mt-2 flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-10 py-1 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-        @click="onInvitationClicked(event.id)"
+        @click="onInvitationClicked(event)"
         :disabled="!startDateInFuture(event)"
       >
         Anmeldung starten
@@ -418,7 +418,10 @@ const buttonItems = computed(() => {
       name: "neue Gruppe anmelden",
       link: {
         name: "RegistrationIntroduction",
-        params: { id: props.event?.id || 0 },
+        params: {
+          id: props.event?.id || 0,
+          module: getRegistrationIntroductionId(props.event),
+        },
       },
     },
   ];
@@ -430,13 +433,18 @@ const isEdit = computed(() => {
   );
 });
 
-function onInvitationClicked(id) {
+function getRegistrationIntroductionId(event) {
+  return event?.eventmoduleSet?.find((a) => a.name == "Introduction")?.id;
+}
+
+function onInvitationClicked(event) {
   eventRegisterStore.$reset();
 
   router.push({
     name: "RegistrationIntroduction",
     params: {
-      id: id,
+      id: event.id,
+      module: getRegistrationIntroductionId(event),
     },
   });
 }
