@@ -89,7 +89,6 @@ function getStatus(eventModule, eventModules) {
   status = indexTemp > indexCurrent ? status : "complete";
   status = indexTemp === indexCurrent ? "current" : status;
 
-  debugger;
   return status;
 }
 
