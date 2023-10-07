@@ -9,21 +9,23 @@
         Du musst die Registrierung bis zum
         {{ moment(event.registrationDeadline).format(format1) }} absenden.
       </legend>
-      <p class="text-sm text-gray-500"></p>
-      <div class="mt-4 space-y-4">
-        <BaseField
-          component="Toggle"
-          :label="'Ich stimme zu, dass die Daten bis zum Lagerende gespeichert werden.'"
-          techName="name"
-          v-model="state.hasConfirmed"
-          :errors="errors.name?.$errors"
-          :cols="12"
-        />
+      <div class="px-4 py-6 sm:px-6 md:px-0">
+        <h2 class="text-lg font-medium text-red-600">Wichtig</h2>
+        <p class="mt-1 text-sm text-gray-500">
+          Am Ende bekommst du eine Bestätigungs-Email. Nur mit dieser E-Mail ist
+          deine Anmeldung erfolgreich abgeschlossen.
+        </p>
+        <p class="mt-1 text-sm text-gray-500">
+          Du kannst deine Anmeldung nach dem Absenden noch bis zum
+          {{ moment(event.registrationDeadline).format(format1) }}
+          <b>verändern </b> und jederzeit angucken.
+        </p>
       </div>
       <div class="mt-4 space-y-4">
         <p class="text-sm text-gray-800 mt-4">
-        Diese Anmeldung ist auf der Ebene: <b>{{ event?.registrationLevel?.name }}</b>
-      </p>
+          Diese Anmeldung ist auf der Ebene:
+          <b>{{ event?.registrationLevel?.name }}</b>
+        </p>
         <BaseField
           component="AutoComplete"
           :label="'Gruppe*'"
@@ -32,23 +34,31 @@
           :errors="errors.scoutGroup?.$errors"
           :items="registerStore.scoutGroupMappings"
           hint="Suche dir die Gruppe aus, die du anmelden willst."
-          :lookupListDisplay="['displayName']"
+          :lookupListDisplay="['name']"
           :cols="12"
         />
       </div>
+      <p
+        v-html="props.step?.description"
+        class="text-lg text-gray-800 my-4"
+      ></p>
+      <div class="mt-4 space-y-4">
+        <div
+          v-for="attribute in currentAttributes"
+          class="mt-4 space-y-4"
+          :key="attribute.id"
+        >
+          <BaseField
+            :component="getComponentType(attribute.fieldType)"
+            :label="attribute.title"
+            :techName="`value_${attribute.id}`"
+            v-model="state[`value_${attribute.id}`]"
+            :cols="12"
+            :hint="attribute.text"
+          />
+        </div>
+      </div>
     </fieldset>
-    <div class="px-4 py-6 sm:px-6 md:px-0">
-      <h2 class="text-lg font-medium text-red-600">Wichtig</h2>
-      <p class="mt-1 text-sm text-gray-500">
-        Am Ende bekommst du eine Bestätigungs-Email. Nur mit dieser E-Mail ist
-        deine Anmeldung erfolgreich abgeschlossen.
-      </p>
-      <p class="mt-1 text-sm text-gray-500">
-        Du kannst deine Anmeldung nach dem Absenden noch bis zum
-        {{ moment(event.registrationDeadline).format(format1) }}
-        <b>verändern </b> und jederzeit angucken.
-      </p>
-    </div>
   </StepFrame>
 </template>
 
@@ -90,17 +100,49 @@ const state = reactive({
   scoutGroup: null,
 });
 
-const rules = {
-  hasConfirmed: {
-    checked: (value) => value === true,
-  },
-};
+function checked(value) {
+  return value === true;
+}
+
+const currentModuleId = computed(() => {
+  try {
+    return eventStore.event.eventmoduleSet.find(
+      (module) => module.name == "Introduction"
+    ).id;
+  } catch (error) {
+    return [];
+  }
+});
+
+const currentAttributes = computed(() => {
+  try {
+    return eventStore.event.eventmoduleSet.find(
+      (module) => module.name == "Introduction"
+    ).attributeModules;
+  } catch (error) {
+    return [];
+  }
+});
+
+const rules = computed(() => {
+  const rulesSet = {};
+  if (currentAttributes?.value) {
+    currentAttributes.value.forEach((element) => {
+      if (element.isRequired) {
+        rulesSet[`value_${element.id}`] = { checked };
+      }
+    });
+  }
+  console.log(rulesSet);
+  return rulesSet;
+});
 
 const router = useRouter();
 
 const v$ = useVuelidate(rules, state);
 const errors = reactive(v$);
 const isLoading = ref(false);
+const currentCustomData = ref({});
 
 function onNextButtonClicked() {
   errors.value.$validate();
@@ -111,6 +153,8 @@ function onNextButtonClicked() {
   }
 
   eventRegisterStore.updateRegisterStart(state);
+
+  eventRegisterStore.updateRegisterCustom(currentModuleId.value, state);
 
   router.push({
     name: props.step.nextLink,
@@ -128,15 +172,27 @@ function setInitData() {
   const eventLevelId = event?.value?.registrationLevel?.id;
 
   if (eventLevelId === 3 && myBund) {
-      state.scoutGroup = registerStore.scoutGroupMappings.find(
-        (a) => a["name"] === myBund
-      );
+    state.scoutGroup = registerStore.scoutGroupMappings.find(
+      (a) => a["name"] === myBund
+    );
   } else {
     if (personalData?.value?.scoutGroup?.id) {
       state.scoutGroup = registerStore.scoutGroupMappings.find(
         (a) => a["id"] === personalData?.value?.scoutGroup.id
       );
     }
+  }
+
+  const moduleId = currentModuleId.value;
+  isLoading.value = true;
+  try {
+    currentCustomData.value = registerCustom?.value[moduleId];
+    const valueFields = Object.keys(currentCustomData.value);
+    valueFields.forEach(
+      (field) => (state[field] = currentCustomData.value[field])
+    );
+  } catch (e) {
+    currentCustomData.value = {};
   }
 
   isLoading.value = false;
@@ -154,6 +210,32 @@ const personalData = computed(() => {
   return personalDataStore.personalData;
 });
 
+function getComponentType(fieldType: string) {
+  switch (fieldType) {
+    case "booleanAttribute":
+      return "Toggle";
+    case "dateTimeAttribute":
+      return "DateTime";
+    case "integerAttribute":
+      return "Number";
+    case "floatAttribute":
+      return "Number";
+    case "stringAttribute":
+      return "Text";
+    default: {
+      return "";
+    }
+  }
+}
+
+const registerCustom = computed(() => {
+  return eventRegisterStore.registerCustom;
+});
+
+const currentModule = computed(() => {
+  return eventStore.event.eventmoduleSet[props.step.id - 1];
+});
+
 onMounted(async () => {
   const id = route.params.id;
   isLoading.value = true;
@@ -162,7 +244,7 @@ onMounted(async () => {
     eventRegisterStore.fetchEvent(id),
     registerStore.fetchAllMappings(event?.value?.registrationLevel?.id),
   ]);
-  
+
   setInitData();
 });
 </script>

@@ -7,7 +7,7 @@
       label="Kurze Beschreibung"
     />
     <BaseField
-      component="TextArea"
+      component="Text"
       v-model="state.technicalName"
       label="Technischer Name"
     />
@@ -55,6 +55,7 @@ const rules = {
   },
   technicalName: {
     required,
+    maxLength: maxLength(15),
   },
 };
 

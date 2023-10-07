@@ -557,7 +557,7 @@ export const useEventStore = defineStore("event", {
       this._eventStart = data;
       this.updateEventNames({
         name: data.name,
-        technicalName: data.name.replace(/[^A-Z0-9]/gi, "_").toLowerCase(),
+        technicalName: data.name.replace(/[^A-Z0-9]/gi, "_").toLowerCase().slice(0, 14),
         shortDescription: data.name,
         longDescription: `Einladungtext für ${data.name}`,
       });
