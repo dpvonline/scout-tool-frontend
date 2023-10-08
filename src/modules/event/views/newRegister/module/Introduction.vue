@@ -7,7 +7,7 @@
     <fieldset class="mt-6">
       <legend class="contents text-base font-medium text-gray-900">
         Du musst die Registrierung bis zum
-        {{ moment(event.registrationDeadline).format(format1) }} absenden.
+        {{ moment(event?.registrationDeadline).format(format1) }} absenden.
       </legend>
       <div class="px-4 py-6 sm:px-6 md:px-0">
         <h2 class="text-lg font-medium text-red-600">Wichtig</h2>
@@ -17,7 +17,7 @@
         </p>
         <p class="mt-1 text-sm text-gray-500">
           Du kannst deine Anmeldung nach dem Absenden noch bis zum
-          {{ moment(event.registrationDeadline).format(format1) }}
+          {{ moment(event?.registrationDeadline).format(format1) }}
           <b>verändern </b> und jederzeit angucken.
         </p>
       </div>

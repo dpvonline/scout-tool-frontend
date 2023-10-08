@@ -26,7 +26,7 @@
       :cols="12"
     />
     <BaseField
-      component="Html"
+      component="Text"
       :label="'Hinweis'"
       techName="text"
       v-model="state.text"
