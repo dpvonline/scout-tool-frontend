@@ -12,10 +12,10 @@
     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
         <p class="truncate text-sm font-medium text-gray-600">
-          {{ props.item.person.scoutName }}
+          {{ props.item?.person?.scoutName }}
         </p>
-        <p v-if="props.item.person && props.item.person.firstName && props.item.person.firstName !== props.item.person.scoutName" class="truncate text-sm font-medium text-blue-600">
-          {{ props.item.person.firstName }}
+        <p v-if="props.item?.person && props.item?.person?.firstName && props.item?.person?.firstName !== props.item?.person?.scoutName" class="truncate text-sm font-medium text-blue-600">
+          {{ props.item?.person?.firstName }}
         </p>
         <p
           v-if="props.item?.person?.scoutGroup && props.item?.person?.scoutGroup.id"

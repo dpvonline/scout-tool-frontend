@@ -10,18 +10,11 @@
           <div class="h-0.5 w-full bg-blue-600" />
         </div>
         <router-link
-          :to="{ name: step.link }"
-          class="
-            relative
-            flex
-            h-8
-            w-8
-            items-center
-            justify-center
-            rounded-full
-            bg-blue-600
-            hover:bg-blue-900
-          "
+          :to="{
+            name: step.link,
+            params: { module: step.id },
+          }"
+          class="relative flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 hover:bg-blue-900"
         >
           <CheckIcon class="h-5 w-5 text-white" aria-hidden="true" />
           <span class="sr-only">{{ step.name }}</span>
@@ -35,18 +28,11 @@
           <div class="h-0.5 w-full bg-gray-200" />
         </div>
         <router-link
-          :to="{ name: step.link }"
-          class="
-            relative
-            flex
-            h-8
-            w-8
-            items-center
-            justify-center
-            rounded-full
-            border-2 border-blue-600
-            bg-white
-          "
+          :to="{
+            name: step.link,
+            params: { module: step.id },
+          }"
+          class="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-blue-600 bg-white"
           aria-current="step"
         >
           <span
@@ -61,28 +47,10 @@
           <div class="h-0.5 w-full bg-gray-200" />
         </div>
         <a
-          class="
-            group
-            relative
-            flex
-            h-8
-            w-8
-            items-center
-            justify-center
-            rounded-full
-            border-2 border-gray-300
-            bg-white
-            hover:border-gray-400
-          "
+          class="group relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white hover:border-gray-400"
         >
           <span
-            class="
-              h-2.5
-              w-2.5
-              rounded-full
-              bg-transparent
-              group-hover:bg-gray-300
-            "
+            class="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-gray-300"
             aria-hidden="true"
           />
           <span class="sr-only">{{ step.name }}</span>

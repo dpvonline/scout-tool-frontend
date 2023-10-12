@@ -22,7 +22,6 @@
 import { computed, onMounted } from "vue";
 
 import StepperNavSmall from "@/components/stepper/StepperNavSmall.vue";
-import StepperNav from "@/components/stepper/StepperNav.vue";
 import PageWrapper from "@/components/base/PageWrapper.vue";
 import { useRouter } from "vue-router";
 import { useEventStore } from "@/modules/event/store/index";
@@ -44,16 +43,16 @@ function nextLink(eventModule: any) {
   try {
     return getCompLeftList(eventModule.id)[0].link;
   } catch (error) {
-    return 'Custom'
-  } 
+    return "Custom";
+  }
 }
 
 function nextId(eventModule) {
   try {
     return getCompLeftList(eventModule.id)[0].id;
   } catch (error) {
-    return 1
-  } 
+    return 1;
+  }
 }
 
 const steps = computed(() => {
@@ -68,32 +67,28 @@ const steps = computed(() => {
       link: compName,
       nextLink: nextLink(eventModule),
       nextId: nextId(eventModule),
-      status: getStatus(
-        compName,
-        getCompLeftListIndex(compName, eventModule.id),
-        eventModule.id,
-        eventModule
-      ),
+      status: getStatus(eventModule, eventModuleList.value),
       current: getCurrent(eventModule, eventModule.id),
-    }
-    console.log(routeObj)
+    };
+    console.log(routeObj);
     eventObj.push(routeObj);
   });
   return eventObj;
 });
 
+function getStatus(eventModule, eventModules) {
+  const currentId = parseInt(router.currentRoute.value.params.module, 10);
 
-function getStatus(value: string, next: Array<String>, index: any, eventModule: any) {
-  const isCustom = eventModule.name === "Custom";
-  const moduleIdMatch =
-    router.currentRoute.value.params.module == index ||
-    eventModule.name !== "Custom";
-  let status =
-    router.currentRoute.value.name === value && moduleIdMatch ? "current" : "";
-  status =
-    next.includes(`${router.currentRoute.value.name?.toString()}-${router.currentRoute.value.params.module?.toString()}`) || ""
-      ? "complete"
-      : status;
+  const eventModuleIndexes = eventModules.map((module) => module.id);
+
+  const indexTemp = eventModuleIndexes.indexOf(eventModule.id);
+  const indexCurrent = eventModuleIndexes.indexOf(currentId);
+
+  let status = "";
+
+  status = indexTemp > indexCurrent ? status : "complete";
+  status = indexTemp === indexCurrent ? "current" : status;
+
   return status;
 }
 
@@ -133,16 +128,14 @@ function getCompLeftList(id) {
       id: module.id,
     };
   });
-  const index = compList.map(item => item.id).indexOf(id);
+  const index = compList.map((item) => item.id).indexOf(id);
   return compList.slice(index + 1);
 }
 
-function getCompLeftListIndex(compName: any, ind: any) {
+function getCompLeftListIndex(ind: any) {
   const moduleList = eventModuleList.value;
-  const compList = moduleList.map(
-    (module) => `Registration${module.name}-${module.id}`
-  );
-  const index = compList.indexOf(`${compName}-${ind}`);
+  const compList = moduleList.map((module) => module.id);
+  const index = compList.indexOf(ind);
   return compList.slice(index + 1);
 }
 

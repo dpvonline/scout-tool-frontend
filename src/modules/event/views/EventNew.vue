@@ -16,7 +16,6 @@
 import { computed, onMounted } from "vue";
 
 import StepperNavSmall from "@/components/stepper/StepperNavSmall.vue";
-import StepperNav from "@/components/stepper/StepperNav.vue";
 import PageWrapper from "@/components/base/PageWrapper.vue";
 import { useRouter } from "vue-router";
 import { useEventStore } from "@/modules/event/store/index";

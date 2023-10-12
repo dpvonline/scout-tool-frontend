@@ -18,7 +18,15 @@
       :cols="12"
     />
     <BaseField
-      component="TextArea"
+      component="Toggle"
+      :label="'isRequired'"
+      techName="isRequired"
+      v-model="state.isRequired"
+      :errors="errors.isRequired?.$errors"
+      :cols="12"
+    />
+    <BaseField
+      component="Text"
       :label="'Hinweis'"
       techName="text"
       v-model="state.text"
@@ -42,7 +50,6 @@ import BaseField from "@/components/field/Base.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import { useVuelidate } from "@vuelidate/core";
 import { useRoute } from "vue-router";
-import router from "@/router";
 import { required, email, minLength, maxLength } from "@vuelidate/validators";
 
 const commonStore = useCommonStore();
@@ -64,6 +71,7 @@ const state = reactive({
   fieldType: null,
   title: null,
   text: null,
+  isRequired: null,
 });
 
 const rules = {
@@ -77,6 +85,9 @@ const rules = {
     required,
   },
   text: {
+    required,
+  },
+  isRequired: {
     required,
   },
 };
@@ -104,6 +115,7 @@ async function onSaveClicked() {
       fieldType: state.fieldType.value,
       title: state.title,
       text: state.text,
+      isRequired: state.isRequired,
     };
 
     const res = await eventStore.createAttributeModule(data);
@@ -121,6 +133,7 @@ async function onSaveClicked() {
       fieldType: state.fieldType.value,
       title: state.title,
       text: state.text,
+      isRequired: state.isRequired,
     };
     const res = await eventStore.updateAttributeModule(data);
     if (res.status === 200) {
@@ -138,15 +151,18 @@ const isEdit = computed(() => {
 });
 
 onMounted(async () => {
-const res = await eventStore.fetchAttributeTypes();
-  
-  attributeChoices.value = res
+  const res = await eventStore.fetchAttributeTypes();
+
+  attributeChoices.value = res;
   state.eventModule = props.items.eventModule;
   if (isEdit.value) {
-    state.fieldType = attributeChoices.value.find((a) => a["name"] === props.items.fieldType);
+    state.fieldType = attributeChoices.value.find(
+      (a) => a["name"] === props.items.fieldType
+    );
     state.id = props.items.id;
     state.title = props.items.title;
     state.text = props.items.text;
+    state.isRequired = props.items.isRequired;
   }
 });
 

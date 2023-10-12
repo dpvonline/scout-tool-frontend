@@ -22,7 +22,7 @@
         :cols="12"
       />
       <BaseField
-      component="Text"
+        component="Text"
         :label="'Component'"
         techName="name"
         :hint="'name for Component'"
@@ -67,8 +67,14 @@
 </template>
 
 <script setup lang="ts">
-
-import { reactive, onMounted, ref, watch, computed, getTransitionRawChildren } from "vue";
+import {
+  reactive,
+  onMounted,
+  ref,
+  watch,
+  computed,
+  getTransitionRawChildren,
+} from "vue";
 import { useCommonStore } from "@/modules/common/store/index";
 import { useEventEditStore } from "@/modules/event/store/edit";
 import BaseField from "@/components/field/Base.vue";
@@ -92,7 +98,7 @@ const props = defineProps({
 });
 
 const state = reactive({
-  name: 'Custom',
+  name: "Custom",
   module: null,
   header: null,
   ordering: null,
@@ -135,15 +141,14 @@ const event = computed(() => {
   return eventStore.event;
 });
 
-function getOrderingValue () {
+function getOrderingValue() {
   let ordering = 1;
   const modules = event.value.eventmoduleSet;
   if (modules && modules.length) {
-    modules[modules.length - 2].ordering
+    modules[modules.length - 2].ordering;
   }
-  return ordering
+  return ordering;
 }
-
 
 async function onSaveClicked() {
   v$.value.$validate();
@@ -154,50 +159,45 @@ async function onSaveClicked() {
   }
   const eventId = route.params.id;
   if (!isEdit.value) {
-  const data = {
-    module: state.module,
-    header: state.header,
-    name: state.name,
-    description: state.description,
-    ordering: getOrderingValue(),
-    event: eventId,
-  }
-  const res = await eventStore.createEventModule(
-    eventId,
-    data,
-  );
-  if ((res.status === 201)) {
-
-    const response = await eventStore.fetchEvent(eventId);
-    commonStore.showSuccess("Erfolgreich gespeichert.");
-    onCloseClicked();
+    const data = {
+      module: state.module,
+      header: state.header,
+      name: state.name,
+      description: state.description,
+      ordering: getOrderingValue(),
+      event: eventId,
+    };
+    const res = await eventStore.createEventModule(eventId, data);
+    if (res.status === 201) {
+      const response = await eventStore.fetchEvent(eventId);
+      commonStore.showSuccess("Erfolgreich gespeichert.");
+      onCloseClicked();
+    } else {
+      commonStore.showError("Fehler beim speichern.");
+    }
   } else {
-    commonStore.showError("Fehler beim speichern.");
-  }
-  } else {
-  const data = {
-    id: props.items.id,
-    name: state.name,
-    header: state.header,
-    description: state.description,
-    internal: props.items.internal,
-    event: props.items.event,
-    required: props.items.required,
-    standard: props.items.standard,
-  }
-  console.log(data);
-  const res = await eventStore.updateEventModuleById(
-    eventId,
-    props.items.id,
-    data,
-  );
-  if ((res.status === 200)) {
-    const response = await eventStore.fetchEvent(eventId);
-    commonStore.showSuccess("Erfolfreich gespeichert.");
-    onCloseClicked();
-  } else {
-    commonStore.showError("Fehler beim speichern.");
-  }
+    const data = {
+      id: props.items.id,
+      name: state.name,
+      header: state.header,
+      description: state.description,
+      internal: props.items.internal,
+      event: props.items.event,
+      required: props.items.required,
+      standard: props.items.standard,
+    };
+    const res = await eventStore.updateEventModuleById(
+      eventId,
+      props.items.id,
+      data
+    );
+    if (res.status === 200) {
+      const response = await eventStore.fetchEvent(eventId);
+      commonStore.showSuccess("Erfolfreich gespeichert.");
+      onCloseClicked();
+    } else {
+      commonStore.showError("Fehler beim speichern.");
+    }
   }
 }
 
@@ -208,8 +208,8 @@ const isEdit = computed(() => {
 onMounted(async () => {
   const eventId = route.params.id;
   eventStore.fetchAvailableModules(eventId).then((res) => {
-      modules.value = res.data
-    })
+    modules.value = res.data;
+  });
   if (!isEdit.value) {
   } else {
     state.name = props.items?.name;

@@ -99,6 +99,7 @@ function updateSearch(params) {
   const id = route.params.id;
   if (id) {
     eventStore.fetchEventSummary(id, params);
+    eventStore.fetchEvent(id);
   }
 }
 
@@ -128,10 +129,15 @@ function onNewRegClicked() {
   const eventId = route.params.id;
   eventRegisterStore.$reset();
 
+  const moduleId = eventStore.event?.eventmoduleSet?.find(
+    (a) => a.name == "Introduction"
+  )?.id;
+
   router.push({
     name: "RegistrationIntroduction",
     params: {
       id: eventId,
+      module: moduleId,
     },
   });
 }
