@@ -1,9 +1,7 @@
 <template>
   <div class="overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
-      <div
-        class="-ml-4 -mt-4 flex items-center justify-between flex-nowrap"
-      >
+      <div class="-ml-4 -mt-4 flex items-center justify-between flex-nowrap">
         <div class="ml-4 mt-4">
           <div class="flex items-center">
             <div class="flex-shrink-0">
@@ -361,15 +359,6 @@ function filterAttribute(id: any) {
   return props.registration?.attributes.filter(
     (item) => item.attributeModule.id === id
   );
-}
-
-function onRegistrationClicked(id: any) {
-  router.push({
-    name: "RegistrationIntroduction",
-    params: {
-      id: id,
-    },
-  });
 }
 
 const props = defineProps({
