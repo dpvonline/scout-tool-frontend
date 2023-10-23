@@ -19,12 +19,13 @@
         />
       </div>
     </fieldset>
-    <fieldset class="mt-6 pb-2 border-b border-gray-200" >
+    <fieldset class="mt-6 pb-2 border-b border-gray-200">
       <legend class="contents text-base font-medium text-gray-900">
         Deine Pfadfinder E-Mail
       </legend>
       <p class="text-sm text-gray-500">
-        Gebe eine bestehende E-Mail Adresse an, an die wir deine Pfadfinder E-Mail senden sollen.
+        Gebe eine bestehende E-Mail Adresse an, an die wir deine Pfadfinder
+        E-Mail senden sollen.
       </p>
       <div class="mt-4 space-y-4">
         <BaseField
@@ -42,7 +43,9 @@
         Dein DPV-Passwort
       </legend>
       <p class="text-sm text-gray-500">
-        Dein Passwort musst du hier einmaig festlegen. Du kannst es später zurücksetzen und ändern. Dieses Passwort wirst du für alle DPV-Dienst nutzen müssen.
+        Dein Passwort musst du hier einmaig festlegen. Du kannst es später
+        zurücksetzen und ändern. Dieses Passwort wirst du für alle DPV-Dienst
+        nutzen müssen.
       </p>
       <div class="mt-4 space-y-4">
         <BaseField
@@ -75,6 +78,7 @@ import { useVuelidate } from "@vuelidate/core";
 import {
   required,
   minLength,
+  maxLength,
   sameAs,
   email,
   helpers,
@@ -129,36 +133,39 @@ const rules = {
       "Dieser Benutzername ist bereits vergeben oder darf nicht verwendet werden.",
       helpers.withAsync(usernameCheck)
     ),
+    minLength: minLength(2),
+    maxLength: maxLength(20),
   },
   password: {
-    required: helpers.withMessage(
-      "Du musst ein Passwort angeben.",
-      required
-    ),
+    required: helpers.withMessage("Du musst ein Passwort angeben.", required),
     minLength: helpers.withMessage(
       "Das Password muss mindestens 8 Zeichen lang sein.",
       minLength(8)
     ),
     containsUppercase: helpers.withMessage(
       "Das Password muss ein Großbuchstaben haben.",
-      function(value) {
-      return /[A-Z]/.test(value)
-    }),
+      function (value) {
+        return /[A-Z]/.test(value);
+      }
+    ),
     containsLowercase: helpers.withMessage(
       "Das Password muss ein Kleinbuchstaben haben.",
-      function(value) {
-      return /[a-z]/.test(value)
-    }),
+      function (value) {
+        return /[a-z]/.test(value);
+      }
+    ),
     containsNumber: helpers.withMessage(
       "Das Password muss ein Zahl enthalten.",
-      function(value) {
-      return /[0-9]/.test(value)
-    }),
+      function (value) {
+        return /[0-9]/.test(value);
+      }
+    ),
     containsSpecial: helpers.withMessage(
       "Das Password muss ein Sonderzeichen enthalten. z.B. #,?,!,@,$,%,^,&,*,-",
-      function(value) {
-      return /[#?!@$%^&*-]/.test(value)
-    }),
+      function (value) {
+        return /[#?!@$%^&*-]/.test(value);
+      }
+    ),
     metBackendRules2: helpers.withMessage(
       "Dieses Passwort entspricht nicht den Regeln.",
       helpers.withAsync(passwordCheck)
@@ -197,7 +204,6 @@ const commonStore = useCommonStore();
 
 function onNextButtonClicked() {
   errors.value.$validate();
-
 
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen");

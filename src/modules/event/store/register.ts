@@ -55,7 +55,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         console.error(e);
       }
     },
-    async fetchAllMappings(eventId: any, levelId=5) {
+    async fetchAllMappings(eventId: any, levelId = 5) {
       await GroupApi.fetchMyGroups();
       await this.fetchEvent(eventId);
       await this.fetchEatHabitTypes();
@@ -122,6 +122,8 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       return await RegistrationApi.delete(regId);
     },
     async create() {
+      await this.fetchEatHabitTypes();
+
       const registerCreate = {
         event: this._event?.id,
         scoutOrganisation: this._registerStart?.scoutGroup?.id,
@@ -144,7 +146,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       // travel
       this._registerTravel.forEach((travelItem) => {
         const attributeModuleIdTravel = this._event?.eventmoduleSet.filter((item) => item.id === travelItem?.attributeModule)[0]
-        .attributeModules[0].id;
+          .attributeModules[0].id;
         promises.push(
           this.createAttribute(
             regId,

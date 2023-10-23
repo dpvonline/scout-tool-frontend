@@ -8,38 +8,39 @@
         Damit wir Veranstaltungen besser planen brauchen wir diese Daten.
       </p>
       <div class="mt-4 space-y-4">
-    <BaseField
-      component="Date"
-      :label="'Geburtsdatum*'"
-      techName="birthday"
-      v-model="state.birthday"
-      :errors="errors.birthday?.$errors"
-      hint="Wir brauchen dein Geburtsdatum für Anmeldungen bei Veranstaltungen und um dich einer Altersstufe zuzuordnen"
-    />
-    <BaseField
-      component="Radio"
-      :label="'Geschlecht*'"
-      techName="gender"
-      v-model="state.gender"
-      :choices="[
-        { id: 'F', name: 'weiblich' },
-        { id: 'M', name: 'männlich' },
-        { id: 'D', name: 'divers' },
-        { id: 'N', name: 'keine Angabe' },
-      ]"
-      hint="Wir brauchen dein Geschlecht für Anmeldungen bei Veranstaltungen."
-      :errors="errors.gender?.$errors"
-      :items="registerStore.genderMappings"
-    />
-    <BaseField
-      component="PhoneNumber"
-      :label="'Handynummer'"
-      techName="phoneNumber"
-      hint="Wir brauchen deine Handynummer, falls der Veranstaltungsorganisator dich erreichen möchte."
-      v-model="state.phoneNumber"
-      :errors="errors.phoneNumber?.$errors"
-    />
-      </div></fieldset>
+        <BaseField
+          component="Date"
+          :label="'Geburtsdatum'"
+          techName="birthday"
+          v-model="state.birthday"
+          :errors="errors.birthday?.$errors"
+          hint="Wir brauchen dein Geburtsdatum für Anmeldungen bei Veranstaltungen und um dich einer Altersstufe zuzuordnen"
+        />
+        <BaseField
+          component="Radio"
+          :label="'Geschlecht*'"
+          techName="gender"
+          v-model="state.gender"
+          :choices="[
+            { id: 'F', name: 'weiblich' },
+            { id: 'M', name: 'männlich' },
+            { id: 'D', name: 'divers' },
+            { id: 'N', name: 'keine Angabe' },
+          ]"
+          hint="Wir brauchen dein Geschlecht für Anmeldungen bei Veranstaltungen."
+          :errors="errors.gender?.$errors"
+          :items="registerStore.genderMappings"
+        />
+        <BaseField
+          component="PhoneNumber"
+          :label="'Handynummer'"
+          techName="phoneNumber"
+          hint="Wir brauchen deine Handynummer, falls der Veranstaltungsorganisator dich erreichen möchte."
+          v-model="state.phoneNumber"
+          :errors="errors.phoneNumber?.$errors"
+        />
+      </div>
+    </fieldset>
   </StepFrame>
 </template>
 
