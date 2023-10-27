@@ -189,18 +189,20 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
           Object.keys(attData).forEach(att => {
             const attId = att.split("_")[1];
             const mod = this._event?.eventmoduleSet.find((module) => module.id == moduleId)
-            const attribute = mod.attributeModules.find(attribute => attribute.id == attId)
-            if (attribute) {
-              promises.push(
-                this.createAttribute(
-                  regId,
-                  {
-                    [fieldTypes[attribute.fieldType]]: this._registerCustom[moduleId][att],
-                    attributeModule: parseInt(attId, 10),
-                  },
-                  attribute.fieldType,
-                )
-              );
+            if (mod) {
+              const attribute = mod.attributeModules.find(attribute => attribute.id == attId)
+              if (attribute) {
+                promises.push(
+                  this.createAttribute(
+                    regId,
+                    {
+                      [fieldTypes[attribute.fieldType]]: this._registerCustom[moduleId][att],
+                      attributeModule: parseInt(attId, 10),
+                    },
+                    attribute.fieldType,
+                  )
+                );
+              }
             }
           })
         }
