@@ -1,6 +1,6 @@
 <template>
     <List
-      :name="'User'"
+      :name="'Benutzer'"
       :items="users"
       :searchValue="searchValue"
       :sortOptions="sortOptions"
@@ -8,6 +8,7 @@
       :buttonList="buttonList"
       mainPageLink="AllUsers"
       :isLoading="isLoading"
+      detailPageLink="UserDetail"
     >
       <template #listitem="{ item }">
         <UserListItem :item="item" />
