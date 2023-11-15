@@ -37,14 +37,13 @@ import { useRouter } from "vue-router";
 import { useRegisterStore } from "@/modules/auth/store/index";
 const registerStore = useRegisterStore();
 
-import { useEventRegisterStore } from "@/modules/event/store/register.ts";
+import { useEventRegisterStore } from "@/modules/event/store/register";
 const eventRegisterStore = useEventRegisterStore();
 
 import { useCommonStore } from "@/modules/common/store/index";
 const commonStore = useCommonStore();
 
 const format1 = "YYYY-MM-DD";
-
 
 const props = defineProps({
   step: Object,

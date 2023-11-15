@@ -17,7 +17,7 @@ export const useAuthStore = defineStore("authStore", {
   }),
 
   actions: {
-    login(init : boolean = false) {
+    login(init: boolean = false) {
       const router = useRouter()
       var currentLocation = window.location;
 
@@ -87,14 +87,14 @@ export const useRegisterStore = defineStore("registerStore", {
       personal: useStorage("personal", {
         phoneNumber: "",
         gender: "",
-        birthday: "",
+        birthday: null,
       }),
       advancedPersonal: useStorage("advancedPersonal", {
         firstName: "",
         lastName: "",
-        address: "",
-        addressSupplement: "",
-        zipCode: "",
+        address: null,
+        addressSupplement: null,
+        zipCode: null,
       }),
     },
   }),
@@ -114,20 +114,20 @@ export const useRegisterStore = defineStore("registerStore", {
       this.updatePersonal({
         phoneNumber: "",
         gender: "N",
-        birthday: "",
+        birthday: null,
       })
       this.updateAdvancedPersonal({
         firstName: "",
         lastName: "",
         address: "",
         addressSupplement: "",
-        zipCode: "",
+        zipCode: null,
       })
     },
     setRegistered() {
       this._registered = true
     },
-    async fetchAllMappings(levelId=5) {
+    async fetchAllMappings(levelId = 5) {
       try {
         const genders = await mappingServices.fetchGenderMappings()
         this._mappings.gender = genders.data
