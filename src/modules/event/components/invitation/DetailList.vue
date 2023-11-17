@@ -249,7 +249,7 @@
             Veranwortliche Personen
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ event.responsiblePersons?.map((a) => `${a}`).join(", ") }}
+            {{ event.responsiblePersons?.map((a) => `${a.username}`).join(", ") }}
           </dd>
         </div>
         <div class="sm:col-span-1">
