@@ -206,7 +206,7 @@ function onNextButtonClicked() {
   errors.value.$validate();
 
   if (errors.value.$error) {
-    commonStore.showError("Bitte Felder überprüfen");
+    commonStore.showError(errors.value.$errors[0].$message);
     return;
   }
 
