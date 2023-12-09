@@ -35,6 +35,18 @@
       valueField="value"
     />
     <BaseField
+      component="AutoCompleteMulti"
+      :label="'Verantwortliche Personen'"
+      techName="responsiblePersons"
+      v-model="state.responsiblePersons"
+      :errors="errors.responsiblePersons?.$errors"
+      :cols="12"
+      :items="users2"
+      hint="Suche nach deinem Stammesnamen aus, damit wir dich zuordnen können."
+      :lookupListDisplay="['displayName']"
+      valueField="value"
+    />
+    <BaseField
       component="AutoComplete"
       :label="'Einladene Gruppe'"
       techName="invitingGroup"
@@ -95,6 +107,7 @@ const state = reactive({
   adminGroup: null,
   viewGroup: null,
   invitedGroups: [],
+  responsiblePersons: [],
   invitingGroup: null,
   registrationLevel: null,
   isPublic: null,
@@ -135,6 +148,7 @@ function onSaveClicked() {
   returnObj.adminGroup = state.adminGroup.id;
   returnObj.viewGroup = state.viewGroup.id;
   returnObj.invitedGroups = state.invitedGroups;
+  returnObj.responsiblePersons = state.responsiblePersons;
   returnObj.invitingGroup = state.invitingGroup.id;
   returnObj.registrationLevel = state.registrationLevel.id;
   returnObj.isPublic = state.isPublic;
@@ -181,6 +195,28 @@ const shortGroups2 = computed(() => {
   }
 });
 
+const users2 = computed(() => {
+  if (personStore.users && personStore.users.length) {
+    let arr = JSON.parse(JSON.stringify(personStore.users));
+    arr.forEach(function (data) {
+      data["value"] = data["email"];
+      data["label"] = data["username"];
+      delete data["id"];
+      delete data["displayName"];
+      delete data["name"];
+      delete data["djangoId"];
+      delete data["keycloakId"];
+      delete data["email"];
+      delete data["scoutName"];
+      delete data["stammBund"];
+      delete data["username"];
+    });
+    return arr;
+  } else {
+    return [];
+  }
+});
+
 import { useEventStore } from "@/modules/event/store";
 
 const eventStore = useEventStore();
@@ -197,17 +233,26 @@ function setInitData(data) {
   );
   state.invitedGroups = data.invitedGroups;
 
+  state.responsiblePersons = data.responsiblePersons;
+
   state.registrationLevel = scoutOrgaLevels.value.find(
     (a) => a["id"] === data.registrationLevel
   );
   state.isPublic = data.isPublic;
 }
+import { usePersonStore } from "@/modules/person/store/index.ts";
+const personStore = usePersonStore();
+
+const users = computed(() => {
+  return personStore.users;
+});
 
 onMounted(async () => {
   const id = route.params.id;
   await Promise.all([
     groupStore.fetchGroupsShort(),
     eventStore.fetchScoutOrgaLevel(),
+    personStore.fetchUsers(),
   ]);
   if (id) {
     const response = await eventEditStore.fetchTechById(id);
