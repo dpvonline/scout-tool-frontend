@@ -12,6 +12,11 @@ export default {
   fetchById(id: any) {
     return axios.get(`${BASE_URL}/${SERVICE}/${id}/`);
   },
+  fetchAddable(params: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}-addable/`, {
+      params,
+    });
+  },
 
   create(data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/`, data );
@@ -24,4 +29,11 @@ export default {
   delete(id: any) {
     return axios.delete(`${BASE_URL}/${SERVICE}/${id}/`)
   },
+  uploadFile(file: File) {
+    return axios.post(`${BASE_URL}/${SERVICE}-upload/`, file, { 
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  }
 };

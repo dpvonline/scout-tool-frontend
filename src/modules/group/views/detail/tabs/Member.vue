@@ -29,24 +29,30 @@ import { useRoute } from "vue-router";
 import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 
 import { useEventStore } from "@/modules/event/store";
-
 const eventStore = useEventStore();
+
+import { useCommonStore } from "@/modules/common/store";
+const commonStore = useCommonStore();
 
 const route = useRoute();
 
 const groupStore = useGroupStore();
 
-
-const isLoading = computed(() => {
-  return groupStore.isLoading;
-});
-
-const groupMembers = computed(() => {
-  return groupStore.groupMembers;
-});
+const groupMembers = ref([]);
+const isLoading = ref(true);
 
 onMounted(() => {
+  isLoading.value = true;
   const id = route.params.id;
-  groupStore.fetchGroupMembersById(id);
+  groupStore.fetchGroupMembersById(id).then(response => {
+    if (response.status = 200) {
+      groupMembers.value = response?.results;
+      isLoading.value = false;
+    } else {
+      groupMembers.value = [];
+      commonStore.showError(response?.response?.results.detail);
+      isLoading.value = false;
+    }
+  });
 });
 </script>

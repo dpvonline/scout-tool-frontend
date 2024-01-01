@@ -20,6 +20,7 @@ export const usePersonStore = defineStore("person", {
         const response = await personApi.fetchAll(params);
         this._persons = response.data;
         this._isLoading = false;
+        return response;
       } catch (error) {
         // alert(error);
         console.log(error);
@@ -33,6 +34,7 @@ export const usePersonStore = defineStore("person", {
         const response = await personApi.fetchById(id);
         this._person = response.data;
         this._isLoading = false;
+        return response.data;
       } catch (error) {
         // alert(error);
         console.log(error);
@@ -43,12 +45,14 @@ export const usePersonStore = defineStore("person", {
       this._isLoading = true;
       try {
         const response = await userApi.fetchAll(params);
-        this._users = response.data;
+        this._users = response.data.results;
         this._isLoading = false;
+        return response
       } catch (error) {
-        // alert(error);
+        this._users = [];
         console.log(error);
         this._isLoading = false;
+        return error
       }
     },
     async fetchUserById(id: number) {
@@ -61,6 +65,24 @@ export const usePersonStore = defineStore("person", {
         // alert(error);
         console.log(error);
         this._isLoading = false;
+      }
+    },
+    async fetchAddable(params = {}) {
+      try {
+        const response = await personApi.fetchAddable(params);
+        return response.data;
+      } catch (error) {
+        console.log(error);
+        return error;
+      }
+    },
+    async uploadPeronsExcelSheet(file: File) {
+      try {
+        const response = await personApi.uploadFile(file);
+        return response;
+      } catch (error) {
+        console.log(error);
+        return error;
       }
     },
   },

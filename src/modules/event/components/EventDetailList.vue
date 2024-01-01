@@ -471,7 +471,7 @@
       :open="openEventEdit"
       :items="eventData"
       @close="onEventClosedClicked"
-      header="Event bearbeiten"
+      header="Bearbeiten"
       :formNo="eventEditForm"
     />
     <LocationOverlay

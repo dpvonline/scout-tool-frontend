@@ -8,6 +8,7 @@
       :buttonList="buttonList"
       mainPageLink="AllUsers"
       :isLoading="isLoading"
+      :empytText="'Nutze die Suche um deine Suche einzugrenzen.'"
     >
       <template #listitem="{ item }">
         <UserListItem :item="item" />
@@ -22,6 +23,9 @@ import List from "@/components/base/list/Main.vue";
 import UserListItem from "@/modules/person/components/user/UserListItem.vue";
 import { useRoute } from "vue-router";
 import { usePersonStore } from "@/modules/person/store/index.ts";
+import { useCommonStore } from "@/modules/common/store/index.ts";
+import { debounce } from "lodash";
+const commonStore = useCommonStore();
 
 const personStore = usePersonStore();
 
@@ -29,16 +33,25 @@ const searchValue = ref();
 
 const route = useRoute();
 
-const isLoading = computed(() => {
-  return personStore.isLoading;
-});
+const isLoading = ref(true);
 
-const users = computed(() => {
-  return personStore.users;
-});
+const errorMeasage = ref("");
+const users = ref([]);
 
-onMounted(() => {
-});
+
+const updateSearch = debounce(async (params) => {
+  isLoading.value = true;
+  personStore.fetchUsers(params).then((response) => {
+    if (response.status = 200) {
+      users.value = response?.data;
+      isLoading.value = false;
+    } else {
+      users.value = [];
+      commonStore.showError(response?.response?.data.detail);
+      isLoading.value = false;
+    }
+  });
+}, 1000);
 
 watch(
   () => route.query,
@@ -48,9 +61,6 @@ watch(
   { immediate: true, deep: true }
 );
 
-function updateSearch(params) {
-  personStore.fetchUsers(params);
-}
 
 const sortOptions = [
   { name: "A-Z", value: "alpha", current: true },

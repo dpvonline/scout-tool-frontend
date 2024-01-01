@@ -7,6 +7,7 @@
     :filters="filters"
     :buttonList="buttonList"
     mainPageLink="AllPersons"
+    detailPageLink="PersonDetails"
     :isLoading="isLoading"
   >
     <template #listitem="{ item }">
@@ -29,16 +30,11 @@ const searchValue = ref();
 
 const route = useRoute();
 
-const isLoading = computed(() => {
-  return personStore.isLoading;
-});
-
-const persons = computed(() => {
-  return personStore.persons;
-});
+const persons = ref()
+const isLoading = ref(true);
 
 onMounted(() => {
-  personStore.fetchPersons(route.query);
+  updateSearch(route.query);
 });
 
 watch(
@@ -49,8 +45,12 @@ watch(
   { immediate: true, deep: true }
 );
 
-function updateSearch(params) {
-  personStore.fetchPersons(params);
+function updateSearch(params: any) {
+  isLoading.value = true;
+  personStore.fetchPersons(params).then((resppnse) => {
+    persons.value = resppnse.data;
+    isLoading.value = false;
+  });
 }
 
 const sortOptions = [
@@ -59,5 +59,5 @@ const sortOptions = [
 ];
 
 const filters = [];
-const buttonList = [];
+const buttonList = [{ name: "Personen per Excel importieren", linkName: "newExcel" }];
 </script>

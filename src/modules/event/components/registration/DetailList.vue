@@ -105,7 +105,7 @@
           </dd>
         </div>
         <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Dein Stamm</dt>
+          <dt class="text-sm font-medium text-gray-500">Dein {{ registration?.event?.registrationLevel?.name }}</dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ registration.scoutOrganisation?.name }}
           </dd>
@@ -143,9 +143,35 @@
           >
             <UserPlusIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
           </button>
+          <button
+            @click="onNewPersonFromMemberClicked"
+            type="button"
+            class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <UserGroupIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </button>
         </div>
         <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-          Folgende Personen hast du angemeldet:
+          Zusammenfassung der Personen:
+        </p>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Folgende Buchungsoptionen angemeldet:
+        </p>
+        <p v-for="bookingOption in registration?.summary?.bookingOptions">
+          {{ bookingOption.sum }} Person/en als
+          {{ bookingOption.bookingOptions }} für {{ bookingOption.price }} €
+        </p>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Folgende Essenbesonderheiten angemeldet:
+        </p>
+        <p v-for="eatHabit in registration?.summary?.eatHabits">
+          {{ eatHabit.sum }} Person/en mit {{ eatHabit.eatHabits }}
+        </p>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+          Folgende Geschlechterverteilung
+        </p>
+        <p v-for="gender in registration?.summary?.genders">
+          {{ gender.sum }} als {{ gender.genders }}
         </p>
       </div>
       <div
@@ -164,8 +190,9 @@
               <DisclosureButton
                 class="flex w-full items-start justify-between text-left text-gray-900"
               >
-                <span class="text-base font-semibold leading-7"
-                  >{{ person.displayName }} --
+                <span class="text-md font-semibold leading-7"
+                  >{{ person.displayName }} -
+                  {{ person.age }} Jahre -
                   {{ person.bookingOption.name }} ({{
                     person.bookingOption.price
                   }}€ )</span
@@ -277,6 +304,12 @@
       :callbackOnConfirm="onNewPersonConfirmClicked"
       :callbackOnCancel="onNewPersonCancelClicked"
     />
+    <AddStammesMitgliedModalBig
+      :open="openNewPersonFromMemberModal"
+      :person="person"
+      :callbackOnConfirm="onNewPersonFromMemberConfirmClicked"
+      :callbackOnCancel="onNewPersonFromMemberCancelClicked"
+    />
     <AddMemberModal
       :header="'User zur Fahrtenleitung hinzufügen'"
       :text="'Welchen User möchtest du zu dieser Anmeldung hinzufügen?'"
@@ -307,13 +340,17 @@ import {
   UserPlusIcon,
   TrashIcon,
   ChevronDownIcon,
+  UserGroupIcon,
 } from "@heroicons/vue/24/outline";
 import PrimaryButton from "@/components/button/Primary.vue";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 
+import { pick } from "lodash";
+
 import MessageEditOverlay from "@/modules/message/components/MessageEdit/Overlay.vue";
 import IssueEditOverlay from "@/modules/message/components/IssueEdit/Overlay.vue";
 import AddPersonModal from "@/modules/event/components/registration/AddPersonModal.vue";
+import AddStammesMitgliedModalBig from "@/modules/event/components/registration/AddStammesMitgliedModalBig.vue";
 
 import booleanAttribute from "@/modules/event/components/registration/attribute/booleanAttribute.vue";
 import dateTimeAttribute from "@/modules/event/components/registration/attribute/dateTimeAttribute.vue";
@@ -367,6 +404,7 @@ const props = defineProps({
 
 const person = ref({});
 const openNewPersonModal = ref(false);
+const openNewPersonFromMemberModal = ref(false);
 
 const fieldTypes = {
   booleanAttribute: "booleanField",
@@ -405,6 +443,10 @@ function onNewPersonClicked() {
   openNewPersonModal.value = true;
   person.value = {};
 }
+function onNewPersonFromMemberClicked() {
+  openNewPersonFromMemberModal.value = true;
+  person.value = {};
+}
 function onEditPersonClicked(item) {
   openNewPersonModal.value = true;
   person.value = item;
@@ -417,6 +459,9 @@ function onDeletePersonClicked(item) {
 
 function onNewPersonCancelClicked() {
   openNewPersonModal.value = false;
+}
+function onNewPersonFromMemberCancelClicked() {
+  openNewPersonFromMemberModal.value = false;
 }
 
 async function onNewPersonConfirmClicked(newPerson) {
@@ -445,6 +490,39 @@ async function onNewPersonConfirmClicked(newPerson) {
     commonStore.showSuccess(`Die Anfrage ist Fehlerhaft.${response.data}`);
   } else {
     console.log(response);
+  }
+}
+async function onNewPersonFromMemberConfirmClicked(newPersons: any) {
+  openNewPersonModal.value = false;
+  const regId = route.params.id;
+  let response = null;
+
+  for (const newPerson of newPersons) {
+    const newPersonPicked = pick(newPerson, ['firstName', 'lastName','scoutName','birthday', 'address', 'gender', 'zipCode', 'eatHabit', 'person', 'scoutGroup']);
+    try {
+      response = await eventRegisterStore.addPersonToReg(regId, newPersonPicked);
+    } catch (e: any) {
+      const statusCode = e.response.status; // 400
+      const statusText = e.response.statusText; // Bad Request
+      const error = e.response.data.detail; // Bad Request
+      commonStore.showError(`${newPerson['firstName']} ${newPerson['lastName']} ${error}`);
+      openNewPersonFromMemberModal.value = false;
+      response = e;
+    }
+    if (response && response.status === 201) {
+      openNewPersonFromMemberModal.value = false;
+      const response = await eventStore.fetchRegistration(regId);
+      commonStore.showSuccess(`${newPersons.length} Person/en erfolgreich angelegt`);
+    } else if (response && response.status === 400) {
+      commonStore.showSuccess(`Die Anfrage ist Fehlerhaft.${response.data}`);
+      openNewPersonFromMemberModal.value = false;
+    } else if (response && response.status === 403) {
+      commonStore.showSuccess(`Person bereits vorhanden${response.data}`);
+      openNewPersonFromMemberModal.value = false;
+    } else {
+      console.log(response);
+      openNewPersonFromMemberModal.value = false;
+    }
   }
 }
 

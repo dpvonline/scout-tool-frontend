@@ -28,11 +28,11 @@ export default [
   },
   {
     path: "/person/:id",
-    name: "PersonDetail",
+    name: "PersonDetails",
     meta: {
       requiresAuth: true
     },
-    component: () => import(/* webpackChunkName: "PersonDetail" */ "@/modules/person/views/Person.vue"),
+    component: () => import(/* webpackChunkName: "PersonDetails" */ "@/modules/person/components/person/PersonDetails.vue"),
   },
   {
     path: "/user/:id",
@@ -41,5 +41,13 @@ export default [
       requiresAuth: true
     },
     component: () => import(/* webpackChunkName: "UserDetails" */ "@/modules/person/views/User.vue"),
+  },
+  {
+    path: "/new-excel",
+    name: "newExcel",
+    meta: {
+      requiresAuth: true
+    },
+    component: () => import(/* webpackChunkName: "NewExcel" */ "@/modules/person/views/NewExcel.vue"),
   }
 ]

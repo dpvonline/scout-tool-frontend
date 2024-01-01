@@ -12,6 +12,12 @@
             <h1 class="text-xl font-semibold text-gray-900">Deine Personen</h1>
             <p class="mt-2 text-sm text-gray-700">
               In dieser Liste sind alle Personen, die du anmelden willst.
+              Du kannst komplett neue Personen anmelden, wenn du auf "Neue Person hinzufügen" klickst.
+              Du kannst dich selbst anmelden, wenn du auf "Mich selbst anmelden" klickst.
+              Du kannst Stammesmitglieder anmelden, wenn du auf "Stammesmitglied anmelden" klickst.
+              Stammesmitglieder sind Personen, die bereits von dir oder jemanden aus deinem Stamm
+              angemeldet wurden. Du kannst sie hier nochmal auswählen, um sie zu deiner Anmeldung hinzuzufügen.
+              Dazu können sie mithilfe einer Excel-Datei importiert werden.
             </p>
           </div>
         </div>
@@ -42,7 +48,7 @@
       :callbackOnConfirm="onNewPersonConfirmClicked"
       :callbackOnCancel="onNewPersonCancelClicked"
     />
-    <AddStammesMitgliedModal
+    <AddStammesMitgliedModalBig
       :open="openAddStammesMitgliedModal"
       :callbackOnConfirm="onAddStammesMitgliedConfirmClicked"
       :callbackOnCancel="onAddStammesMitgliedCancelClicked"
@@ -58,7 +64,7 @@ import SimpleList from "@/components/list/SimpleList.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import PersonListItem from "@/modules/event/components/registration/PersonListItem.vue";
 import AddPersonModal from "@/modules/event/components/registration/AddPersonModal.vue";
-import AddStammesMitgliedModal from "@/modules/event/components/registration/AddStammesMitgliedModal.vue";
+import AddStammesMitgliedModalBig from "@/modules/event/components/registration/AddStammesMitgliedModalBig.vue";
 
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
@@ -121,10 +127,17 @@ function onNewPersonCancelClicked() {
 function onAddStammesMitgliedCancelClicked() {
   openAddStammesMitgliedModal.value = false;
 }
-function onAddStammesMitgliedConfirmClicked(selectedPerson: any) {
+function onAddStammesMitgliedConfirmClicked(selectedPersons: any) {
+  if (selectedPersons.length < 1) {
+    commonStore.showError("Bitte wähle mindestens eine Person aus.");
+    return;
+  }
+  selectedPersons.forEach((person: any) => {
+    person.eatHabit = person.eatHabits.map((eatHabit: any) => eatHabit.id);
+    eventRegisterStore.addPerson(person);
+  });
   openAddStammesMitgliedModal.value = false;
-  openNewPersonModal.value = true;
-  person.value = selectedPerson;
+
 }
 
 function onNewPersonConfirmClicked(newPerson) {
