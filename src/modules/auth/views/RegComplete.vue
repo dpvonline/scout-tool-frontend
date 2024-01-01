@@ -4,7 +4,7 @@
     <div class="relative mx-auto max-w-4xl md:px-8 xl:px-0">
       <div class="px-4 sm:px-6 md:px-0">
         <h2 class="text-lg font-medium text-gray-900">
-          Registrierung beim DPV-Bieber erfolgreich
+          Registrierung beim DPV-Biber erfolgreich
         </h2>
         <p class="mt-1 text-sm text-gray-500">
           Bitte prüfe deine E-Mails und bestätige deinen Account. Danach kannst

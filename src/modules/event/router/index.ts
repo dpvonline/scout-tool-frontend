@@ -79,14 +79,6 @@ export default [
     ],
   },
   {
-    path: "/event-edit/:id",
-    name: "EventEdit",
-    meta: {
-      requiresAuth: true,
-    },
-    component: () => import(/* webpackChunkName: "EventEdit" */ "@/modules/event/views/EventEdit.vue"),
-  },
-  {
     path: "/registrations-details/:id",
     name: "RegistrationsDetail",
     meta: {

@@ -15,6 +15,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/modules/auth/store/index.ts";
 import { computed, onUpdated, ref } from "vue";
+import { useRouter } from "vue-router";
 
 import BaseLayout from "@/modules/app/components/BaseLayout.vue";
 import Success from "@/modules/common/components/Success.vue";
@@ -36,13 +37,33 @@ import { useNotificationStore } from "@/modules/notification/store";
 const notificationsStore = useNotificationStore();
 
 import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
+
 const personalDataStore = usePersonalDataStore();
 
+import { useCommonStore } from "@/modules/common/store/index";
+const commonStore = useCommonStore();
+
+const router = useRouter();
+
 function getNotifications() {
-  if (isAuth.value & isKeycloakInit.value) {
+  if (isAuth?.value & isKeycloakInit?.value) {
     notificationsStore.fetchNotifications();
     notificationsStore.fetchNotificationCount();
-    personalDataStore.fetchPersonalData();
+    personalDataStore.fetchPersonalData().then((response) => {
+      if (response?.status === 200) {
+        if (!response.data?.isValid) {
+          commonStore.showError(
+            "Bitte vervollständige deine persönlichen Daten."
+          );
+          if (
+            router.currentRoute.value.name !== "SettingsGeneral" &&
+            router.currentRoute.value.name !== "SettingsGeneralEdit"
+          ) {
+            router.push({ name: "SettingsGeneral" });
+          }
+        }
+      }
+    });
   }
 }
 

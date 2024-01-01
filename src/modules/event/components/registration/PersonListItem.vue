@@ -12,10 +12,10 @@
     <div class="min-w-0 grow px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
         <p class="truncate text-sm font-medium text-blue-600">
-          {{ props.item.firstName }} {{ props.item.lastName }}
+          {{ props?.item?.firstName }} {{ props?.item?.lastName }} ({{ ($dayjs().diff($dayjs(props?.item?.birthday)) / (60 * 60 * 24 * 1000 * 365)).toFixed(0) }})
         </p>
         <p class="mt-2 flex items-center text-sm text-gray-500">
-          {{ props?.item?.scoutGroup?.name }}
+          {{ props?.item?.bookingOptionName }}
         </p>
       </div>
       <div class="hidden md:block"></div>

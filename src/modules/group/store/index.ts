@@ -51,6 +51,7 @@ export const useGroupStore = defineStore("group", {
         const response = await GroupApi.fetchMembersById(id);
         this._groupMembers = response.data;
         this._isLoading = false;
+        return response.data;
       } catch (error) {
         // // alert(error);
         console.log(error);

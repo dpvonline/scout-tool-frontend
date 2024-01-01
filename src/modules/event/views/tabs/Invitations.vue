@@ -83,16 +83,14 @@ import TabWrapper from "@/components/base/TabWrapper.vue";
 import InvitationListItem from "@/modules/event/components/invitation/InvitationListItem.vue";
 import EventListItemEmpty from "@/modules/event/components/EventListItemEmpty.vue";
 import { useEventStore } from "@/modules/event/store";
-
 const eventStore = useEventStore();
 
-const invitations = computed(() => {
-  return eventStore.invitations;
-});
+import { useCommonStore } from "@/modules/common/store";
+const commonStore = useCommonStore();
 
-const isLoading = computed(() => {
-  return eventStore.isLoading;
-});
+const invitations = ref([])
+
+const isLoading = ref(true)
 
 const invitationsFiltered = computed(() => {
   const query = { ...router.currentRoute.value.query };
@@ -138,6 +136,15 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 onMounted(() => {
-  eventStore.fetchMyInvitations();
+  isLoading.value = true;
+  eventStore.fetchMyInvitations().then((response) => {
+    if (response?.status === 200) {
+      invitations.value = response.data;
+      isLoading.value = false;
+    } else {
+      commonStore.showError('Fehler')
+      isLoading.value = false;
+    }
+  });
 });
 </script>

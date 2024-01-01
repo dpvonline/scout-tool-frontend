@@ -11,9 +11,9 @@
       "
     >
       <li
-        v-for="item in props.items"
+        v-for="item in myDataList"
         :key="item.id"
-        v-if="props?.items?.length"
+        v-if="myDataList && myDataList.length > 0"
       >
         <component
           :is="detailPageLink ? 'router-link' : 'div'"
@@ -67,5 +67,13 @@ const props = defineProps({
   items: { type: Array, required: true },
   detailPageLink: { type: String, required: true },
   isLoading: { type: Boolean, required: false, default: false },
+});
+
+const myDataList = computed(() => {
+  if (props.items?.results) {
+    console.log(props.items.results);
+    return props.items?.results;
+  }
+  return props.items;
 });
 </script>

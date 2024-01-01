@@ -38,7 +38,9 @@
       <div class="border-t-8 border-gray-100 px-4 py-6 sm:px-6">
         <div class="pb-3">
           <div class="flex w-0 items-center">
-            <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            <h3
+              class="flex-none text-base font-semibold leading-7 text-gray-900"
+            >
               Namen und Texte
             </h3>
             <button
@@ -66,14 +68,18 @@
             </dd>
           </div>
           <div class="sm:col-span-1">
-            <dt class="text-sm font-medium text-gray-500">Kurze Beschreibung</dt>
+            <dt class="text-sm font-medium text-gray-500">
+              Kurze Beschreibung
+            </dt>
             <dd class="mt-1 text-sm text-gray-900">
               {{ event.shortDescription }}
             </dd>
           </div>
           <div class="sm:col-span-1">
             <dt class="text-sm font-medium text-gray-500">Technischer Name</dt>
-            <dd class="mt-1 text-sm text-gray-900">{{ event.technicalName }}</dd>
+            <dd class="mt-1 text-sm text-gray-900">
+              {{ event.technicalName }}
+            </dd>
           </div>
           <div class="sm:col-span-2">
             <div class="sm:col-span-2 border border-1 px-2 py-2">
@@ -89,7 +95,9 @@
       <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
         <div class="pb-3">
           <div class="flex w-0 items-center">
-            <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            <h3
+              class="flex-none text-base font-semibold leading-7 text-gray-900"
+            >
               Termine
             </h3>
             <button
@@ -112,7 +120,9 @@
       <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
         <div class="pb-3">
           <div class="flex w-0 items-center">
-            <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            <h3
+              class="flex-none text-base font-semibold leading-7 text-gray-900"
+            >
               Ort der Veranstaltung
             </h3>
             <button
@@ -171,7 +181,9 @@
       <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
         <div class="pb-3">
           <div class="flex w-0 items-center">
-            <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            <h3
+              class="flex-none text-base font-semibold leading-7 text-gray-900"
+            >
               Rechte und Zugriffe
             </h3>
             <button
@@ -223,18 +235,24 @@
             </dd>
           </div>
           <div class="sm:col-span-1">
-            <dt class="text-sm font-medium text-gray-500">Ebene der Anmeldung</dt>
+            <dt class="text-sm font-medium text-gray-500">
+              Ebene der Anmeldung
+            </dt>
             <dd class="mt-1 text-sm text-gray-900">
               {{ event.registrationLevel?.name }}
             </dd>
           </div>
           <div class="sm:col-span-1">
-            <dt class="text-sm font-medium text-gray-500">Wer ist eingeladen?</dt>
+            <dt class="text-sm font-medium text-gray-500">
+              Wer ist eingeladen?
+            </dt>
             <dd
               v-if="event.invitedGroups && event.invitedGroups.length > 0"
               class="mt-1 text-sm text-gray-900"
             >
-              {{ event.invitedGroups?.map((a) => `${a.displayName}`).join(", ") }}
+              {{
+                event.invitedGroups?.map((a) => `${a.displayName}`).join(", ")
+              }}
             </dd>
             <dd v-else class="mt-1 text-sm text-gray-900">Jeder</dd>
           </div>
@@ -251,7 +269,9 @@
       <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
         <div class="pb-3">
           <div class="flex w-0 items-center">
-            <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            <h3
+              class="flex-none text-base font-semibold leading-7 text-gray-900"
+            >
               Buchung Optionen
             </h3>
             <button
@@ -259,7 +279,10 @@
               type="button"
               class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              <PlusCircleIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+              <PlusCircleIcon
+                class="h-5 w-5 text-gray-400"
+                aria-hidden="true"
+              />
             </button>
           </div>
           <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"></p>
@@ -301,7 +324,9 @@
       <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
         <div class="pb-3">
           <div class="flex w-0 items-center">
-            <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            <h3
+              class="flex-none text-base font-semibold leading-7 text-gray-900"
+            >
               Module
             </h3>
             <button
@@ -309,14 +334,20 @@
               type="button"
               class="flex-shrink-0 rounded-full bg-transarent p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              <PlusCircleIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+              <PlusCircleIcon
+                class="h-5 w-5 text-gray-400"
+                aria-hidden="true"
+              />
             </button>
           </div>
           <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
             Die Reihenfolge kann per Drag and Drop verändert werden.
           </p>
         </div>
-        <div class="sm:col-span-2" v-if="event?.eventmoduleSet?.length && !isLoading">
+        <div
+          class="sm:col-span-2"
+          v-if="event?.eventmoduleSet?.length && !isLoading"
+        >
           <dd class="mt-1 text-sm text-gray-900">
             <ul
               role="list"
@@ -338,7 +369,11 @@
                         <span class="text-md font-medium">
                           {{ `${element.ordering + 1}` }} -
                           {{ `${element.header}` }}
-                          {{ element.name === 'Custom' ? '- (Konfigurierbar)' : '' }}
+                          {{
+                            element.name === "Custom"
+                              ? "- (Konfigurierbar)"
+                              : ""
+                          }}
                         </span>
                         <button
                           @click="onEventModuleEditClicked(element)"
@@ -383,7 +418,9 @@
                           <div class="flex min-w-0 gap-x-4">
                             <div class="min-w-0 flex-auto">
                               <p class="text-xs font-medium text-gray-900">
-                                {{ attribute.title }} ({{ attribute.fieldType }})
+                                {{ attribute.title }} ({{
+                                  attribute.fieldType
+                                }})
                                 <button
                                   @click="
                                     onModuleAttributeEditClicked(
@@ -429,13 +466,15 @@
           </dd>
         </div>
         <div v-else>
-          <LoadingItem/>
+          <LoadingItem />
         </div>
       </div>
       <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
         <div class="pb-3">
           <div class="flex w-0 items-center">
-            <h3 class="flex-none text-base font-semibold leading-7 text-gray-900">
+            <h3
+              class="flex-none text-base font-semibold leading-7 text-gray-900"
+            >
               Layout und Design
             </h3>
             <button
@@ -511,9 +550,8 @@
       </DeleteModal>
     </div>
     <div v-else>
-      <EventDetailsReadOnly :event="event"/>
+      <EventDetailsReadOnly :event="event" />
     </div>
-
   </div>
 </template>
 
@@ -605,7 +643,7 @@ function onModuleAttributeEditClicked(attribute, module) {
 function addNewAttributeClicked(module) {
   openModuleAttributeEdit.value = true;
   moduleAttributeData.value = {
-    eventModule: module.id
+    eventModule: module.id,
   };
 }
 // event Module ends
@@ -618,9 +656,11 @@ async function saveModules(modules) {
 
   modules.forEach((module, index) => {
     eventModuleId = module.id;
-    promises.push(eventStore.updatePartialEventModuleById(eventId, eventModuleId, {
-      ordering: index,
-    }));
+    promises.push(
+      eventStore.updatePartialEventModuleById(eventId, eventModuleId, {
+        ordering: index,
+      })
+    );
   });
 
   const responses = await Promise.all(promises);

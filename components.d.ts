@@ -26,6 +26,7 @@ declare module '@vue/runtime-core' {
     NutriBar: typeof import('./src/components/score/NutriBar.vue')['default']
     NutriSlim: typeof import('./src/components/score/NutriSlim.vue')['default']
     PageWrapper: typeof import('./src/components/base/PageWrapper.vue')['default']
+    Pagination: typeof import('./src/components/base/list/components/Pagination.vue')['default']
     Password: typeof import('./src/components/field/Password.vue')['default']
     PhoneNumber: typeof import('./src/components/field/PhoneNumber.vue')['default']
     Primary: typeof import('./src/components/button/Primary.vue')['default']
