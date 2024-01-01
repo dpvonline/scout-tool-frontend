@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div class="ml-4 mt-4 flex flex-shrink-0">
+        <div v-if="eventIsAdmin || eventIsLeader" class="ml-4 mt-4 flex flex-shrink-0">
           <PrimaryButton
             :icon="DocumentChartBarIcon"
             @click="onStatisticsClicked"
@@ -732,6 +732,10 @@ function onModuleAttributeDelete(data) {
 
 const eventIsAdmin = computed(() => {
   return eventStore.event.canEdit === "Admin";
+});
+
+const eventIsLeader = computed(() => {
+  return eventStore.event.canViewLeader !== "None";
 });
 
 const openDeleteModal = ref(false);

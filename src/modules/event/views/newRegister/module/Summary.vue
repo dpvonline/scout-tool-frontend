@@ -31,7 +31,7 @@ import BaseField from "@/components/field/Base.vue";
 import StepFrame from "@/components/stepper/StepFrame.vue";
 
 import { useVuelidate } from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
+import {helpers} from "@vuelidate/validators";
 import { useRouter } from "vue-router";
 
 import { useRegisterStore } from "@/modules/auth/store/index";
@@ -55,7 +55,10 @@ const state = reactive({
 
 const rules = {
   hasConfirmed: {
-    checked: (value: any) => value === true,
+    checked: helpers.withMessage(
+        "Bitte bestätige die Anmeldung.",
+        (value: any) => value === true,
+    ),
   },
 };
 const router = useRouter();
@@ -68,7 +71,7 @@ function onNextButtonClicked() {
   errors.value.$validate();
 
   if (errors.value.$error) {
-    commonStore.showError("Bitte Felder überprüfen");
+    commonStore.showError("Bitte bestätige die Anmeldung.");
     return;
   }
 

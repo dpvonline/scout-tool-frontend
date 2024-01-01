@@ -55,6 +55,7 @@
             v-model="state[`value_${attribute.id}`]"
             :cols="12"
             :hint="attribute.text"
+            :errors="errors[`value_${attribute.id}`]?.$errors"
           />
         </div>
       </div>
@@ -69,7 +70,7 @@ import BaseField from "@/components/field/Base.vue";
 import StepFrame from "@/components/stepper/StepFrame.vue";
 
 import { useVuelidate } from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
+import {helpers, required} from "@vuelidate/validators";
 import { useRoute, useRouter } from "vue-router";
 
 import { useRegisterStore } from "@/modules/auth/store/index";
@@ -129,10 +130,21 @@ const rules = computed(() => {
   if (currentAttributes?.value) {
     currentAttributes.value.forEach((element) => {
       if (element.isRequired) {
-        rulesSet[`value_${element.id}`] = { checked };
+        rulesSet[`value_${element.id}`] = {
+          checked: helpers.withMessage(
+              "Bitte  bestätige das Feld.",
+              checked
+            ),
+        };
       }
     });
   }
+  rulesSet['scoutGroup'] = {
+  required: helpers.withMessage(
+      "Du musst einen Stamm/Bund angeben.",
+      required
+    ),
+  };
   console.log(rulesSet);
   return rulesSet;
 });
@@ -168,17 +180,19 @@ function setInitData() {
   isLoading.value = true;
   state.hasConfirmed = false;
 
-  const myBund = personalData?.value?.scoutGroup.bund;
-  const eventLevelId = event?.value?.registrationLevel?.id;
+  const scoutGroup= personalData?.value?.scoutGroup;
 
-  if (eventLevelId === 3 && myBund) {
-    state.scoutGroup = registerStore.scoutGroupMappings.find(
-      (a) => a["name"] === myBund
-    );
-  } else {
-    if (personalData?.value?.scoutGroup?.id) {
+  if(scoutGroup) {
+    const myBund = scoutGroup.bund;
+    const eventLevelId = event?.value?.registrationLevel?.id;
+
+    if (eventLevelId === 3 && myBund) {
       state.scoutGroup = registerStore.scoutGroupMappings.find(
-        (a) => a["id"] === personalData?.value?.scoutGroup.id
+          (a) => a["name"] === myBund
+      );
+    } else {
+      state.scoutGroup = registerStore.scoutGroupMappings.find(
+          (a) => a["id"] === scoutGroup.id
       );
     }
   }

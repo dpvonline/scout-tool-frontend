@@ -65,19 +65,19 @@
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Offene Posten</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ (item?.payement?.open || 0).toFixed(2) }} €
+            {{ (item?.payment?.open || 0).toFixed(2) }} €
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Bezahlter Betrag</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ (item?.payement?.paid || 0).toFixed(2) }} €
+            {{ (item?.payment?.paid || 0).toFixed(2) }} €
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">Zu zahlender Betrag</dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ (item?.payement?.price || 0).toFixed(2) }} €
+            {{ (item?.payment?.price || 0).toFixed(2) }} €
           </dd>
         </div>
         <div class="sm:col-span-1">

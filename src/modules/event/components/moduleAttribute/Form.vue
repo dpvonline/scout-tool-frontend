@@ -19,7 +19,7 @@
     />
     <BaseField
       component="Toggle"
-      :label="'isRequired'"
+      :label="'Pflichtfeld'"
       techName="isRequired"
       v-model="state.isRequired"
       :errors="errors.isRequired?.$errors"
