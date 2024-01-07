@@ -73,7 +73,7 @@ export const usePersonStore = defineStore("person", {
         return response.data;
       } catch (error) {
         console.log(error);
-        return error;
+        return [];
       }
     },
     async uploadPeronsExcelSheet(file: File) {
