@@ -16,7 +16,7 @@ const route = useRoute();
 const tabs = computed(() => {
   return [
   {
-      name: "Meine Personen",
+      name: "Meine Stammesmitglieder",
       linkName: { name: "AllPersons" },
       current: route.name === "AllPersons",
     },

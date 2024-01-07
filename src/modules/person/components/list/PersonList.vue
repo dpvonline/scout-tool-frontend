@@ -23,6 +23,7 @@ import List from "@/components/base/list/Main.vue";
 import PersonListItem from "@/modules/person/components/person/PersonListItem.vue";
 import { useRoute } from "vue-router";
 import { usePersonStore } from "@/modules/person/store/index.ts";
+import {XMarkIcon} from "@heroicons/vue/24/outline";
 
 const personStore = usePersonStore();
 
@@ -47,8 +48,8 @@ watch(
 
 function updateSearch(params: any) {
   isLoading.value = true;
-  personStore.fetchPersons(params).then((resppnse) => {
-    persons.value = resppnse.data;
+  personStore.fetchPersons(params).then((response) => {
+    persons.value = response.data;
     isLoading.value = false;
   });
 }

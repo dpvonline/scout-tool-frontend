@@ -16,15 +16,6 @@
         </p>
         <p
           v-if="
-            props.item &&
-            props.item.email
-          "
-          class="truncate text-sm font-medium text-blue-600"
-        >
-          {{ props.item.email }}
-        </p>
-        <p
-          v-if="
             props.item?.stammBund && props.item?.stammBund?.id
           "
           class="truncate text-xs font-medium text-gray-400"
