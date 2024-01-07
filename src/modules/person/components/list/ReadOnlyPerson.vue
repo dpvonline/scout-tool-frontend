@@ -58,13 +58,7 @@
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <div class="flex justify-between group">
                 <span>
-                  {{ props.personalData.scoutGroup?.name || "" }}
-                </span>
-                <span
-                  v-if="!props.personalData.scoutGroup"
-                  class="pl-2"
-                >
-                  <ExclamationTriangleIcon class="h-5 w-5 text-red-500" />
+                  {{ props.personalData.scoutGroup?.name || "Kein Stamm ausgewählt" }}
                 </span>
                 <span
                   v-if="!personalDataStore.tribeIsVerified.verified"
@@ -192,7 +186,7 @@
               class="mt-1 flex flex-grow text-sm text-gray-900 sm:col-span-2 sm:mt-0"
             >
               <span
-                >{{ props.personalData.zipCode?.zipCode || "" }}
+                >{{ props.personalData.zipCode?.zipCode || "Kein Ort angegeben" }}
                 {{ props.personalData.zipCode?.city || "" }}</span
               >
               <span

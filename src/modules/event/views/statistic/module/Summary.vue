@@ -86,8 +86,8 @@ const eventCanViewLeader = computed(() => {
 
 const stats = computed(() => {
   return [
-    { name: "Anmeldungen", stat: eventSummaryTotalParticipants.value },
-    { name: "Gruppen", stat: eventSummaryTotalRegistrations.value },
+    { name: "Anmeldungen", stat: eventSummaryTotalParticipants.value || 0 },
+    { name: "Gruppen", stat: eventSummaryTotalRegistrations.value || 0},
   ];
 });
 
