@@ -9,15 +9,17 @@
               :key="tab.name"
               class="hidden sm:ml-6 sm:flex sm:space-x-8"
             >
-              <router-link
+              <component
+                :is="tab.disabled ? 'span' : 'router-link'"
                 :to="tab.linkName"
                 :class="[
                   tab.current
                     ? 'text-blue-600 border-blue-600'
                     : 'text-gray-900 border-transparent',
+                  tab.disabled ? 'inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 opacity-50' :
                   'inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700',
                 ]"
-                >{{ tab.name }}</router-link
+                >{{ tab.name }}</component
               >
             </div>
           </div>
@@ -66,12 +68,8 @@ import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
 } from "@headlessui/vue";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
 
 const props = defineProps({
   tabs: Array,

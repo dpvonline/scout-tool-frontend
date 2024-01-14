@@ -52,6 +52,7 @@ import { useVuelidate } from "@vuelidate/core";
 import { required, sameAs, helpers } from "@vuelidate/validators";
 import { useRouter } from "vue-router";
 import { useCommonStore } from "@/modules/common/store/index";
+const commonStore = useCommonStore();
 import { useRegisterStore } from "../../store";
 
 const registerStore = useRegisterStore();
@@ -83,8 +84,6 @@ const router = useRouter();
 
 const v$ = useVuelidate(rules, state);
 const errors = ref(v$);
-
-const commonStore = useCommonStore();
 
 function onNextButtonClicked() {
   errors.value.$validate();

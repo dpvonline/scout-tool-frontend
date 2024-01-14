@@ -76,4 +76,9 @@ export default {
   createRating(id: any, data: any) {
     return axios.post(`${BASE_URL}/${SERVICE}/${id}/registration-rating/`, data);
   },
+  addablePersons(regId: any, params: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${regId}/addable-persons/`, {
+      params: params,
+    });
+  },
 };

@@ -1,6 +1,14 @@
 <template>
   <div>
     <div v-if="!isLoading" class="px-3 py-3">
+       <div class="border border-gray-400 p-3" v-if="eventCanViewLeader !== 'None'">
+         <p class="text-2xl tracking-tight text-red-400">
+            Du siehst die Statistiken als {{ eventCanViewLeader }}
+         </p>
+         <p class="text-xl tracking-tight text-red-400">
+           Du siehst nur Zahlen aus deinem Bund / Ring.
+         </p>
+       </div>
       <h3 class="text-base font-semibold leading-6 text-gray-900">
         Anmeldezahlen
       </h3>
@@ -72,10 +80,14 @@ const eventSummaryTotalRegistrations = computed(() => {
   return eventStore.eventSummaryTotalRegistrations;
 });
 
+const eventCanViewLeader = computed(() => {
+  return eventStore.event.canViewLeader;
+});
+
 const stats = computed(() => {
   return [
-    { name: "Anmeldungen", stat: eventSummaryTotalParticipants.value },
-    { name: "Gruppen", stat: eventSummaryTotalRegistrations.value },
+    { name: "Anmeldungen", stat: eventSummaryTotalParticipants.value || 0 },
+    { name: "Gruppen", stat: eventSummaryTotalRegistrations.value || 0},
   ];
 });
 
@@ -86,6 +98,7 @@ onMounted(async () => {
     eventStore.fetchEventSummaryTotalParticipants(eventId),
     eventStore.fetchEventSummaryTotalRegistrations(eventId),
     eventStore.fetchEventSummaryBookingOptions(eventId),
+    eventStore.fetchEvent(eventId),
   ]);
   isLoading.value = false;
 });

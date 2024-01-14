@@ -22,6 +22,9 @@
         <span class="ml-4 text-xs text-gray-500">{{ props.hint }}</span>
       </SwitchLabel>
     </SwitchGroup>
+    <p id="errors" class="mt-2 text-sm text-red-500">
+      {{ props.errors[0] && props.errors[0].$message }}
+    </p>
   </div>
 </template>
 
@@ -38,6 +41,7 @@ const emit = defineEmits(["update:modelValue"]);
 
 const props = defineProps({
   component: { type: String, required: true },
+  errors: { type: Array, required: false, default: [] },
   label: { type: String, required: true },
   hint: { type: String, required: false, default: "" },
   modelValue: {

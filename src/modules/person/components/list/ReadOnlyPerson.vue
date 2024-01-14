@@ -6,33 +6,12 @@
         <div class="flex py-4">
           <div class="flex-grow">
             <h3 class="text-lg font-medium leading-6 text-gray-900">Profil</h3>
-            <p class="max-w-2xl text-sm text-gray-500">
-              Dein DPV-Account
-            </p>
+            <p class="max-w-2xl text-sm text-gray-500">Dein DPV-Account</p>
           </div>
           <div v-if="props.editable" class="ml-4 flex-shrink-0 sm:ml-16">
             <router-link
               :to="{ name: 'SettingsGeneralEdit' }"
-              class="
-                inline-flex
-                items-center
-                justify-center
-                rounded-md
-                border border-transparent
-                bg-blue-600
-                px-4
-                py-2
-                text-sm
-                font-medium
-                text-white
-                shadow-sm
-                hover:bg-blue-500
-                focus:outline-none
-                focus:ring-2
-                focus:ring-blue-500
-                focus:ring-offset-2
-                sm:w-auto
-              "
+              class="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto"
             >
               <PencilIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
               Bearbeiten
@@ -43,7 +22,9 @@
       <div class="mt-6">
         <dl class="divide-y divide-gray-200">
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-            <dt class="text-sm font-medium text-gray-500">Nutzername (nicht änderbar)</dt>
+            <dt class="text-sm font-medium text-gray-500">
+              Nutzername (nicht änderbar)
+            </dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <span class="flex-grow text-gray-400">{{
                 props.personalData.username
@@ -60,10 +41,12 @@
       </div>
     </div>
 
- <!-- Roles -->
+    <!-- Roles -->
     <div class="mt-10 divide-y divide-gray-200">
       <div class="space-y-1">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">Pfadfinder Daten</h3>
+        <h3 class="text-lg font-medium leading-6 text-gray-900">
+          Pfadfinder Daten
+        </h3>
         <p class="max-w-2xl text-sm text-gray-500">
           Deine Aufgaben und Rollen.
         </p>
@@ -74,16 +57,20 @@
             <dt class="text-sm font-medium text-gray-500">Stamm</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <div class="flex justify-between group">
-              <span>
-                {{ props.personalData.scoutGroup?.name || "" }}
-              </span>
-                <span v-if="!personalDataStore.tribeIsVerified.verified" class="pl-2">
-                <ExclamationTriangleIcon class="h-5 w-5 text-red-500"/>
-              </span>
+                <span>
+                  {{ props.personalData.scoutGroup?.name || "Kein Stamm ausgewählt" }}
+                </span>
                 <span
-                    class="group-hover:opacity-100 transition-opacity bg-gray-100 px-2 text-sm text-black rounded-md absolute -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto">
-                {{ personalDataStore.tribeIsVerified.status }}
-              </span>
+                  v-if="!personalDataStore.tribeIsVerified.verified"
+                  class="pl-2"
+                >
+                  <ExclamationTriangleIcon class="h-5 w-5 text-red-500" />
+                </span>
+                <span
+                  class="group-hover:opacity-100 transition-opacity bg-gray-100 px-2 text-sm text-black rounded-md absolute -translate-x-1/2 translate-y-full opacity-0 m-4 mx-auto"
+                >
+                  {{ personalDataStore.tribeIsVerified.status }}
+                </span>
               </div>
             </dd>
           </div>
@@ -112,7 +99,9 @@
     <!-- Contact -->
     <div class="mt-10 divide-y divide-gray-200">
       <div class="space-y-1">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">Persönliche Daten</h3>
+        <h3 class="text-lg font-medium leading-6 text-gray-900">
+          Persönliche Daten
+        </h3>
         <p class="max-w-2xl text-sm text-gray-500">Deine Kontaktangaben.</p>
       </div>
       <div class="mt-6">
@@ -121,20 +110,19 @@
             <dt class="text-sm font-medium text-gray-500">Name</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <span class="flex-grow"
-                >{{ props.personalData.firstName }} {{ props.personalData.lastName }}</span
+                >{{ props.personalData.firstName }}
+                {{ props.personalData.lastName }}</span
               >
+              <span
+                  v-if="!props.personalData.firstName || !props.personalData.lastName"
+                  class="pl-2"
+                >
+                  <ExclamationTriangleIcon class="h-5 w-5 text-red-500" />
+                </span>
             </dd>
           </div>
           <div
-            class="
-              py-4
-              sm:grid
-              sm:grid-cols-3
-              sm:gap-4
-              sm:border-b
-              sm:border-gray-200
-              sm:py-5
-            "
+            class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-b sm:border-gray-200 sm:py-5"
           >
             <dt class="text-sm font-medium text-gray-500">Geschlecht</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
@@ -145,27 +133,48 @@
             <dt class="text-sm font-medium text-gray-500">Geburtsdatum</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <span class="flex-grow">
-                {{ props.personalData.birthday ? moment(props.personalData.birthday).format("DD.MM.YYYY") : 'Nicht angegeben' }}
+                {{
+                  props.personalData.birthday
+                    ? moment(props.personalData.birthday).format("DD.MM.YYYY")
+                    : "Nicht angegeben"
+                }}
               </span>
+              <span
+                  v-if="!props.personalData.birthday"
+                  class="pl-2"
+                >
+                  <ExclamationTriangleIcon class="h-5 w-5 text-red-500" />
+                </span>
             </dd>
           </div>
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
             <dt class="text-sm font-medium text-gray-500">Telefonnummer</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ props.personalData.phoneNumber || 'Noch keine Telefonnummer' }}</span>
+              <span class="flex-grow">{{
+                props.personalData.phoneNumber || "Noch keine Telefonnummer"
+              }}</span>
             </dd>
           </div>
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
             <dt class="text-sm font-medium text-gray-500">Adresse</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              <span class="flex-grow">{{ props.personalData.address || 'Noch keine Adresse' }}</span>
+              <span class="flex-grow">{{
+                props.personalData.address || "Noch keine Adresse"
+              }}</span>
+              <span
+                  v-if="!props.personalData.address"
+                  class="pl-2"
+                >
+                  <ExclamationTriangleIcon class="h-5 w-5 text-red-500" />
+                </span>
             </dd>
           </div>
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-            <dt class="text-sm font-medium text-gray-500">Adresszusatz </dt>
+            <dt class="text-sm font-medium text-gray-500">Adresszusatz</dt>
             <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <span class="flex-grow">{{
-                props.personalData.addressSupplement || 'Noch keine Adresszusatz'
+                props.personalData.addressSupplement ||
+                "Noch keine Adresszusatz"
               }}</span>
             </dd>
           </div>
@@ -174,17 +183,18 @@
               Postleitzahl & Ort
             </dt>
             <dd
-              class="
-                mt-1
-                flex flex-grow
-                text-sm text-gray-900
-                sm:col-span-2 sm:mt-0
-              "
+              class="mt-1 flex flex-grow text-sm text-gray-900 sm:col-span-2 sm:mt-0"
             >
               <span
-                >{{ props.personalData.zipCode?.zipCode || "" }}
+                >{{ props.personalData.zipCode?.zipCode || "Kein Ort angegeben" }}
                 {{ props.personalData.zipCode?.city || "" }}</span
               >
+              <span
+                  v-if="!props.personalData.zipCode"
+                  class="pl-2"
+                >
+                  <ExclamationTriangleIcon class="h-5 w-5 text-red-500" />
+                </span>
             </dd>
           </div>
         </dl>
@@ -215,8 +225,6 @@
         </dl>
       </div>
     </div> -->
-
-
 
     <!-- More -->
     <!-- <div class="mt-10 divide-y divide-gray-200">
@@ -331,5 +339,4 @@ const props = defineProps({
   personalData: Object,
   editable: Boolean,
 });
-
 </script>

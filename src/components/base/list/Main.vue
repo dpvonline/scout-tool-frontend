@@ -353,10 +353,10 @@
         >
           <ul
             role="list"
-            v-if="items?.length || isLoading"
+            v-if="myDataList?.length || isLoading"
             class="divide-y divide-gray-200"
           >
-            <li v-for="item in items" :key="item">
+            <li v-for="item in myDataList" :key="item">
               <component
                 :is="detailPageLink ? 'router-link' : 'div'"
                 :to="{
@@ -388,7 +388,7 @@
           <ul v-else>
             <li>
               <p class="mt-1 max-w-2xl text-sm text-gray-500 px-2 py-2">
-                Bitte nutze die Suche
+                {{ props.empytText }}
               </p>
             </li>
           </ul>
@@ -398,6 +398,7 @@
         </div>
       </div>
     </article>
+    <Pagination v-if="hasPagination" :response="props.items" />
   </main>
 </template>
 
@@ -465,6 +466,7 @@ import { useRouter } from "vue-router";
 
 import ToolDropdown from "@/components/base/list/components/ToolDropdown.vue";
 import LoadingItem from "@/components/list/LoadingItem.vue";
+import Pagination from "@/components/base/list/components/Pagination.vue";
 
 const props = defineProps({
   name: String,
@@ -475,6 +477,11 @@ const props = defineProps({
   detailPageLink: String,
   buttonList: Array,
   isLoading: Boolean,
+  empytText: {
+    type: String,
+    required: false,
+    default: "Keine Treffer gefunden",
+  },
 });
 
 onBeforeMount(() => {
@@ -496,6 +503,10 @@ onBeforeMount(() => {
     } else {
     }
   }
+});
+
+const hasPagination = computed(() => {
+  return !!props?.items?.results;
 });
 
 const router = useRouter();
@@ -534,6 +545,14 @@ function updateFilters(option, section) {
     },
   });
 }
+
+const myDataList = computed(() => {
+  if (props.items?.results) {
+    console.log(props.items.results);
+    return props.items?.results;
+  }
+  return props.items;
+});
 
 const searchInput = ref("");
 

@@ -15,15 +15,15 @@ const route = useRoute();
 
 const tabs = computed(() => {
   return [
-    {
-      name: "Alle Benutzer",
-      linkName: { name: "AllUsers" },
-      current: route.name === "AllUsers",
-    },
-    {
-      name: "Stammesmitglieder",
+  {
+      name: "Meine Stammesmitglieder",
       linkName: { name: "AllPersons" },
       current: route.name === "AllPersons",
+    },
+    {
+      name: "Alle Personen",
+      linkName: { name: "AllUsers" },
+      current: route.name === "AllUsers",
     },
   ];
 });

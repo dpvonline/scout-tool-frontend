@@ -160,9 +160,6 @@ const errors = reactive(v$);
 
 const route = useRoute();
 
-const persons = computed(() => {
-  return personStore.persons;
-});
 
 function updateData(searchQuery) {
   const id = route.params.id;
@@ -172,6 +169,7 @@ function updateData(searchQuery) {
 }
 
 const isLoading = ref(true);
+const persons = ref([]);
 
 watch(
   () => props.open,
@@ -183,7 +181,8 @@ watch(
 const results = ref([]);
 const search = debounce(async (id, searchQuery) => {
   isLoading.value = true;
-  let { data } = personStore.fetchPersons(id, searchQuery);
+  let data = await personStore.fetchPersons(id, searchQuery);
+  persons.value = data.results;
   isLoading.value = false;
 }, 1000);
 

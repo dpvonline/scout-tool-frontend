@@ -16,6 +16,7 @@ export const usePersonalDataStore = defineStore("personal-data", {
       try {
         const response = await personalDataApi.fetchAll(params);
         this._personalData = response.data;
+        return response;
       } catch (error) {
         // alert(error);
         console.log(error);

@@ -20,10 +20,10 @@
             aria-hidden="true"
           />
           <p class="text-red-500"
-            >offen: {{ (props.item?.payement.open).toFixed(2) }} €
+            >offen: {{ (props.item?.payment.open).toFixed(2) }} €
           </p>
           <p class="mx-2 text-green-500"
-            >bezahlt: {{ (props.item?.payement.paid).toFixed(2) }} €
+            >bezahlt: {{ (props.item?.payment.paid).toFixed(2) }} €
           </p>
         </p>
       </div>

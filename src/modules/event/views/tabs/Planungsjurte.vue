@@ -100,7 +100,9 @@ const route = useRoute();
 const router = useRouter();
 
 const eventOverviews = computed(() => {
-  return eventStore.eventOverviews;
+  return eventStore.eventOverviews.filter(
+      (q) => q.canEdit !== "None" || q.canViewLeader !== "None" || q.canView !== "None"
+  );
 });
 
 function onNewEventButtonClicked() {

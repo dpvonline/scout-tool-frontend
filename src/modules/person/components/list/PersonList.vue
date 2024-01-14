@@ -7,6 +7,7 @@
     :filters="filters"
     :buttonList="buttonList"
     mainPageLink="AllPersons"
+    detailPageLink="PersonDetails"
     :isLoading="isLoading"
   >
     <template #listitem="{ item }">
@@ -22,6 +23,7 @@ import List from "@/components/base/list/Main.vue";
 import PersonListItem from "@/modules/person/components/person/PersonListItem.vue";
 import { useRoute } from "vue-router";
 import { usePersonStore } from "@/modules/person/store/index.ts";
+import {XMarkIcon} from "@heroicons/vue/24/outline";
 
 const personStore = usePersonStore();
 
@@ -29,16 +31,11 @@ const searchValue = ref();
 
 const route = useRoute();
 
-const isLoading = computed(() => {
-  return personStore.isLoading;
-});
-
-const persons = computed(() => {
-  return personStore.persons;
-});
+const persons = ref()
+const isLoading = ref(true);
 
 onMounted(() => {
-  personStore.fetchPersons(route.query);
+  updateSearch(route.query);
 });
 
 watch(
@@ -49,8 +46,12 @@ watch(
   { immediate: true, deep: true }
 );
 
-function updateSearch(params) {
-  personStore.fetchPersons(params);
+function updateSearch(params: any) {
+  isLoading.value = true;
+  personStore.fetchPersons(params).then((response) => {
+    persons.value = response.data;
+    isLoading.value = false;
+  });
 }
 
 const sortOptions = [
@@ -59,5 +60,5 @@ const sortOptions = [
 ];
 
 const filters = [];
-const buttonList = [];
+const buttonList = [{ name: "Personen per Excel importieren", linkName: "newExcel" }];
 </script>

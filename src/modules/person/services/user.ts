@@ -24,4 +24,11 @@ export default {
   delete(id: any) {
     return axios.delete(`${BASE_URL}/${SERVICE}/${id}/`)
   },
+  uploadPersonsFile(file: File) {
+    return axios.post(`${BASE_URL}/${SERVICE}/upload/`, file, { 
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  }
 };

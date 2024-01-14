@@ -43,6 +43,9 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     async sendConfirmMail(regId: number) {
       return await RegistrationApi.sendConfirmMail(regId);
     },
+    async addablePersons(regId: number, params: any) {
+      return await RegistrationApi.addablePersons(regId, params);
+    },
     async createRating(regId: number, data: any) {
       return await RegistrationApi.createRating(regId, data);
     },
@@ -262,6 +265,8 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         eatHabit: data.eatHabit,
         gender: data.gender,
         bookingOption: data.bookingOption?.id,
+        bookingOptionName: data.bookingOption?.name,
+        person: data.id,
       });
     },
     editPerson(data: any) {

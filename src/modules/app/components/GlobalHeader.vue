@@ -344,7 +344,7 @@ const navigation = computed(() => {
     },
     {
       name: "Mitglieder",
-      linkName: "AllUsers",
+      linkName: "AllPersons",
       icon: UserIcon,
       route: "person",
       isAuth: true,

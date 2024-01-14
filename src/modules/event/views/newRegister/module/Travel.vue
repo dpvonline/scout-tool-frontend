@@ -126,9 +126,16 @@ function onNextButtonClicked() {
     registerTravel.value &&
     registerTravel.value.length < 1
   ) {
-    commonStore.showError("Bitte füge mindestens eine Travel hinzu.");
+    let errorText = "Anreise";
+    if(props.step?.link === "RegistrationTravelBack"){
+      errorText = "Abreise";
+    }
+    commonStore.showError(`Bitte füge mindestens eine ${errorText} hinzu.`);
     return;
   }
+  console.log(props.step.nextLink);
+  console.log(props.step.nextId);
+
   router.push({
     name: props.step.nextLink,
     params: {
