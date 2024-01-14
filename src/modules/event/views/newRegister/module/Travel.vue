@@ -133,6 +133,9 @@ function onNextButtonClicked() {
     commonStore.showError(`Bitte füge mindestens eine ${errorText} hinzu.`);
     return;
   }
+  console.log(props.step.nextLink);
+  console.log(props.step.nextId);
+
   router.push({
     name: props.step.nextLink,
     params: {
