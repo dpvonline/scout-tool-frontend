@@ -487,6 +487,12 @@ const rules = {
       helpers.withAsync(zipCheck)
     ),
   },
+  scoutGroup:{
+     required: helpers.withMessage(
+      "Du musst einen Stamm angeben.",
+      required
+    ),
+  }
 };
 
 const v$ = useVuelidate(rules, state);
