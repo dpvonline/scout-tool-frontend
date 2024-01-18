@@ -1,9 +1,9 @@
 <template>
   <div>
     <div v-if="!isLoading" class="px-3 py-3">
-       <div class="border border-gray-400 p-3" v-if="eventCanViewLeader !== 'None'">
+       <div class="border border-gray-400 p-3" v-if="canViewLeaderAsLeader">
          <p class="text-2xl tracking-tight text-red-400">
-            Du siehst die Statistiken als {{ eventCanViewLeader }}
+           Du siehst die Statistiken als {{ leaderName }}
          </p>
          <p class="text-xl tracking-tight text-red-400">
            Du siehst nur Zahlen aus deinem Bund / Ring.
@@ -80,7 +80,11 @@ const eventSummaryTotalRegistrations = computed(() => {
   return eventStore.eventSummaryTotalRegistrations;
 });
 
-const eventCanViewLeader = computed(() => {
+const canViewLeaderAsLeader = computed(() => {
+  return eventStore.event.canViewLeader !== "None" && eventStore.event.canEdit === "None" && eventStore.event.canView === "None";
+});
+
+const leaderName = computed(() => {
   return eventStore.event.canViewLeader;
 });
 
