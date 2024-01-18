@@ -34,7 +34,7 @@
     />
     <BaseField
       component="ZIP"
-      :label="'Postleitzahl'"
+      :label="'Postleitzahl*'"
       techName="zipCode"
       v-model="state.zipCode"
       :errors="errors.zipCode?.$errors"
