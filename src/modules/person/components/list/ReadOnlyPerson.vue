@@ -139,12 +139,6 @@
                     : "Nicht angegeben"
                 }}
               </span>
-              <span
-                  v-if="!props.personalData.birthday"
-                  class="pl-2"
-                >
-                  <ExclamationTriangleIcon class="h-5 w-5 text-red-500" />
-                </span>
             </dd>
           </div>
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
@@ -161,12 +155,6 @@
               <span class="flex-grow">{{
                 props.personalData.address || "Noch keine Adresse"
               }}</span>
-              <span
-                  v-if="!props.personalData.address"
-                  class="pl-2"
-                >
-                  <ExclamationTriangleIcon class="h-5 w-5 text-red-500" />
-                </span>
             </dd>
           </div>
           <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
