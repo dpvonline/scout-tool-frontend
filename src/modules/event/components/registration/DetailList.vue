@@ -303,6 +303,7 @@
       :person="person"
       :callbackOnConfirm="onNewPersonConfirmClicked"
       :callbackOnCancel="onNewPersonCancelClicked"
+      :blockBookingOption="true"
     />
     <AddStammesMitgliedModalBig
       :open="openNewPersonFromMemberModal"

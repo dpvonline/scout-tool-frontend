@@ -34,6 +34,7 @@
               <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="mt-4 space-y-4">
                   <BaseField
+                    v-if="!props.blockBookingOption"
                     component="Select"
                     :label="'Buchungsoption'"
                     techName="bookingOption"
@@ -42,7 +43,14 @@
                     :cols="6"
                     :lookupListDisplay="['name', 'price', '$ €']"
                     :items="bookingOptions"
+                    hint="Wähle die Buchungsoption aus, die du für diese Person buchen möchtest."
                   />
+                  <div v-if="props.blockBookingOption">
+                    Buchungstyp {{ `${state.bookingOption.name} ${state.bookingOption.price}€` }}
+                  </div>
+                  <div v-if="props.blockBookingOption">
+                    Buchungstypen sind nicht veränderbar
+                  </div>
                   <BaseField
                     v-if="!state.id"
                     component="Toggle"
@@ -300,6 +308,7 @@ const props = defineProps({
   person: { type: Object, required: false, default: {} },
   callbackOnConfirm: { type: Function, required: true },
   callbackOnCancel: { type: Function, required: true },
+  blockBookingOption: { type: Boolean, required: false, default: false },
 });
 function close() {
   props.callbackOnCancel();
