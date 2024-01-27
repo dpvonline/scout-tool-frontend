@@ -11,7 +11,7 @@
           Hier kannst du eine Excel-Datei hochladen, um Personen zu importieren.
           Die Datei muss eine bestimmte Struktur haben, damit sie importiert
           werden kann.
-          <a class="font-bold text-blue-600" href="">Hier</a> findest du eine
+          <a class="font-bold text-blue-600" href="https://cloud.dpvonline.de/s/TJo4KBEiiMiPSki">Hier</a> findest du eine
           Vorlage, die du verwenden kannst.
           <br />
           <br />
