@@ -62,7 +62,7 @@
       label="Löschen"
     /> -->
     </div>
-    <div>
+    <div v-else>
       <LoadingItem />
     </div>
   </div>
@@ -107,7 +107,7 @@ const rules = {
 const v$ = useVuelidate(rules, state);
 
 const errors = ref([]);
-const isLoading = ref(false);
+const isLoading = ref(true);
 const data = ref({});
 
 function onSaveClicked() {
@@ -169,6 +169,8 @@ function setInitData(data) {
   state.endDate = moment(data.endDate).format("YYYY-MM-DDTHH:mm");
   state.bookableFrom = moment(data.bookableFrom).format("YYYY-MM-DDTHH:mm");
   state.bookableTill = moment(data.bookableTill).format("YYYY-MM-DDTHH:mm");
+
+  isLoading.value = false;
 }
 
 const props = defineProps({
@@ -178,6 +180,8 @@ const props = defineProps({
 onMounted(async () => {
   const eventId = route.params.id;
   const bookingId = props.items?.id;
+
+  isLoading.value = true;
 
   if (eventId && bookingId) {
     const response = await eventEditStore.fetchBookingOptionsByBookingId(
