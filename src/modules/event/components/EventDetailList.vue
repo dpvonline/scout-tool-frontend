@@ -23,7 +23,10 @@
             </div>
           </div>
         </div>
-        <div v-if="eventIsAdmin || eventIsLeader" class="ml-4 mt-4 flex flex-shrink-0">
+        <div
+          v-if="eventIsAdmin || eventIsLeader || eventCanView"
+          class="ml-4 mt-4 flex flex-shrink-0"
+        >
           <PrimaryButton
             :icon="DocumentChartBarIcon"
             @click="onStatisticsClicked"
@@ -231,7 +234,7 @@
               Veranwortliche Personen
             </dt>
             <dd class="mt-1 text-sm text-gray-900">
-              {{ event.responsiblePersons?.map((a) => `${a}`).join(", ") }}
+              {{ event.responsiblePersons?.map((a) => `${a.username}`).join(", ") }}
             </dd>
           </div>
           <div class="sm:col-span-1">
@@ -272,7 +275,7 @@
             <h3
               class="flex-none text-base font-semibold leading-7 text-gray-900"
             >
-              Buchung Optionen
+              Buchungs Optionen
             </h3>
             <button
               @click="onEventEditClicked(3, {})"
@@ -304,6 +307,11 @@
                     aria-hidden="true"
                   />
                   <span> {{ `${child.name} - ${child.price} €` }}</span>
+                  <span v-if="child.bookableTill" class="text-red-500 ml-3">
+                    {{
+                      ` bis ${$dayjs(child.bookableTill).format("ll")}`
+                    }}</span
+                  >
                   <button
                     @click="onEventEditClicked(3, child)"
                     type="button"
@@ -729,6 +737,10 @@ function onModuleAttributeDelete(data) {
     openAttributeDeleteModal.value = false;
   });
 }
+
+const eventCanView = computed(() => {
+  return eventStore.event.canView === "View";
+});
 
 const eventIsAdmin = computed(() => {
   return eventStore.event.canEdit === "Admin";
