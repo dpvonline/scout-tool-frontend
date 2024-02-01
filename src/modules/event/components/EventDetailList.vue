@@ -24,7 +24,7 @@
           </div>
         </div>
         <div
-          v-if="eventIsAdmin || eventIsLeader"
+          v-if="eventIsAdmin || eventIsLeader || eventCanView"
           class="ml-4 mt-4 flex flex-shrink-0"
         >
           <PrimaryButton
@@ -737,6 +737,10 @@ function onModuleAttributeDelete(data) {
     openAttributeDeleteModal.value = false;
   });
 }
+
+const eventCanView = computed(() => {
+  return eventStore.event.canView === "View";
+});
 
 const eventIsAdmin = computed(() => {
   return eventStore.event.canEdit === "Admin";
