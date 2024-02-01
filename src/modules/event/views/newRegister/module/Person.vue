@@ -40,6 +40,7 @@
       :person="person"
       :callbackOnConfirm="onNewPersonConfirmClicked"
       :callbackOnCancel="onNewPersonCancelClicked"
+      :blockBookingOption="blockBookingOption.value && !eventEditAdmin.value"
     />
     <AddStammesMitgliedModal
       :open="openAddStammesMitgliedModal"
@@ -75,6 +76,8 @@ const commonStore = useCommonStore();
 const state = reactive({});
 
 const person = ref({});
+
+const blockBookingOption = ref(true);
 
 const rules = {};
 
@@ -161,13 +164,19 @@ const registerPerson = computed(() => {
   return eventRegisterStore.registerPerson;
 });
 
+const eventEditAdmin = computed(() => {
+  return eventStore.event?.canEdit === 'Admin';
+});
+
 onMounted(async () => {
   const id = route.params.id;
   isLoading.value = true;
+
   await Promise.all([
     personalDataStore.fetchPersonalData(),
     registerStore.fetchAllMappings(),
     eventStore.fetchBookingOptionsById(id),
+    eventStore.fetchEvent(id),
   ]);
 
   setInitData();

@@ -303,6 +303,7 @@
       :person="person"
       :callbackOnConfirm="onNewPersonConfirmClicked"
       :callbackOnCancel="onNewPersonCancelClicked"
+      :blockBookingOption="blockBookingOption"
     />
     <AddStammesMitgliedModalBig
       :open="openNewPersonFromMemberModal"
@@ -382,6 +383,7 @@ const openDeleteModal = ref(false);
 const openDeletePersonModal = ref(false);
 
 const isLoading = ref(false);
+const blockBookingOption = ref(false);
 
 const components = {
   booleanAttribute,
@@ -442,6 +444,7 @@ function getOverviewModules(registration: any) {
 function onNewPersonClicked() {
   openNewPersonModal.value = true;
   person.value = {};
+  blockBookingOption.value = false
 }
 function onNewPersonFromMemberClicked() {
   openNewPersonFromMemberModal.value = true;
@@ -450,6 +453,7 @@ function onNewPersonFromMemberClicked() {
 function onEditPersonClicked(item) {
   openNewPersonModal.value = true;
   person.value = item;
+  blockBookingOption.value = !eventEditAdmin.value;
 }
 
 function onDeletePersonClicked(item) {
@@ -618,4 +622,8 @@ async function onAddMemberConfirmClicked(userId) {
 function onAddMemberCancellicked() {
   openAddMember.value = false;
 }
+
+const eventEditAdmin = computed(() => {
+  return props.registration.event?.canEdit === 'Admin';
+});
 </script>
