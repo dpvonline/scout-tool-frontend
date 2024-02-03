@@ -379,6 +379,9 @@ const commonStore = useCommonStore();
 import { useEventStore } from "@/modules/event/store";
 const eventStore = useEventStore();
 
+import { useRegisterStore } from "@/modules/auth/store/index";
+const registerStore = useRegisterStore();
+
 const openDeleteModal = ref(false);
 const openDeletePersonModal = ref(false);
 
@@ -625,5 +628,13 @@ function onAddMemberCancellicked() {
 
 const eventEditAdmin = computed(() => {
   return props.registration.event?.canEdit === 'Admin';
+});
+
+onMounted(async () => {
+  isLoading.value = true;
+  await Promise.all([
+    registerStore.fetchAllMappings(),
+  ]);
+  isLoading.value = false;
 });
 </script>
