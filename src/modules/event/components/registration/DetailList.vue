@@ -193,7 +193,7 @@
                 <span class="text-md font-semibold leading-7"
                   >{{ person.displayName }} -
                   {{ person.age }} Jahre -
-                  {{ person.bookingOption.name }} ({{
+                  {{ person.bookingOption?.name || 'Fehler' }} ({{
                     person.bookingOption.price
                   }}€ )</span
                 >
