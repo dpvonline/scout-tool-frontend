@@ -193,7 +193,7 @@
                 <span class="text-md font-semibold leading-7"
                   >{{ person.displayName }} -
                   {{ person.age }} Jahre -
-                  {{ person.bookingOption.name }} ({{
+                  {{ person.bookingOption?.name || 'Fehler' }} ({{
                     person.bookingOption.price
                   }}€ )</span
                 >
@@ -303,6 +303,7 @@
       :person="person"
       :callbackOnConfirm="onNewPersonConfirmClicked"
       :callbackOnCancel="onNewPersonCancelClicked"
+      :blockBookingOption="blockBookingOption"
     />
     <AddStammesMitgliedModalBig
       :open="openNewPersonFromMemberModal"
@@ -378,10 +379,14 @@ const commonStore = useCommonStore();
 import { useEventStore } from "@/modules/event/store";
 const eventStore = useEventStore();
 
+import { useRegisterStore } from "@/modules/auth/store/index";
+const registerStore = useRegisterStore();
+
 const openDeleteModal = ref(false);
 const openDeletePersonModal = ref(false);
 
 const isLoading = ref(false);
+const blockBookingOption = ref(false);
 
 const components = {
   booleanAttribute,
@@ -442,6 +447,7 @@ function getOverviewModules(registration: any) {
 function onNewPersonClicked() {
   openNewPersonModal.value = true;
   person.value = {};
+  blockBookingOption.value = false
 }
 function onNewPersonFromMemberClicked() {
   openNewPersonFromMemberModal.value = true;
@@ -450,6 +456,7 @@ function onNewPersonFromMemberClicked() {
 function onEditPersonClicked(item) {
   openNewPersonModal.value = true;
   person.value = item;
+  blockBookingOption.value = !eventEditAdmin.value;
 }
 
 function onDeletePersonClicked(item) {
@@ -618,4 +625,16 @@ async function onAddMemberConfirmClicked(userId) {
 function onAddMemberCancellicked() {
   openAddMember.value = false;
 }
+
+const eventEditAdmin = computed(() => {
+  return props.registration.event?.canEdit === 'Admin';
+});
+
+onMounted(async () => {
+  isLoading.value = true;
+  await Promise.all([
+    registerStore.fetchAllMappings(),
+  ]);
+  isLoading.value = false;
+});
 </script>

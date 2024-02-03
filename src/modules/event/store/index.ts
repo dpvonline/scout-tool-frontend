@@ -103,6 +103,7 @@ export const useEventStore = defineStore("event", {
         const response = await EventApi.fetchEventSummary(id, params);
         this._eventSummary = response.data;
         this._isLoading = false;
+        return response;
       } catch (error) {
         // alert(error);
         console.log(error);
