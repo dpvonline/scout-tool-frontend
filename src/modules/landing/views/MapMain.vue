@@ -33,9 +33,13 @@ export default {
         .filter((obj) => obj?.zipCode?.lat)
         .map((item) => {
           if (item.zipCode) {
+            // check duplidate
+            const indexList = data.filter(stamm => stamm.zipCode?.zipCode === item.zipCode?.zipCode)
+            let index = indexList.indexOf(item)
+
             return {
               bund: item.bund,
-              lat: item.zipCode.lat,
+              lat: parseFloat(item.zipCode.lat) + 0.01 * index,
               lng: item.zipCode.lon,
               stamm: item.displayName,
               city: item.zipCode.city,
@@ -133,6 +137,17 @@ export default {
       shadowSize: [41, 41],
     });
 
+    var blackIcon = new L.Icon({
+      iconUrl:
+        "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png",
+      shadowUrl:
+        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
+    });
+
     function getColorByBund(group) {
       if (group?.bund) {
         switch (group?.bund) {
@@ -159,10 +174,10 @@ export default {
           case "DPBH":
             return orangeIcon;
           default:
-            return pinkIcon;
+            return blackIcon;
         }
       } else {
-        return "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+        return blackIcon;
       }
     }
 
