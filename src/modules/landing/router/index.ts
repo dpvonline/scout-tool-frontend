@@ -27,4 +27,9 @@ export default [
     name: "ContactMain",
     component: () => import(/* webpackChunkName: "ContactMain" */ "@/modules/landing/views/ContactMain.vue"),
   },
+  {
+    path: "/map",
+    name: "MapMain",
+    component: () => import(/* webpackChunkName: "LandingMapMain" */ "@/modules/landing/views/MapMain.vue"),
+  },
 ];

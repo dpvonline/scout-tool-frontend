@@ -47,6 +47,7 @@ const navigation = {
     { name: "Impressum", link: "ImpressumMain" },
     { name: "F.A.Q.", link: "FaqMain" },
     { name: "Kontakt", link: "ContactMain" },
+    { name: "Karte", link: "MapMain" },
   ],
   social: [
     {
