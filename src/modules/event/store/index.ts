@@ -549,6 +549,7 @@ export const useEventStore = defineStore("event", {
       try {
         const response = await EventApi.getHierarchyMappingDetailed();
         this._hierarchyMappingDetailed = response.data;
+        return response.data;
       } catch (e) {
         alert(e);
         console.error(e);
