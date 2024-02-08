@@ -45,8 +45,8 @@
                     :items="bookingOptions"
                     hint="Wähle die Buchungsoption aus, die du für diese Person buchen möchtest."
                   />
-                  <div v-if="props.blockBookingOption">
-                    Buchungstyp {{ `${state.bookingOption.name} ${state.bookingOption.price}€` }}
+                  <div v-if="props.blockBookingOption && state.bookingOption">
+                    Buchungstyp {{ `${state.bookingOption?.name} ${state.bookingOption?.price}€` }}
                   </div>
                   <div v-if="props.blockBookingOption">
                     Buchungstypen sind nicht veränderbar
