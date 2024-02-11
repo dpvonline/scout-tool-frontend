@@ -53,7 +53,7 @@ const tabs = computed(() => {
       name: "Personen",
       linkName: { name: "EventStatisticPersons" },
       current: route.name === "EventStatisticPersons",
-      disabled: !eventIsAdmin.value || !eventIsLeader.value,
+      disabled: !eventIsAdmin.value && !eventIsLeader.value,
     },
     {
       name: "Download",

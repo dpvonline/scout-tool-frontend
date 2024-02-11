@@ -195,11 +195,36 @@ const commonStore = useCommonStore();
 import { useEventRegisterStore } from "@/modules/event/store/register.ts";
 const eventRegisterStore = useEventRegisterStore();
 
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+
 const zipCheck = async (value) => {
   if (!value || value == "") {
     return false;
   }
   return !(await registerStore.zipCheck(value));
+};
+
+const checkPersonRemote = async (regId, person) => {
+  if (!person || !person.firstName || !person.lastName || !person.birthday) {
+    return 'Pflichtfleder fehlen';
+  }
+  return await registerStore.checkPerson(regId, person);
+};
+
+const checkPersonLocal = (person) => {
+  let returnVal = false;
+  eventRegisterStore.registerPerson.forEach((element) => {
+    if (
+      element.firstName == person.firstName &&
+      element.lastName == person.lastName &&
+      element.birthday == person.birthday
+    ) {
+      returnVal = "Du hast die Person grade bereits angemeldet. War das ein Fehler?";
+    }
+  });
+  return returnVal;
 };
 
 const rules = {
@@ -314,13 +339,28 @@ function close() {
   props.callbackOnCancel();
 }
 function onButtonSaveClicked() {
+  const regId = route.params.id;
   errors.value.$validate();
   if (errors.value.$error) {
     commonStore.showError("Bitte Felder überprüfen");
     return;
   }
 
-  props.callbackOnConfirm(state);
+  const checkPersonLocalState = checkPersonLocal(state);
+
+  if (checkPersonLocalState) {
+    commonStore.showError(checkPersonLocalState);
+    return;
+  }
+
+  checkPersonRemote(regId, state).then((response) => {
+    if (response) {
+      commonStore.showError(response);
+      return;
+    } else {
+      props.callbackOnConfirm(state);
+    }
+  });
 }
 
 function getGenderValue(genderString) {

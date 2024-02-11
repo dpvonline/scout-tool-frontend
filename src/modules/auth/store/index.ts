@@ -248,6 +248,15 @@ export const useRegisterStore = defineStore("registerStore", {
         return false
       }
     },
+    async checkPerson(regId: any, person: any): Promise<boolean> {
+      //todo for some reason every request with error status is printed to console
+      try {
+        const response = await checkingServices.personCheck(regId, person)
+        return false;
+      } catch (e) {
+        return e.response?.data?.detail
+      }
+    },
     async passwordCheck(password: string): Promise<boolean> {
       //todo for some reason every request with error status is printed to console
       try {

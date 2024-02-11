@@ -1,6 +1,10 @@
 <template>
   <TabWrapper>
-    <SimpleList :items="groupMembers" :isLoading="isLoading">
+    <SimpleList
+      :items="groupMembers"
+      :isLoading="isLoading"
+      :hasError="hasError"
+    >
       <template v-slot:notEmpty="slotProps">
         <PersonListItem :item="slotProps.item" />
       </template>
@@ -8,6 +12,9 @@
         <PersonListItemEmpty>
           Es gibt aktuell noch keine Mitglieder
         </PersonListItemEmpty>
+      </template>
+      <template v-slot:error>
+        Es gab einen Fehler beim Laden der Mitglieder
       </template>
     </SimpleList>
   </TabWrapper>
@@ -40,19 +47,23 @@ const groupStore = useGroupStore();
 
 const groupMembers = ref([]);
 const isLoading = ref(true);
+const hasError = ref(false);
 
-onMounted(() => {
+function handleRequest(response: any) {
   isLoading.value = true;
+  if (response.status === 200) {
+    return response.results;
+  } else {
+    commonStore.showError(response?.response?.data?.detail);
+    hasError.value = true;
+    isLoading.value = false;
+    return null;
+  }
+}
+
+onMounted(async () => {
   const id = route.params.id;
-  groupStore.fetchGroupMembersById(id).then(response => {
-    if (response.status = 200) {
-      groupMembers.value = response?.results;
-      isLoading.value = false;
-    } else {
-      groupMembers.value = [];
-      commonStore.showError(response?.response?.results.detail);
-      isLoading.value = false;
-    }
-  });
+  const response = await groupStore.fetchGroupMembersById(id);
+  groupMembers.value = handleRequest(response);
 });
 </script>

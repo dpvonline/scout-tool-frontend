@@ -51,11 +51,9 @@ export const useGroupStore = defineStore("group", {
         const response = await GroupApi.fetchMembersById(id);
         this._groupMembers = response.data;
         this._isLoading = false;
-        return response.data;
+        return response;
       } catch (error) {
-        // // alert(error);
-        console.log(error);
-        this._isLoading = false;
+        return error;
       }
     },
     async fetchKickableMembersById(id: number, params: string) {
@@ -173,6 +171,7 @@ export const useGroupStore = defineStore("group", {
         const response = await GroupApi.fetchMyGroups();
         this._myGroups = response.data;
         this._isLoading = false;
+        return response;
       } catch (error) {
         // // alert(error);
         console.log(error);
