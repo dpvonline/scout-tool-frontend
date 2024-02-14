@@ -705,6 +705,14 @@ export const useEventStore = defineStore("event", {
         console.log(error);
       }
     },
+    async fetchEventSummaryRegByDate(eventId: any, params: any) {
+      try {
+        const response =  await EventApi.fetchEventSummaryRegByDate(eventId, params)
+        return response.data;
+      } catch (error) {
+        return error;
+      }
+    }
   },
   getters: {
     events: (state) => {
