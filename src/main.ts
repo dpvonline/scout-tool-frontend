@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import VueApexCharts from "vue3-apexcharts";
 import App from "./App.vue";
 import router from "./router";
 import { createHead } from "@vueuse/head";
@@ -40,6 +41,7 @@ app.use(pinia);
 app.use(router);
 app.use(head);
 app.use(keycloak);
+app.use(VueApexCharts)
 app.component('QuillEditor', QuillEditor)
 
 auth.interceptorsSetup();
