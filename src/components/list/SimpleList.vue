@@ -13,7 +13,7 @@
       <li
         v-for="item in myDataList"
         :key="item.id"
-        v-if="myDataList && myDataList.length > 0"
+        v-if="myDataList && myDataList.length > 0 && !hasError"
       >
         <component
           :is="detailPageLink ? 'router-link' : 'div'"
@@ -49,8 +49,11 @@
           </div>
         </component>
       </li>
-      <li class="py-5 px-4" v-else>
+      <li class="py-5 px-4" v-if="myDataList && myDataList.length === 0 && !hasError">
         <slot name="empty"></slot>
+      </li>
+      <li class="py-5 px-4" v-if="hasError">
+        <slot name="error"></slot>
       </li>
     </ul>
     <LoadingItem v-else />
@@ -67,11 +70,11 @@ const props = defineProps({
   items: { type: Array, required: true },
   detailPageLink: { type: String, required: true },
   isLoading: { type: Boolean, required: false, default: false },
+  hasError: { type: Boolean, required: false, default: false },
 });
 
 const myDataList = computed(() => {
   if (props.items?.results) {
-    console.log(props.items.results);
     return props.items?.results;
   }
   return props.items;

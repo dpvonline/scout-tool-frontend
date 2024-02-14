@@ -22,6 +22,7 @@
         <div class="pt-1 pb-12">
           <div class="flex justify-end" v-if="!isFinalStep">
             <PrimaryButton
+              :icon="ForwardIcon"
               @click="onButtonClicked"
               label="weiter"
               :isLoading="isLoading"
@@ -29,6 +30,8 @@
           </div>
           <div class="flex justify-end" v-if="isFinalStep">
             <PrimaryButton
+              :icon="CheckIcon"
+              color="green"
               @click="onButtonClicked"
               label="speichern"
               :isLoading="isLoading"
@@ -48,6 +51,11 @@ import Breadcrumbs from "@/components/breadcrumbs/Header.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import Success from "@/modules/common/components/Success.vue";
 import LoadingItem from "@/components/list/LoadingItem.vue";
+
+import {
+  ForwardIcon,
+  CheckIcon,
+} from "@heroicons/vue/24/outline";
 
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, maxLength } from "@vuelidate/validators";

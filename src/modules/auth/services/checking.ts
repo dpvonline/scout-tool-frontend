@@ -14,4 +14,7 @@ export default {
   async zipCodeCheck(zipCode: string) {
     return axios.post(`${BASE_URL}/basic/check-zip-code/`, { zipCode })
   },
+  async personCheck(regId: any, person: any) {
+    return axios.post(`${BASE_URL}/event/registration/${regId}/check-person/`, person)
+  },
 }
