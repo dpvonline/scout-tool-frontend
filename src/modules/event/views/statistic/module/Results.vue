@@ -12,7 +12,7 @@
         :cols="6"
         :items="eventSummary"
         hint="Wähle eine Registrierung falls du nur eine Registrierung sehen willst."
-        :lookupListDisplay="['scoutOrganisationDisplay', 'responsible_persons_extended']"
+        :lookupListDisplay="['scoutOrganisationDisplay','$ von ' ,'responsiblePersonsExtended']"
       />
       <dl class="my-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
         <div

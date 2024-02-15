@@ -208,6 +208,7 @@ export const useEventStore = defineStore("event", {
         // alert(error);
         console.log(error);
         this._isLoading = false;
+        return error;
       }
     },
     async fetchEventOverviews(params = {}) {

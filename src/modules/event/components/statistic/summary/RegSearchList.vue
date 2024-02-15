@@ -41,50 +41,29 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from "vue";
-import {
-  TagIcon,
-  ChevronRightIcon,
-  HomeIcon,
-  PlusIcon,
-  FolderOpenIcon,
-} from "@heroicons/vue/20/solid";
 import List from "@/components/base/list/Main.vue";
 import RegListItem from "@/modules/event/components/statistic/summary/RegListItem.vue";
 import PrimaryButton from "@/components/button/Primary.vue";
 import RegMergeOverlay from "@/modules/event/components/statistic/summary/regMerge/Overlay.vue";
 
 import { useEventStore } from "@/modules/event/store/index";
-import { useAuthStore } from "@/modules/auth/store/index";
 
-const authStore = useAuthStore();
-
+import { useEventRegisterStore } from "@/modules/event/store/register";
+const eventRegisterStore = useEventRegisterStore();
 const eventStore = useEventStore();
 
 import { useRoute, useRouter } from "vue-router";
-
 const route = useRoute();
 const router = useRouter();
 
 const eventSummary = computed(() => {
-  return eventStore.eventSummary.results;
+  return eventStore.eventSummary;
 });
 
 const searchValue = ref();
 
-const eventCashSummary = computed(() => {
-  return eventStore.eventCashSummary;
-});
-
-const isAuth = computed(() => {
-  return authStore.isAuth;
-});
-
 const isLoading = computed(() => {
   return eventStore.isLoading;
-});
-
-onMounted(() => {
-  updateSearch(route.query);
 });
 
 watch(
@@ -104,13 +83,37 @@ function updateSearch(params) {
 }
 
 const sortOptions = [
+  { name: "Neuste", value: "-created_at", current: false },
   { name: "A-Z", value: "scout_organisation__name", current: false },
-  { name: "Neuste", value: "-created_at", current: true },
-  { name: "Größte", value: "biggest", current: false },
-  { name: "Kleinste", value: "smallest", current: false },
+  { name: "Älteste", value: "created_at", current: false },
 ];
 
-const filters = [];
+const scout_hierarchy_options = computed(() => {
+  if (
+    eventRegisterStore.scoutHierarchy &&
+    eventRegisterStore.scoutHierarchy.length
+  ) {
+    let arr = JSON.parse(JSON.stringify(eventRegisterStore.scoutHierarchy));
+    arr.forEach(function (data) {
+      data["value"] = data["id"];
+      data["label"] = data["displayName"];
+      data["checked"] = false;
+      delete data["id"];
+      delete data["displayName"];
+    });
+    return arr;
+  } else {
+    return [];
+  }
+});
+
+const filters = [
+{
+      id: "scout-organisation",
+      name: "Organisation",
+      options: scout_hierarchy_options.value,
+    },
+];
 const buttonList = [];
 
 // Registrierung zusammenfügen
@@ -121,9 +124,6 @@ function onRegClosedClicked() {
   openRegMerge.value = false;
 }
 const openRegMerge = ref(false);
-
-import { useEventRegisterStore } from "@/modules/event/store/register";
-const eventRegisterStore = useEventRegisterStore();
 
 function onNewRegClicked() {
   const eventId = route.params.id;

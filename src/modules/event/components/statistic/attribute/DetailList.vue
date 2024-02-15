@@ -61,7 +61,7 @@
           :item="slotProps.item"
         />
       </template>
-      <template v-slot:empty> Keine Anreisen bisher </template>
+      <template v-slot:empty> Keine Werte bisher </template>
     </SimpleList>
   </div>
 </template>

@@ -6,6 +6,7 @@ import RegistrationApi from "@/modules/event/services/registration";
 import MappingApi from "@/modules/auth/services/mapping";
 import GroupApi from "@/modules/group/services/group";
 import attributeModule from "../services/attribute-module";
+import { useCommonStore } from "@/modules/common/store";
 
 const format1 = "YYYY-MM-DD HH:mm:ss";
 
@@ -25,6 +26,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     _registerFreeText: {},
     _registerCustom: [],
     _eatHabitTypes: [],
+    _scoutHierarchy: [],
   }),
 
   actions: {
@@ -62,6 +64,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       await GroupApi.fetchMyGroups();
       await this.fetchEvent(eventId);
       await this.fetchEatHabitTypes();
+      await this.fetchScoutHierarchy();
     },
     async createAttribute(regId: any, data: any, type: any) {
       if (type === "booleanAttribute") {
@@ -253,6 +256,15 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         this._isLoading = false;
       }
     },
+    async fetchScoutHierarchy() {
+      try {
+        const response = await MappingApi.fetchScoutGroupMapping(3);
+        this._scoutHierarchy = response.data;
+        return response;
+      } catch (error) {
+        return error;
+      }
+    },
     addPerson(data: any) {
       this._registerPerson.push({
         storeId: uuidv4(),
@@ -352,6 +364,9 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     },
     eatHabitTypes: (state) => {
       return state._eatHabitTypes;
+    },
+    scoutHierarchy: (state) => {
+      return state._scoutHierarchy;
     },
   },
   persist: true,
