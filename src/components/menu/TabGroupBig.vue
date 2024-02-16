@@ -14,9 +14,9 @@
                 :to="tab.linkName"
                 :class="[
                   tab.current
-                    ? 'text-blue-600 border-blue-600'
-                    : 'text-gray-900 border-transparent',
-                  tab.disabled ? 'inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 opacity-50' :
+                    ? 'text-gray-900 fron-semibold border-blue-600'
+                    : 'text-gray-500 border-transparent',
+                  tab.disabled ? 'inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-300 opacity-50' :
                   'inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700',
                 ]"
                 >{{ tab.name }}</component

@@ -6,12 +6,22 @@
     :isFinalStep="true"
   >
     <fieldset class="mt-6">
-      <p>
+      <div class="text-l font-semibold text-gray-900">
+        <h1>Das ist der letzte Schritt...</h1>
+      </div>
+      <div class="text-md text-gray-800 my-4">
+        <h3>
+          Überprüfe deine Anmeldung, bevor du sie speicherst. Nach dem Absenden
+          bekommst du eine Bestätigungs-Email. Du kannst die Anmeldung noch bis
+          zum {{ $dayjs(event.lastPossibleUpdate).format("ll") }} ändern.
+        </h3>
+      </div>
+      <p class="my-2">
         Du hast
         {{
           registerPerson && registerPerson.length ? registerPerson.length : 0
         }}
-        Personen zur Veranstaltung {{ event?.name }} angmeldet.
+        Personen zur Veranstaltung <b>{{ event?.name }}</b> angmeldet.
       </p>
       <BaseField
         component="Toggle"
@@ -31,7 +41,7 @@ import BaseField from "@/components/field/Base.vue";
 import StepFrame from "@/components/stepper/StepFrame.vue";
 
 import { useVuelidate } from "@vuelidate/core";
-import {helpers} from "@vuelidate/validators";
+import { helpers } from "@vuelidate/validators";
 import { useRouter } from "vue-router";
 
 import { useRegisterStore } from "@/modules/auth/store/index";
@@ -56,8 +66,8 @@ const state = reactive({
 const rules = {
   hasConfirmed: {
     checked: helpers.withMessage(
-        "Bitte bestätige die Anmeldung.",
-        (value: any) => value === true,
+      "Bitte bestätige die Anmeldung.",
+      (value: any) => value === true
     ),
   },
 };
@@ -77,7 +87,7 @@ function onNextButtonClicked() {
 
   isLoading.value = true;
   eventRegisterStore.create().then((response) => {
-    if (response) {
+    if (response?.regId) {
       eventRegisterStore.$reset();
       router.push({
         name: "RegistrationFinish",
@@ -87,7 +97,7 @@ function onNextButtonClicked() {
       });
     } else {
       isLoading.value = false;
-      commonStore.showError("Bitte alle Tabs nochmal überprüfen");
+      commonStore.showError(response);
     }
   });
 }

@@ -3,8 +3,11 @@
     <article class="flex-shrink-0 ma-12">
       <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
         <div class="pb-5 sm:flex sm:items-center sm:justify-between">
-          <h3 class="text-lg font-medium leading-6 text-gray-900">
+          <h3 class="text-md font-medium leading-5 text-gray-900">
             {{ name }}
+            <span v-if="props.items?.count"
+              >({{ myDataList?.length }} von {{ props.items?.count }} Treffern)
+            </span>
           </h3>
           <div class="mt-3 sm:mt-0 sm:ml-4">
             <label for="mobile-search-candidate" class="sr-only">Suche</label>
@@ -362,7 +365,7 @@
                 :to="{
                   name: props.detailPageLink,
                   params: {
-                    id: item.id,
+                    id: item.id || item.regId,
                   },
                 }"
                 class="block hover:bg-gray-50"

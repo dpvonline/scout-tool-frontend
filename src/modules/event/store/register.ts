@@ -6,6 +6,7 @@ import RegistrationApi from "@/modules/event/services/registration";
 import MappingApi from "@/modules/auth/services/mapping";
 import GroupApi from "@/modules/group/services/group";
 import attributeModule from "../services/attribute-module";
+import { useCommonStore } from "@/modules/common/store";
 
 const format1 = "YYYY-MM-DD HH:mm:ss";
 
@@ -25,6 +26,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     _registerFreeText: {},
     _registerCustom: [],
     _eatHabitTypes: [],
+    _scoutHierarchy: [],
   }),
 
   actions: {
@@ -62,6 +64,7 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
       await GroupApi.fetchMyGroups();
       await this.fetchEvent(eventId);
       await this.fetchEatHabitTypes();
+      await this.fetchScoutHierarchy();
     },
     async createAttribute(regId: any, data: any, type: any) {
       if (type === "booleanAttribute") {
@@ -138,8 +141,8 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         register = await RegistrationApi.create(registerCreate);
       } catch (e: any) {
         const statusCode = e.response.status; // 400
-        const statusText = e.response.statusText; // Bad Request
-        return false;
+        const statusText =  JSON.stringify(e.response.data); // Bad Request
+        return `Fehler beim Erstellen der Anmeldung. Dein Stamm oder die Veranstaltung wurden nicht gefunden. ${statusText}`
       }
       const regId = register.data.id;
       const promises = [];
@@ -215,9 +218,9 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         responses = await Promise.all(promises);
       } catch (e: any) {
         const statusCode = e.response.status; // 400
-        const statusText = e.response.statusText; // Bad Request
+        const statusText = e.response?.data?.detail ? e.response?.data?.detail : 'Unbekannter Fehler '; // Bad Request
         await this.cleanUpRegCreate(regId);
-        return false;
+        return 'Fehler beim Erstellen der Anmeldung. Prüfe deine Eingaben nochmal komplett. Ein Pflichtfeld fehlt.';
       }
       try {
         mailResponse = await this.sendConfirmMail(regId);
@@ -251,6 +254,15 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         // // alert(error);
         console.log(error);
         this._isLoading = false;
+      }
+    },
+    async fetchScoutHierarchy() {
+      try {
+        const response = await MappingApi.fetchScoutGroupMapping(3);
+        this._scoutHierarchy = response.data;
+        return response;
+      } catch (error) {
+        return error;
       }
     },
     addPerson(data: any) {
@@ -352,6 +364,9 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
     },
     eatHabitTypes: (state) => {
       return state._eatHabitTypes;
+    },
+    scoutHierarchy: (state) => {
+      return state._scoutHierarchy;
     },
   },
   persist: true,

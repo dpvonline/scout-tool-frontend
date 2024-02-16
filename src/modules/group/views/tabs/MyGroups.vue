@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 import {
   ScaleIcon,
@@ -43,14 +43,15 @@ const route = useRoute();
 import { useGroupStore } from "@/modules/group/store";
 const groupStore = useGroupStore();
 
-const myGroups = computed(() => {
-  return groupStore.myGroups;
-});
-const isLoading = computed(() => {
-  return groupStore.isLoading;
-});
+const myGroups = ref([])
+
+const isLoading = ref(true)
 
 onMounted(() => {
-  groupStore.fetchMyGroups();
+  isLoading.value = true
+  groupStore.fetchMyGroups().then((response) => {
+    myGroups.value = response.data;
+    isLoading.value = false
+  });
 });
 </script>

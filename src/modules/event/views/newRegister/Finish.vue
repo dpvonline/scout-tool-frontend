@@ -138,7 +138,7 @@ const registration = computed(() => {
   return eventStore.registration;
 });
 
-const isLoading = ref(false);
+const isLoading = ref(true);
 
 onMounted(async () => {
   const id = route.params.id;
@@ -148,5 +148,6 @@ onMounted(async () => {
     personalDataStore.fetchPersonalData(),
     eventRegisterStore.fetchAllMappings(response?.data?.event?.id),
   ]);
+  isLoading.value = false;
 });
 </script>

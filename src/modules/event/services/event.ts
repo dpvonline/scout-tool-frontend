@@ -152,4 +152,9 @@ export default {
     const path = `${BASE_URL}/basic/scout-hierarchy-detail/`;
     return axios.get(path);
   },
+  fetchEventSummaryRegByDate(eventId: any, params: any) {
+    return axios.get(`${BASE_URL}/${SERVICE}/${eventId}/summary/registration-by-date/`, {
+      params: params,
+    });
+  }
 };

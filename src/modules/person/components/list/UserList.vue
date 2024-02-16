@@ -8,7 +8,7 @@
       :buttonList="buttonList"
       mainPageLink="AllUsers"
       :isLoading="isLoading"
-      :empytText="'Nutze die Suche um deine Suche einzugrenzen.'"
+      :empytText="'Zu viele Treffer. Nutze die Suche um deine Suche einzugrenzen.'"
     >
       <template #listitem="{ item }">
         <UserListItem :item="item" />

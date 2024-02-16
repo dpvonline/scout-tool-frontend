@@ -32,10 +32,19 @@
         </p>
       </div>
     </div>
+    <div class="hidden md:block">
+        <div>
+          <p class="text-sm text-gray-900">
+            Angemeldet am:
+            {{ moment(props.item?.createdAt).format("DD.MM.YYYY") }}
+          </p>
+        </div>
+      </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import moment from "moment";
 import {
   ClipboardIcon,
   RocketLaunchIcon,
