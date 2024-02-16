@@ -12,10 +12,10 @@
     <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
       <div>
         <p class="truncate text-sm font-medium text-blue-600">
-          {{ props.item?.firstName }} {{ props.item?.lastName }} ({{
-            props.item?.age
-          }}
-          Jahre)
+          {{ props.item?.firstName }}
+           {{ props.item?.scoutName && `"${props.item?.scoutName}"` }}
+          {{ props.item?.lastName }}
+          ({{props.item?.age }} Jahre)
         </p>
         <p class="truncate text-sm font-medium text-black-600">
           {{ props.item?.bookingOption?.name }}
@@ -28,7 +28,7 @@
             class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
             aria-hidden="true"
           />
-          {{ props.item?.scoutOrganisation }}
+          {{ props.item?.scoutGroup?.displayName }}
         </p>
       </div>
     </div>
