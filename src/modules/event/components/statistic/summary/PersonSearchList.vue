@@ -97,7 +97,6 @@ async function updateSearch(params: any) {
         throw new Error("No data found!");
       }
     } catch (error) {
-      debugger;
       eventPersonsSummary.value = [];
       router.replace({ query: {} })
     } finally {
