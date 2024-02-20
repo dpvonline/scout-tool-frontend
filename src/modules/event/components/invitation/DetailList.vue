@@ -128,6 +128,14 @@
       >
         Deine Anmeldung öffnen
       </button>
+      <button
+        v-if="eventCanView || eventIsAdmin || eventIsLeader"
+        type="submit"
+        class="mt-2 flex w-full items-center justify-center rounded-md border border-transparent bg-blue-600 px-10 py-1 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        @click="onRegStatClicked(event?.id)"
+      >
+        Statistiken öffnen
+      </button>
     </div>
     <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6" v-if="!isEdit">
       <button
@@ -139,18 +147,17 @@
         Anmeldung starten
       </button>
     </div>
-    <EventDetailsReadOnly :event="event"/>
-
+    <EventDetailsReadOnly :event="event" />
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, nextTick, onMounted, ref} from "vue";
-import {CalendarIcon, PencilIcon} from "@heroicons/vue/24/outline";
-import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
-import {ChevronDownIcon} from "@heroicons/vue/20/solid";
-import {useEventRegisterStore} from "@/modules/event/store/register.ts";
-import {useRouter} from "vue-router";
+import { computed, nextTick, onMounted, ref } from "vue";
+import { CalendarIcon, PencilIcon } from "@heroicons/vue/24/outline";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
+import { ChevronDownIcon } from "@heroicons/vue/20/solid";
+import { useEventRegisterStore } from "@/modules/event/store/register.ts";
+import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 import EventDetailsReadOnly from "@/modules/event/components/invitation/EventDetailsReadOnly.vue";
 
@@ -212,12 +219,33 @@ function onRegClicked(event: any) {
   });
 }
 
+function onRegStatClicked(eventId: any) {
+  router.push({
+    name: "EventStatisticSummary",
+    params: {
+      id: eventId,
+    },
+  });
+}
+
 function onResize() {
   windowWidth.value = window.innerWidth;
 }
 
 const props = defineProps({
   event: Object,
+});
+
+const eventCanView = computed(() => {
+  return props.event.canView === "View";
+});
+
+const eventIsAdmin = computed(() => {
+  return props.event.canEdit === "Admin";
+});
+
+const eventIsLeader = computed(() => {
+  return props.event.canViewLeader !== "None";
 });
 
 onMounted(() => {
