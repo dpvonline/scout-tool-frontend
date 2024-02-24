@@ -13,6 +13,10 @@
         <p v-html="event.longDescription"></p>
       </div>
     </div>
+    <div class="sm:col-span-2 my-4">
+      <dt class="text-sm font-medium text-gray-500">Direktlink</dt>
+      <a> https://anmelde-tool.de/x-{{ event?.technicalName }}</a>
+    </div>
   </div>
   <div class="border-t-8 border-gray-100 px-4 py-5 sm:px-6">
     <div class="pb-3">

@@ -248,4 +248,9 @@ export default [
       },
     ],
   },
+  {
+    path: '/x-:eventname(.*)',
+    component: () =>
+      import(/* webpackChunkName: "EventShortname" */ "@/modules/event/components/EventShortname.vue"),
+  },
 ];

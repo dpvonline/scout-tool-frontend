@@ -92,8 +92,9 @@ export const useEventStore = defineStore("event", {
       try {
         const response = await EventApi.fetchAll(params);
         this._events = response.data;
+        return response;
       } catch (error) {
-        // alert(error);
+        return error;
         console.log(error);
       }
     },
