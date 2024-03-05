@@ -138,9 +138,7 @@
                           Tagen
                         </p>
                         <p class="text-sm text-gray-500">
-                          {{
-                            $dayjs(notification.timestamp).format("llll")
-                          }}
+                          {{ $dayjs(notification.timestamp).format("llll") }}
                         </p>
                       </div>
                     </li>
@@ -207,7 +205,9 @@
                           <div class="h-4 bg-gray-200 rounded w-3/4"></div>
                         </div>
                         <div>
-                          <div class="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50 h-6 w-16"></div>
+                          <div
+                            class="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50 h-6 w-16"
+                          ></div>
                         </div>
                       </div>
                     </li>
@@ -360,7 +360,9 @@ import { useEventStore } from "@/modules/event/store";
 const eventStore = useEventStore();
 
 const eventOverviews = computed(() => {
-  return eventStore.eventOverviews;
+  return eventStore.eventOverviews.filter((event) => {
+    return event.status === "open";
+  });
 });
 
 const actionList = [

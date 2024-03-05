@@ -79,6 +79,12 @@
             </dd>
           </div>
           <div class="sm:col-span-1">
+            <dt class="text-sm font-medium text-gray-500">Direktlink zur Einladung</dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <a> https://anmelde-tool.de/x-{{ event?.technicalName }}</a>
+            </dd>
+          </div>
+          <div class="sm:col-span-1">
             <dt class="text-sm font-medium text-gray-500">Technischer Name</dt>
             <dd class="mt-1 text-sm text-gray-900">
               {{ event.technicalName }}
