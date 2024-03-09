@@ -27,7 +27,7 @@
 
       <dl class="my-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
         <div
-          v-for="item in eventFoodSummary"
+          v-for="item in eventFoodSummary?.eatHabits"
           :key="item.name"
           class="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6"
         >
@@ -84,6 +84,14 @@
             {{ eventAgeGroupsSummary?.altRover }}
           </dd>
         </div>
+      </dl>
+      <h3 class="text-base font-semibold leading-6 text-gray-900">
+        Norm Personen
+      </h3>
+      <dl>
+        <dd class="mt-1 text-sm tracking-tight text-gray-900">
+          Zwischen {{ eventFoodSummary?.normPersons?.low.toFixed(1) }} und {{ eventFoodSummary?.normPersons?.high.toFixed(1) }} Normpersonen
+        </dd>
       </dl>
     </div>
     <LoadingItem v-else />
