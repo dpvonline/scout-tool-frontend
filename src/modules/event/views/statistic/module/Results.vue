@@ -176,17 +176,21 @@ function queryUpdated(query: any) {
   });
 }
 
-onMounted(async () => {
-  isLoading.value = true;
-  const eventId = route.params.id;
-  const regId = route.params.id;
-  const params = null;
-  const responses = await Promise.all([
-    eventStore.fetchFoodSummary(eventId, params),
-    eventStore.fetchEventSummaryTotalParticipants(eventId),
-    eventStore.fetchAgeGroupsSummary(eventId, params),
-    eventStore.fetchEventSummary(eventId),
-  ]);
-  isLoading.value = false;
-});
+onMounted(async () =>
+    {
+      isLoading.value = true;
+      const eventId = route.params.id;
+      const params = null;
+      const summaryParams = {
+        'page-size': 150,
+      }
+      await Promise.all([
+        eventStore.fetchFoodSummary(eventId, params),
+        eventStore.fetchEventSummaryTotalParticipants(eventId),
+        eventStore.fetchAgeGroupsSummary(eventId, params),
+        eventStore.fetchEventSummary(eventId, summaryParams),
+      ]);
+      isLoading.value = false;
+    }
+);
 </script>
