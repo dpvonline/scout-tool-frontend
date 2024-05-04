@@ -492,7 +492,7 @@ async function onNewPersonConfirmClicked(newPerson) {
 
   if (response && response.status === 200) {
     const response = await eventStore.fetchRegistration(regId);
-    commonStore.showSuccess("Person erfolgreich aktuallisiert");
+    commonStore.showSuccess("Person erfolgreich angelegt");
   } else if (response && response.status === 400) {
     commonStore.showSuccess(`Die Anfrage ist Fehlerhaft.${response.data}`);
   } else {
@@ -566,7 +566,7 @@ async function deletePerson() {
   );
   if (response && response.status === 204) {
     const response = await eventStore.fetchRegistration(regId);
-    commonStore.showSuccess("Person erfolgreich aktuallisiert");
+    commonStore.showSuccess("Person erfolgreich gelöscht");
     openDeletePersonModal.value = false;
   } else if (response && response.status === 400) {
     commonStore.showSuccess(`Die Anfrage ist Fehlerhaft.${response.data}`);

@@ -162,24 +162,19 @@
 </template>
 
 <script setup>
-import { reactive, computed, onMounted, ref } from "vue";
+import { reactive, computed, ref } from "vue";
 import moment from "moment";
 import {
   Dialog,
   DialogPanel,
-  DialogTitle,
   TransitionChild,
   TransitionRoot,
 } from "@headlessui/vue";
-import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
 import BaseField from "@/components/field/Base.vue";
 
 import { useVuelidate } from "@vuelidate/core";
 import {
   required,
-  minLength,
-  sameAs,
-  email,
   helpers,
 } from "@vuelidate/validators";
 
@@ -240,13 +235,13 @@ const rules = {
   scoutName: {},
   birthday: {
     required,
-    minDateCustom: helpers.withMessage(
+    maxDateCustom: helpers.withMessage(
       "Die Person muss jünger als 100 Jahre sein.",
       function (value) {
         return new Date(value) >= new Date("1945-01-01");
       }
     ),
-    mminDateCustom: helpers.withMessage(
+    minDateCustom: helpers.withMessage(
       "Die Person muss bereits geboren sein.",
       function (value) {
         return new Date(value) <= new Date();
@@ -281,11 +276,12 @@ const rules = {
   },
   eatHabit: {},
   bookingOption: {
-    required: helpers.withMessage("Du musst eine Auswahl treffen.", required),
+    required: helpers.withMessage("Du musst eine Buchungsoption auswählen.", required),
   },
 };
 
 const state = reactive({
+  id: null,
   allowPermanently: true,
   firstName: null,
   lastName: null,
@@ -342,7 +338,9 @@ function onButtonSaveClicked() {
   const regId = route.params.id;
   errors.value.$validate();
   if (errors.value.$error) {
-    commonStore.showError("Bitte Felder überprüfen");
+    errors.value.$errors.forEach(error => {
+      commonStore.showError(error.$message);
+    });
     return;
   }
 
@@ -401,11 +399,9 @@ function getZipCodeString(zipCodeData) {
 }
 
 function getBookingObj(bookingOptionId) {
-  let tempId = bookingOptionId;
   if (bookingOptionId?.id) {
-    tempId = bookingOptionId.id;
-  }
-  if (tempId) {
+    return bookingOptionId;
+  } else if(Number.isInteger(bookingOptionId)){
     return bookingOptions.value.find((a) => a["id"] === tempId);
   }
   return bookingOptions.value[0];
@@ -446,41 +442,24 @@ function resetData() {
 }
 
 function initData(eatHabits) {
-  state.id = null;
   if (
     props.open &&
     props.person &&
-    props.person != {} &&
-    props.person.storeId
-  ) {
-    state.storeId = props?.person.storeId;
-    state.firstName = props?.person.firstName;
-    state.lastName = props?.person.lastName;
-    state.scoutName = props?.person.scoutName;
-    state.address = props?.person.address;
-    state.birthday = moment(props?.person.birthday).format("YYYY-MM-DD");
-    state.bookingOption = getBookingObj(props?.person.bookingOption);
-    state.zipCode = getZipCodeString(props?.person.zipCode);
-    state.eatHabit = props?.person?.eatHabit;
-    state.gender = getGenderValue(props?.person?.gender);
-  } else if (
-    props.open &&
-    props.person &&
-    props.person != {} &&
-    props.person.id
-  ) {
-    state.id = props?.person.id;
-    state.firstName = props?.person.firstName;
-    state.lastName = props?.person.lastName;
-    state.scoutName = props?.person.scoutName;
-    state.address = props?.person.address;
-    state.birthday = moment(props?.person.birthday).format("YYYY-MM-DD");
-    state.bookingOption = getBookingObj(props?.person.bookingOption);
-    state.zipCode = getZipCodeString(props?.person.zipCode);
-    state.eatHabit = getEatHabits(props?.person?.eatHabit);
-    state.gender = getGenderValue(props?.person?.gender);
+    props.person !== {} &&
+    (props.person.storeId ||props.person.id)) {
+    state.id = props.person.storeId || props.person.id;
+    state.firstName = props.person.firstName;
+    state.lastName = props.person.lastName;
+    state.scoutName = props.person.scoutName;
+    state.address = props.person.address;
+    state.birthday = moment(props.person.birthday).format("YYYY-MM-DD");
+    state.bookingOption = getBookingObj(props.person.bookingOption);
+    state.zipCode = getZipCodeString(props.person.zipCode);
+    state.eatHabit = props.person.eatHabit;
+    state.gender = getGenderValue(props.person.gender);
   } else {
     resetData();
   }
+
 }
 </script>
