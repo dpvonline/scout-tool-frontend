@@ -67,8 +67,8 @@ function getNotifications() {
   }
 }
 
-onUpdated(() => {
-  getNotifications();
-  setInterval(() => getNotifications(), 10000);
-});
+// onUpdated(() => {
+//   getNotifications();
+//   setInterval(() => getNotifications(), 10000);
+// });
 </script>
