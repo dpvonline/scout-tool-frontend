@@ -27,6 +27,17 @@ export const useAuthStore = defineStore("authStore", {
         loginOptions = { redirectUri: `${APP_URL}${currentLocation?.pathname}` };
       }
 
+      // if looged in, redirect to dashboard
+      if (keycloak.token) {
+        this._isAuth = keycloak.authenticated;
+        this._accessToken = keycloak.token;
+        this._isKeycloakInit = true;
+        this._user = keycloak.userInfo;
+        this._isAdmin = keycloak.hasRealmRole("admin");
+        router.push(loginOptions.redirectUri)
+      }
+
+
       if (init) {
         keycloak.login(loginOptions)
       } else {

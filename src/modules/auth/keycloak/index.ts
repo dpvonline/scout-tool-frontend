@@ -13,27 +13,96 @@ const initOptions: KeycloakInitOptions = {
   silentCheckSsoFallback: false,
 };
 
-export const keycloak = new Keycloak(config);
+export const keycloak = await new Keycloak(config);
+
+keycloak.onReady = () => {
+  setTimeout(() => {
+    setStoreValues();
+  }, 250);
+};
+
+keycloak.onAuthError = (error: KeycloakError) => {
+  setTimeout(() => {
+    setStoreValues();
+  }, 250);
+};
+
+keycloak.onAuthLogout = () => {
+  setTimeout(() => {
+    setStoreValues();
+  }, 250);
+};
+
+keycloak.onTokenExpired = () => {
+  keycloak
+    .updateToken(30)
+    .then(() => {
+      setStoreValues();
+    })
+    .catch((error) => {
+      setStoreValues();
+    });
+};
+
+keycloak.onActionUpdate = (status: "success" | "cancelled" | "error") => {
+  setTimeout(() => {
+    setStoreValues();
+  }, 250);
+};
+
+keycloak.onAuthRefreshError = () => {
+  setTimeout(() => {
+    setStoreValues();
+  }, 250);
+};
+
+keycloak.onAuthRefreshSuccess = () => {
+  setTimeout(() => {
+    setStoreValues();
+  }, 250);
+};
+
+keycloak.onAuthSuccess = () => {
+  setTimeout(() => {
+    setStoreValues();
+  }, 250);
+};
+
+try {
+  const authenticated = await keycloak.init(initOptions);
+  if (authenticated) {
+    setTimeout(() => {
+      setStoreValues();
+    }, 250);
+  } else {
+
+    console.log('User is not authenticated');
+  }
+} catch (error) {
+  console.error('Failed to initialize adapter:', error);
+}
 
 function setStoreValues() {
-  const authStore = useAuthStore();
-  authStore._isAuth = keycloak.authenticated;
-  authStore._accessToken = keycloak.token;
-  authStore._isKeycloakInit = true;
+    const authStore = useAuthStore();
+    authStore._isAuth = keycloak.authenticated;
+    authStore._accessToken = keycloak.token;
+    authStore._isKeycloakInit = true;
 
-  if (keycloak.authenticated) {
-    keycloak
-      .loadUserInfo()
-      .then((test) => {
-        authStore._user = keycloak.userInfo;
-      })
-      .catch((error) => {
-        console.log(`error while loading userinfo: ${error}`);
-      });
-  } else {
-    authStore._user = {};
+    if (keycloak.authenticated) {
+      keycloak
+        .loadUserInfo()
+        .then((test) => {
+          authStore._user = keycloak.userInfo;
+        })
+        .catch((error) => {
+          console.log(`error while loading userinfo: ${error}`);
+        });
+    } else {
+      authStore._user = {};
   }
 }
+
+
 
 function onReady(authenticated: boolean) {
   setStoreValues();
@@ -83,5 +152,4 @@ export default function () {
   keycloak.onAuthRefreshError = onAuthRefreshError;
   keycloak.onAuthRefreshSuccess = onAuthRefreshSuccess;
   keycloak.onAuthSuccess = onAuthSuccess;
-  keycloak.init(initOptions);
 }

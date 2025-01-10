@@ -54,12 +54,12 @@ router.beforeEach(async (to, from, next) => {
   ) {
     next();
   }
-  // let attempts = 0
-  // while (!authStore.isKeycloakInit && attempts < 50) {
-  //   // eslint-disable-next-line no-await-in-loop
-  //   await sleep(100);
-  //   attempts += 1
-  // }
+  let attempts = 0
+  while (!authStore.isKeycloakInit && attempts < 50) {
+    // eslint-disable-next-line no-await-in-loop
+    await sleep(100);
+    attempts += 1
+  }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!authStore.isAuth) {
       authStore.login(true);
