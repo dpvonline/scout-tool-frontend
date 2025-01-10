@@ -14,6 +14,19 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export default defineConfig({
+  esbuild: {
+    supported: {
+      'top-level-await': true //browsers can handle top-level-await features
+    },
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'esnext'
+    }
+  },
+  build: {
+    target: 'esnext'
+  },
   plugins: [
     vue(),
     AutoImport({
