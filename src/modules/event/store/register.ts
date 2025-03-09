@@ -279,6 +279,9 @@ export const useEventRegisterStore = defineStore("eventRegisterStore", {
         bookingOption: data.bookingOption?.id,
         bookingOptionName: data.bookingOption?.name,
         person: data.id,
+        idNumber: data.idNumber,
+        scoutLevel: data.scoutLevel,
+        scoutFunction: data.scoutFunction,
       });
     },
     editPerson(data: any) {

@@ -132,6 +132,35 @@
                     :errors="errors.zipCode?.$errors"
                     :cols="6"
                   />
+                    <div>
+                      Die folgenden Angaben sind nur für Teilnehmer der DPBM Bundesfahrt nach Nordmazedonien wichtig und können von allen anderen ignoriert werden.
+                      Die Angabe der Information ist freiwillig. Allerdings wird die Personalausweis- / Reisepassnummer für die Dt. Botschaft benötigt und müssen daher bei der Lagerleitung abgebenen werden.
+                      Die Lagerleitung sind die einzigen, die darauf Zugriff haben.
+                    </div>
+                    <BaseField
+                        component="Text"
+                        :label="'Personalausweis- oder Reisepass- Nummer'"
+                        techName="idNumber"
+                        v-model="state.idNumber"
+                        :errors="errors.idNumber?.$errors"
+                        :cols="6"
+                    />
+                    <BaseField
+                        component="Text"
+                        :label="'Pfadfinderstufe (Wölfing, Sippling, Rover)'"
+                        techName="scoutLevel"
+                        v-model="state.scoutLevel"
+                        :errors="errors.scoutLevel?.$errors"
+                        :cols="6"
+                    />
+                    <BaseField
+                        component="Text"
+                        :label="'Pfadfinderfunktion (z.B. Stammeführung, Sippenführung, Meutenführung, etc.)'"
+                        techName="scoutFunction"
+                        v-model="state.scoutFunction"
+                        :errors="errors.scoutFunction?.$errors"
+                        :cols="6"
+                    />
                 </div>
               </div>
               <div
@@ -278,6 +307,9 @@ const rules = {
   bookingOption: {
     required: helpers.withMessage("Du musst eine Buchungsoption auswählen.", required),
   },
+  idNumber: {},
+  scoutLevel: {},
+  scoutFunction: {},
 };
 
 const state = reactive({
@@ -292,6 +324,9 @@ const state = reactive({
   eatHabit: null,
   bookingOption: null,
   city: null,
+  idNumber: null,
+  scoutLevel: null,
+  scoutFunction: null,
 });
 
 const genderMappings = computed(() => {
@@ -379,7 +414,8 @@ function getGenderValue(genderString) {
   return null;
 }
 
-import { usePersonalDataStore } from "@/modules/settings/store/personal-data";
+import {usePersonalDataStore} from "@/modules/settings/store/personal-data";
+
 const personalDataStore = usePersonalDataStore();
 
 const personalData = computed(() => {
@@ -419,13 +455,13 @@ function getEatHabits(eatHabits) {
 }
 
 watch(
-  () => props.open,
-  (newValue) => {
-    if (newValue) {
-      resetData();
-      initData();
-    }
-  }
+    () => props.open,
+    (newValue) => {
+      if (newValue) {
+        resetData();
+        initData();
+      }
+    },
 );
 
 function resetData() {
@@ -436,6 +472,9 @@ function resetData() {
   state.gender = "N";
   state.address = null;
   state.eatHabit = null;
+  state.idNumber = null;
+  state.scoutLevel = null;
+  state.scoutFunction = null;
   state.bookingOption = bookingOptions.value[0];
   state.zipCode = personalDataStore?.personalData?.scoutGroup?.zipCode?.zipCode;
   state.birthday = moment().add(-10, "y").format("YYYY-MM-DD");
@@ -457,6 +496,9 @@ function initData(eatHabits) {
     state.zipCode = getZipCodeString(props.person.zipCode);
     state.eatHabit = props.person.eatHabit;
     state.gender = getGenderValue(props.person.gender);
+    state.idNumber = props.person.idNumber;
+    state.scoutLevel =  props.person.scoutLevel;
+    state.scoutFunction = props.person.scoutLevel;
   } else {
     resetData();
   }
