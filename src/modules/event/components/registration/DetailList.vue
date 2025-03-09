@@ -427,6 +427,7 @@ function getValueByAttribute(currentAttribute, attributes) {
     });
     return valueObj;
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -440,6 +441,7 @@ function getOverviewModules(registration: any) {
     );
     return filteredArray;
   } catch (e) {
+    console.log(e);
     return [];
   }
 }
@@ -505,7 +507,7 @@ async function onNewPersonFromMemberConfirmClicked(newPersons: any) {
   let response = null;
 
   for (const newPerson of newPersons) {
-    const newPersonPicked = pick(newPerson, ['firstName', 'lastName','scoutName','birthday', 'address', 'gender', 'zipCode', 'eatHabit', 'person', 'scoutGroup']);
+    const newPersonPicked = pick(newPerson, ['firstName', 'lastName','scoutName','birthday', 'address', 'gender', 'zipCode', 'eatHabit', 'person', 'scoutGroup', "id_number", "scout_level", "scout_function"]);
     try {
       response = await eventRegisterStore.addPersonToReg(regId, newPersonPicked);
     } catch (e: any) {
@@ -515,6 +517,7 @@ async function onNewPersonFromMemberConfirmClicked(newPersons: any) {
       commonStore.showError(`${newPerson['firstName']} ${newPerson['lastName']} ${error}`);
       openNewPersonFromMemberModal.value = false;
       response = e;
+      console.log(e);
     }
     if (response && response.status === 201) {
       openNewPersonFromMemberModal.value = false;
