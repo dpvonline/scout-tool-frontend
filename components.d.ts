@@ -39,6 +39,7 @@ declare module '@vue/runtime-core' {
     SimpleList: typeof import('./src/components/list/SimpleList.vue')['default']
     SmallList: typeof import('./src/components/list/SmallList.vue')['default']
     StepFrame: typeof import('./src/components/stepper/StepFrame.vue')['default']
+    StepperNav: typeof import('./src/components/stepper/StepperNav.vue')['default']
     StepperNavSmall: typeof import('./src/components/stepper/StepperNavSmall.vue')['default']
     TabGroup: typeof import('./src/components/menu/TabGroup.vue')['default']
     TabGroupBig: typeof import('./src/components/menu/TabGroupBig.vue')['default']
@@ -46,6 +47,7 @@ declare module '@vue/runtime-core' {
     Text: typeof import('./src/components/field/Text.vue')['default']
     TextArea: typeof import('./src/components/field/TextArea.vue')['default']
     Toggle: typeof import('./src/components/field/Toggle.vue')['default']
+    ToolDropdown: typeof import('./src/components/base/list/components/ToolDropdown.vue')['default']
     ZIP: typeof import('./src/components/field/ZIP.vue')['default']
   }
 }
